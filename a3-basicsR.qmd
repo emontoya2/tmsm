@@ -76,8 +76,7 @@ ImportFromDrive = read.csv( file.choose() )
 # by putting in "file.choose()", this tells R that you want to browse for and select the csv file
 ImportFromDrive = read.csv("http://www.csub.edu/~emontoya2/datasets/sampledata.csv")
 ```
-This automatically opens a window that allows you to browse for your *.csv* file. Select your file and click on *Open*.  You should see the following in the console  
-![Importing data using `file.choose()` to specify file location ](images/filechoose.png)
+This automatically opens a window that allows you to browse for your *.csv* file. Select your file and click on *Open*.  
 
 The data set `ImportFromDrive` should appear in the *Environment* tab in the upper right panel where it displays the number of observations and variables.  One may also replace `file.choose()` with the location of the file in quotation marks.
   
