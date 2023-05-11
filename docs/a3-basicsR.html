@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.35">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Training modules on selected statistical methods - Appendix C — Some basic tasks in R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./a2-firstR.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Appendix C — Some basic tasks in R</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Training modules on selected statistical methods</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/emontoya2" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="" title="Share" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+<li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+            <i class="bi bi-bi-twitter pe-1"></i>
+          Twitter
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+            <i class="bi bi-bi-facebook pe-1"></i>
+          Facebook
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+            <i class="bi bi-bi-linkedin pe-1"></i>
+          LinkedIn
+          </a>
+        </li>
+    </ul>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Welcome</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./preface.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./casestudies.html" class="sidebar-item-text sidebar-link">Module: Case Studies</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Case study 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Case study 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs3.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Case study 3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs4.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Case study 4</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs5.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Case study 5</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs6.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Case study 6</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./data.html" class="sidebar-item-text sidebar-link">Module: Data basics and drawing statistical conclusions</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Basics of data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./drawingconclusions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Drawing statistical conclusions</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./summaries.html" class="sidebar-item-text sidebar-link">Module:  Basic Exploratory  Data Analysis</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./catsum.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Summarizing categorical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./numsum.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summarizing numerical data</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./twosample.html" class="sidebar-item-text sidebar-link">Module: Two sample methods</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./siframework.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Statistical inference framework via a case study</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./twoindptmeans.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Two sample methods</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./anovalin.html" class="sidebar-item-text sidebar-link">Module: ANOVA, linear regression, and logistic regression</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./anova.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Analysis of variance (ANOVA)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Simple linear regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logisticreg.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Simple logistic regression</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./eda.html" class="sidebar-item-text sidebar-link">Module: Advanced Exploratory Data Analysis</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pca.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">PCA</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./a1-startingR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Installing or accessing R and RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./a2-firstR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">A first session in RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./a3-basicsR.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Some basic tasks in R</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li>
+<a href="#sec-importdata" id="toc-sec-importdata" class="nav-link active" data-scroll-target="#sec-importdata"> <span class="header-section-number">C.1</span> Importing data</a>
+  <ul class="collapse">
+<li><a href="#csv-and-.xlsx-files" id="toc-csv-and-.xlsx-files" class="nav-link" data-scroll-target="#csv-and-.xlsx-files">.csv and .xlsx files</a></li>
+  <li><a href="#importing-data-from-your-computer" id="toc-importing-data-from-your-computer" class="nav-link" data-scroll-target="#importing-data-from-your-computer">Importing data from your computer</a></li>
+  </ul>
+</li>
+  <li><a href="#sec-UsingRfuns" id="toc-sec-UsingRfuns" class="nav-link" data-scroll-target="#sec-UsingRfuns"> <span class="header-section-number">C.2</span> Using R functions</a></li>
+  <li><a href="#summarizing-data-with-r" id="toc-summarizing-data-with-r" class="nav-link" data-scroll-target="#summarizing-data-with-r"> <span class="header-section-number">C.3</span> Summarizing data with R</a></li>
+  <li>
+<a href="#adapting-the-r-code-provided-for-your-data-and-interest" id="toc-adapting-the-r-code-provided-for-your-data-and-interest" class="nav-link" data-scroll-target="#adapting-the-r-code-provided-for-your-data-and-interest"> <span class="header-section-number">C.4</span> Adapting the R code provided for your data and interest</a>
+  <ul class="collapse">
+<li><a href="#a-univariate-summary" id="toc-a-univariate-summary" class="nav-link" data-scroll-target="#a-univariate-summary">A univariate summary:</a></li>
+  <li><a href="#a-bivariate-summary" id="toc-a-bivariate-summary" class="nav-link" data-scroll-target="#a-bivariate-summary">A bivariate summary:</a></li>
+  </ul>
+</li>
+  <li><a href="#exporting-graphs" id="toc-exporting-graphs" class="nav-link" data-scroll-target="#exporting-graphs"> <span class="header-section-number">C.5</span> Exporting graphs</a></li>
+  <li><a href="#using-custom-r-functions" id="toc-using-custom-r-functions" class="nav-link" data-scroll-target="#using-custom-r-functions"> <span class="header-section-number">C.6</span> Using custom R functions</a></li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/emontoya2/edit/master/a3-basicsR.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="sec-appendix-basicsR" class="quarto-section-identifier d-none d-lg-block">Appendix C — Some basic tasks in R</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header><p>These section covers importing data into R and some basic R functions.</p>
+<section id="sec-importdata" class="level2" data-number="C.1"><h2 data-number="C.1" class="anchored" data-anchor-id="sec-importdata">
+<span class="header-section-number">C.1</span> Importing data</h2>
+<section id="csv-and-.xlsx-files" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="csv-and-.xlsx-files">.csv and .xlsx files</h3>
+<p>For importing data, it is assumed the data are stored in a .csv file as described in <a href="basics.html#sec-csv"><span>Section&nbsp;7.3</span></a>. To import .csv files, the function <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code> is used and this function comes with R. Note that if your data are stored in an excel sheet (.xlsx), the function <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code> can be replaced with <code>read.xlsx</code>. This functions is from the <code>openxlsx</code> package. If your excel sheet is a <em>.xls</em> file, convert it using excel to <em>.xlsx</em>. Installation of R packages are discussed later in this section.</p>
+<section id="importing-data-via-a-url" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="importing-data-via-a-url">Importing data via a URL</h4>
+<p>Importing data here will be illustrated using the “MLB salaries (2010)” data set. This .csv file of this dataset is located at the following URL: <a href="http://www.csub.edu/~emontoya2/datasets/mlb2010.csv">http://www.csub.edu/~emontoya2/datasets/mlb2010.csv</a>.</p>
+<p>This approach only works if the <em>.csv</em> has a url location. The “MLB salaries (2010)” data set is located at the following URL:</p>
+<p>Link: <a href="http://www.csub.edu/~emontoya2/datasets/mlb2010.csv">http://www.csub.edu/~emontoya2/datasets/mlb2010.csv</a></p>
+<p>To import, run</p>
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mlbDataImport</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span> <span class="st">"http://www.csub.edu/~emontoya2/datasets/mlb2010.csv"</span> <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Note that <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code> reads in the data into R and we are assigning the resulting data set to an object called <code>mlbDataImport</code>. Since this object consist of the dataset, such objects are called a <em>data frame</em>. A data frame is the most common way of storing data in R. For our purpose, the term dataframe and data set will be used interchangeably. Note that the <code>mlbDataImport</code> data frame should now appear under the “Environment tab”.</p>
+<p>Further note that <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code> only requires the location of the file or file path (assuming the data was stored as discussed in <a href="basics.html#sec-csv"><span>Section&nbsp;7.3</span></a>). Since the data is located at this URL, we use the URL. If the data is saved on your computer, then replace the url with the file path or with <code><a href="https://rdrr.io/r/base/file.choose.html">file.choose()</a></code>.</p>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+URLs
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The URL must be in quotations and NO spaces at the start after the quotation or right before the end of the quotation. For example, you will get an error if you use the following urls</p>
+<ul>
+<li><p><code>" http://www.csub.edu/~emontoya2/datasets/mlb2010.csv"</code></p></li>
+<li><p><code>"http://www.csub.edu/~emontoya2/datasets/mlb2010.csv "</code></p></li>
+<li><p><code>" http://www.csub.edu/~emontoya2/datasets/mlb2010.csv "</code></p></li>
+</ul>
+<p>They look similar to what we used but it has spaces within the quotation marks!</p>
+</div>
+</div>
+<p>An R function called <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> can provide the names of the variables and other information by using :</p>
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span> <span class="va">mlbDataImport</span> <span class="op">)</span> </span>
+<span><span class="co">#&gt;     player              team             position             salary       </span></span>
+<span><span class="co">#&gt;  Length:828         Length:828         Length:828         Min.   :  400.0  </span></span>
+<span><span class="co">#&gt;  Class :character   Class :character   Class :character   1st Qu.:  418.3  </span></span>
+<span><span class="co">#&gt;  Mode  :character   Mode  :character   Mode  :character   Median : 1093.8  </span></span>
+<span><span class="co">#&gt;                                                           Mean   : 3281.8  </span></span>
+<span><span class="co">#&gt;                                                           3rd Qu.: 4250.0  </span></span>
+<span><span class="co">#&gt;                                                           Max.   :33000.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Note that this data frame has four variables but that R treats the categorical variables as character variables. By default, R treats any categorical variables with categories labeled by letters or words as character variables. If the categories are instead labeled with numbers, R considers the categorical variable to be a numerical variable. Instructions on how to tell R to treat categorical variables as categorical and not numerical/character will be covered later.</p>
+</section></section><section id="importing-data-from-your-computer" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="importing-data-from-your-computer">Importing data from your computer</h3>
+<p>Download the <em>.csv</em> file below onto your computer. Make sure to note where the file is saved. Depending on the browser settings, after clicking on the link below, the file will either open in the browser and it will be downloaded.</p>
+<p><a href="http://www.csub.edu/~emontoya2/datasets/sampledata.csv">http://www.csub.edu/~emontoya2/datasets/sampledata.csv</a></p>
+<p>After saving this <em>.csv</em> file, one can take a “point and click” approach to importing data. Like most software, RStudio has a toolbar where you can access many commands. To import data using the toolbar menu, select <em>File&gt;Import Dataset&gt; From Text (base)</em>. Then select your <em>.csv</em> file. If your data are stored in an excel spreadsheet (.xlsx) in tidy form, then select “From Excel”.</p>
+<p>Alternatively, if you know the file path for the spreadsheet, you can run following</p>
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># by putting in "file.choose()", this tells R that you want to browse for and select the csv file</span></span>
+<span><span class="va">ImportFromDrive</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/file.choose.html">file.choose</a></span><span class="op">(</span><span class="op">)</span> <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-layout-align="center">
+
+</div>
+<p>This automatically opens a window that allows you to browse for your <em>.csv</em> file. Select your file and click on <em>Open</em>. You should see the following in the console<br><img src="images/filechoose.png" class="img-fluid" alt="Importing data using file.choose() to specify file location"></p>
+<p>The data set <code>ImportFromDrive</code> should appear in the <em>Environment</em> tab in the upper right panel where it displays the number of observations and variables. One may also replace <code><a href="https://rdrr.io/r/base/file.choose.html">file.choose()</a></code> with the location of the file in quotation marks.</p>
+</section></section><section id="sec-UsingRfuns" class="level2" data-number="C.2"><h2 data-number="C.2" class="anchored" data-anchor-id="sec-UsingRfuns">
+<span class="header-section-number">C.2</span> Using R functions</h2>
+<p>R functions are either ready use when you start a new RStudio session or an R package must be loaded to use a function from that package. The syntax of an R function consist of the function name followed by parentheses that contain argument(s). The R functions used in this resource will generally consists of the name of the data frame that is in tidy form and one or more of the following arguments:</p>
+<ul>
+<li><p>Names of response variable as spelled in the data frame</p></li>
+<li><p>Names of explanatory variable(s) as spelled in the data frame</p></li>
+<li><p>additional optional arguments</p></li>
+</ul>
+<p>R has many built-in function or function that become available once a library is loaded. For example, the <code>mean( )</code> function computes the mean of sample of data.</p>
+</section><section id="summarizing-data-with-r" class="level2" data-number="C.3"><h2 data-number="C.3" class="anchored" data-anchor-id="summarizing-data-with-r">
+<span class="header-section-number">C.3</span> Summarizing data with R</h2>
+<p>Exploring data using graphical and numerical summary statistics will be discussed in <span class="quarto-unresolved-ref">?sec-summaries</span>. For now, a brief introduction to graphing and computing summary statistics is provided. When wanting to summarize a single variable, functions to create graphical and numerical summaries follows the general form <code>task( ~ x , data)</code> where <code>x</code> is the variable you want to graph or compute a statistic of. Depending on the summary, we may have to specify some additional things. If the variable <code>x</code> is a variable in the data frame, then data would be set equal to the name of the data frame. The names used for <code>x</code> and the name of the data frame must be the names that R has given the data set and variable. <code>task</code> would be replaced with the name of the function. For bivariate, the form becomes <code>task( y ~ x , data)</code> becomes where <code>y</code> represent the dependent variable and <code>x</code> is the explanatory variable. Most R tasks covered in the modules will follow this general form. The expressions <code>y~x</code> or <code>~x</code> are called formulas in R.</p>
+<p>Recall that we imported the MLB dataset and we stored it in a data frame called <code>mlbDataImport</code>. Here, the task is to create a histogram of <code>salary</code>. <code>salary</code> represents the salary (in $1000s) of a given baseball player in 2010. Again, the basic formula is <code>task( ~ x , data)</code> where <code>task</code> would be replaced with the name of the function to create the desired graph. <strong>RStudio</strong> refers to histograms as <code>histogram</code>. The variable of interest is <code>salary</code> and it would replace <code>x</code>. The argument <code>data</code> is set equal to <code>mlbDataImport</code>.</p>
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span> <span class="va"><a href="http://lattice.r-forge.r-project.org/">lattice</a></span> <span class="op">)</span> <span class="co"># load the lattice package. This package provides the histogram function</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/histogram.html">histogram</a></span><span class="op">(</span> <span class="op">~</span> <span class="va">salary</span>  , data<span class="op">=</span>  <span class="va">mlbDataImport</span> <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="a3-basicsR_files/figure-html/gr2-1.png" class="img-fluid figure-img" width="528"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>To compute the mean salary of these baseball players we replace <code>task</code> with <code>mean</code>. As with the histogram, <code>x</code> is replace with the name of the variable <code>salary</code>, and <code>data</code> is set equal to <code>mlbDataImport</code>:</p>
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span> <span class="va"><a href="https://github.com/ProjectMOSAIC/mosaic">mosaic</a></span> <span class="op">)</span> <span class="co"># load the mosaic package. This provides the  mean function </span></span>
+<span><span class="fu">mean</span><span class="op">(</span> <span class="op">~</span> <span class="va">salary</span>  , data<span class="op">=</span>  <span class="va">mlbDataImport</span> <span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 3281.828</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Suppose you wanted to compute the average salary for each position. To so, we can tell RStudio to compute the mean by levels/groups of a grouping variable. A grouping variable groups data into categories or groups. Grouping variables are categorical variables. When summaries are computed based on the levels or groups of the grouping variables, they are called side-by-side or comparative summaries.</p>
+<p>To summarize the data conditional on a value of categorical variable, the general formula becomes <code>task( ~ x | gfactor , data)</code> or <code>task( y ~ x | gfactor , data)</code>, where <code>gfactor</code> represent the categorical variable, typically called the grouping variable. Here, the task is to compute the mean salary for each potion, so the grouping variable is <code>position</code>:</p>
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">mean</span><span class="op">(</span> <span class="op">~</span> <span class="va">salary</span> <span class="op">|</span> <span class="va">position</span> , data<span class="op">=</span>  <span class="va">mlbDataImport</span> <span class="op">)</span></span>
+<span><span class="co">#&gt;           Catcher Designated Hitter     First Baseman         Infielder </span></span>
+<span><span class="co">#&gt;          1937.220          5235.714          5826.521           770.575 </span></span>
+<span><span class="co">#&gt;        Outfielder           Pitcher    Second Baseman         Shortstop </span></span>
+<span><span class="co">#&gt;          3753.926          2999.197          3022.723          2844.146 </span></span>
+<span><span class="co">#&gt;     Third Baseman </span></span>
+<span><span class="co">#&gt;          4641.286</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Note that the names of the variables (e.g., <code>salary</code>, <code>position</code>, etc.) are spelled exactly as they appear in the data frame.</p>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Function arguments
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Functions in R will have a number of <em>arguments</em>. An argument is piece of information that is provided to the function in order to execute the requested task, such a compute a summary statistic or create a graph. From hereinafter, functions used in the modules will describe the function in the following ways:</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### task( arg1 , arg2,  arg3, ...)
+# arg1: Description of what information is needed for argument 1
+# arg2: Description of what information is needed for argument 2
+# arg2: Description of what information is needed for argument 2
+# and so on
+</code></pre>
+</div>
+</div>
+<p>Some arguments will be required, others optional depending on the function. More often than not, the functions will require at least the following arguments to run: A formula (such as <code>y~x</code> or <code>~x</code>) and the name of the data frame (<code>data=</code>‘<em>name of data frame</em>’). The phrase <code>task</code> will be replaced with the name of the function, such as <code>mean</code> or <code>histogram</code>.</p>
+</div>
+</div>
+<p>In some sense, you can use the code provided in this resource as a template to adapt to your dataframe and the names of the variables within your dataframe (discussed in the next section).</p>
+<p>All functions used in the module will only be described when they are first used. Any subsequent uses of a given function will not provided a description but the reader may search for the name of the function in the search bar provided in the upper left of the module.</p>
+</section><section id="adapting-the-r-code-provided-for-your-data-and-interest" class="level2" data-number="C.4"><h2 data-number="C.4" class="anchored" data-anchor-id="adapting-the-r-code-provided-for-your-data-and-interest">
+<span class="header-section-number">C.4</span> Adapting the R code provided for your data and interest</h2>
+<p>In this section, we demonstrate how to adapt the provided code to your own data frame and variables of interest by using formula expressions with examples from two different datasets. Recall that most functions will have a layout of <code>task( y ~ x , data)</code> or <code>task( y ~ x , data)</code>. For this illustration, we use two dataframes, <code>ChickWeight</code> and <code>trees</code> dataframe. Both of these dataframes are built-in with R. Note the following variable names in each dataframe:</p>
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># "ChickWeight" measurements on weight, time since birth, </span></span>
+<span><span class="co"># age, and diet plan of chicks</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span> <span class="va">ChickWeight</span> <span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "weight" "Time"   "Chick"  "Diet"</span></span>
+<span></span>
+<span><span class="co"># "trees" dataset contains the height, girth,</span></span>
+<span><span class="co"># and volume measurements for 31 trees</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span> <span class="va">trees</span> <span class="op">)</span> <span class="co"># this dataset comes built-in with R</span></span>
+<span><span class="co">#&gt; [1] "Girth"  "Height" "Volume"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="a-univariate-summary" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="a-univariate-summary">A univariate summary:</h3>
+<p>The following computes the weight of the chicks:</p>
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Compute the mean weight</span></span>
+<span><span class="fu">mean</span><span class="op">(</span> <span class="op">~</span> <span class="va">weight</span>  , data<span class="op">=</span>  <span class="va">ChickWeight</span> <span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 121.8183</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Note that weight is spelled <code>weight</code> and not <code>Weight</code> or <code>WEIGHT</code> since it appears as <code>weight</code> in the dataframe.</p>
+<p>The code below computes the mean volume of the 31 trees:</p>
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Compute the mean</span></span>
+<span><span class="fu">mean</span><span class="op">(</span> <span class="op">~</span> <span class="va">Volume</span>  , data<span class="op">=</span>  <span class="va">trees</span> <span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 30.17097</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Notice the similarity between these two commands. The only differences are the names of the data frames and the variable names (spelled exactly as they appear in the respective data frames, keeping in mind that R is case sensitive). The general form used here is: <code>task( ~ x, data )</code></p>
+</section><section id="a-bivariate-summary" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="a-bivariate-summary">A bivariate summary:</h3>
+<p>The following creates a scatterplot of the weight of a chick against the time since birth:</p>
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load the R package lattice</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://lattice.r-forge.r-project.org/">lattice</a></span><span class="op">)</span> <span class="co"># provides xyplot() </span></span>
+<span></span>
+<span><span class="co"># create the scatterplot</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">xyplot</a></span><span class="op">(</span><span class="va">weight</span> <span class="op">~</span> <span class="va">Time</span>  , data<span class="op">=</span>  <span class="va">ChickWeight</span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="a3-basicsR_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="528"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The code below plots the volume of a tree against height of a tree:</p>
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># create the scatterplot</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">xyplot</a></span><span class="op">(</span> <span class="va">Volume</span> <span class="op">~</span> <span class="va">Height</span>  , data<span class="op">=</span>  <span class="va">trees</span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="a3-basicsR_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="528"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Notice the similarity between these two commands. The only differences are the names of the data frames and the variable names (spelled exactly as they appear in the respective data frames, keeping in mind that R is case sensitive). The general form used here is: <code>task( y ~ x, data )</code></p>
+</section></section><section id="exporting-graphs" class="level2" data-number="C.5"><h2 data-number="C.5" class="anchored" data-anchor-id="exporting-graphs">
+<span class="header-section-number">C.5</span> Exporting graphs</h2>
+<p>There are 3 methods for exporting a plot in R. After creating a plot, go to the <em>Plots</em> tab in the lower right pane. Find the “Export” button located in the upper right corner of the plot tab. Click on the “Export” button and three options will be given:</p>
+<ul>
+<li><p>“Save Plot as Image”: This option allows you to save the plot as an image file (such as png or jpg). Click on this option, and a box will open where you can choose the file format, resolution, and dimensions for the exported image. After selecting the options, click “Save” to save the image file to your computer.</p></li>
+<li><p>“Save Plot as PDF”: This option allows you to save the plot as a PDF file. Click on this option, and a box will open where you can choose the file name, dimensions, and other options for the exported PDF. After adjusting the settings, click “Save” to save the PDF file to your computer.</p></li>
+<li><p>“Copy Plot to Clipboard”: This option allows you to copy the plot to your clipboard. You can then paste the plot directly into other applications (such as Word, PowerPoint, etc.)as an image.</p></li>
+</ul></section><section id="using-custom-r-functions" class="level2" data-number="C.6"><h2 data-number="C.6" class="anchored" data-anchor-id="using-custom-r-functions">
+<span class="header-section-number">C.6</span> Using custom R functions</h2>
+<p>Sometimes, this resource will require the usage of what may be called custom functions. Some of these custom functions are wrappers<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> for R functions that come with R, while others are entirely new functions that were created. The reason for creating these custom functions is to provide a more consistent and streamlined way to perform certain tasks.</p>
+<p>Any time custom functions are used, they must first be sourced. For example, suppose a function called <code>my_function()</code> is provided by the <code>file my_functions.R</code>, and that this file is located in the following file path or location: <code>C:/Users/YourName/Documents/my_functions.R</code>. This function is saved in the “Documents” folder. If the code below is executed, it would source the file <code>my_function.R</code> so that the R <code>my_function()</code> function is in R’s memory:</p>
+<pre><code>source("C:/Users/YourName/Documents/my_functions.R")</code></pre>
+<p>Note that any time you start a new RStudio session, you would need to source the <code>my_functions.R</code> file again in order to use the <code>my_function()</code> function. This is because R does not automatically remember custom functions that were sourced in previous sessions.</p>
+<p>To use the custom functions provided in this resource, you will need to download them from the repository and update the file path in the <code><a href="https://rdrr.io/r/base/source.html">source()</a></code> function to reflect the location where you saved the functions on your own system.</p>
+
+
+</section><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<ol>
+<li id="fn1" role="doc-endnote"><p>A wrapper function is a function that calls another function or a set of functions to simplify or extend tasks.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./a2-firstR.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">A first session in RStudio</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

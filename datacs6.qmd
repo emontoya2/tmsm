@@ -1,0 +1,144 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# Case study 6 {#sec-casestudy6}
+
+## A Case Study: Exploring Xylem Characteristics in Shrub Species {#sec-csshrub}
+
+```{r}
+#| echo: false
+#| out.width: "40%"
+#| fig.cap: "Arctostaphylos glauca (Big Berry Manzanita). Source:calscape.org"
+#| fig.alt: "Arctostaphylos glauca (Big Berry Manzanita)."
+knitr::include_graphics("images/aeda/shrub.jpg")
+```
+
+
+### Introduction {.unnumbered}
+
+In plants, the function of the xylem tissue is to transport water and
+minerals, and this forms part of a network that ensures that the plant
+can transport essential resources and maintain its growth and
+development. A study by @pratt2021trade investigated the trade-offs
+(costs and benefits of different traits) among different xylem functions
+in shrub species and how they are influenced by minimum hydrostatic pressures  experienced by plants in the field. The study, which used structural equation modeling, showed the importance of understanding that the roles of different cell types in the xylem are important for recognizing the functional trade-offs that govern xylem traits, and emphasized the critical role of minimum hydrostatic pressures in plant growth and development.
+
+For their study, various plant physiological measurements for 29
+different plant species were collected. Below is a list and small description of each variable:
+
+- P75: the water potential at 75% loss of its hydraulic conductivity (MPa). 
+
+- Ks: a measure of xylem-specific conductivity.  conductivity (kg s$^{-1}$ MPa$^{-1}$ m$^{-1}$).
+
+- Starch: amount of starch content in the xylem tissues (%). 
+
+- Xylem density:  measure of the density of xylem (dry mass/tissue volume) .
+
+- Fiber percentage: the proportion of fibers in the xylem tissue. 
+
+- Vessel percentage: the proportion of vessels in the xylem tissue.
+
+- Parenchyma percentage: the proportion of parenchyma cells in the xylem tissue. 
+
+- Pmin: Minimum level of dehydration a plant can experience (MPa).
+
+- Water storage capacity: the capacity of the xylem tissue to store water $\Delta \text{Relative water content}/\Delta \text{MPa}$.  
+
+These variables provide insight on how the xylem functions.
+
+Here, we apply principal component analysis (PCA) to determine if we can
+identify key patterns in these data, which
+describe various aspects related to the structure, function, and
+properties of xylem, as well as underlying factors or dimensions that may be
+driving the variation in the data. The data are shown in the table below.
+
+```{r, xylemcs }
+#| echo: false
+#| message: false
+#| warning: false
+#| results: 'asis'
+#| fig.width: 7
+#| fig.height: 3
+#| fig.align: 'center'
+
+require(dplyr)
+require(readxl)
+library(kableExtra)
+library(DT)
+
+xylemDF <- read_xlsx("datasets/PlantWaterPhysiology.xlsx")
+xylemDF <-xylemDF %>% mutate_if(is.character, factor)
+
+xylemDF2 <- xylemDF %>% rename(`xylem density`=xylem_density,
+                              `fiber %`=`fiber_%`,
+                              `vessel %`=`vessel_%`,
+                              `parenchyma %` =`par_%` ,
+                              `Pmin`= Pmin,
+                              `water storage cap.`=water_storage) 
+datatable( xylemDF2 , class="hover", style="bootstrap4", rownames=FALSE,   height=250,  fillContainer = T, caption="Data from Pratt et al. (2021)" ,
+           options = list(scrollY = '350px', columnDefs = 
+                           list(list(className = 'dt-center', 
+                                     targets = "_all"))) )  
+
+```
+
+
+### Summary of findings {.unnumbered}
+
+Numerical and graphical summaries of the plant physiological variables
+are provided below:
+
+```{r }
+#| label: fig-plaplots
+#| fig-cap: "Scatterplot matrix and correlation matrix of the plant physiological variables." 
+#| fig-subcap:
+#|   - "Scatterplot matrix showing the pairwise relationships between the plant physiological variables in the dataset"
+#|   - "correlation matrix table that shows the correlation coefficients between each pair of plant physiological variables in the dataset." 
+#| layout-ncol: 1
+#| eval: true
+#| echo: false
+#| message: false
+#| warning: false
+#| 
+library(lattice)
+library(gpairs)
+library(corrplot) 
+
+gpairs(as.data.frame(xylemDF2[,-c(1:2)]), 
+        diag.pars=list(fontsize = 6))
+
+tmpa <- xylemDF2[,-c(1:2)]
+
+
+M <- cor(xylemDF2[,-c(1:2)])
+corrplot.mixed(M, order = 'FPC',  tl.pos="lt")
+ 
+```
+
+The graphical and numerical summaries show that the variables have both
+positive and negative correlations, with many showing clear linear
+associations, although the strength of a given linear relationship
+depends on which pair of variables is considered. There are 84 possible
+3D scatterplots that could be examined when dealing with the nine
+variables, so it is difficult to examine beyond pairwise relationships.
+That is, graphical or numerical summaries provide limited insight when
+attempting to explore the interdynamics of the variables when the data
+set is very large.
+
+To better understand the characteristics of xylem tissue in shrub species, it is important to identify the underlying factors or dimensions that drives the variation in the data. By identifying these factors, we can more easily interpret the data set, potentially revealing underlying patterns, and gaining insights into how these shrubs respond to water availability in a semi-arid chaparral environment. Principal component analysis (PCA) is a useful tool for achieving this goal. In this case study, PCA is applied to the plant physiological measurements to simplify the interpretation of the variables and reveal the underlying patterns that drive the variation in the data
+
+According to Kaiser's rule, three principal components capture most of the variation contained in these nine variables. In fact, about 76% of the variation in the plant physiological variables is explained by the first three principal components, and  this is an acceptably large percentage.
+
+To simplify the interpretation of the principal components, varimax rotation is applied. Overall, the first principal component (PC) is viewed as an indicator of a shrub's adaptability to drought conditions with respect to water efficiency, while the second PC is viewed as a measure of the adaptability of shrubs to drought conditions with respect to mechanical strength and water storage.  The third PC, on the other hand, may be considered as an indicator of the adaptability of shrubs to drought conditions in terms of their capacity to balance parenchyma and fiber to maintain essential plant functions.  These findings provide a view into how these shrubs respond to water availability in a semi-arid chaparral environment.  
+ 
+ It is important to note that PCA is an exploratory method rather than an inferential one. While it can reveal patterns and relationships in the data, it does not provide statistically significant conclusions or results. Overall, PCA is a powerful method for exploring complex datasets and revealing underlying patterns, but it should not be used as the sole basis for making conclusions.
+ 
+ 
+ 
+ 
+
+ 
+ 

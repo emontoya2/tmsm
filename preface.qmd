@@ -1,0 +1,69 @@
+# Preface {.unnumbered}
+
+Graduate programs vary with regard to required statistical training.   The intention of this resource is to enable graduate students to improve their ability to apply appropriate  statistical methodologies.    
+ 
+## Some prerequisites
+
+Please note that this resource is designed for practitioners and does not assume prior knowledge of statistical concepts.  R and RStudio will also have to be installed (see @sec-appendix-startingR for installation instructions).
+ 
+
+## Organization of the materials
+
+The materials are organized based on the typical order in which these topics are introduced in practice, though the section on principal component analysis can be studied after covering basic exploratory data analysis. Sections generally follow a similar pattern:
+
+- Introduction of core material
+
+- Presentation of relevant R functions
+
+- Application and illustration of core material and R code through case studies
+
+
+## R and RStudio
+
+Those new to R and RStudio should work through the appendices.  If you have used R or RStudio in the past, but have not imported *.csv* or *.xlsx* files, or used a formula expression of the form `response ~ explanatory`, then @sec-appendix-basicsR should be reviewed.
+
+
+Most sections include embedded R code.  R functions are generally described only when first introduced. Additionally, code to import specific data sets or load particular R packages may appear multiple times in different modules. Any subsequent uses of a given R function or its description may not be provided, but readers can search for the R function name using the search bar in the upper left corner of the module to find where it was first introduced and where it has been used.  
+
+## Callouts blocks
+
+Throughout this resource, you will encounter callout boxes in various colors, each of which serves a specific purpose. The callout boxes are color-coded as follows:
+
+- Orange: Data assumptions related to the statistical method discussed.
+
+- Blue: Case studies or examples to illustrate the statistical method using real-world data using R.
+
+- Green: R functions and their arguments.
+
+- Red: Notation or terminology that is important for understanding  the statistical method, or additional notes, tips, or warnings related to the material.
+
+The color-coded system will hopefully make it easier to navigate and understand the statistical methods presented in this resource
+
+
+## Acknowledgements
+
+- CSUB Title Vb program for supporting the creation of this resource.
+
+- The R Core team, RStudio, Quarto, and Github for their continued advancement of these open-source softwares.
+
+- Dr. Brandon Pratt for providing the data for the case study on xylem characteristics in shrub species, as well as providing feedback for the case study.
+
+- Dr. Tien-Chieh Hung for providing the data for the case study on Delta smelt.
+
+- Dr. David Riedman for providing the data for the case study on school shootings.
+
+
+ 
+
+## Contributing
+
+Contributions are encouraged on any part of the project, including:
+
+- Improvements to the text or code, such as clarifying unclear sentences, notation, and fixing typos. This resource is not error-free, so please inform the author of any errors so that they can be corrected.
+
+- Changes to the R code to make it easier to read or to do things in a more efficient way. 
+
+- Suggestions on topics to consider adding.
+
+  
+ 

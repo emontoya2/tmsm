@@ -1,0 +1,41 @@
+---
+description-meta: |
+  This resource aims to provide guidance on the visualization and analysis of data. 
+bibliography: references.bib
+---
+ 
+## Welcome {.unnumbered}
+
+[![Project Status: Concept - Minimal or no implementation has been done yet, or the repository is only intended to be a limited example, demo, or proof-of-concept.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![minimal R version](https://img.shields.io/badge/R%3E%3D-`4.1.2`-6666ff.svg)](https://cran.r-project.org/)
+[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+
+This repository hosts the source code for this resources. This open source project was developed by [Eduardo L. Montoya](https://emontoya2.github.io/).  If you find the contents useful, please cite or acknowledge this project to encourage further use by others.  Please use the following citation:
+
+> Montoya, E. L. (2022).  Training modules on selected statistical methods. GitHub repository, https://github.com/emontoya2/tmsm
+
+
+## Purpose of this resource
+
+The purpose of this project is to help students learn and apply selected statistical methods. Each module focuses on specific areas with integrated R code offering students an informative way to learn and practice these methods. Most R code within a given section are linked to video demonstrating how to run the code in RStudio.
+
+R is chosen because it is open source, platform independent, remains among the most popular and best statistical software packages, provides great on-line documentation, and is well supported with a large and useful user community from a diverse range of backgrounds. Furthermore, most sections incorporate R code, enabling students to learn and practice the material as they progress through a given module. To use R, the integrated development environment (IDE) RStudio will be used, which has made R more user-friendly for many users.
+ 
+
+
+## What this resource is not 
+
+This resource does not aim to provide an all-encompassing guide to statistical methods or their implementation in R. Numerous statistical methods and various ways to conduct these methods in R can be utilized in practice, many of which are not covered in these modules.  That being said, the concepts and techniques presented are intended to enhance the reader's ability to apply the covered methods to their research, as well as to connect their statistical knowledge with more advanced methods. 
+  
+ 
+ 
+## License
+
+This resource is **free to use**, and is licensed under the [Creative Commons Attribution-NonCommercial-NoDerivs 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) License. 
+```{r}
+#| results: "asis"
+#| echo: false
+#| message: false
+#| warning: false
+source("_common.R")
+```

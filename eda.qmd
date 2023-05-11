@@ -1,0 +1,22 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# Module: Advanced Exploratory Data Analysis {#sec-eda}
+
+Currently, this module discusses  one topic in advanced exploratory data analysis:
+
++ Principal Component Analysis (PCA).
+
+Exploratory Data Analysis (EDA) involves summarizing and analyzing datasets with the aim of discovering patterns, relationships/trends, or anomalies in the data. Part of EDA involves using numerical and graphical summaries to explore insights into the data structure, main characteristics, and potential relationships between variables. EDA is important as it can guide further analysis, hypothesis testing, and modeling decisions.
+
+Principal Component Analysis (PCA) is a dimensionality reduction technique that can be employed as part of EDA. PCA is particularly useful when dealing with high-dimensional datasets, such as those with a large number of variables. In such instances, visualizing and identifying patterns, trends, or relationships between variables might be challenging. PCA transforms the original variables into a smaller set of new uncorrelated variables called principal components. These components capture much of the variation in the data and can potentially reveal underlying patterns or structures in the data. 
+
+- Module chapters:
+  - PCA
+
+  
+ 
+  

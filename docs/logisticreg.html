@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.35">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Training modules on selected statistical methods - 15&nbsp; Simple logistic regression</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./eda.html" rel="next">
+<link href="./lr.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script><link href="site_libs/vembedr-0.1.5/css/vembedr.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Simple logistic regression</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Training modules on selected statistical methods</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/emontoya2" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="" title="Share" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+<li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+            <i class="bi bi-bi-twitter pe-1"></i>
+          Twitter
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+            <i class="bi bi-bi-facebook pe-1"></i>
+          Facebook
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+            <i class="bi bi-bi-linkedin pe-1"></i>
+          LinkedIn
+          </a>
+        </li>
+    </ul>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Welcome</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./preface.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./casestudies.html" class="sidebar-item-text sidebar-link">Module: Case Studies</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Case study 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Case study 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs3.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Case study 3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs4.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Case study 4</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs5.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Case study 5</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs6.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Case study 6</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./data.html" class="sidebar-item-text sidebar-link">Module: Data basics and drawing statistical conclusions</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Basics of data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./drawingconclusions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Drawing statistical conclusions</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./summaries.html" class="sidebar-item-text sidebar-link">Module:  Basic Exploratory  Data Analysis</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./catsum.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Summarizing categorical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./numsum.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summarizing numerical data</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./twosample.html" class="sidebar-item-text sidebar-link">Module: Two sample methods</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./siframework.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Statistical inference framework via a case study</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./twoindptmeans.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Two sample methods</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./anovalin.html" class="sidebar-item-text sidebar-link">Module: ANOVA, linear regression, and logistic regression</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./anova.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Analysis of variance (ANOVA)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Simple linear regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logisticreg.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Simple logistic regression</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./eda.html" class="sidebar-item-text sidebar-link">Module: Advanced Exploratory Data Analysis</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pca.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">PCA</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./a1-startingR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Installing or accessing R and RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./a2-firstR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">A first session in RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./a3-basicsR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Some basic tasks in R</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#fitting-the-slogir-model-and-model-diagnostics." id="toc-fitting-the-slogir-model-and-model-diagnostics." class="nav-link active" data-scroll-target="#fitting-the-slogir-model-and-model-diagnostics."> <span class="header-section-number">15.1</span> Fitting the SLogiR model and model diagnostics.</a></li>
+  <li><a href="#inference-on-the-explanatory-variable-use-wald-based-methods" id="toc-inference-on-the-explanatory-variable-use-wald-based-methods" class="nav-link" data-scroll-target="#inference-on-the-explanatory-variable-use-wald-based-methods"> <span class="header-section-number">15.2</span> Inference on the Explanatory Variable use Wald-based methods</a></li>
+  <li><a href="#sample-size-estimation-and-power-analysis-for-slogir" id="toc-sample-size-estimation-and-power-analysis-for-slogir" class="nav-link" data-scroll-target="#sample-size-estimation-and-power-analysis-for-slogir"> <span class="header-section-number">15.3</span> Sample size estimation and power analysis for SLogiR</a></li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/emontoya2/edit/master/logisticreg.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="sec-regression" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Simple logistic regression</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header><div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/linmod/logireg.jpg" class="img-fluid figure-img" style="width:50.0%"></p>
+<p></p><figcaption class="figure-caption">AI art generated from the text “simple logistic regression”</figcaption><p></p>
+</figure>
+</div>
+<p>Simple (binary) logistic regression (SLogiR) allows us to assess the relationship between a binary response variable (i.e., a categorical variable with two possible outcomes) and a numerical or categorical explanatory variable. Unlike simple linear regression, which examines the relationship between two numerical variables, simple logistic regression (SLogiR) is used when the response variable is binary. By modeling the probability of the response variable taking on a specific outcome, SLogiR can help identify the impact of the explanatory variable on the likelihood of observing one of the two possible outcomes.</p>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Notation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Some essential notation and definitions for the SLogiR: Let <span class="math inline">\(y\)</span> denote the binary response variable and <span class="math inline">\(x\)</span> denote the explanatory variable. For a given observation, <span class="math inline">\(y\)</span> takes on either the value 0 or 1. Specifically, <span class="math inline">\(y=1\)</span> with probability <span class="math inline">\(p\)</span> and <span class="math inline">\(y=0\)</span> with probability <span class="math inline">\(1-p\)</span>. In SLogiR, we estimate the slope and intercept of the model to relate <span class="math inline">\(p\)</span> to the logit scale (i.e., the logarithm of the odds of success) to the explanatory variable, instead of directly modeling the response variable. Therefore, we can represent the SLogiR model with the following equation:</p>
+<p><span class="math display">\[logit(p)=log(\frac{p}{1-p}) = \beta_0 + \beta_1 x\]</span></p>
+<ul>
+<li><p><span class="math inline">\(\beta_0\)</span> is the true intercept, which represents the value of <span class="math inline">\(logit(p)\)</span> when <span class="math inline">\(x\)</span> is equal to 0.</p></li>
+<li><p><span class="math inline">\(\beta_1\)</span> is the true slope, which represents the average change in <span class="math inline">\(logit(p)\)</span> for a unit increase in <span class="math inline">\(x\)</span>.</p></li>
+<li><p><span class="math inline">\(log(\frac{p}{1-p})\)</span> is the logit transformation of the probability that <span class="math inline">\(y=1\)</span>.</p></li>
+</ul>
+</div>
+</div>
+<p>This model captures the relationship between the explanatory variable <span class="math inline">\(x\)</span> and the odds of success (i.e., the ratio of the probability that <span class="math inline">\(y=1\)</span> to the probability of <span class="math inline">\(y=0\)</span>), which is then transformed to the logit scale for modeling purposes. The logit scale provides a way to interpret the <span class="math inline">\(\beta_1\)</span>. For example, <span class="math inline">\(logit(0.5)=0\)</span> and <span class="math inline">\(logit(0.6)=0.4\)</span> Thus, an increase of <span class="math inline">\(0.4\)</span> on the logit scale corresponds to a change from <span class="math inline">\(0.50\)</span> (or 50%) to <span class="math inline">\(0.60\)</span> (or 60%) in the probability scale. In other words, a one-unit increase in <span class="math inline">\(x\)</span> is associated with a <span class="math inline">\(\beta_1\)</span> increase in the logit of the odds of <span class="math inline">\(y=1\)</span></p>
+<p>Another way to interpret <span class="math inline">\(\beta_1\)</span> is in terms of odds. The term <span class="math inline">\(p/(1-p)\)</span> is the odds that <span class="math inline">\(y=1\)</span> relative to <span class="math inline">\(y=0\)</span>. The above equation shows that the log odds, <span class="math inline">\(log(p/(1-p))\)</span> are linearly related to <span class="math inline">\(x\)</span>. Suppose the log odds are computed at a value of <span class="math inline">\(x\)</span>, which we denote by <span class="math inline">\(log(odds_1)\)</span>. If we increase <span class="math inline">\(x\)</span> by one unit and compute the log odds at the new value of <span class="math inline">\(x\)</span>, denoted by <span class="math inline">\(log(odds_2)\)</span>, the difference in the log odds becomes</p>
+<p><span class="math display">\[log(odds_2)-log(odds_1)=log(odds_2/odds_1)=\beta_1.\]</span></p>
+<p>This means that <span class="math inline">\(\frac{odds_2}{odds_1}=e^{\beta_1}\)</span>. In short, for each one-unit increase in <span class="math inline">\(x\)</span>, the odds of the binary response variable change multiplicatively by a factor of <span class="math inline">\(e^{\beta_1}\)</span>. For example, if <span class="math inline">\(\frac{odds_2}{odds_1}=e^{\beta_1}=1.20\)</span>, the odds of the response variable taking the value of 1 increase by 20%. Conversely, if <span class="math inline">\(\frac{odds_2}{odds_1}=e^{\beta_1}=0.75\)</span>, the odds of the response variable taking the value of 1 decrease by 25%.</p>
+<p>Estimates of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> are obtained via maximum likelihood estimation and are denoted by <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span>.</p>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Notation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>
+<span class="math inline">\(b_1\)</span> is an estimate of <span class="math inline">\(\beta_1\)</span>. The estimate <span class="math inline">\(b_1\)</span> represents the estimated change in the logit (log odds) of the odds that <span class="math inline">\(y=1\)</span> for a one-unit increase in the explanatory variable.
+<ul>
+<li>The term <span class="math inline">\(e^{b_1}\)</span> reflects the factor by which the odds of the response variable taking the value of 1 are estimated to change for a one-unit increase in the explanatory variable.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>These estimates are used to obtain predicted values of the response variable provided by the SLogiR model for a given value of the explanatory variable. In other words, it represents the model’s best estimate of the response variable based a value of the of the explanatory variables. With a SLogiR, the predicted values can be given as an estimated probability of the response variable being 1 for a given value of <span class="math inline">\(x\)</span>. They can also be given on the log-odds scale.</p>
+<p>A residual is the difference between an observed value and its corresponding predicted value provided by the SLogiR model. In the context of a SLogiR model, residuals are typically more complex compared to a standard linear regression model because of the nature of the binary outcome and the use of the logistic function. Some common types of residuals used in logistic regression include deviance residuals, Pearson residuals, and their standardized versions<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Each of these residuals is calculated differently and serves specific purposes in model diagnostics and assessment.</p>
+<p>Now that some basic concepts of SLogiR have been covered, this section illustrates common key aspects of SLogiR, including:</p>
+<ul>
+<li><p>Fitting the SLogiR model to data using R, model diagnostics, and interpreting the fit.</p></li>
+<li><p>Performing a Wald test to determine if the probability of the characteristic depends on the value of the explanatory variable.</p></li>
+<li><p>Constructing a Wald-based confidence interval for <span class="math inline">\(\beta_1\)</span>.</p></li>
+</ul>
+<p>For inferential methods in SLogiR to provide meaningful results, several assumptions are made about the data on which the method is intended to be used.</p>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Data assumptions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The methods discussed here assume one or more of the following assumptions about the data:</p>
+<ul>
+<li><p><strong>Assumption 1</strong>. <em>Independence of the observations</em>. Each binary outcome is independent of the other binary outcomes.</p></li>
+<li><p><strong>Assumption 2</strong>. <em>No influential outliers</em>. The data should not contain any influential outliers<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> that significantly affect the estimate SLR line.</p></li>
+<li><p><strong>Assumption 3</strong>. <em>Large sample</em>. The sample should be large<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. The larger the sample the better. Smaller sample sizes may lead to unreliable estimates and wider CIs.</p></li>
+<li><p><strong>Assumption 4</strong>. <em>Linearity of log-odds</em>. The log-odds of the probability of the response variable taking the value of 1 is a linear function of the explanatory variable.</p></li>
+</ul>
+<p>While these assumptions are assessed below with a case study, assumption 1 can be assessed by the study design. Assumption 2 is examined using the Pearson or deviance residuals, assumption 3 can be examined using the data, and assumption 4 is assessed by examining the relationship between the predicted log odds and the explanatory variable. Note that if any assumptions are not met, then the model is not appropriate for the data. In such instances, possible remedial measures include transforming the explanatory variable (see <a href="lr.html#sec-remedmeasure"><span>Section&nbsp;14.4</span></a>) or increasing the sample size if possible (larger sample sizes can improve the SLogiR fit to the data)</p>
+</div>
+</div>
+<section id="fitting-the-slogir-model-and-model-diagnostics." class="level2" data-number="15.1"><h2 data-number="15.1" class="anchored" data-anchor-id="fitting-the-slogir-model-and-model-diagnostics.">
+<span class="header-section-number">15.1</span> Fitting the SLogiR model and model diagnostics.</h2>
+<p>The function <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code> is used to fit the SLogiR model to the data.</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### glm( y ~ x , data , family )
+# y: Replace y with the name of the binary response 
+#  variable of interest
+# x: Replace x with the name of the explanatory variable
+# data: Set equal to the name of the dataframe.
+# family: set equal to "binomial"
+#</code></pre>
+</div>
+</div>
+<p>Note that the R functions used in these modules often have identical arguments, which will no longer be described in this module. The <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code> function provides more than just the values of <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span>, and the illustrations below show how to use it to create an <em>glm object</em> that contains useful information. To summarize the SLR model fit, extract the predicted probabilities that <span class="math inline">\(y=1\)</span> for a given value of <span class="math inline">\(x\)</span>, or extract the Pearson residuals from the <em>glm object</em>, we use the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code>, <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code>, and <code><a href="https://rdrr.io/r/stats/residuals.html">residuals()</a></code> functions on the <em>glm object</em>, respectively. The function <code><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">xyplot()</a></code> (after loading the <code>tactile</code> package) will also be used.</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### summary( lm object )
+# lm object: An object saving the result of  
+#      an lm function.
+#
+### predict( lm object, type )
+# type: Set equal to "link" (prediction log odds scale) or 
+#    "response" (predicted probabilites)
+#
+### residuals( lm object )
+# type: Set equal to "deviance" for deviance residuals,
+#    "pearson" for pearson residuals, 
+#    "partial" for partial residuals
+#
+### xyplot( lm object )
+#</code></pre>
+</div>
+</div>
+<p>The <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function will provide a lot of information, including the values of <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span>. To perform model diagnostics (process of assessing the validity of the assumptions about the data) the functions <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> and <code>xplot()</code> are used to create the following plots</p>
+<ul>
+<li><p><strong>Explanatory variable vs.&nbsp;predicted log odds values</strong>: This residual plot shows the relationship between the explanatory variable and the predicted values on the log odds scale. The plot helps to assess assumption 4. A plot that shows a linear trend suggests that this assumption is reasonable. A clear non-linear trend implies that that assumption 4 is questionable.</p></li>
+<li><p><strong>Standardized Pearson residuals vs.&nbsp;leverage plot</strong>: This plot shows the leverage (the degree to which an observation affects the estimated slope) against the standardized Pearson residuals. Potential influential outliers will have a high leverage and large residual in magnitude.</p></li>
+</ul>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>AQI stands for Air Quality Index, which is a measure used to report the level of air pollution in a specific area at a given time. It takes into account the concentrations of several air pollutants (such as ground-level ozone, particulate matter, and others) and is generally reported on a scale from 0 to 500. The index is divided into different categories, each corresponding to a range of values, and each category has a color code to reflect the level of air pollution in a given area.</p>
+<div id="fig-aqichart" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/linmod/aqigroups.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure 15.1: Air Quality Index (AQI) levels of health concern. Source: www.airnow.gov</figcaption><p></p>
+</figure>
+</div>
+<p>AQI values and temperature can be related or associated in air pollution studies, but the nature of their relationship can vary depending on a number of factors. For example, high temperatures may increase the formation and concentration of certain air pollutants, such as ground-level ozone or particulate matter. However, AQI values are affected by a range of other factors, such as wind speed, urban vs rural area, humidity, an area’s high fire risk, and the types and levels of pollutants in the air.</p>
+<p>The case study <a href="datacs3.html"><span>Chapter&nbsp;3</span></a> provides daily measurements of several variables, including <code>PM10</code>, <code>AQI</code>, …, <code>City.Name</code> and others. For the purposes of this analysis, that data now includes a categorical variable called <code>type_of_day</code>. The categorical variable has two possible values (“Healthy air quality” or “Unhealthy air quality”), and a binary version of the variable, <code>type_of_day01</code>, was created with outcomes of 1 for “Healthy air quality” and 0 for “Unhealthy air quality”. A day is classified as having “Unhealthy air quality” if its AQI exceeds 50. The goal of this study is to investigate the relationship between the type of day and temperature. To begin the analysis, the data are imported and explored using numerical and graphical data summaries.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Import data </span></span>
+<span><span class="va">AQIdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"datasets/DailyAQI.2021.csv"</span><span class="op">)</span></span>
+<span> </span>
+<span></span>
+<span></span>
+<span><span class="co"># Print the variable names in the dataset</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span> <span class="va">AQIdf</span> <span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "PM10"          "AQI"           "temp"          "Latitude"     </span></span>
+<span><span class="co">#&gt;  [5] "Longitude"     "windspeed"     "state"         "county"       </span></span>
+<span><span class="co">#&gt;  [9] "City.Name"     "type_of_day"   "type_of_day01"</span></span>
+<span></span>
+<span><span class="co"># Load the dplyr package</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span> <span class="co"># Provides the mutate() function</span></span>
+<span></span>
+<span><span class="co"># Transform the type_of_day into a factor variable  </span></span>
+<span><span class="co"># using the mutate() function. This has R treat</span></span>
+<span><span class="co"># `type_of_day` as a categorical variable.</span></span>
+<span><span class="va">AQIdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">AQIdf</span>, </span>
+<span>         type_of_day <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span> <span class="va">type_of_day</span> <span class="op">)</span>, </span>
+<span>         type_of_day01 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span> <span class="va">type_of_day01</span> <span class="op">)</span> <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Print the summary statistics of the dataset</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span> <span class="va">AQIdf</span> <span class="op">)</span></span>
+<span><span class="co">#&gt;       PM10            AQI              temp           Latitude    </span></span>
+<span><span class="co">#&gt;  Min.   :  0.0   Min.   :  0.00   Min.   : 35.13   Min.   :35.05  </span></span>
+<span><span class="co">#&gt;  1st Qu.: 19.0   1st Qu.: 18.00   1st Qu.: 54.19   1st Qu.:35.44  </span></span>
+<span><span class="co">#&gt;  Median : 32.0   Median : 30.00   Median : 64.79   Median :35.73  </span></span>
+<span><span class="co">#&gt;  Mean   : 38.9   Mean   : 33.34   Mean   : 66.91   Mean   :36.02  </span></span>
+<span><span class="co">#&gt;  3rd Qu.: 50.0   3rd Qu.: 46.00   3rd Qu.: 80.05   3rd Qu.:36.79  </span></span>
+<span><span class="co">#&gt;  Max.   :437.0   Max.   :316.00   Max.   :102.00   Max.   :36.99  </span></span>
+<span><span class="co">#&gt;                                   NA's   :391                     </span></span>
+<span><span class="co">#&gt;    Longitude        windspeed         state              county         </span></span>
+<span><span class="co">#&gt;  Min.   :-119.8   Min.   : 0.750   Length:3115        Length:3115       </span></span>
+<span><span class="co">#&gt;  1st Qu.:-119.7   1st Qu.: 2.090   Class :character   Class :character  </span></span>
+<span><span class="co">#&gt;  Median :-119.1   Median : 3.337   Mode  :character   Mode  :character  </span></span>
+<span><span class="co">#&gt;  Mean   :-118.9   Mean   : 4.147                                        </span></span>
+<span><span class="co">#&gt;  3rd Qu.:-118.2   3rd Qu.: 4.917                                        </span></span>
+<span><span class="co">#&gt;  Max.   :-117.7   Max.   :22.462                                        </span></span>
+<span><span class="co">#&gt;                                                                         </span></span>
+<span><span class="co">#&gt;   City.Name                        type_of_day   type_of_day01</span></span>
+<span><span class="co">#&gt;  Length:3115        Healthy air quality  :2476   0: 639       </span></span>
+<span><span class="co">#&gt;  Class :character   Unhealthy air quality: 639   1:2476       </span></span>
+<span><span class="co">#&gt;  Mode  :character                                             </span></span>
+<span><span class="co">#&gt;                                                               </span></span>
+<span><span class="co">#&gt;                                                               </span></span>
+<span><span class="co">#&gt;                                                               </span></span>
+<span><span class="co">#&gt; </span></span>
+<span></span>
+<span></span>
+<span><span class="co"># Load the lattice package</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://lattice.r-forge.r-project.org/">lattice</a></span><span class="op">)</span> <span class="co"># Provides the bwplot() function</span></span>
+<span></span>
+<span><span class="co"># Create a boxplot of temperature by type of day</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">bwplot</a></span><span class="op">(</span><span class="op">~</span> <span class="va">temp</span> <span class="op">|</span> <span class="va">type_of_day</span> , </span>
+<span>    data<span class="op">=</span> <span class="va">AQIdf</span> , </span>
+<span>    xlab<span class="op">=</span> <span class="st">"Temperature"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="logisticreg_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="co"># Load the mosaic package, which allows formula expression in mean() and sd()</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span> <span class="va"><a href="https://github.com/ProjectMOSAIC/mosaic">mosaic</a></span> <span class="op">)</span> </span>
+<span></span>
+<span><span class="co"># Compute the mean temperature by type of day</span></span>
+<span><span class="fu">mean</span><span class="op">(</span><span class="op">~</span> <span class="va">temp</span> <span class="op">|</span> <span class="va">type_of_day</span> , </span>
+<span>    data<span class="op">=</span> <span class="va">AQIdf</span>, </span>
+<span>    na.rm<span class="op">=</span><span class="cn">TRUE</span> <span class="op">)</span></span>
+<span><span class="co">#&gt;   Healthy air quality Unhealthy air quality </span></span>
+<span><span class="co">#&gt;              64.38551              75.64739</span></span>
+<span></span>
+<span><span class="co"># Compute the standard deviation of temperature by type of day</span></span>
+<span><span class="fu"><a href="https://www.mosaic-web.org/mosaic/reference/aggregating.html">sd</a></span><span class="op">(</span><span class="op">~</span> <span class="va">temp</span> <span class="op">|</span> <span class="va">type_of_day</span> , </span>
+<span>   data<span class="op">=</span> <span class="va">AQIdf</span>, </span>
+<span>   na.rm<span class="op">=</span><span class="cn">TRUE</span> <span class="op">)</span></span>
+<span><span class="co">#&gt;   Healthy air quality Unhealthy air quality </span></span>
+<span><span class="co">#&gt;              14.95971              12.15426</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/aX9-mX--CyU" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The boxplots and summary statistics show that temperatures tend to be lower on healthy air days compared to unhealthy air days. The mean temperatures for healthy air days are also lower than those for unhealthy air days. Additionally, temperatures exhibit more variability on healthy air days compared to unhealthy air days. This may indicate more extreme temperatures on healthy air days or suggest that other factors contribute to the variability, such as wind speed or humidity.</p>
+<p>The SLogiR model is fitted using <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code> but note that the response variable must be binary (such as <code>type_of_day01</code>):</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># The function will require the following information:</span></span>
+<span><span class="co"># y: Replace with 'type_of_day01', the binary response variable.</span></span>
+<span><span class="co"># x: Replace with 'temp', the explanatory variable.</span></span>
+<span><span class="co"># data: Set equal to a 'kernAQIdf', the name of the dataframe.</span></span>
+<span><span class="co"># family: Set equal to "binomial".</span></span>
+<span></span>
+<span><span class="co"># Fit the SLogiR model using glm() function</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span> <span class="va">type_of_day01</span> <span class="op">~</span> <span class="va">temp</span> ,</span>
+<span>  data <span class="op">=</span> <span class="va">AQIdf</span> , </span>
+<span>  family <span class="op">=</span> <span class="st">"binomial"</span> <span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:  glm(formula = type_of_day01 ~ temp, family = "binomial", data = AQIdf)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt; (Intercept)         temp  </span></span>
+<span><span class="co">#&gt;     4.89571     -0.05214  </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Degrees of Freedom: 2723 Total (i.e. Null);  2722 Residual</span></span>
+<span><span class="co">#&gt;   (391 observations deleted due to missingness)</span></span>
+<span><span class="co">#&gt; Null Deviance:       2897 </span></span>
+<span><span class="co">#&gt; Residual Deviance: 2629  AIC: 2633</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/jx6dQp5m0-o" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The output provides <span class="math inline">\(b_0= 4.90\)</span> and <span class="math inline">\(b_1=-0.05\)</span>. Note that <span class="math inline">\(e^{b_1}=e^{-0.05}=0.95\)</span>, which suggests that the odds of having a healthy air day are estimated to decrease by 5% for each degree increase in temperature. This also suggests that a 5 degree increase in temperature means that the odds of having a healthy air day are estimated to decrease by 25% The <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code> function provides much more than just these values. To extract other information, the result from <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code> must be stored. Below the resulting <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code> fit is stored and then the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> is applied to this object. The functions <code><a href="https://rdrr.io/r/stats/residuals.html">residuals()</a></code> and <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> are also illustrated below.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Store glm() fit in an object, call it aqfit</span></span>
+<span><span class="va">aqfit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span> <span class="va">type_of_day01</span> <span class="op">~</span> <span class="va">temp</span> ,</span>
+<span>           data <span class="op">=</span> <span class="va">AQIdf</span> , </span>
+<span>           family <span class="op">=</span> <span class="st">"binomial"</span> <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># aqfit is called an glm object.</span></span>
+<span><span class="co"># Display a summary of the SLogiR model fit using the summary() function on the glm object, aqfit.</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span> <span class="va">aqfit</span> <span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; glm(formula = type_of_day01 ~ temp, family = "binomial", data = AQIdf)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Deviance Residuals: </span></span>
+<span><span class="co">#&gt;     Min       1Q   Median       3Q      Max  </span></span>
+<span><span class="co">#&gt; -2.2405   0.3715   0.5044   0.7166   1.3612  </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt;              Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
+<span><span class="co">#&gt; (Intercept)  4.895708   0.251133   19.49   &lt;2e-16 ***</span></span>
+<span><span class="co">#&gt; temp        -0.052137   0.003377  -15.44   &lt;2e-16 ***</span></span>
+<span><span class="co">#&gt; ---</span></span>
+<span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; (Dispersion parameter for binomial family taken to be 1)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     Null deviance: 2897.5  on 2723  degrees of freedom</span></span>
+<span><span class="co">#&gt; Residual deviance: 2629.3  on 2722  degrees of freedom</span></span>
+<span><span class="co">#&gt;   (391 observations deleted due to missingness)</span></span>
+<span><span class="co">#&gt; AIC: 2633.3</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Number of Fisher Scoring iterations: 4</span></span>
+<span></span>
+<span><span class="co"># Extract the residuals from the glm object, aqfit, and store them in aqres</span></span>
+<span><span class="co"># The type argument specifies the type of residuals to extract,</span></span>
+<span><span class="co"># which in this case are Pearson residuals</span></span>
+<span><span class="va">aqres</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span><span class="op">(</span> <span class="va">aqfit</span>, </span>
+<span>          type <span class="op">=</span> <span class="st">"pearson"</span> <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Extract the predicted values from the glm object, aqfit, and store </span></span>
+<span><span class="co"># them in aqpredictLO. The type argument specifies the scale of the predictions, which in this case is the log odds scale</span></span>
+<span><span class="co"># Store the result in an object called aqpredictLO</span></span>
+<span><span class="va">aqpredictLO</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span> <span class="va">aqfit</span>,</span>
+<span>             type <span class="op">=</span><span class="st">"link"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Extract the predicted probabilities of y=1 from the glm object, aqfit, </span></span>
+<span><span class="co"># and store them in an object  called aqpredictProbs.</span></span>
+<span><span class="co"># The type argument specifies the scale of the predictions, which </span></span>
+<span><span class="co"># in this case is the probability scale.</span></span>
+<span><span class="va">aqpredictProbs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span> <span class="va">aqfit</span>,</span>
+<span>             type <span class="op">=</span><span class="st">"response"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<p>See previous video.</p>
+</div>
+</div>
+</div>
+<p>Note that the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> provides the following table:</p>
+<table class="table">
+<thead><tr class="header">
+<th></th>
+<th>Estimate</th>
+<th>Std. Error</th>
+<th>t-value</th>
+<th>p-value -</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>(Intercept)</td>
+<td><span class="math inline">\(b_0\)</span></td>
+<td><span class="math inline">\(SE_{b_0}\)</span></td>
+<td><span class="math inline">\(Z_{b_0}\)</span></td>
+<td>p-value<span class="math inline">\(_{b_0}\)</span>
+</td>
+</tr>
+<tr class="even">
+<td>explanatory</td>
+<td><span class="math inline">\(b_1\)</span></td>
+<td><span class="math inline">\(SE_{b_1}\)</span></td>
+<td><span class="math inline">\(Z_{b_1}\)</span></td>
+<td>p-value<span class="math inline">\(_{b_1}\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The terms <span class="math inline">\(SE_{b_0}\)</span> and <span class="math inline">\(SE_{b_1}\)</span> are the standard errors for <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span>. The next sections cover inference for the SLogiR, and it requires that the assumptions about the data be reasonable.</p>
+<p>Next, we perform model diagnostics to assess the model assumptions with the help of the stored fitted values, residuals, and <code><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">xyplot()</a></code>. Here, <code><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">xyplot()</a></code> will only require the glm object after loading the <code>tactile</code> R package:</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div>
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Create a scatter plot of the predicted log odds </span></span>
+<span><span class="co"># against temperature. </span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">xyplot</a></span><span class="op">(</span><span class="va">aqpredictLO</span> <span class="op">~</span> <span class="va">temp</span>,</span>
+<span>        data <span class="op">=</span> <span class="va">AQIdf</span> , </span>
+<span>        xlab <span class="op">=</span> <span class="st">"Temperature"</span> ,</span>
+<span>        ylab<span class="op">=</span> <span class="st">"Predicted log odds"</span> <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Load the tactile package, which allows the creation</span></span>
+<span><span class="co"># of residual plots using the glm object</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span> <span class="va"><a href="https://github.com/jolars/tactile">tactile</a></span> <span class="op">)</span> </span>
+<span></span>
+<span></span>
+<span><span class="co"># Plot Pearson residuals vs. leverage.</span></span>
+<span><span class="co"># Note that xyplot() can produce various</span></span>
+<span><span class="co"># residual plots, but only certain plots</span></span>
+<span><span class="co"># are relevant for the SLogiR model.</span></span>
+<span></span>
+<span><span class="co"># Create a scatter plot of the Pearson residuals (from aqfit) vs. leverage.</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">xyplot</a></span><span class="op">(</span> <span class="va">aqfit</span>, </span>
+<span>   which<span class="op">=</span> <span class="fl">5</span> <span class="op">)</span> <span class="co"># this tells R to plot residuals vs. leverage.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-usingtactile3-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="logisticreg_files/figure-html/fig-usingtactile3-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure 15.2: Diagnostic plots</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-usingtactile3-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="logisticreg_files/figure-html/fig-usingtactile3-2.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure 15.3: Diagnostic plots</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/2wVQ56URnS4" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Each plot is analyzed and interpreted below:</p>
+<ul>
+<li><p>The plot on the left displays the predicted log odds against the explanatory variable and shows a linear trend. This suggests that Assumption 4 (linearity of log-odds) is reasonable.</p></li>
+<li><p>The plot on the right shows the standardized Pearson residuals against the leverage. The presence of some potential outliers (standardized Pearson residuals greater than 3 in magnitude) is visible. Cook’s distance<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> contour lines of 1/2 and 1 are plotted, but no leverage values exceed a Cook’s distance of 1. This suggests that Assumption 2 (no influential outliers) is reasonable.</p></li>
+</ul>
+<p>Assumptions 1 (independence of observations) and 3 (large sample size) are reasonable since the sample size is large, and it seems reasonable to assume that a given observation is not influenced by or related to the rest of the observations.</p>
+<p>Overall, all data assumptions are met for the SLogiR model.</p>
+</div>
+</div>
+</section><section id="inference-on-the-explanatory-variable-use-wald-based-methods" class="level2" data-number="15.2"><h2 data-number="15.2" class="anchored" data-anchor-id="inference-on-the-explanatory-variable-use-wald-based-methods">
+<span class="header-section-number">15.2</span> Inference on the Explanatory Variable use Wald-based methods</h2>
+<p>The focus in this section is on inference for <span class="math inline">\(\beta_1\)</span> (the true slope) in the context of SLogiR. The Wald test for the slope of a regression line is a widely used hypothesis test to assess the significance of the explanatory variable’s effect on the binary response variable. Specifically, the test is used to determine if the true slope <span class="math inline">\(\beta_1\)</span> is significantly different from zero, based on the observed value of <span class="math inline">\(b_1\)</span>.</p>
+<p>It is important to note that the observed value of <span class="math inline">\(b_1\)</span> can vary. If a study were replicated, the value of <span class="math inline">\(b_1\)</span> would likely be different. The use of inferential methods allows us to account for this variability and make statistically valid conclusions about the true slope <span class="math inline">\(\beta_1\)</span>. A Wald-based confidence interval can be constructed for <span class="math inline">\(\beta_1\)</span> and it provides a range of plausible values for the true slope at a specified significance level. These methods are generally referred to as Wald-based methods for the slope.</p>
+<p>The Wald test requires that certain assumptions (1, 2, 3, and 4) about the data are reasonable. The test statistic for this Wald test may be defined as:</p>
+<p><span class="math display">\[Z= \frac{b_1}{SE_{b_1}}\]</span></p>
+<p>Here, <span class="math inline">\(SE_{b_1}\)</span> represents the standard error of <span class="math inline">\(b_1\)</span><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>. Our primary interest is in determining if <span class="math inline">\(\beta_1\)</span> is significantly different from zero, which translate to <span class="math inline">\(\beta_1\neq 0\)</span>. Consequently, the null and alternative hypotheses are:</p>
+<p><span class="math display">\[H_0: \beta_1=0 \qquad H_a: \beta_1 \neq 0\]</span></p>
+<p>Under <span class="math inline">\(H_0\)</span>, the null distribution of the test statistic <span class="math inline">\(Z\)</span> follows a standard normal distribution<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>. This distribution is used to compute the p-value. The function <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code> computes the test statistic and p-value for the Wald test, and the results are provided by the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> output. Recall that the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function provides a table with relevant information, including a test statistic and p-value for the Wald test, as well as other statistics like the coefficient estimates and standard errors:</p>
+<table class="table">
+<thead><tr class="header">
+<th></th>
+<th>Estimate</th>
+<th>Std. Error</th>
+<th>z-value</th>
+<th>p-value</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>(Intercept)</td>
+<td><span class="math inline">\(b_0\)</span></td>
+<td><span class="math inline">\(SE_{b_0}\)</span></td>
+<td><span class="math inline">\(Z_{b_0}\)</span></td>
+<td>p-value<span class="math inline">\(_{b_0}\)</span>
+</td>
+</tr>
+<tr class="even">
+<td>explanatory</td>
+<td><span class="math inline">\(b_1\)</span></td>
+<td><span class="math inline">\(SE_{b_1}\)</span></td>
+<td><span class="math inline">\(Z_{b_1}\)</span></td>
+<td>p-value<span class="math inline">\(_{b_1}\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Here, <span class="math inline">\(Z_{b_1}\)</span> and p-value<span class="math inline">\(_{b_1}\)</span> refer to the test statistic for the Wald test and the two-sided p-value<span class="math inline">\(_{b_1}\)</span>, respectively for testing if <span class="math inline">\(\beta_1\neq 0\)</span>. The function <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code> can also be utilized to obtain a confidence interval (CI) for the true slope <span class="math inline">\(\beta_1\)</span>. To obtain a CI, apply the <code><a href="https://rdrr.io/r/stats/confint.html">confint()</a></code> function to the resulting <em>glm object</em>.</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### confint( glm object , parm , level)
+# lm object: An object saving the result of usuing 
+#      the lm function.
+# parm:  Set equal to 2 
+# level: Set to desired confidence level.
+#</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We apply a Wald test to the data involving AQI levels and temperature. The aim is to investigate the effect of temperature on the probability of having an ‘Unhealthy air quality’ day compared to a ‘Healthy air quality’ day at <span class="math inline">\(\alpha=.001\)</span>. Let <span class="math inline">\(\beta_1\)</span> represent the effect of temperature on the odds of having an ‘Unhealthy air quality’ day. Since the aim is to determine if the effect is significant, the hypotheses are:</p>
+<p><span class="math display">\[H_0: \beta_1=0 \qquad H_a: \beta_1 \neq 0\]</span></p>
+<p>The following code uses <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code> and <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> to obtain the test statistic and the corresponding p-value for a Wald test:</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># The glm object, aqfit, was previously created by </span></span>
+<span><span class="co"># fitting a SLogiR model to the data.</span></span>
+<span><span class="co"># Summarizes the model fit using the summary() function on </span></span>
+<span><span class="co"># the glm object, aqfit.</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span> <span class="va">aqfit</span> <span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; glm(formula = type_of_day01 ~ temp, family = "binomial", data = AQIdf)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Deviance Residuals: </span></span>
+<span><span class="co">#&gt;     Min       1Q   Median       3Q      Max  </span></span>
+<span><span class="co">#&gt; -2.2405   0.3715   0.5044   0.7166   1.3612  </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt;              Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
+<span><span class="co">#&gt; (Intercept)  4.895708   0.251133   19.49   &lt;2e-16 ***</span></span>
+<span><span class="co">#&gt; temp        -0.052137   0.003377  -15.44   &lt;2e-16 ***</span></span>
+<span><span class="co">#&gt; ---</span></span>
+<span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; (Dispersion parameter for binomial family taken to be 1)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     Null deviance: 2897.5  on 2723  degrees of freedom</span></span>
+<span><span class="co">#&gt; Residual deviance: 2629.3  on 2722  degrees of freedom</span></span>
+<span><span class="co">#&gt;   (391 observations deleted due to missingness)</span></span>
+<span><span class="co">#&gt; AIC: 2633.3</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Number of Fisher Scoring iterations: 4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/7zVQ-AxRnhk" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Based on output from <code>summary( aqfit )</code>, the observed value of test statistic is <span class="math inline">\(Z=-15.44\)</span>. The corresponding p-value is approximately 0, indicating that the data provides very strong evidence against the null hypothesis. When considering a significance level of <span class="math inline">\(\alpha=.001\)</span>, since the p-value<span class="math inline">\(\leq \alpha=.001\)</span>, we have sufficient evidence to reject the null hypothesis <span class="math inline">\(H_0\)</span> in favor of the alternative hypothesis <span class="math inline">\(H_a\)</span>. This means that there is a significant effect of temperature on the odds of having an “Unhealthy air quality” day compared to a “Healthy air quality” day. In other words, temperature levels have a significant impact on the probability of observing an unhealthy or healthy air quality day. This also suggests that temperature is an important factor to consider when analyzing or predicting air quality conditions, and that the relationship between these variables is not due to chance alone.</p>
+<p>The function <code><a href="https://rdrr.io/r/stats/confint.html">confint()</a></code> is used to obtain a 99% CI for <span class="math inline">\(\beta1\)</span>:</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span> </span>
+<span><span class="co"># Summarize the lm object, PM10fit. ct</span></span>
+<span></span>
+<span><span class="co"># Compute a 99% CI for beta1.</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/confint.html">confint</a></span><span class="op">(</span> <span class="va">aqfit</span> ,</span>
+<span>         parm<span class="op">=</span> <span class="fl">2</span> , <span class="co"># Setting parm =1 will provide CI for beta0</span></span>
+<span>         level<span class="op">=</span> <span class="fl">.99</span> <span class="op">)</span></span>
+<span><span class="co">#&gt;       0.5 %      99.5 % </span></span>
+<span><span class="co">#&gt; -0.06095298 -0.04354691</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+<div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
+<p>See previous video.</p>
+</div>
+</div>
+</div>
+<p>The output provides a 99% CI for <span class="math inline">\(\beta_1\)</span> with bounds <span class="math inline">\((-0.061, -0.044)\)</span>. Thus, we can be 99% confident that the true effect of temperature on the log-odds of having an “Healthy air quality” day compared to a “Unhealthy air quality” day lies between -0.061 and -0.044. Since the interval does not contain 0, it further supports the conclusion that changes in temperature levels affect the probability of observing unhealthy or healthy air quality day.</p>
+<p>Note, if the bounds on the CI are exponentiated, it provides a CI for the odds. Thus, we can be 99% confident that the interval for <span class="math inline">\(e^{\beta_1}\)</span> is given by <span class="math inline">\((e^{-0.061}, e^{-0.044})\)</span>, which is approximately <span class="math inline">\((0.941, 0.957)\)</span>. In other words, we are 99% confident that with each unit increase in temperature, the odds of having a “Healthy air quality” day compared to an “Unhealthy air quality” day decrease anywhere from 4.3% to 5.9%</p>
+</div>
+</div>
+</section><section id="sample-size-estimation-and-power-analysis-for-slogir" class="level2" data-number="15.3"><h2 data-number="15.3" class="anchored" data-anchor-id="sample-size-estimation-and-power-analysis-for-slogir">
+<span class="header-section-number">15.3</span> Sample size estimation and power analysis for SLogiR</h2>
+<p>Ideally, researchers should estimate the sample size for a study before collecting data. Knowing the sample size required to detect a desired effect at the beginning of a project allows one to manage their data collection efforts. Further, this allows researchers to determine the statistical power the test will have to detect an effect if it exists. The R functions <code><a href="https://rdrr.io/pkg/powerMediation/man/powerLogisticCon.html">powerLogisticCon()</a></code> and <code><a href="https://rdrr.io/pkg/powerMediation/man/SSizeLogisticCon.html">SSizeLogisticCon()</a></code> from the <code>powerMediation</code> R package provide sample size and statistical power calculations for a SLogiR model, respectively, when the explanatory variable is assumed to be numerical. Both functions assume the appropriate assumptions about the data for the Wald test are met.</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### powerLogisticCon( n , p1, OR, alpha = 0.05 )
+# n: Set equal to the desired sample size.
+# p1: Set equal to the expected probability of observing a 1
+#   for an outcome. Typically it is set to .5.
+# OR: Set equal to the expected odds ratio. log(OR) is
+#   the change in log odds for an increase of one unit 
+#   in X. Thus, beta1=log(OR) is the effect size to be tested.
+# alpha: Set equal to the desired alpha value (significance level).
+#
+### SSizeLogisticCon(power, p1, OR, alpha = 0.05 )
+# power: Set equal to the desired power (a number between 0 and 1). 
+# p1: Set equal to the expected probability of observing a 1
+#   for an outcome. Typically it is set to .5.
+# OR: Set equal to the expected odds ratio. log(OR) is
+#   the change in log odds for an increase of one unit 
+#   in X. Thus, beta1=log(OR) is the effect size to be tested.
+# alpha: Set equal to the desired alpha value (significance level).
+#</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Below we use <code><a href="https://rdrr.io/pkg/powerMediation/man/powerLogisticCon.html">powerLogisticCon()</a></code> to determine the power when the sample size is 150, probability of observing a 1 is .5, and expected odds ratio of 1.5 at significance level of <span class="math inline">\(\alpha=.001\)</span>.</p>
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load the powerMediation package </span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">powerMediation</span><span class="op">)</span> <span class="co"># Provides SSizeLogisticCon and powerLogisticCon</span></span>
+<span></span>
+<span><span class="co"># Calculate the statistical power of a SLogiR model </span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/powerMediation/man/powerLogisticCon.html">powerLogisticCon</a></span><span class="op">(</span> n <span class="op">=</span> <span class="fl">150</span> , </span>
+<span>         p1 <span class="op">=</span> <span class="fl">.5</span> , </span>
+<span>         OR <span class="op">=</span> <span class="fl">1.5</span> ,</span>
+<span>         alpha <span class="op">=</span> <span class="fl">.001</span> <span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.209669</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>The statistical power of this test is low. To increase the power, one may increase the effect size (the larger it is, the easier it is to detect), increase <span class="math inline">\(\alpha\)</span> (make it easier to reject <span class="math inline">\(H_0\)</span> and find a significant effect), and/or increase the sample size.</p>
+<p>Below we use <code><a href="https://rdrr.io/pkg/powerMediation/man/SSizeLogisticCon.html">SSizeLogisticCon()</a></code> to determine the sample size needed to obtain a power of .90 when the probability of observing a 1 is .5, and the expected odds ratio is 1.5 at a significance level of <span class="math inline">\(\alpha=.001\)</span>.</p>
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Compute the required sample size for a SLogiR model</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/powerMediation/man/SSizeLogisticCon.html">SSizeLogisticCon</a></span><span class="op">(</span> p1 <span class="op">=</span> <span class="fl">.5</span> , </span>
+<span>         OR <span class="op">=</span> <span class="fl">1.5</span> ,</span>
+<span>         alpha <span class="op">=</span> <span class="fl">.001</span> ,</span>
+<span>         power <span class="op">=</span> <span class="fl">.90</span> <span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 509</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>To obtain a power of at least .90 under the given conditions, a sample size of at least 509 is needed.</p>
+</div>
+</div>
+
+
+</section><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<ol>
+<li id="fn1" role="doc-endnote"><p>The formulas for the deviance or Pearson residuals will not be discussed, as the formulas may be considered complex for novice learners. Pearson residuals gives a sense how far off the model’s predicted probability is from the actual outcome, after adjusting for the expected variability in the predictions. Deviance residuals provide an idea of how much each observation contributes to the overall lack of fit of the model, with larger values indicating a poorer fit for that specific observation.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>An influential outlier is an observation that greatly impacts the estimated SLR line, resulting in a bad fit to the data. It can have a substantial impact on the estimated slope and/or intercept of the line.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>There is no strict rule for what constitutes a large sample in logistic regression, as it depends on the specific context, the effect size, and the desired level of statistical power. However, a common rule of thumb is to have at least 10 occurrences of each outcome (0 and 1) for the binary response variable.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p>Cook’s distance is a measure of both the leverage and influence of a data point on the est coefficients. This measure is often used to identify potentially influential observations (typically those with a Cook’s distance exceeding 1). Note that Cook’s distance is just one tool (of many others) for identifying influential observations.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5" role="doc-endnote"><p>The standard error of the slope estimate quantifies how much <span class="math inline">\(b_1\)</span> will vary across different samples if the study were replicated many times. A smaller standard error means that the estimate is more precise and varies less across different samples, while a larger standard error means the opposite.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6" role="doc-endnote"><p>Other functions or software packages may report the Wald test statistic as <span class="math inline">\(W=Z^2\)</span>. This version of the test statistic follows a chi-square distribution with 1 degree of freedom.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./lr.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Simple linear regression</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./eda.html" class="pagination-link">
+        <span class="nav-page-text">Module: Advanced Exploratory Data Analysis</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

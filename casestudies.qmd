@@ -1,0 +1,21 @@
+# Module: Case Studies {#sec-cstudies}
+
+
+## Module outline  
+
+- The chapters in this module cover various small examples of analyzing data from case studies or research projects. The data used in a given study are referenced throughout the modules to demonstrate how statistical software and tools can be utilized.
+ 
+- Module chapters:
+  - Case Study 1
+  - Case Study 2
+  - Case Study 3
+  - Case Study 4
+  - Case Study 5
+  - Case Study 6
+  
+
+  
+  
+ 
+ 
+ 

@@ -1,0 +1,121 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# Case study 3 {#sec-casestudy3}
+
+## Case study on air pollution {#sec-cspm}
+
+```{r}
+#| echo: false
+#| out.width: "90%"
+#| fig.cap: "Left: Smog blanketing Bakersfield. Right:  Size comparisons of PM particles"
+#| fig.alt: "Photograph of smog and PM10."
+knitr::include_graphics("images/casestudy/bakosmog.jpg")
+```
+
+The effects of air pollution are diverse and numerous, such as increased mortality to increased sensitivity of an ecosystem at high concentrations.  The pollutants that pose among the highest risk to California are ground level ozone and particulate matter (PM). California continues to mandate ambient air quality standards that tend to be more stringent than national standards. However, reducing air pollution concentrations to acceptable levels remains an on-going challenge in California where seven and eight of its cities (including Bakersfield and others from the Central Valley) rank in the top 10 of the highest levels of ozone and particulate matter (PM) pollution, respectively (American Lung Association, 2017).  
+
+PM refers to tiny particles of solid or semi-solid material found in the atmosphere, and it is one of the six common air pollutants identified by the U.S. Environmental Protection Agency (EPA, 2018), and it varies in size, but most monitoring is for two size ranges referred to as PM2.5 and PM10 (particulate matter that is less than 10 micrometers in diameter).  For this case study, daily measurements of PM10 in micrograms per cubic meter ($\mu g/m^3$) are considered  from various monitoring stations in three counties (Kern, Tulare, and Fresno) for the year 2021. The monitoring stations provide the daily average PM10 levels, measurements of temperature ($^oF$) and wind speed (knots or kts). 
+
+In addition, daily measurements of the US Air Quality Index (an index for reporting air quality) from various monitoring stations for same counties and year are considered.  The higher the  Air Quality Index (AQI) value, the greater the level of air pollution and the greater the health concern. For more details regarding the AQI, visit AirNow (https://www.airnow.gov/). More details regarding PM10, as well as access to PM and AQI data, are publicly available through the EPA Air Data website (https://www.epa.gov/outdoor-air-quality-data). 
+
+
+
+ 
+The following questions are explored for the 2021 data:
+
+- Do daily PM10 levels differ for the three counties?  
+
+- Is daily PM10 related to daily temperature across all three counties?   
+
+
+```{r, casestudydata2 }
+#| echo: false
+#| message: false
+#| warning: false
+#| results: 'asis'
+#| fig.width: 7
+#| fig.height: 3
+#| fig.align: 'center'
+
+require(tidyverse)
+library(kableExtra)
+library(DT)
+pmdf <- read_csv("datasets/daily.pm10.2021.csv")
+pmdf <- pmdf[-which(is.na(pmdf$county)),]
+pmdf2 <- pmdf %>% mutate( county = as.factor(county)  )%>%
+      mutate( avgpm=round(avgpm,2), avgwind=round(avgwind,2) ,avgtemp=round(avgtemp,2),
+               Latitude=round(Latitude,2), Longitude=round(Longitude,2)) %>%
+      rename('daily PM10'=avgpm, "daily temperature"=avgtemp, 'daily wind speed'=avgwind) %>%
+      select(c(3,4, 6,8:9,11,13))  
+    
+ 
+set.seed(3)
+datatable( sample_n(pmdf2, 10) , class="hover", style="bootstrap4", rownames=FALSE,   height=250,  fillContainer = T, caption="10 observations from the PM10 dataset" ,
+           options = list(scrollY = '350px', columnDefs = 
+                           list(list(className = 'dt-center', 
+                                     targets = "_all"))) )  
+```  
+
+### Summary of findings {-}
+
+The sample means show that Tulare county had the highest mean daily PM10 as well as the highest average daily temperature.  The boxplots show similar behavior with Tulare county having the highest median daily PM10.  The boxplots also reflect outlying values for all counties and similar variation in daily PM10 for the three counties. As for the scatterplot, daily PM10 and daily temperature demonstrate a positive linear relationship, with the variability of daily PM10 being less pronounced at the lowest and highest daily temperatures. The scatterplot also reflects clear outlying observations.  
+
+```{r }
+#| label: tbl-pmssums
+#| tbl-cap: "The average and standard deviation of  daily PM10  and daily temperature for each county."
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+#| results: 'asis'
+ 
+pmdf %>%   mutate( county = as.factor(county)  ) %>%
+  group_by(county) %>%
+  summarise(
+    'mean PM10' = round(mean(avgpm, na.rm=TRUE),2),
+    'mean temperature' =    round(mean(avgtemp, na.rm=TRUE),2),
+    'sd PM10' = round(sd(avgpm, na.rm=TRUE),2),
+    'sd temperature' =    round(sd(avgtemp, na.rm=TRUE),2),
+    ) %>%
+  kbl(linesep = "", booktabs = TRUE, align = "lcccc") %>%
+  kable_styling(bootstrap_options = c("striped", "condensed"), 
+                latex_options = c("striped", "hold_position"))  
+ # add_header_above(c(" " = 1, "Robust" = 2, "Not robust" = 2))
+
+
+```
+
+
+ 
+```{r }
+#| label: fig-pmplots
+#| fig-cap: "Left panel displays boxplots of PM10 against county.  Right panel is a scatterplot of PM10 against temperature " 
+#| fig-subcap:
+#|   - " "
+#|   - " " 
+#| layout-ncol: 2
+#| echo: false
+#| message: false
+#| warning: false
+library(lattice)
+
+bwplot(  avgpm ~ county, data=pmdf, ylab=list(label="PM10", cex=1.2), 
+          scales=list(tck=c(1,0), x=list(cex=1.2), y=list(cex=1.2)))
+ 
+
+xyplot( avgpm ~  avgtemp  , data=pmdf, xlab="temperature", ylab="PM10")
+
+ 
+```
+
+Are the features reflected in the numerical and graphical summaries distinct enough to convince one that these levels of air quality measurements differ by county? Regarding PM10 and temperature, although they appear to be positively associated, is the relationship strong enough to suggest that the positive association shown is due to more than just random variation? Using statistical methods to be addressed later, the data provides convincing evidence that average daily PM10 levels vary across the three counties (p-value $\approx 0$), and that the data provides strong evidence that there that  daily PM10 (linearly) related to daily temperature across all three counties  (p-value $\approx 0$).  
+
+
+### Scope of inference {-}
+
+This case study makes use of observational data, which provided strong evidence that there is an association between the three counties and daily levels of PM10, as well as strong evidence of an association between daily PM10 and daily temperature. The counties were not randomly selected, so these conclusions only apply to the three counties considered here. 
+

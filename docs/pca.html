@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.35">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Training modules on selected statistical methods - 16&nbsp; PCA</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./a1-startingR.html" rel="next">
+<link href="./eda.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script><link href="site_libs/vembedr-0.1.5/css/vembedr.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">PCA</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Training modules on selected statistical methods</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/emontoya2" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="" title="Share" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+<li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+            <i class="bi bi-bi-twitter pe-1"></i>
+          Twitter
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+            <i class="bi bi-bi-facebook pe-1"></i>
+          Facebook
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+            <i class="bi bi-bi-linkedin pe-1"></i>
+          LinkedIn
+          </a>
+        </li>
+    </ul>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Welcome</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./preface.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./casestudies.html" class="sidebar-item-text sidebar-link">Module: Case Studies</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Case study 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Case study 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs3.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Case study 3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs4.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Case study 4</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs5.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Case study 5</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs6.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Case study 6</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./data.html" class="sidebar-item-text sidebar-link">Module: Data basics and drawing statistical conclusions</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Basics of data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./drawingconclusions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Drawing statistical conclusions</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./summaries.html" class="sidebar-item-text sidebar-link">Module:  Basic Exploratory  Data Analysis</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./catsum.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Summarizing categorical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./numsum.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summarizing numerical data</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./twosample.html" class="sidebar-item-text sidebar-link">Module: Two sample methods</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./siframework.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Statistical inference framework via a case study</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./twoindptmeans.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Two sample methods</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./anovalin.html" class="sidebar-item-text sidebar-link">Module: ANOVA, linear regression, and logistic regression</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./anova.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Analysis of variance (ANOVA)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Simple linear regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logisticreg.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Simple logistic regression</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./eda.html" class="sidebar-item-text sidebar-link">Module: Advanced Exploratory Data Analysis</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pca.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">PCA</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./a1-startingR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Installing or accessing R and RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./a2-firstR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">A first session in RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./a3-basicsR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Some basic tasks in R</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#the-method-of-pca" id="toc-the-method-of-pca" class="nav-link active" data-scroll-target="#the-method-of-pca"> <span class="header-section-number">16.1</span> The method of PCA</a></li>
+  <li><a href="#pca-comuptations-using-r" id="toc-pca-comuptations-using-r" class="nav-link" data-scroll-target="#pca-comuptations-using-r"> <span class="header-section-number">16.2</span> PCA comuptations using R</a></li>
+  <li><a href="#determining-the-number-of-pcs-to-retain" id="toc-determining-the-number-of-pcs-to-retain" class="nav-link" data-scroll-target="#determining-the-number-of-pcs-to-retain"> <span class="header-section-number">16.3</span> Determining the Number of PCs to retain</a></li>
+  <li><a href="#towards-interpretating-the-pcs" id="toc-towards-interpretating-the-pcs" class="nav-link" data-scroll-target="#towards-interpretating-the-pcs"> <span class="header-section-number">16.4</span> Towards interpretating the PCs</a></li>
+  <li><a href="#rotating-the-pcs" id="toc-rotating-the-pcs" class="nav-link" data-scroll-target="#rotating-the-pcs"> <span class="header-section-number">16.5</span> Rotating the PCs</a></li>
+  <li><a href="#interpretating-the-pcs" id="toc-interpretating-the-pcs" class="nav-link" data-scroll-target="#interpretating-the-pcs"> <span class="header-section-number">16.6</span> Interpretating the PCs</a></li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/emontoya2/edit/master/pca.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="sec-pca" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">PCA</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header><div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/linmod/pcaart.jpg" class="img-fluid figure-img" style="width:50.0%"></p>
+<p></p><figcaption class="figure-caption">AI art generated from the text “Principal component analysis”</figcaption><p></p>
+</figure>
+</div>
+<p>This section introduces an advanced exploratory data analysis method called Principal component analysis (PCA). PCA summarizes the information<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> in data that is composed of multiple variables. Below is a scatterplot and correlation matrix of a dataset that consists of five variables. The scatterplot shows the pairwise relationships between the variables and they are useful for visualizing relationships, clusters, and outliers. The correlation matrix provides a numerical measure of the strength and direction of these relationships. This section only covers PCA on standardized data.</p>
+<div class="cell quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<div id="fig-pcaex-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="pca_files/figure-html/fig-pcaex-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure 16.1: Example of a linear relationship with the estimated or best fit SLR line with the predicted values shown as black points on the line</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<div id="fig-pcaex-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="pca_files/figure-html/fig-pcaex-2.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure 16.2: Example of a linear relationship with the estimated or best fit SLR line with the predicted values shown as black points on the line</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>Graphical and numerical summaries show positive and negative correlations between variables, and the strength of the linear relationship between them depends on which pair of variables is considered. With nine variables, there are 10 possible 3D scatterplots to examine, making it challenging to explore relationships beyond pairwise comparisons. That is, when dealing with multiple variables, examining all possible pairwise relationships can be challenging, particularly in large datasets. Visualizing multidimensional relationships also becomes difficult as the number of variables increases, limiting the usefulness of graphical and numerical summaries. Therefore, more advanced exploratory data analysis methods, such as PCA may be needed to obtain meaningful insights from high-dimensional datasets.</p>
+<p>PCA is a powerful and widely used technique for extracting dominant modes of variation from a dataset. The data must consist of only numerical variables. The goal of PCA is to identify directions (or principal components or modes of variation) along which the variation in the data are maximal. The dominant modes of variation in PCA correspond to the principal components that explain most of the variation in the dataset. Thus, a few principal components (PCs) may capture almost as much of the variation as the original variables. Such principal components capture the most important patterns or structures in the data. In some cases, the dominant modes of variation may be associated with specific features or facets in the data, allowing for a better understanding of the underlying variation processes that generates the data.</p>
+<p>To better ensure that PCA provides meaningful results, several assumptions about about the data are recommended.</p>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Data assumptions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>PCA assumes assumption 1 and assumptions 2-4 are recommended for the data.</p>
+<ul>
+<li><p><strong>Assumption 1</strong>. <em>Independence</em>. The variables are independent of one another.</p></li>
+<li><p><strong>Assumption 2</strong>. <em>Linearity</em>. Variables should generally be linearly related to each other to some extent, with moderate to strong correlations between some variables. However, the degree of linearity required for meaningful results may depend on the specific goals of the analysis and the structure of the data. While PCA can still be performed on data that shows weak correlations between variables or non-linear relationships<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, the identification of underlying features or facets in the data may be more difficult. In general, stronger correlations and linearity in the data can make it easier for PCA to provide informative and meaningful results.</p></li>
+</ul>
+<ul>
+<li>
+<strong>Assumption 3</strong>. <em>No clear outliers</em>. The data should not contain any extreme or influential outliers that deviate significantly from the majority of the data<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. The computations involved in PCA are dependent on the correlation matrix, and correlation is sensitive to outliers. This sensitivity can result in outliers having a large influence on the computed principal components, leading to misleading or incorrect interpretations of the underlying structure of the data. Therefore, it is important to identify and address any extreme or influential outliers before performing PCA to ensure that the results are accurate and reliable.</li>
+</ul>
+<ul>
+<li>
+<strong>Assumption 4</strong>. <em>Adequate sample</em>. The larger the sample, the easier it may be to identify dominate modes of variations and meaningful structures in the data. There is no strict requirement for a minimum sample size for performing PCA, and various rules-of-thumb have been proposed, such as 5 to 10 cases per variable have been recommended as minimum sample sizes.</li>
+</ul>
+<p>This module introduces PCA as an exploratory method, not an inferential approach. Although there are inferential methods for PCA, those are not discussed here and be aware that inference using PCA require additional assumptions about the data.</p>
+</div>
+</div>
+<section id="the-method-of-pca" class="level2" data-number="16.1"><h2 data-number="16.1" class="anchored" data-anchor-id="the-method-of-pca">
+<span class="header-section-number">16.1</span> The method of PCA</h2>
+<p>It is difficult to describe the method of PCA without some prior knowledge of matrix algebra and linear operators, but a basic overview of the technique is provided. In the simplest terms, PCA is a statistical technique that creates linear combinations of the original data to summarize variation and reduce the dimensionality of the data. We start with some essential notation and definitions for the PCA:</p>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Notation and definitions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>We assume there are <span class="math inline">\(p\)</span> variables and <span class="math inline">\(n\)</span> observations so that <span class="math inline">\(x_{ij}\)</span> denotes the i<span class="math inline">\(^{th}\)</span> observed value under the j<span class="math inline">\(^{th}\)</span> variable for <span class="math inline">\(i=1, ..., n\)</span> and <span class="math inline">\(j=1, 2, .., p\)</span>. For example, <span class="math inline">\(x_{34}\)</span> denotes the 3rd observed value under the 4th variable.</p></li>
+<li><p>The i<span class="math inline">\(^{th}\)</span> principal component (PC) is linear combination (weighted sum) of the variables, <span class="math inline">\(e_{i1} x_{1}+ e_{i2} x_{2} + e_{i3} x_{3} + \cdots + e_{ip} x_{p}\)</span>, and in total there will be <span class="math inline">\(p\)</span> PCs. <span class="math inline">\(e_{i1}, e_{i2}, ..., e_{ip}\)</span> are the weights assigned to each variable in the linear combination for the <span class="math inline">\(i^{th}\)</span> principal component and are generally referred as loadings.</p></li>
+<li><p>The first PC is the linear combination of variables that provides the maximum variance (among all possible linear combinations considered) so that it accounts for as much variation in the data as possible. That is, the values of <span class="math inline">\(e_{11}, e_{12}, \ldots, e_{1p}\)</span> are chosen to maximize the variance<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p></li>
+<li><p>The second PC is also a linear combination of the variables, but with the constraint that it is uncorrelated with the first principal component, and that it accounts for as much of the remaining variation in the data as possible<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>.</p></li>
+<li><p>The third PC is also a linear combination of variables but that accounts for as much of the remaining variation as possible (not accounted for by the first two PCs), with this PC is uncorrelated with between the rest of the PCs.</p></li>
+</ul>
+<p>The process of computing the PCs continues until all <span class="math inline">\(p\)</span> principal components have been computed, with each component capturing a unique source of variation in the data that is uncorrelated with the other components. The first few principal components typically capture the majority of the variation in the data and retain as much information as possible from the original variables.</p>
+</div>
+</div>
+<p>If the above description of PCA is too technical, think of PCA as providing a view of the data from a different vantage point, where this vantage point<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> focuses on maximizing the variability in the data that can highlight certain patterns or relationships. This is akin to say a real estate agent trying to sell a property. Some pictures of the property may better highlight the most desirable or best features of the property. Of course, certain pictures will better highlight certain features more than others. In PCA, the data are viewed from a different vantage point in such a way to best reveal certain patterns or relationships not visible in the original data. This is just an attempt at an analogy but hopefully helps illustrate the idea of using PCA to create a different perspective on the data.</p>
+<p>The equations or formulas for finding principal components will not be discussed here since the focus is on using software to conduct PCA. Specifically, we use R to obtain important elements of PCA, including</p>
+<ul>
+<li><p><strong>Standard deviation for each PC:</strong> It measures variability across a single component component (i.e.&nbsp;spread of data within a given PC).</p></li>
+<li><p><strong>Proportion of Variance for each PC:</strong> The amount of variance that a given PC accounts for. This is provided by taking squared standard deviations (variance) of the given PC divided by sum of the variances.</p></li>
+<li><p><strong>Cumulative Proportion for each PC:</strong> The cumulative variation represented by PCs up until a given component.</p></li>
+<li><p><strong>Loadings for each PC:</strong> If PCA computations are performed on standardized data, the loadings may be thought of as correlations in that they reflect the strength and direction of the relationship between each variable and each PC. These correlations help provide the coefficients of the linear combinations of the original variables that create the PCs. If performed on non-standardized data, they represent the covariances rather than the correlations.</p></li>
+</ul>
+<p>If the proportion of variation explained by the first, say <span class="math inline">\(k\)</span>, PCs is large, then not much information is lost by considering only the first <span class="math inline">\(k\)</span> PCs instead of the whole dataset. However, determining the appropriate value of <span class="math inline">\(k\)</span> will be addressed later.</p>
+</section><section id="pca-comuptations-using-r" class="level2" data-number="16.2"><h2 data-number="16.2" class="anchored" data-anchor-id="pca-comuptations-using-r">
+<span class="header-section-number">16.2</span> PCA comuptations using R</h2>
+<p>The function <code><a href="https://rdrr.io/pkg/gpairs/man/gpairs.html">gpairs()</a></code> (from the <code>gpairs</code> package) creates a scatterplot matrix for visualizing pairwise relationships between variables. The function <code><a href="https://rdrr.io/r/stats/cor.html">cor()</a></code> computes a basic correlation matrix, which show all pairwise correlations between variables, and the function <code><a href="https://rdrr.io/pkg/corrplot/man/corrplot.mixed.html">corrplot.mixed()</a></code> (from the <code>corrplot</code> package) creates a better visual representation of the correlation matrix.</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### gpairs( dataframe,  diag.pars = list(fontsize = 9))
+# dataframe:  Replace with the name of the dataframe. 
+#             All variables must be numerical.
+# diag.pars:  9 is the default font size for variables names. 
+#             Decrease the number for smaller font sizes.
+#
+### cor( dataframe )
+# dataframe:  Replace with the name of the dataframe. 
+#             All variables must be numerical.
+#
+#
+### corrplot.mixed( `cor object` )
+# cor object:  Replace with an object
+#              created from the cor() output
+#</code></pre>
+</div>
+</div>
+<p>The function <code><a href="https://rdrr.io/pkg/psych/man/principal.html">principal()</a></code> from the <code>psych</code> package helps compute the required elements of PCA. By default, this function will standardized the data and conduct PCA computations on the standardized data.</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### principal( dataframe, nfactors , rotate, cor )
+# dataframe: Replace with the name of the dataframe. 
+#            All variables must be numerical.
+# nfactors: Set equal to the number of variables in the data.
+# rotate:  Set equal to "none". 
+# cor: By default, it is set to "cor" so that computations
+#      are done on the standarized data. Set equal to "cov"
+#      to conduct PCA computation on the original centered data.</code></pre>
+</div>
+</div>
+<p>Although performing PCA on standardized data is not required, standardizing the data is recommended for PCA, especially when the variables in the dataset have different units or scales. Standardization transforms each variable to have a mean of 0 and a standard deviation of 1, and it prevents variables with larger scales from dominating the computed PCs.</p>
+<p>Note that the dataframe used for PCA must only contain numerical variables. The function <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> from the <code>dplyr</code> package can assist with this task.</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### select( dataframe ,'variable to remove', 'variable to remove' , ...)
+#  dataframe: Replace with the name of the  dataframe
+# 'variable to variable': Replace with the name of the variable remove or 
+#                         the column number (negative version)
+# </code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The case study provided in <a href="datacs6.html"><span>Chapter&nbsp;6</span></a> provides various plant physiological measurements for 29 different plant species. This data was used by by <span class="citation" data-cites="pratt2021trade">Pratt et al. (<a href="#ref-pratt2021trade" role="doc-biblioref">2021</a>)</span> to investigate trade-offs (costs and benefits of different traits) among different xylem functions in shrub species and how they are influenced by minimum hydrostatic pressures experienced by plants in the field. The objective here is to use PCA to identify dominant modes of variation among these measurements that are related to xylem structure, function, and properties, as well as underlying factors or dimensions that may be driving the variability in the data.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/aeda/shrub.jpg" class="img-fluid figure-img" style="width:50.0%"></p>
+<p></p><figcaption class="figure-caption">Arctostaphylos glauca (Big Berry Manzanita). It is one of shrub species considered in the study. Source:calscape.org</figcaption><p></p>
+</figure>
+</div>
+<p>Below is a list and small description of each variable:</p>
+<ul>
+<li><p>P75: the water potential at 75% loss of its hydraulic conductivity (MPa).</p></li>
+<li><p>Ks: a measure of xylem-specific conductivity. conductivity (kg s<span class="math inline">\(^{-1}\)</span> MPa<span class="math inline">\(^{-1}\)</span> m<span class="math inline">\(^{-1}\)</span>).</p></li>
+<li><p>Starch: amount of starch content in the xylem tissues (%).</p></li>
+<li><p>Xylem density: measure of the density of xylem (dry mass/tissue volume) .</p></li>
+<li><p>Fiber percentage: the proportion of fibers in the xylem tissue.</p></li>
+<li><p>Vessel percentage: the proportion of vessels in the xylem tissue.</p></li>
+<li><p>Parenchyma percentage: the proportion of parenchyma cells in the xylem tissue.</p></li>
+<li><p>Pmin: Minimum level of dehydration a plant can experience (MPa).</p></li>
+<li><p>Water storage capacity: the capacity of the xylem tissue to store water (<span class="math inline">\(\triangle \text{Relative water content}/\triangle \text{MPa}\)</span>).</p></li>
+</ul>
+<p>These variables provide insight into how xylem functions. The goal here is to apply PCA to determine if key patterns in these data can be identified, as well as underlying factors or dimensions that may be driving the variation in the data.</p>
+<p>To begin the analysis, the data are imported and explored using numerical and graphical data summaries.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load the openxlsx package</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span> <span class="va"><a href="https://ycphs.github.io/openxlsx/index.html">openxlsx</a></span> <span class="op">)</span> <span class="co"># Provides read.xlsx() </span></span>
+<span></span>
+<span><span class="co"># Import the .xlsx file</span></span>
+<span><span class="va">xylemDF</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/openxlsx/man/read.xlsx.html">read.xlsx</a></span><span class="op">(</span><span class="st">"datasets/PlantWaterPhysiology.xlsx"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Print the names of the variables</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span> <span class="va">xylemDF</span> <span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "Species"       "Family"        "P75"           "Ks"           </span></span>
+<span><span class="co">#&gt;  [5] "starch"        "xylem_density" "fiber_%"       "vessel_%"     </span></span>
+<span><span class="co">#&gt;  [9] "par_%"         "Pmin"          "water_storage"</span></span>
+<span></span>
+<span><span class="co"># For PCA, only numerical variables can be present </span></span>
+<span><span class="co"># in the data. We can either create a copy of the </span></span>
+<span><span class="co"># sheet with non-numerical variables removed and </span></span>
+<span><span class="co"># re-import the data, or remove the variables </span></span>
+<span><span class="co"># in R as shown below.</span></span>
+<span></span>
+<span><span class="co"># Load the dplyr package</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span> <span class="co"># Provides the select() function</span></span>
+<span></span>
+<span><span class="co"># Create a new dataframe that only consists of numerical variables</span></span>
+<span><span class="co"># Note: columns 1 and 2 denote the columns we need to remove.</span></span>
+<span><span class="va">xylemDFnum</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">xylemDF</span>, </span>
+<span>                     <span class="op">-</span><span class="fl">1</span> ,  <span class="co"># remove column 1 </span></span>
+<span>                     <span class="op">-</span><span class="fl">2</span> <span class="op">)</span>  <span class="co"># remove column 2</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># summarize the variables of interest </span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span> <span class="va">xylemDFnum</span> <span class="op">)</span></span>
+<span><span class="co">#&gt;       P75                Ks           starch       xylem_density   </span></span>
+<span><span class="co">#&gt;  Min.   :-15.360   Min.   :0.29   Min.   : 2.210   Min.   :0.4600  </span></span>
+<span><span class="co">#&gt;  1st Qu.: -7.760   1st Qu.:0.72   1st Qu.: 3.240   1st Qu.:0.5800  </span></span>
+<span><span class="co">#&gt;  Median : -3.920   Median :1.02   Median : 4.000   Median :0.6400  </span></span>
+<span><span class="co">#&gt;  Mean   : -5.399   Mean   :1.48   Mean   : 5.069   Mean   :0.6417  </span></span>
+<span><span class="co">#&gt;  3rd Qu.: -2.500   3rd Qu.:2.17   3rd Qu.: 5.980   3rd Qu.:0.7100  </span></span>
+<span><span class="co">#&gt;  Max.   : -1.380   Max.   :3.79   Max.   :12.900   Max.   :0.7900  </span></span>
+<span><span class="co">#&gt;     fiber_%         vessel_%         par_%            Pmin       </span></span>
+<span><span class="co">#&gt;  Min.   :42.22   Min.   : 7.78   Min.   : 7.11   Min.   :-8.250  </span></span>
+<span><span class="co">#&gt;  1st Qu.:60.28   1st Qu.:14.66   1st Qu.:14.95   1st Qu.:-5.710  </span></span>
+<span><span class="co">#&gt;  Median :64.91   Median :16.87   Median :17.30   Median :-3.900  </span></span>
+<span><span class="co">#&gt;  Mean   :64.25   Mean   :17.77   Mean   :17.46   Mean   :-4.267  </span></span>
+<span><span class="co">#&gt;  3rd Qu.:67.62   3rd Qu.:18.78   3rd Qu.:20.43   3rd Qu.:-2.830  </span></span>
+<span><span class="co">#&gt;  Max.   :84.30   Max.   :35.78   Max.   :31.28   Max.   :-1.670  </span></span>
+<span><span class="co">#&gt;  water_storage  </span></span>
+<span><span class="co">#&gt;  Min.   : 5.42  </span></span>
+<span><span class="co">#&gt;  1st Qu.: 9.08  </span></span>
+<span><span class="co">#&gt;  Median :13.28  </span></span>
+<span><span class="co">#&gt;  Mean   :12.64  </span></span>
+<span><span class="co">#&gt;  3rd Qu.:14.54  </span></span>
+<span><span class="co">#&gt;  Max.   :24.61</span></span>
+<span></span>
+<span><span class="co"># Load the gpairs package </span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span> <span class="va">gpairs</span> <span class="op">)</span> <span class="co"># Provides gpairs()</span></span>
+<span></span>
+<span><span class="co"># Create scatterplot matrix with decreased font size</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/gpairs/man/gpairs.html">gpairs</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span> <span class="va">xylemDFnum</span> <span class="op">)</span> ,</span>
+<span>         diag.pars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>fontsize <span class="op">=</span> <span class="fl">6</span><span class="op">)</span> <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="pca_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="co"># Some potential outliers seen in the matrix. Examine them more closely </span></span>
+<span><span class="co"># using a boxplot and do the same for other potential cases</span></span>
+<span></span>
+<span><span class="co"># Load the lattice package </span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://lattice.r-forge.r-project.org/">lattice</a></span><span class="op">)</span> <span class="co"># Provides bwplot()</span></span>
+<span></span>
+<span><span class="co"># Create a boxplot for the "water_storage" variable to </span></span>
+<span><span class="co"># identify potential outliers</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">bwplot</a></span><span class="op">(</span>  <span class="op">~</span> <span class="va">water_storage</span> , </span>
+<span>           data<span class="op">=</span> <span class="va">xylemDFnum</span> <span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="pca_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="co"># Compute standard correlation matrix </span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span> <span class="va">xylemDFnum</span> <span class="op">)</span></span>
+<span><span class="co">#&gt;                      P75         Ks      starch xylem_density    fiber_%</span></span>
+<span><span class="co">#&gt; P75            1.0000000  0.6486291  0.50004669   -0.36963666 -0.4072020</span></span>
+<span><span class="co">#&gt; Ks             0.6486291  1.0000000  0.33916342   -0.26232492 -0.4217329</span></span>
+<span><span class="co">#&gt; starch         0.5000467  0.3391634  1.00000000   -0.22135129 -0.5299457</span></span>
+<span><span class="co">#&gt; xylem_density -0.3696367 -0.2623249 -0.22135129    1.00000000  0.3273450</span></span>
+<span><span class="co">#&gt; fiber_%       -0.4072020 -0.4217329 -0.52994575    0.32734503  1.0000000</span></span>
+<span><span class="co">#&gt; vessel_%       0.3151310  0.3337739  0.39992711   -0.53097026 -0.7522285</span></span>
+<span><span class="co">#&gt; par_%          0.2842809  0.1413345  0.33729586   -0.07180259 -0.7026932</span></span>
+<span><span class="co">#&gt; Pmin           0.8182375  0.5039328  0.56823143   -0.47661507 -0.4143263</span></span>
+<span><span class="co">#&gt; water_storage  0.2441534  0.2623565  0.09817602   -0.61754995 -0.2019742</span></span>
+<span><span class="co">#&gt;                 vessel_%       par_%       Pmin water_storage</span></span>
+<span><span class="co">#&gt; P75            0.3151310  0.28428093  0.8182375    0.24415343</span></span>
+<span><span class="co">#&gt; Ks             0.3337739  0.14133448  0.5039328    0.26235648</span></span>
+<span><span class="co">#&gt; starch         0.3999271  0.33729586  0.5682314    0.09817602</span></span>
+<span><span class="co">#&gt; xylem_density -0.5309703 -0.07180259 -0.4766151   -0.61754995</span></span>
+<span><span class="co">#&gt; fiber_%       -0.7522285 -0.70269315 -0.4143263   -0.20197421</span></span>
+<span><span class="co">#&gt; vessel_%       1.0000000  0.18413958  0.3928702    0.40577689</span></span>
+<span><span class="co">#&gt; par_%          0.1841396  1.00000000  0.1935726   -0.06949848</span></span>
+<span><span class="co">#&gt; Pmin           0.3928702  0.19357260  1.0000000    0.40564362</span></span>
+<span><span class="co">#&gt; water_storage  0.4057769 -0.06949848  0.4056436    1.00000000</span></span>
+<span></span>
+<span><span class="co"># Store the correlation matrix</span></span>
+<span><span class="va">M</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span> <span class="va">xylemDFnum</span> <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Load the corrplot package </span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span> <span class="va"><a href="https://github.com/taiyun/corrplot">corrplot</a></span> <span class="op">)</span> <span class="co"># Provides corrplot.mixed()</span></span>
+<span></span>
+<span><span class="co"># Better visualization  of the </span></span>
+<span><span class="co"># correlation matrix</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/corrplot/man/corrplot.mixed.html">corrplot.mixed</a></span><span class="op">(</span> <span class="va">M</span> <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="pca_files/figure-html/unnamed-chunk-2-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/-7CfoXl2tv4" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The scatterplot and correlation matrix show that the variables have both positive and negative correlations. Many of the variables show clear linear associations, although the strength of the relationship varies depending on which variables are compared. The scatterplot matrix shows some potential outliers and such cases may be further explored using boxplots. In such cases, a transformation such as the natural log transformation may help reduce the influence of the outliers. Despite the presence of some potential outliers, we proceed with PCA without applying any transformations for the purpose of illustrating the method on this data.</p>
+<p>A good first step in PCA is it to compute the standard deviation for each PC and determine how many PCs should be retained. To compute the standard deviation for each PC, we conduct PCA computations on the data using <code><a href="https://rdrr.io/pkg/psych/man/principal.html">principal()</a></code>.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load the psych package</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span> <span class="va"><a href="https://personality-project.org/r/psych/">psych</a></span> <span class="op">)</span> <span class="co"># Provides principal()</span></span>
+<span></span>
+<span><span class="co"># The function will require the following information:</span></span>
+<span><span class="co"># dataframe: Replace with 'xylemDFnum'</span></span>
+<span><span class="co"># nfactors: Set equal to 9</span></span>
+<span><span class="co"># rotate: Set equal to "none"</span></span>
+<span><span class="co"># cor: By default this is "cor", so it does not </span></span>
+<span><span class="co">#      need to be provided.</span></span>
+<span><span class="co"># Note: The result of principal() is saved to xylemPCA</span></span>
+<span><span class="va">xylemPCA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psych/man/principal.html">principal</a></span><span class="op">(</span> <span class="va">xylemDFnum</span>, </span>
+<span>                       nfactor<span class="op">=</span> <span class="fl">9</span>,</span>
+<span>                       rotate<span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="co"># 9 variables</span></span>
+<span></span>
+<span><span class="va">xylemPCA</span> <span class="co"># Print xylemPCA object</span></span>
+<span><span class="co">#&gt; Principal Components Analysis</span></span>
+<span><span class="co">#&gt; Call: principal(r = xylemDFnum, nfactors = 9, rotate = "none")</span></span>
+<span><span class="co">#&gt; Standardized loadings (pattern matrix) based upon correlation matrix</span></span>
+<span><span class="co">#&gt;                 PC1   PC2   PC3   PC4   PC5   PC6   PC7   PC8   PC9 h2       u2</span></span>
+<span><span class="co">#&gt; P75            0.78  0.01  0.51 -0.03 -0.14 -0.17  0.12  0.24 -0.03  1  1.1e-16</span></span>
+<span><span class="co">#&gt; Ks             0.66 -0.04  0.39 -0.56  0.17  0.11 -0.21 -0.07  0.03  1  2.2e-16</span></span>
+<span><span class="co">#&gt; starch         0.67  0.31  0.16  0.49  0.27  0.24 -0.22  0.04  0.01  1  0.0e+00</span></span>
+<span><span class="co">#&gt; xylem_density -0.63  0.52  0.29 -0.11  0.21  0.28  0.34  0.02  0.02  1  4.4e-16</span></span>
+<span><span class="co">#&gt; fiber_%       -0.78 -0.43  0.39  0.14 -0.07 -0.01 -0.08  0.06  0.14  1  8.9e-16</span></span>
+<span><span class="co">#&gt; vessel_%       0.72 -0.08 -0.49 -0.05  0.41 -0.15  0.16  0.06  0.09  1  0.0e+00</span></span>
+<span><span class="co">#&gt; par_%          0.44  0.70 -0.24 -0.07 -0.48  0.06 -0.04  0.01  0.09  1 -6.7e-16</span></span>
+<span><span class="co">#&gt; Pmin           0.81 -0.14  0.38  0.23 -0.11 -0.07  0.23 -0.23  0.02  1  6.7e-16</span></span>
+<span><span class="co">#&gt; water_storage  0.50 -0.67 -0.24 -0.03 -0.21  0.42  0.11  0.06  0.00  1  8.9e-16</span></span>
+<span><span class="co">#&gt;               com</span></span>
+<span><span class="co">#&gt; P75           2.2</span></span>
+<span><span class="co">#&gt; Ks            3.2</span></span>
+<span><span class="co">#&gt; starch        3.5</span></span>
+<span><span class="co">#&gt; xylem_density 3.9</span></span>
+<span><span class="co">#&gt; fiber_%       2.3</span></span>
+<span><span class="co">#&gt; vessel_%      2.8</span></span>
+<span><span class="co">#&gt; par_%         2.9</span></span>
+<span><span class="co">#&gt; Pmin          2.1</span></span>
+<span><span class="co">#&gt; water_storage 3.3</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;                        PC1  PC2  PC3  PC4  PC5  PC6  PC7  PC8  PC9</span></span>
+<span><span class="co">#&gt; SS loadings           4.14 1.52 1.18 0.65 0.63 0.39 0.32 0.13 0.04</span></span>
+<span><span class="co">#&gt; Proportion Var        0.46 0.17 0.13 0.07 0.07 0.04 0.04 0.01 0.00</span></span>
+<span><span class="co">#&gt; Cumulative Var        0.46 0.63 0.76 0.83 0.90 0.95 0.98 1.00 1.00</span></span>
+<span><span class="co">#&gt; Proportion Explained  0.46 0.17 0.13 0.07 0.07 0.04 0.04 0.01 0.00</span></span>
+<span><span class="co">#&gt; Cumulative Proportion 0.46 0.63 0.76 0.83 0.90 0.95 0.98 1.00 1.00</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Mean item complexity =  2.9</span></span>
+<span><span class="co">#&gt; Test of the hypothesis that 9 components are sufficient.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; The root mean square of the residuals (RMSR) is  0 </span></span>
+<span><span class="co">#&gt;  with the empirical chi square  0  with prob &lt;  NA </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Fit based upon off diagonal values = 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>See previous video.</p>
+</div>
+</div>
+</div>
+<p>The printing the output of <code>xylemPCA</code> (a <em>principal</em> object) provides the following:</p>
+<ul>
+<li><p>The squared standard deviation (variance) for each PC (denoted as <code>SS loadings</code> in the output).</p></li>
+<li><p>The loadings for each PC. Recall that these can be interpreted as the correlations between the variables and the components. They are denoted as <code>Standardized loadings (pattern matrix) based upon correlation matrix</code>.</p></li>
+<li><p>The proportion of variance for each PC (denoted as <code>Proportion Var</code>).</p></li>
+<li><p>The cumulative proportion of variance at a given PC (denoted as <code>Cumulative Var</code>)<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>.</p></li>
+</ul>
+<p>Note that the first PC explains 46% of the variation, the first two PCs together explain about 63% of the variation, and the first three PCs explain about 76% of the variation, and so on. The next step in PCA is to determine an acceptably large percentage of variance that is explained by the PCs.</p>
+</div>
+</div>
+</section><section id="determining-the-number-of-pcs-to-retain" class="level2" data-number="16.3"><h2 data-number="16.3" class="anchored" data-anchor-id="determining-the-number-of-pcs-to-retain">
+<span class="header-section-number">16.3</span> Determining the Number of PCs to retain</h2>
+<p>There are different methods to determine how many PCs to consider for retention, including:</p>
+<ul>
+<li><p>Scree plot: This plot displays the squared standard deviations (variance) explained by each principal component on the y-axis with the PCs shown on the x-axis. The variances are provided in descending order, so the amount of variance explained by each PC decreases along the x-axis. The goal is to identify an “elbow” point in the line and selects all components just before the line flattens out.</p></li>
+<li><p>Kaiser’s rule or Kaiser-Guttman criterion: This rule retains the PC with squared standard deviations greater than or equal to 1<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>.</p></li>
+</ul>
+<p>Simply note the size fo the variance of each PC to apply Kaiser’s rule. To construct a screeplot, we use the function <code>fviz_eig.psych</code> which is a modified version of function called <code>fviz_eig</code> from the <code>factoextra</code> package. <code>fviz_eig.psych</code> was created to work with object created from <code><a href="https://rdrr.io/pkg/psych/man/principal.html">principal()</a></code>, where as <code>fviz_eig</code> does not work with such objects.</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### fviz_eig.psych( `principal object` , choice , addlabels, ncp , xlab )
+# principal object:  Replace with the name of a  
+#                    principal object.
+# choice: Determine the scale of the height of the bars. 
+#         Set equal to either "variance" or "eigenvalue". 
+#         Default is "variance". "eigenvalue" will provide
+#         the square standard deviations of each PC. "variance"
+#         will provide the amount of variance explained by each PC
+# addlabels: If set to equal to TRUE, labels are added at the top of 
+#            bars or points showing the information retained by each 
+#            dimension. Default is FALSE.
+# ncp: Set equal the number of PCs to display. Default is 10.  
+# xlab: Label for x-axis. Default label is "dimensions"</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Here we determine the number PCs to retain by applying Kaiser’s rule and using a scree plot. Recall that the <em>principal object</em> <code>xylemPCA</code> holds all the relevant PCA computations.</p>
+<p>The y-axis can either display the squared standard deviations (variances) of the PCs or the percentage of variance explained but the shape does not change. Setting <code>choice= "variance"</code> and <code>addlabels= TRUE</code> allows one to apply Kaiser’s rule using the scree plot.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># The function will require the following information:</span></span>
+<span><span class="co"># dataframe: Replace with 'xylemDFnum'</span></span>
+<span><span class="co"># center: By default this is true, so it is not required.</span></span>
+<span><span class="co"># scale.: Set equal to TRUE.</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"rfuns/fviz_eig.psych.R"</span><span class="op">)</span> <span class="co"># provides fviz_eig.psych()</span></span>
+<span></span>
+<span><span class="co"># Recall the principal object is `xylemPCA`</span></span>
+<span><span class="co"># The plot displays the prop of variance </span></span>
+<span><span class="co"># attributed to each PC.</span></span>
+<span><span class="fu">fviz_eig.psych</span><span class="op">(</span><span class="va">xylemPCA</span>, </span>
+<span>         choice<span class="op">=</span> <span class="st">"variance"</span> , </span>
+<span>         addlabels<span class="op">=</span> <span class="cn">TRUE</span>, </span>
+<span>         xlab<span class="op">=</span> <span class="st">"Principal components"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="pca_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span> </span>
+<span></span>
+<span><span class="co"># The plot displays the squared</span></span>
+<span><span class="co"># standard deviations of each PC, and </span></span>
+<span><span class="co"># it can be used to apply Kaiser's rule.</span></span>
+<span><span class="co"># Note: One can also examine the squared </span></span>
+<span><span class="co"># standard deviations of each PC by printing </span></span>
+<span><span class="co"># xylemPCA and noting the values for "SS loadings".</span></span>
+<span><span class="fu">fviz_eig.psych</span><span class="op">(</span><span class="va">xylemPCA</span>, </span>
+<span>         choice<span class="op">=</span> <span class="st">"eigenvalue"</span> , </span>
+<span>         addlabels<span class="op">=</span> <span class="cn">TRUE</span>, </span>
+<span>         xlab<span class="op">=</span> <span class="st">"Principal components"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="pca_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/nqGom6SX7Is" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Note that the scree plot shows that the squared standard deviations of the first three PCs are greater than 1. Further note that the first three PC consist of the components just before the line flattens out. In short, both the scree plot and Kaiser’s rule suggest retaining the first 3 PCs. While Kaiser’s rule is easy to apply, PCA must be done on the correlation matrix if applying this rule. The scree plot method does not rely on standardization, but identifying the elbow point may be subjective, and others may arrive at different conclusions based on their interpretation of the scree plot.</p>
+<p>Next, we focus on interpreting of the PCs.</p>
+</div>
+</div>
+</section><section id="towards-interpretating-the-pcs" class="level2" data-number="16.4"><h2 data-number="16.4" class="anchored" data-anchor-id="towards-interpretating-the-pcs">
+<span class="header-section-number">16.4</span> Towards interpretating the PCs</h2>
+<p>Once the number of PCs to retain is determined, the PCs should be examined. Since PCA was performed on the standardized data, one approach to interpreting each component is to focus on the size of the loadings of a given PC, as they represent correlations between the variables and the given PC. Here, we consider a loading at 0.7 or greater in magnitude as important<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>.</p>
+<p>We can examine the loadings by printing the <em>principal object</em> or using the function <code><a href="https://rdrr.io/r/stats/loadings.html">loadings()</a></code> on <em>principal object</em></p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### loadings( `principal object` )
+# principal object:  Replace with the name of a  
+#                    principal object.
+</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Recall that the <em>principal object</em> <code>xylemPCA</code> holds all the relevant PCA computations.</p>
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Recall the principal object is `xylemPCA`.</span></span>
+<span><span class="co"># Save the result to an object</span></span>
+<span><span class="va">PCAloadings</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/loadings.html">loadings</a></span><span class="op">(</span> <span class="va">xylemPCA</span> <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># display the loadings</span></span>
+<span><span class="va">PCAloadings</span> <span class="co"># loadings smaller than .1 are not displayed</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Loadings:</span></span>
+<span><span class="co">#&gt;               PC1    PC2    PC3    PC4    PC5    PC6    PC7    PC8    PC9   </span></span>
+<span><span class="co">#&gt; P75            0.783         0.511        -0.139 -0.175  0.122  0.243       </span></span>
+<span><span class="co">#&gt; Ks             0.661         0.394 -0.560  0.174  0.114 -0.209              </span></span>
+<span><span class="co">#&gt; starch         0.675  0.309  0.158  0.491  0.274  0.242 -0.218              </span></span>
+<span><span class="co">#&gt; xylem_density -0.630  0.521  0.287 -0.114  0.209  0.282  0.335              </span></span>
+<span><span class="co">#&gt; fiber_%       -0.781 -0.425  0.393  0.141                              0.143</span></span>
+<span><span class="co">#&gt; vessel_%       0.721        -0.492         0.408 -0.154  0.164              </span></span>
+<span><span class="co">#&gt; par_%          0.444  0.704 -0.242        -0.482                            </span></span>
+<span><span class="co">#&gt; Pmin           0.813 -0.142  0.376  0.230 -0.109         0.229 -0.234       </span></span>
+<span><span class="co">#&gt; water_storage  0.500 -0.672 -0.244        -0.210  0.422  0.112              </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;                 PC1   PC2   PC3   PC4   PC5   PC6   PC7   PC8   PC9</span></span>
+<span><span class="co">#&gt; SS loadings    4.14 1.523 1.180 0.650 0.627 0.392 0.318 0.132 0.039</span></span>
+<span><span class="co">#&gt; Proportion Var 0.46 0.169 0.131 0.072 0.070 0.044 0.035 0.015 0.004</span></span>
+<span><span class="co">#&gt; Cumulative Var 0.46 0.629 0.760 0.832 0.902 0.946 0.981 0.996 1.000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Here, the loadings among the first three PC are nearly all large or close to being large for the first PC. Such loadings means that the variables are highly correlated with the PCs, which can make it challenging to interpret the unique contribution of each variable to each PC. This makes it difficult to identify patterns or attributes in data that may have interpretations or implications in the context of the data. In such instances, one can apply a rotation on the PCs.</p>
+</div>
+</div>
+<p>It is not uncommon for the interpretation of loadings to be challenging, particularly when the retained principal components exhibit patterns of large or small loadings, making it difficult to interpret in the context of the data. If most, if not all, of the loadings are large, this indicates that nearly all variables are highly correlated with the principal components, which can make it difficult to identify the unique contributions of individual variables to each component. On the other hand, if most, if not all, of the loadings are small, this may indicate that the data are too noisy. If all the loadings are small, one may consider lowering the threshold for what is considered important. Applying a rotation on the retained PCs can help deal with instances in which the loadings are all large or small.</p>
+</section><section id="rotating-the-pcs" class="level2" data-number="16.5"><h2 data-number="16.5" class="anchored" data-anchor-id="rotating-the-pcs">
+<span class="header-section-number">16.5</span> Rotating the PCs</h2>
+<p>Rotation transforms the retained PCs into a new set of linear combinations (i.e., leading to changes in the values of <span class="math inline">\(e_{i1}, e_{i2}, ..., e_{ip}\)</span>) that may be easier to interpret. By rotating the retained PCs, a new set of loadings can be obtained that may have a simpler structure and be easier to interpret compared to the original loadings. Varimax rotation<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> is one commonly used rotation method in PCA. Here, we apply varimax rotation on the retained PCs. The varimax rotated PCs will still account for the same amount of information as the unrotated retained PCs.</p>
+<p>To provide a non-technical explanation of varimax rotating the PCs, recall the real estate analogy used earlier. One deciding on a set of best pictures that better highlight the most desirable or best features of a property is akin to deciding how many PCs to retain. However, some of the pictures that were selected may have similar or overlapping features, making it hard to tell them apart. Here, varimax rotation would be like the real estate agent taking the same pictures but using a different angle (“rotating them”) so that each pictures better highlights distinct features and there is minimal overlap between the features in each picture. This new set of rotated pictures provides hopefully provides clearer and better view of the property, making it easier to identify its unique features and characteristics. As before, this is just an attempt at an analogy but hopefully helps illustrate the idea of using varimax rotation on the PCs.</p>
+<p>The function <code><a href="https://rdrr.io/pkg/psych/man/principal.html">principal()</a></code> by defaults applies a varimax rotation to the retained PC by setting <code>nfactors</code> equal to then number of retained PCs and having <code>rotate= "varimax"</code> (default <code>rotate</code> value).</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Recall Kaiser’s rule suggested keeping the first three PCs. Here we use varimax rotation to rotate the retained PCs.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Note that nfactor is set to 3</span></span>
+<span><span class="co"># since we retained 3 PCs. The argument</span></span>
+<span><span class="co"># rotate is not needed since by default</span></span>
+<span><span class="co"># is it "varimax"</span></span>
+<span><span class="va">xylemPCAvmr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/psych/man/principal.html">principal</a></span><span class="op">(</span> <span class="va">xylemDFnum</span>, </span>
+<span>                       nfactor<span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="co"># The number of retained PC</span></span>
+<span></span>
+<span><span class="va">xylemPCAvmr</span></span>
+<span><span class="co">#&gt; Principal Components Analysis</span></span>
+<span><span class="co">#&gt; Call: principal(r = xylemDFnum, nfactors = 3)</span></span>
+<span><span class="co">#&gt; Standardized loadings (pattern matrix) based upon correlation matrix</span></span>
+<span><span class="co">#&gt;                 RC1   RC3   RC2   h2    u2 com</span></span>
+<span><span class="co">#&gt; P75            0.91  0.16  0.14 0.87 0.126 1.1</span></span>
+<span><span class="co">#&gt; Ks             0.74  0.12  0.17 0.59 0.406 1.2</span></span>
+<span><span class="co">#&gt; starch         0.58  0.49  0.05 0.58 0.424 2.0</span></span>
+<span><span class="co">#&gt; xylem_density -0.23 -0.09 -0.83 0.75 0.249 1.2</span></span>
+<span><span class="co">#&gt; fiber_%       -0.25 -0.89 -0.29 0.95 0.054 1.4</span></span>
+<span><span class="co">#&gt; vessel_%       0.14  0.55  0.67 0.77 0.232 2.0</span></span>
+<span><span class="co">#&gt; par_%          0.13  0.84 -0.15 0.75 0.249 1.1</span></span>
+<span><span class="co">#&gt; Pmin           0.83  0.13  0.33 0.82 0.178 1.4</span></span>
+<span><span class="co">#&gt; water_storage  0.18 -0.11  0.85 0.76 0.239 1.1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;                        RC1  RC3  RC2</span></span>
+<span><span class="co">#&gt; SS loadings           2.60 2.13 2.12</span></span>
+<span><span class="co">#&gt; Proportion Var        0.29 0.24 0.24</span></span>
+<span><span class="co">#&gt; Cumulative Var        0.29 0.53 0.76</span></span>
+<span><span class="co">#&gt; Proportion Explained  0.38 0.31 0.31</span></span>
+<span><span class="co">#&gt; Cumulative Proportion 0.38 0.69 1.00</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Mean item complexity =  1.4</span></span>
+<span><span class="co">#&gt; Test of the hypothesis that 3 components are sufficient.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; The root mean square of the residuals (RMSR) is  0.08 </span></span>
+<span><span class="co">#&gt;  with the empirical chi square  13.3  with prob &lt;  0.35 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Fit based upon off diagonal values = 0.96</span></span>
+<span></span>
+<span><span class="co"># xylemPCAvmr is a principal object</span></span>
+<span><span class="va">vmrPCAloadings</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/loadings.html">loadings</a></span><span class="op">(</span> <span class="va">xylemPCAvmr</span> <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># display the loadings</span></span>
+<span><span class="va">vmrPCAloadings</span> <span class="co"># loadings smaller than .1 are not displayed</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Loadings:</span></span>
+<span><span class="co">#&gt;               RC1    RC3    RC2   </span></span>
+<span><span class="co">#&gt; P75            0.911  0.162  0.137</span></span>
+<span><span class="co">#&gt; Ks             0.742  0.121  0.168</span></span>
+<span><span class="co">#&gt; starch         0.578  0.490       </span></span>
+<span><span class="co">#&gt; xylem_density -0.233        -0.830</span></span>
+<span><span class="co">#&gt; fiber_%       -0.253 -0.892 -0.294</span></span>
+<span><span class="co">#&gt; vessel_%       0.144  0.550  0.667</span></span>
+<span><span class="co">#&gt; par_%          0.125  0.845 -0.148</span></span>
+<span><span class="co">#&gt; Pmin           0.835  0.134  0.327</span></span>
+<span><span class="co">#&gt; water_storage  0.176 -0.105  0.848</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;                  RC1   RC3   RC2</span></span>
+<span><span class="co">#&gt; SS loadings    2.596 2.129 2.117</span></span>
+<span><span class="co">#&gt; Proportion Var 0.288 0.237 0.235</span></span>
+<span><span class="co">#&gt; Cumulative Var 0.288 0.525 0.760</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/_lWGH46OJVg" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Note that in the output, the rotated PCs presented in descending order in terms of the size of the squared standard deviations. The terms <code>SS loadings</code>, <code>Proportion Var</code>, and <code>Cumulative Var</code> mean the same as they did before. The rotated PCs are given under <code>Loadings</code> and are labeled <code>RC1</code>, <code>RC3</code>, and <code>RC2</code> (note that they are presented based on their proportion of variance). Note that the total amount of variation explained by these three PCs remains the same as before.</p>
+</div>
+</div>
+</section><section id="interpretating-the-pcs" class="level2" data-number="16.6"><h2 data-number="16.6" class="anchored" data-anchor-id="interpretating-the-pcs">
+<span class="header-section-number">16.6</span> Interpretating the PCs</h2>
+<p>Below, the rotated PCs are interpreted. It is important to note that the original principal components would have been interpreted in the same way if they were easily interpretable.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>The first PC</strong>: The first rotated PC shows a strong correlation with Pmin, P75, and Ks. This suggests that these variables vary in a similar way. Recall that we consider a correlation above 0.7 in magnitude (strong correlation) as important. This component explains 28.8% of the total variation in the data. Note, that the Pmin values represent how dehydrated a plant becomes on a seasonal basis (lower values denote greater tolerance of dehydration). Thus, shrub species with a lower Pmin would be more tolerant to drought conditions and can tolerate greater water deficits than those with higher Pmin. Similarly, lower values of P75 indicate that water can be transported more safely during dry conditions, which is an adaptive trait in a semi-arid environment. However, higher levels of Ks can improve water transport efficiency by allowing water to move more easily through the xylem. This can help counter the negative effects of higher minimum hydrostatic pressure and higher P75 values on water efficiency since as Ks increases then Pmin and P75 tend to also increase. Hence, PC 1 may be viewed as an adaptability measure of plants to drought conditions with respect to water efficiency.</p>
+<p><strong>The second PC</strong>: The second rotated PC explains 23.5% of the variation in the data that is independent from the first PC<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a>. This PC shows a strong positive correlation with water storage capacity and vessel percentage, while showing a strong negative correlation with xylem density. If a shrub has high xylem density then it has tissue that is strong and can resist damage from breaking; however, it will tend to have lower water storage capacity (capacitance). Water storage capacity can help provide water when it is limited, which can help maintain the shrub’s structural stability and prevent damage that can occur when dehydration is extreme. Therefore, this PC may be viewed as a measure of the adaptability of shrubs to drought conditions with respect to mechanical strength and water storage.</p>
+<p><strong>The third PC</strong>: This component explains 23.7% of the remaining variation in the data that is not explained by either the first or second component. It exhibits a strong negative correlation with fiber percentage and a strong positive correlation with parenchyma percentage. The volume of space in the vascular tissue is occupied by three cell types: parenchyma, fibers, and vessels. Fibers are associated with mechanical strength of the plant and parenchyma are associated with starch storage so these cellular relationships can affect plant function. This component suggests that species with a higher proportion of fibers tend to have a lower amount of parenchyma and vice versa, with vessels also loading positively on this axis but with a weaker correlation than the 0.7 cutoff. This suggest that species in a water-limited environment compensate for having a lower percentage of fiber by having a higher percentage of parenchyma to maintain plant function. Therefore, this PC can be considered as an indicator of the adaptability of shrubs to drought conditions, specifically in terms of their capacity to balance parenchyma and fiber to maintain essential plant functions.</p>
+</div>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-pratt2021trade" class="csl-entry" role="doc-biblioentry">
+Pratt, RB, AL Jacobsen, MI Percolla, ME De Guzman, CA Traugh, and MF Tobin. 2021. <span>“Trade-Offs Among Transport, Support, and Storage in Xylem from Shrubs in a Semiarid Chaparral Environment Tested with Structural Equation Modeling.”</span> <em>Proceedings of the National Academy of Sciences</em> 118 (33).
+</div>
+</div>
+</section><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<ol>
+<li id="fn1" role="doc-endnote"><p>Here, information refers to the total amount of variation in the data.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>The lack of at least some moderate correlation between variables may lead PCA to provide as many PCs as there are variables in the data, which can result in a lack of dominant modes of variation. Non-linear relationships may be addressed by transforming variables so that the relationship in linear on the transformed scale (see <a href="lr.html#sec-remedmeasure"><span>Section&nbsp;14.4</span></a>).<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>Potential outliers can be identified using graphical summaries, such as boxplots or scatterplots. If outliers are identified, one approach for dampening their effects is to apply transformations to the data, such as the logarithmic or square root transformation.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p>While the values <span class="math inline">\(e_{11}, e_{12}, \ldots, e_{1p}\)</span> maximize the variance of the sum, it is subject to the constraint that these values must sum to 1. All subsequent PCs also have this constraint<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5" role="doc-endnote"><p>With the PCs being uncorrelated, it signifies that each PC captures a unique aspect of the variation in the data.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6" role="doc-endnote"><p>In the context of PCA, a new vantage point means the data are rotated to a new coordinate system that emphasizes different aspects of the data. However, it’s important to note that PCA does not create new information; rather, it summarizes and reorganizes the existing information in a way that is potentially more informative and easier to interpret.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7" role="doc-endnote"><p><code>SS loadings</code>, <code>Proportion Var</code>, and <code>Cumulative Var</code> are connected, as the proportion and cumulative proportion of variance are computed based on the squared standard deviation (variance) for each PC.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8" role="doc-endnote"><p>This rule assumes that the PCA is conducted using standardized data. If using un-standardized data, the variance will be affected by the units of measurement. With standardized data, all variables are on the same scale and the sum of the variances equals the number of variable.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9" role="doc-endnote"><p>There is no rule for determining how large loadings in a PC should be for them to be considered meaningful. Larger absolute values of loadings indicate a stronger association between the original variable and the principal component. Some researchers consider loadings with an absolute value greater than 0.4 or 0.5 to be significant, while others may require a higher threshold. Requiring a higher threshold, such as 0.7 represents a more stringent criterion, signifying that only variables with very strong relationships with a given PC would be interpreted, while variables with weaker relationships would not be considered. Setting a high threshold for factor loadings can be useful in some cases, such as when a high degree of assurance in identifying relationships between variables and a PC is sought. On the other hand, it may limit the ability to identify more subtle patterns or structures in the data.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10" role="doc-endnote"><p>Varimax rotation does not involve any additional computations to estimate the principal components, but rather takes the computed loadings and rotates them. The loadings after rotation may have different magnitudes and signs compared to the original loadings, but they still represent the same underlying relationships between the variables and the components. It is worth noting that there are several types of rotation methods available, including varimax, promax, and oblimin, each with their own strengths and limitations.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11" role="doc-endnote"><p>Independent here means that PC 2 captures 23.5% of the remaining variation in the data that is not explained by the PC 1. Essentially, it represents a different aspect or pattern of variation within the data that is not covered by the first component.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./eda.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Module: Advanced Exploratory Data Analysis</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./a1-startingR.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Installing or accessing R and RStudio</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

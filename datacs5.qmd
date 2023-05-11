@@ -1,0 +1,159 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# Case study 5 {#sec-casestudy5}
+
+## Case study on school shootings {#sec-csss}
+
+
+```{r}
+#| echo: false
+#| out.width: "60%"
+#| fig.cap: "Students from Miguel Contreras Learning Center High School in Los Angeles demonstrate in front of City Hall after walking out of school to protest U.S. gun violence on May 31, 2022. Photo by Lucy Nicholson, Reuters Source: https://calmatters.org/newsletters/whatmatters/2022/07/mass-shooting-california-gun-laws/"
+#| fig.alt: "Photograph of students protest for gun law reform."
+knitr::include_graphics("images/casestudy/schoolprotest.jpg")
+```
+
+School shootings occur more often in the US  than any other country (@mosechkin2019victimological).   The K-12 School Shooting Database (@riedman2022) contains data on every instance a gun is brandished, is fired, or a bullet hits K-12 school property.  Recently, @hilaire2022not used this data source to investigate the relationship between perpetrators’ race and how shootings are reported by the media. They found that there were differences by race in the characteristics of school shootings and media reporting of school shootings. @reeping2022state found that more permissive firearm laws and higher rates of gun ownership were associated with higher rates of school shootings.  The latest raw data (Jan 1970-Nov 2022) was  provided by the founder and maintainer of the  K-12 School Shooting Database, David Riedman.    Using this data, we explore whether the level of media coverage of the incident (Local, Regional, or National) differs across age groups and examine if the number of victims is associated with the type of weapon(s) used.
+
+In all, the data consists of 46 variables.  The variables included:
+
+- `School_Level`: education-level of the school attacked as (1) high school, (2) junior high
+school, (3) middle school, (4) elementary school, (5) other.
+- `Year`: year 
+- `Month`: month
+- `Number_Victims`: Number of victims killed or wounded
+- `Media_Attention`: Highest level of media  coverage (local, regional, or national)
+- `Time_Period`: Time period in which the incident occurred (After school, Afternoon classes, ... , Sport Event)
+- `agegroup`: Age of the shooter (child, teen, adult)
+- `State`: State where in incident occurred.
+- `Weapon_Type`: The type of weapon used ()
+
+The reader is referred to [K-12 School Shooting Database data methodology page](https://k12ssdb.org/methodology-1) for more details regarding variables in the data set.
+
+The data are shown in table below.
+```{r, cssscasestudydata }
+#| echo: false
+#| message: false
+#| warning: false
+#| results: 'asis'
+#| fig.width: 7
+#| fig.height: 3
+#| fig.align: 'center'
+require(dplyr)
+
+ 
+k12re3 <- read.csv("datasets/ssdsample.csv" , na.strings=c("","NA")) 
+
+k12re3 <- k12re3 %>% mutate(Media_Attention= factor(Media_Attention), Quarter=factor(Quarter),
+                             Weapon_Type=factor(Weapon_Type), Time_Period=factor(Time_Period), School_Level=factor(School_Level, labels=c("6th-12th", "Elementary", "High School", "Junior High", "K-12th", "K-8th",  "Middle school", "Other")) )
+ 
+ 
+k12re4 <- na.omit(k12re3)
+
+ 
+library(kableExtra)
+library(DT)
+ 
+
+datatable( k12re4 , class="hover", style="bootstrap4", rownames=FALSE,   height=250,  fillContainer = T, caption="Data from K-12 SSDB" ,
+           options = list(scrollY = '350px', columnDefs = 
+                           list(list(className = 'dt-center', 
+                                     targets = "_all"))) )  
+```  
+ 
+
+
+### Summary of findings {-}
+
+Numerical and graphical summaries of the relevant variable is provided below: 
+
+```{r }
+#| label: fig-gunplots
+#| fig-cap: "Graphically summary " 
+#| fig-subcap:
+#|   - "Violin  boxplot" 
+#| layout-ncol: 1
+#| echo: false
+#| message: false
+#| warning: false
+library(mosaic)
+
+
+#  
+# bargraph( ~ Media_Attention , group= AgeGroup,  data=na.omit(k12re3), type="proportion",
+# ylab=list(label="proportion media attention type"), xlab=list(label="Type of media attention"), horizontal=FALSE,    auto.key = list(x = .6, y = .76, corner = c(0, 0)) )
+
+bwplot(Number_Victims ~Weapon_Type     ,    
+                    data=k12re3 , ylab="Number of Victims", panel = panel.violin,
+       scales=list(x=list(rot=30)),
+                    xlab="Type of known weapon used" )
+
+```
+
+```{r }
+#| label: tbl-gunsums
+#| tbl-cap: "Top table: Distribution of the 'Media Attention' levels. Bottom table: The distribution of 'Media Attention' conditional on the levels of 'Age Group'."
+#| echo: false
+#| eval: false
+#| message: false
+#| warning: false
+#| results: 'asis'
+ 
+ 
+tmpa =as.data.frame(na.omit(k12re3))
+
+  tally(     ~ Media_Attention  , data=tmpa, format ="proportion", margins=TRUE)   %>%
+kbl(linesep = "", booktabs = TRUE, align = "cc", col.names = c("Media Attention", "Proportion"))  %>%
+kable_styling(bootstrap_options = c("striped", "condensed"), 
+            latex_options = c("striped", "hold_position")) 
+  
+  tally(  Media_Attention ~ AgeGroup         , data=tmpa, format ="proportion", margins=TRUE)   %>%
+kbl(linesep = "", booktabs = TRUE, align = "lcccc") %>%
+kable_styling(bootstrap_options = c("striped", "condensed"), 
+             latex_options = c("striped", "hold_position"))  %>%
+  add_header_above(c(" ", "Age Group" = 3))
+```
+
+
+```{r }
+#| label: tbl-gunsums2
+#| tbl-cap: "A comparison of the median and interquartile range of the number victims under each weapon type used by the shooter. Only data in which the weapon was known was used."
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+#| results: 'asis'
+       
+tmpa <- na.omit(k12re3)
+tmpb= tally(Media_Attention ~ AgeGroup, data=tmpa)#, data=tmpa)
+test <- chisq.test(tmpb,simulate.p.value = TRUE, B=20000)
+tmpc=     kruskal.test(Number_Victims ~ Weapon_Type     , data=k12re3)
+ 
+
+k12re3 %>%
+  group_by(Weapon_Type) %>%
+  summarise(
+    Median =   round(median(Number_Victims),3), 
+    IQR =     round(iqr(Number_Victims),3)
+    ) %>%
+  kbl(linesep = "", booktabs = TRUE, align = "lcccc") %>%
+  kable_styling(bootstrap_options = c("striped", "condensed"), 
+                latex_options = c("striped", "hold_position"))  
+
+```
+
+<!-- The bar graph suggests that the level of media attention varies by the shooter's age group.  The tables show that  highest level of media attention varies, with most incidents receiving at most local media attention.  -->
+<!-- The table presents the proportion of the highest level of media attention, conditional on the shooter's age group. The proportions reflected in these tables are consistent with the idea that the highest level of media attention received is associated with the age of the shooter. -->
+The violin boxplot shows that the number of victims differs depending on the type of weapon used, with more outlying observations under rifles or shotguns. Using statistical methods to be addressed later, the data provides very strong evidence that the number of victims varies significantly with the type of weapon used (p-value $\approx$ 0). 
+
+ 
+### Scope of inference {-}
+  
+
+This case study makes use of observational data, which provided convincing evidence that there is an association between both sets of variables considered. The sample were not randomly selected, so these conclusions only apply to the sample.
+
+ 

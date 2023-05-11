@@ -1,0 +1,44 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# Module: Data basics and drawing statistical conclusions {#sec-dataoverview}
+
+
+## Module outline  
+
+- The chapters in this module cover the following topics: 
+  + Properties of data
+  + Study design
+  + Scope of inference
+  + Inference permitted based on the study design  
+
+ 
+- Module chapters:
+  - Data summaries
+  - Drawing statistical conclusions
+  
+<!-- ## Module learning objectives   -->
+
+<!-- 1. Identify variables as discrete numerical, continuous numerical, or categorical. -->
+
+<!-- 2. Distinguish between discrete and continuous numerical data. -->
+
+<!-- 3. Identify tidy data. -->
+
+<!-- 4. Identify the explanatory variable and the response variable in a pair of variables. -->
+
+<!-- 5. Distinguish between an observational study and a randomized experiment. -->
+
+<!-- 6. Identify a confounding variable.  -->
+
+<!-- 7. List principles of experimental design. -->
+
+<!-- 8. Distinguish the difference between random selection and random assignment. -->
+
+<!-- 9. Evaluate whether conclusions drawn from a study are appropriate, given a -->
+<!-- description of the statistical study. -->
+ 
+ 

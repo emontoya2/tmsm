@@ -1,0 +1,14 @@
+{
+  "hash": "f46c3fba9d34359814debc563294de97",
+  "result": {
+    "markdown": "# Preface {.unnumbered}\n\nGraduate programs vary with regard to required statistical training.   The intention of this resource is to enable graduate students to improve their ability to apply appropriate  statistical methodologies.    \n \n## Some prerequisites\n\nPlease note that this resource (the modules) are designed for practitioners and does not assume prior knowledge of statistical concepts. The resource does cover some foundational concepts, but you require a more in-depth treatment of these foundational concepts, we recommend consulting other resources, such as the following free introductory statistics textbooks:\n\n\n-   *OpenIntro Statistics* by @openintro. This is an open education resource that it is very well written and straightforward for students. This book book is utilized by our general education statistics course (Math 1209.)\n\n-   *Introductory Statistics* by @openintro2. This is another open education resource that it is very well written more in the style of traditional textbooks.\n\nR and RStudio will also have to be installed (see @sec-appendix-startingR for installation instructions).\n \n \n \n## Acknowledgements\n\n- CSUB Title Vb program for supporting the creation of this resource.\n\n- The R Core team, RStudio, Quarto, and Github for their continued advancement of these open-source softwares.\n\n- Dr. Tien-Chieh Hung for providing the data for the case study on Delta smelt.\n\n- Dr. Brandon Pratt for providing the data for the case study on xylem characteristics in shrub species, as well as providing feedback for the case study.\n\n- Dr. David Riedman for providing the data for the case study on school shooting.\n\n\n \n\n## Contributing\n\nContributions are encouraged on any part of the project, including:\n\n- Improvements to the text, e.g. clarifying unclear sentences, notation, and fixing typos.\n- Changes to the R code to make it easier to read or to do things in a more efficient way. \n- Suggestions on topics to consider adding.\n- examples or case studies to considering integrating into the project. \n\n\n\n\n\n::: {.cell layout-align=\"center\"}\nContributers: .\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

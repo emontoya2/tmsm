@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.35">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Training modules on selected statistical methods - 8&nbsp; Drawing statistical conclusions</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./summaries.html" rel="next">
+<link href="./basics.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Drawing statistical conclusions</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Training modules on selected statistical methods</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/emontoya2" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="" title="Share" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+<li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+            <i class="bi bi-bi-twitter pe-1"></i>
+          Twitter
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+            <i class="bi bi-bi-facebook pe-1"></i>
+          Facebook
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+            <i class="bi bi-bi-linkedin pe-1"></i>
+          LinkedIn
+          </a>
+        </li>
+    </ul>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Welcome</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./preface.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./casestudies.html" class="sidebar-item-text sidebar-link">Module: Case Studies</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Case study 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Case study 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs3.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Case study 3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs4.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Case study 4</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs5.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Case study 5</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs6.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Case study 6</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./data.html" class="sidebar-item-text sidebar-link">Module: Data basics and drawing statistical conclusions</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Basics of data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./drawingconclusions.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Drawing statistical conclusions</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./summaries.html" class="sidebar-item-text sidebar-link">Module:  Basic Exploratory  Data Analysis</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./catsum.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Summarizing categorical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./numsum.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summarizing numerical data</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./twosample.html" class="sidebar-item-text sidebar-link">Module: Two sample methods</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./siframework.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Statistical inference framework via a case study</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./twoindptmeans.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Two sample methods</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./anovalin.html" class="sidebar-item-text sidebar-link">Module: ANOVA, linear regression, and logistic regression</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./anova.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Analysis of variance (ANOVA)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Simple linear regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logisticreg.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Simple logistic regression</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./eda.html" class="sidebar-item-text sidebar-link">Module: Advanced Exploratory Data Analysis</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pca.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">PCA</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./a1-startingR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Installing or accessing R and RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./a2-firstR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">A first session in RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./a3-basicsR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Some basic tasks in R</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#populations-samples-and-collecting-data" id="toc-populations-samples-and-collecting-data" class="nav-link active" data-scroll-target="#populations-samples-and-collecting-data"> <span class="header-section-number">8.1</span> Populations, samples, and collecting data</a></li>
+  <li><a href="#relationships-among-variables" id="toc-relationships-among-variables" class="nav-link" data-scroll-target="#relationships-among-variables"> <span class="header-section-number">8.2</span> Relationships among variables</a></li>
+  <li><a href="#basics-of-experimental-design" id="toc-basics-of-experimental-design" class="nav-link" data-scroll-target="#basics-of-experimental-design"> <span class="header-section-number">8.3</span> Basics of experimental design</a></li>
+  <li><a href="#scope-of-inference" id="toc-scope-of-inference" class="nav-link" data-scroll-target="#scope-of-inference"> <span class="header-section-number">8.4</span> Scope of inference</a></li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/emontoya2/edit/master/drawingconclusions.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="sec-drawconc" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Drawing statistical conclusions</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header><div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/datamod/statconcpic.jpg" class="img-fluid figure-img" style="width:50.0%"></p>
+<p></p><figcaption class="figure-caption">AI art generated from the text “statistical conclusions”</figcaption><p></p>
+</figure>
+</div>
+<section id="populations-samples-and-collecting-data" class="level2" data-number="8.1"><h2 data-number="8.1" class="anchored" data-anchor-id="populations-samples-and-collecting-data">
+<span class="header-section-number">8.1</span> Populations, samples, and collecting data</h2>
+<p>The first step in conducting research is to identify topics or questions that are to be investigated. However, it is important to consider how data are collected so that they are reliable and help achieve the research goals. Important concepts related to data collection:</p>
+<ul>
+<li><p><strong>Population</strong>: The entire collection of objects or individuals that you want to study.</p></li>
+<li><p><strong>Individual</strong>, <strong>case</strong>, or <strong>subject</strong> : A person or an object that is a member of the population being studied</p></li>
+<li><p><strong>Sample</strong>: A part of the population that is selected for the study.</p></li>
+</ul>
+<p>If the goal is to draw conclusions about the population of interest, rather than just the cases or subjects in the sample, a <strong>representative</strong> sample obtained through random sampling is required.</p>
+<p>Common sampling techniques include:</p>
+<ul>
+<li>Simple random sampling (SRS) – Randomly and independently select cases from the population, each case is equally likely to be selected.</li>
+</ul>
+<div id="fig-srs" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/design/srs.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure 8.1: Simple random sampling</figcaption><p></p>
+</figure>
+</div>
+<ul>
+<li>Stratified sampling – Population is divided into groups called strata. The strata are homogeneous and an SRS is taken from each stratum.</li>
+</ul>
+<div id="fig-strat" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/design/strat.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure 8.2: Stratified sampling</figcaption><p></p>
+</figure>
+</div>
+<ul>
+<li>Cluster sampling – Population is divided into groups called clusters that are not necessarily homogeneous. A random sample of clusters is selected and all observations from each sampled cluster are used.</li>
+</ul>
+<div id="fig-clust" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/design/cluster.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure 8.3: Cluster sampling</figcaption><p></p>
+</figure>
+</div>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+A note about the size of the sample
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Common misconception</strong>: If the size of a sample is relatively small compared to the population size, the sample cannot possibly accurately reflect the population. Not true! The random selection process allows you to be confident that the resulting sample will reflect the population, even when the sample consists of only a small fraction of the population.</p>
+<p>Statistical inferential methods <strong>always account for the sample size</strong>. The larger the sample size, the more information is available, which results in a more precise answer compared to a smaller sample size with less information.</p>
+</div>
+</div>
+</section><section id="relationships-among-variables" class="level2" data-number="8.2"><h2 data-number="8.2" class="anchored" data-anchor-id="relationships-among-variables">
+<span class="header-section-number">8.2</span> Relationships among variables</h2>
+<p>When two variables show some relationship or connection with one another, they are called <strong>associated variables</strong>. If it is believed that a variable might affect or be associated with changes in the another variable, then in such cases, the first variable is designated the <strong>explanatory variable</strong> and the second the <strong>response variable</strong>.</p>
+<p>For example, can the height of a tree provide a reasonable estimate of its volume? Do certain types of diets significantly affect the early growth of chicks? Such questions can be explored using numerical and graphical summaries of data. However, whether the trends or patterns seen in these graphs can be attributed mostly to sampling, natural variability, or random error is uncertain.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Recall the case study given in <a href="datacs.html"><span>Chapter&nbsp;1</span></a> This data set has three variables (two categorical and one numerical variable): level of exposure of light intensity (<code>Light</code>), turbidity level exposure (<code>Turbidity</code>), and the percentage of larvae that survived (<code>Survival</code>). The questions posed where: Do levels of light intensity (measured in <span class="math inline">\(\mu mol/m^2/s\)</span>) affect survival rates of early-stage larvae early-stage Delta smelt larvae? What about levels of turbidity (measures in nephelometric turbidity units (NTUs))? Since we would like to know whether these factor variables might affect the percentage of larvae that survived, <code>Light</code> and <code>Turbidity</code> are explanatory variables and <code>Survival</code> is the response variable.</p>
+</div>
+</div>
+<p>Two common ways to visualize the relationship between variables are scatter plots and box plots. In R, we create these plots using the <code><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">xyplot()</a></code> and <code><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">bwplot()</a></code> functions, respectively. Below are examples of these plots being used to explore the relationships between variables in two different datasets. Both of these functions are also discussed in <a href="numsum.html"><span>Chapter&nbsp;10</span></a>.</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### xyplot( y ~ x , data , xlab, ylab, main, xlim, ylim, col, pch )
+# y: Replace y with the name of the response numerical variable.
+# x: Replace x with the name of the explanatory numerical variable.
+# data: Set equal to dataframe name
+# xlab: set equal to the label for x-axis (optional).
+# ylab: set equal to the label for y-axis (optional).
+# xlim: set equal to the  range of the x-axis (e.g., c(0, 1)  provides
+#       a lower bound 0 and upper bound of 1) (optional).
+# ylim: set equal to the  range of the y-axis (optional).
+# main: set equal to the title of the plot (optional).
+# col:  Set equal to desired color for points (optional).  
+# pch:  Set equalt o a number between 1-25 to change the point symbol (optional).  
+#
+#
+### bwplot( y ~ x , data , xlab, ylab, main, xlim, ylim, box.ratio, 
+             varwidth, horizonal, panel  )
+# x: Replace x with the name of the explanatory categorical variable.
+# horizontal: Set equal to TRUE if boxplots are to be drawn 
+#            horizontally.  If set equal to true, change y~x
+#            to x ~ y (optional).
+# box.ratio: Set equal to a number between 0 and 1 to control the 
+#            width of the rectangles. (optional)
+# fill: Set equal to color to fill the box. Be default the box
+#       is clear (optional).
+# panel: Set equal to panel.violin to create violin plot (optional).
+# pch: Set equal to "|" to denote median by a line rather than dot (optional).
+#</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center" data-fig.asp="0.5" data-warnings="false">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load the `lattice` package to create plots</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://lattice.r-forge.r-project.org/">lattice</a></span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co"># The built-in `trees` dataset is used to</span></span>
+<span><span class="co"># create a scatter plot of tree volume </span></span>
+<span><span class="co"># versus tree height using the `xyplot` function.</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">xyplot</a></span><span class="op">(</span> <span class="va">Volume</span>  <span class="op">~</span>  <span class="va">Height</span> , </span>
+<span>        data<span class="op">=</span> <span class="va">trees</span> , </span>
+<span>        ylab<span class="op">=</span> <span class="st">"Tree Volume (cubic ft)"</span> , </span>
+<span>        xlab<span class="op">=</span> <span class="st">"Height (ft)"</span> <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div id="fig-treevol" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="drawingconclusions_files/figure-html/fig-treevol-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure 8.4: Tree volume vs.&nbsp;Tree height</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center" data-fig.asp="0.5" data-warnings="false">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="co"># Data set `ChickWeight' contains variables weight and Diet</span></span>
+<span><span class="co"># It is a built-in data set.  bwplot() creates a boxplot </span></span>
+<span><span class="co"># for a categorical variable (Diet) and a numerical </span></span>
+<span><span class="co"># variable (weight).</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">bwplot</a></span><span class="op">(</span> <span class="va">weight</span> <span class="op">~</span> <span class="va">Diet</span> , </span>
+<span>        data<span class="op">=</span> <span class="va">ChickWeight</span> , </span>
+<span>        ylab<span class="op">=</span> <span class="st">"Chick weight (gm)"</span> , </span>
+<span>        xlab<span class="op">=</span> <span class="st">"Diet type"</span> <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div id="fig-chicks" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="drawingconclusions_files/figure-html/fig-chicks-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure 8.5: Chick weight vs.&nbsp;Diet type</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The graphical summaries above suggest that chicks on diets 3 and 4 tend to have higher weights than those on diets 1 or 2 in this sample. However, inferential methods would be necessary to determine whether these differences between diets are due to natural or sampling variability. The same goes for the trend seen in the scatter plot.</p>
+</section><section id="basics-of-experimental-design" class="level2" data-number="8.3"><h2 data-number="8.3" class="anchored" data-anchor-id="basics-of-experimental-design">
+<span class="header-section-number">8.3</span> Basics of experimental design</h2>
+<p>The following concepts of experimental design enable researchers to conclude that differences in the observed response data are likely due by the treatments and not reasonably attributable to only chance:</p>
+<ul>
+<li><p>Randomization: Researchers randomly assign experiment units into treatment or conditions (also called randomized group assignment). This ensures that an experiment does not favor one experimental condition over any other and tries to create “equivalent” experimental groups in the sense that the treatment groups are as much alike as possible.</p></li>
+<li><p>Replication: The more experimental data collected, the more precise our estimate of the effect of the treatment on the response.</p></li>
+<li><p>Controlling: Researchers assign treatments to cases, and attempt their best to control any other differences in the groups.</p></li>
+<li><p>Blocking: A technique to include another factor variable that is not of primary interest in the experiment because it is believed it contributes to variation in the response. The experimental units may be grouped or blocked based on this factor variable. Randomization is then applied within each block to the treatment conditions. Blocks should be homogeneous.</p></li>
+</ul>
+<p>For those interested in learning more about the design and analysis of experiments, <em>Math 4220</em> is an applied course that explores various strategies for constructing and executing experiments that can be applied across the social, physical, and life sciences. This course enhances the ability of one to design experiments, carry them out, and analyze the resulting data.</p>
+</section><section id="scope-of-inference" class="level2" data-number="8.4"><h2 data-number="8.4" class="anchored" data-anchor-id="scope-of-inference">
+<span class="header-section-number">8.4</span> Scope of inference</h2>
+<p>The scope of inference of a study (from a statistician’s perspective) addresses two questions:</p>
+<ul>
+<li><p>Do these results provide evidence for a causal relationship? (cause-and-effect or causation)</p></li>
+<li><p>Can the results of the study be generalized to a population? (generalizability)</p></li>
+</ul>
+<p>One can only establish if changes in the explanatory variable cause changes in the response variable through a randomized experiment. The answer to the second question is provided by the sampling method used to obtain the data. If the sample was randomly selected, then results from a study can be reasonably generalize to the population from which the sample was taken. In terms of a randomized experiment, the same applies to the treatments considered. Otherwise, the results can not be generalized to a population.</p>
+<div id="fig-scope" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/design/scopeTable.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure 8.6: The table reflects what can be concluded if an association is established (scope of inference)</figcaption><p></p>
+</figure>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Recall the case study given in <a href="datacs.html#sec-csdelta"><span>Section&nbsp;1.1</span></a>. The treatments (low, medium, and high light intensities) were imposed on the subjects (early-stage Delta smelt larvae), but the treatment levels were not randomly assigned to the experimental units. Therefore, results from the study can not say whether changes in light intensity causes changes in survival rates. While there is an association between these variables, other possible explanation may exist for this relationship.</p>
+<p>Furthermore, since the fish were not randomly selected for the study from some larger population, nor were the light intensities randomly selected, any conclusions from the study apply only to the subjects in the sample and the treatments considered. Therefore, the findings cannot be generalized to a larger population of fish or light intensity in general.</p>
+</div>
+</div>
+
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./basics.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Basics of data</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./summaries.html" class="pagination-link">
+        <span class="nav-page-text">Module: Basic Exploratory Data Analysis</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

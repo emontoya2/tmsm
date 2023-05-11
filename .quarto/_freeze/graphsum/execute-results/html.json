@@ -1,0 +1,16 @@
+{
+  "hash": "630c52c4672ec988e48b62c5ea2bcdce",
+  "result": {
+    "markdown": "# Summarizing data graphically {#sec-databasics}\n\n\n::: {#fig-stformat .cell layout-ncol=\"1\" layout-align=\"center\"}\n::: {.cell-output-display}\n![ ](graphsum_files/figure-html/fig-stformat-1.png){#fig-stformat fig-align='center' width=672}\n:::\n\nEvery wonder how many books and short stories have been written about Star Trek franchise  relative to total number of Star Trek epsisodes (across all series)? \n:::\n",
+    "supporting": [
+      "graphsum_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

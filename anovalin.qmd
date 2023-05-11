@@ -1,0 +1,33 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# Module: ANOVA, linear regression, and logistic regression {#sec-anova_lm}
+
+
+## Module outline
+
+This module discusses three topics
+
++ Single factor analysis of variance (ANOVA).
++ Simple linear regression
++ Simple logistic regression 
+
+These methods study the associations between two variables.
+
+Single factor ANOVA is a method for assessing the differences between group means (more than two). This method is also known as a one-way ANOVA. In this scenario, we have a numerical response variable and a categorical explanatory variable with more than two levels. In ANOVA, the categorical explanatory variable is typically referred to as the factor variable. 
+
+Simple linear regression models the linear relationship between an explanatory variable and a numerical response variable. Simple logistic regression is like simple linear regression but the response is a binary outcome. 
+
+Inferential methods will be covered for ANOVA, linear regression, and logistic regression. 
+
+
+- Module chapters:
+- ANOVA
+- Linear regression
+- Logistic regression
+
+
+ 

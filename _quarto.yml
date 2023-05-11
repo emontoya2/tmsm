@@ -1,0 +1,72 @@
+project:
+  type: book
+  output-dir: docs
+
+
+book:
+  title: "Training modules on selected statistical methods"
+  author: "Eduardo L. Montoya"
+  cover-image: images/cover.jpeg
+  site-url: https://emontoya2.github.io/
+  repo-url: https://github.com/emontoya2
+  repo-branch: master
+  repo-actions: [edit]
+  sharing: [twitter, facebook, linkedin]
+  chapters:
+    - index.qmd
+    - preface.qmd
+    - part: casestudies.qmd
+      chapters: 
+        - datacs.qmd
+        - datacs2.qmd
+        - datacs3.qmd
+        - datacs4.qmd
+        - datacs5.qmd
+        - datacs6.qmd
+    - part: data.qmd
+      chapters: 
+        - basics.qmd
+        - drawingconclusions.qmd
+    - part: summaries.qmd
+      chapters: 
+        - catsum.qmd
+        - numsum.qmd
+    - part: twosample.qmd
+      chapters: 
+        - siframework.qmd
+        - twoindptmeans.qmd
+    - part: anovalin.qmd
+      chapters: 
+        - anova.qmd
+        - lr.qmd    
+        - logisticreg.qmd    
+    - part: eda.qmd
+      chapters: 
+        - pca.qmd         
+  appendices:
+    - a1-startingR.qmd
+    - a2-firstR.qmd
+    - a3-basicsR.qmd
+
+
+bibliography: references.bib
+  
+format:
+  html: 
+    theme: cyborg
+    cover-image: cover.jpeg
+    code-link: true
+    code-fold: show
+knitr:
+  opts_chunk: 
+    collapse: true
+    comment: "#>" 
+    echo: true
+    message: false
+    fig.align: center
+    warning: false
+    prompt: false
+    eval: true
+    results: show
+
+ 

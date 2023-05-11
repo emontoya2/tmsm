@@ -1,0 +1,133 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# Case study 1 {#sec-casestudy1}
+
+## Delta smelt {#sec-csdelta}
+
+```{r}
+#| echo: false
+#| out.width: "50%"
+#| fig.cap: "Figure: Delta smelt Source:https://calfish.ucdavis.edu/species/"
+#| fig.alt: "Photograph a delta smelt Juvenile."
+knitr::include_graphics("images/casestudy/deltasmelt.jpg")
+```
+
+The Delta smelt is a small fish that smells like peeled cucumbers, with lifespan of about a year. It is a species that lives in Sacramento-San Joaquin River Delta, where more than half of fresh water in the state is moved through the delta for usage by residents, as well as the agriculture and industry sectors. The delta smelt is keystone species that is sensitive to changes in it's habitat and its population is endangered. Its decline is of concern since the Delta smelt's population serves as an indicator of the health of the Delta's ecosystem as this fish is an important part of the food chain.
+
+ Light intensity is the amount of illumination at the water surface.  The turbidity of water is measure haziness or cloudiness of the water. Both of these environmental factors have been found to influence fish behavior. The effects of these environmental factors on the feeding, growth, and survival of larvae were investigated on the Delta smelt, where such understanding would be vital for improving the conservation of this endangered fish species (@tigan2020). For their investigation, three sets of rearing trials were conducted where larvae were cultured under different levels of turbidity (measures in nephelometric turbidity units (NTUs)) and light intensity (measured in $\mu mol/m^2/s$) . Delta smelt larvae feeding activity was observed throughout the initial adjustment of light and turbidity levels to ascertain feeding ability and behavior at the different levels.  
+
+For brevity, we focus on the following question: Do levels of  light intensity (measured in $\mu mol/m^2/s$)  affect survival rates of early-stage Delta smelt larvae? 
+
+We address this question using data on the percentage of early-stage Delta smelt larvae (0–40  days post hatch) that survived when reared under different conditions (low, medium, high) of light intensities, measured in $\mu mol/m^2/s$. The data are shown in  the table below.
+
+
+```{r, casestudydata }
+#| echo: false
+#| message: false
+#| warning: false
+#| results: 'asis'
+#| fig.width: 7
+#| fig.height: 3
+#| fig.align: 'center'
+
+require(dplyr)
+require(readr)
+library(kableExtra)
+library(DT)
+survdf <- read_csv("datasets/dssurvOG.csv")
+survdf <- survdf %>% mutate( Turbidity = as.factor(Turbidity), Light = as.factor(Light) )
+
+levels(survdf$Light) <- c("low", "med", "high")
+levels(survdf$Turbidity) <- c("low", "med", "high")
+
+
+datatable( survdf , class="hover", style="bootstrap4", rownames=FALSE,   height=250,  fillContainer = T, caption="Survival percentages for subjects from Tigan et al. (2020)" ,
+           options = list(scrollY = '350px', columnDefs = 
+                           list(list(className = 'dt-center', 
+                                     targets = "_all"))) )  
+```  
+
+### Summary of findings {-}
+
+Numerical and graphical summaries of the survival of  all early-stage Delta smelt larvae (0–40 dph) in the study reared under different light intensities  are provided below.
+
+```{r }
+#| label: fig-dsplots
+#| fig-cap: "Survival of  all early-stage Delta smelt larvae (0–40 dph) in the study reared under different light intensities. " 
+#| fig-subcap:
+#|   - " "
+#|   - " " 
+#| layout-ncol: 1
+#| echo: false
+#| message: false
+#| warning: false
+library(lattice)
+
+bwplot(   Survival~ Light, data=survdf, ylab=list(label="Survival (%)", cex=1.2), 
+          scales=list(tck=c(1,0), x=list(cex=1.2), y=list(cex=1.2)))
+ 
+ 
+```
+ 
+ 
+```{r }
+#| label: tbl-dssums
+#| tbl-cap: "A comparison of the mean and standard deviation of Survival of  all early-stage Delta smelt larvae (0–40 dph) in the study reared under different light intensities."
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+#| results: 'asis'
+ 
+
+survdf %>%
+  group_by(Light) %>%
+  summarise(
+    Mean =   round(mean(Survival),3), 
+    SD =     round(sd(Survival),3)
+    ) %>%
+  kbl(linesep = "", booktabs = TRUE, align = "lcccc") %>%
+  kable_styling(bootstrap_options = c("striped", "condensed"), 
+                latex_options = c("striped", "hold_position"))  
+ # add_header_above(c(" " = 1, "Robust" = 2, "Not robust" = 2))
+```
+
+
+```{r }
+#| label: tbl-dssums2
+#| tbl-cap: "A comparison of the mean and standard deviation of survival of  all early-stage Delta smelt larvae (0–40 dph) in the study reared under different turbidity levels."
+#| echo: false
+#| eval: false
+#| message: false
+#| warning: false
+#| results: 'asis'
+ 
+ 
+survdf %>%
+  group_by(Turbidity ) %>%
+  summarise(
+    Mean =   round(mean(Survival),2), 
+    SD =     round(sd(Survival),2)
+    ) %>%
+  kbl(linesep = "", booktabs = TRUE, align = "lcccc") %>%
+  kable_styling(bootstrap_options = c("striped", "condensed"), 
+                latex_options = c("striped", "hold_position"))  
+ # add_header_above(c(" " = 1, "Robust" = 2, "Not robust" = 2))
+
+kruskal.test( Survival ~  Light , data= survdf)
+
+```
+
+ 
+When reared under different conditions of light intensities, the data summaries show that early-stage Delta smelt larvae (0–40  days post hatch) tended to have a higher percentage of survival under medium light intensity (sample mean survival percentage of 75.518) and similar percentages of survival under low and high light intensity.  Is the sample mean survival percentage under medium light intensity different enough compared to the mean under  low and high light intensity to convince you that survival rates are affected by the strength of light intensity? 
+Using statistical methods to be discussed later, the data provides moderate evidence that survival rates are affected by the strength of light intensity (p-value=.059)
+
+### Scope of inference {-}
+
+Treatments (low, medium, and high light intensities) were imposed on the subjects (early-stage Delta smelt larvae), but the treatment levels were not randomly assigned. Although the data provides suggestive evidence that light intensity affects survival rates, the analysis can not say whether changes in light intensity cause changes in survival rates. While there is a suggestive association between the treatment and rate of survival, other possible explanations may exist. Because the subjects were not randomly selected from some larger population, our findings that survival rates are affected by the strength of light intensity only apply to those subjects in the sample and not some larger population. 
+ 
+ 

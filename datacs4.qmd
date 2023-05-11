@@ -1,0 +1,119 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# Case study 4 {#sec-casestudy4}
+
+## Case study on patterns of obesity across rural and urban regions {#sec-csob}
+
+
+```{r}
+#| echo: false
+#| out.width: "90%"
+#| fig.cap: "Source: https://hopkinsdiabetesinfo.org/glossary/body-mass-index/"
+#| fig.alt: "Photograph a BMI and BMI scale."
+knitr::include_graphics("images/casestudy/bmiob.jpg")
+```
+
+Motivated by the work of   @ncd2019rising, a case study by @Wright2020 explored global patterns of obesity across different regions.  The questions in their case study were related to the  association between Body mass index (BMI) rates with region (rural vs urban) and countries.  BMI may be considered a measurement of health, where BMI is defined as an individual’s weight divided by the individual’s height. The data used for the case study is described @ncd2019rising, where the data  consisted of the following variables:+
+
+- Country: Countries in the sample
+
+- Sex: Men or women. The data recorded only contained data for groups of individuals described as men or women.
+
+- Region: Type of region (rural or urban)
+
+- Year:  1985 or 2017
+
+- BMI: Averaged BMI values for the given year, sex, region, and country.
+
+We use the data to assess if BMI rates for urban and rural differ.   The data are shown in table below.
+
+```{r, BMIcasestudydata }
+#| echo: false
+#| message: false
+#| warning: false
+#| results: 'asis'
+#| fig.width: 7
+#| fig.height: 3
+#| fig.align: 'center'
+
+require(dplyr)
+library(kableExtra)
+library(DT)
+bmidf <- read.csv("datasets/BMIcsdata.csv")
+bmidf <- bmidf %>% mutate( Country  = as.factor(Country ), Sex= as.factor(Sex),  Region = as.factor(Region)  )
+
+datatable( bmidf , class="hover", style="bootstrap4", rownames=FALSE,   height=250,  fillContainer = T, caption="BMI case study data" ,
+           options = list(scrollY = '350px', columnDefs = 
+                           list(list(className = 'dt-center', 
+                                     targets = "_all"))) )  
+```  
+
+
+
+### Summary of findings {-}
+
+Numerical and graphical summaries of the BMI under different regions are provided below: 
+
+```{r }
+#| label: fig-bmiplots
+#| fig-cap: "Survival of  all early-stage Delta Smelt larvae (0–40 dph) in the study reared under different light intensities. " 
+#| fig-subcap:
+#|   - " "
+#|   - " " 
+#| layout-ncol: 1
+#| echo: false
+#| message: false
+#| warning: false
+library(lattice)
+ 
+bwplot( BMI ~ Region, data=bmidf, ylab=list(label="BMI rates", cex=1.2), 
+          scales=list(tck=c(1,0), x=list(cex=1.2), y=list(cex=1.2)))
+ 
+```
+
+```{r }
+#| label: tbl-bmisums
+#| tbl-cap: "A comparison of the mean and standard deviation of BMI rates for each region"
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+#| results: 'asis'
+ 
+ 
+# bmidf %>%
+#   group_by(Sex) %>%
+#   summarise(
+#     Mean =   round(mean(BMI),3), 
+#     SD =     round(sd(BMI),3)
+#     ) %>%
+#   kbl(linesep = "", booktabs = TRUE, align = "lcccc") %>%
+#   kable_styling(bootstrap_options = c("striped", "condensed"), 
+#                 latex_options = c("striped", "hold_position"))  
+#  # add_header_above(c(" " = 1, "Robust" = 2, "Not robust" = 2))
+
+bmidf %>%
+  group_by(Region) %>%
+  summarise(
+    Mean =   round(mean(BMI),3), 
+    SD =     round(sd(BMI),3)
+    ) %>%
+  kbl(linesep = "", booktabs = TRUE, align = "lcccc") %>%
+  kable_styling(bootstrap_options = c("striped", "condensed"), 
+                latex_options = c("striped", "hold_position"))  
+ # add_header_above(c(" " = 1, "Robust" = 2, "Not robust" = 2))
+
+```
+  
+The graphical and numerical summaries show that the BMI rates for urban areas tend to be higher in the sample.    However, are the samples means different enough to suggest that BMI rates are affected by region?   Using statistical methods to be addressed later, the data provides convincing  evidence that region affects BMI rates (p-value $<$ 0)
+
+### Scope of inference {-}
+  
+
+This case study make use of observational data, which provided convincing evidence that there is an association between BMI rates with both region and sex. The sample were not randomly selected, so these conclusions only apply to the men and women in the  sampled countries.  
+
+ 

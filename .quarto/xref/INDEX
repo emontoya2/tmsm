@@ -1,0 +1,89 @@
+{
+  "drawingconclusions.qmd": {
+    "drawingconclusions.html": "49fa133e"
+  },
+  "index.qmd": {
+    "index.html": "b6d0e211"
+  },
+  "preface.qmd": {
+    "preface.html": "cad9aa58"
+  },
+  "data.qmd": {
+    "data.html": "01e34362"
+  },
+  "datacs.qmd": {
+    "datacs.html": "5e0b3d4d"
+  },
+  "datacs2.qmd": {
+    "datacs2.html": "434f1f5d"
+  },
+  "basics.qmd": {
+    "basics.html": "6f7ad613"
+  },
+  "summaries.qmd": {
+    "summaries.html": "bedba2d3"
+  },
+  "datacs3.qmd": {
+    "datacs3.html": "9be21108"
+  },
+  "graphsum.qmd": {
+    "graphsum.html": "56761ad4"
+  },
+  "numsum.qmd": {
+    "numsum.html": "259d1e32"
+  },
+  "a1-startingR.qmd": {
+    "a1-startingR.html": "b2dd5ed4"
+  },
+  "a2-firstR.qmd": {
+    "a2-firstR.html": "0c5a3ddb"
+  },
+  "a3-basicsR.qmd": {
+    "a3-basicsR.html": "92ce7bbc"
+  },
+  "catsum.qmd": {
+    "catsum.html": "bdad8947"
+  },
+  "casestudies.qmd": {
+    "casestudies.html": "1b1170fa"
+  },
+  "twosample.qmd": {
+    "twosample.html": "ed2305c7"
+  },
+  "datacs4.qmd": {
+    "datacs4.html": "0b53a7dc"
+  },
+  "datacs5.qmd": {
+    "datacs5.html": "4f8a7a2c"
+  },
+  "siframework.qmd": {
+    "siframework.html": "f989d818"
+  },
+  "pairedmeans.qmd": {
+    "pairedmeans.html": "d3ab4645"
+  },
+  "twoindptmeans.qmd": {
+    "twoindptmeans.html": "4cdb107d"
+  },
+  "datacs6.qmd": {
+    "datacs6.html": "4d21d925"
+  },
+  "anovalin.qmd": {
+    "anovalin.html": "00e25a9f"
+  },
+  "anova.qmd": {
+    "anova.html": "aa034136"
+  },
+  "lr.qmd": {
+    "lr.html": "bd8ae107"
+  },
+  "logisticreg.qmd": {
+    "logisticreg.html": "385983e8"
+  },
+  "eda.qmd": {
+    "eda.html": "55f7d77a"
+  },
+  "pca.qmd": {
+    "pca.html": "7d181bb1"
+  }
+}

@@ -1,0 +1,34 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# Module: Two sample methods {#sec-twosample}
+
+
+## Module outline  
+
+This module discusses two-sample inference but first discusses the basic frame work for inference through the introduction to things that one should consider when comparing aspects of:
+
++ Two distinct populations (e.g, delivery times of Uber Eat vs. Doordash)
++ Two different treatments applied to one population (e.g., the effect of taking a drug vs. a placebo). 
+
+This involves the process of sampling data from a population or obtaining data via a randomize experiment to determine what can be inferred about the true effect or population based on sample results.  Statistical inference helps us answer two questions about the population or experiment:
+
+- How strong is the evidence of an effect?
+- How large is the effect?
+ 
+
+The first question is addressed using hypothesis testing, while the second question is address by a confidence interval. 
+
+While this framework is illustrated through two-sample method, this framework extends to any inferential procedures discussed in this resource. 
+
+
+- Module chapters:
+  - Hypothesis testing and confidence interval framework
+  - Inference for comparing two independent means
+
+  
+ 
+  

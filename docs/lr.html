@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.35">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Training modules on selected statistical methods - 14&nbsp; Simple linear regression</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./logisticreg.html" rel="next">
+<link href="./anova.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script><link href="site_libs/vembedr-0.1.5/css/vembedr.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Simple linear regression</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Training modules on selected statistical methods</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/emontoya2" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="" title="Share" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+<li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+            <i class="bi bi-bi-twitter pe-1"></i>
+          Twitter
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+            <i class="bi bi-bi-facebook pe-1"></i>
+          Facebook
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+            <i class="bi bi-bi-linkedin pe-1"></i>
+          LinkedIn
+          </a>
+        </li>
+    </ul>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Welcome</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./preface.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./casestudies.html" class="sidebar-item-text sidebar-link">Module: Case Studies</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Case study 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Case study 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs3.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Case study 3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs4.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Case study 4</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs5.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Case study 5</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs6.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Case study 6</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./data.html" class="sidebar-item-text sidebar-link">Module: Data basics and drawing statistical conclusions</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Basics of data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./drawingconclusions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Drawing statistical conclusions</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./summaries.html" class="sidebar-item-text sidebar-link">Module:  Basic Exploratory  Data Analysis</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./catsum.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Summarizing categorical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./numsum.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summarizing numerical data</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./twosample.html" class="sidebar-item-text sidebar-link">Module: Two sample methods</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./siframework.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Statistical inference framework via a case study</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./twoindptmeans.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Two sample methods</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./anovalin.html" class="sidebar-item-text sidebar-link">Module: ANOVA, linear regression, and logistic regression</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./anova.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Analysis of variance (ANOVA)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lr.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Simple linear regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logisticreg.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Simple logistic regression</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./eda.html" class="sidebar-item-text sidebar-link">Module: Advanced Exploratory Data Analysis</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pca.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">PCA</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./a1-startingR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Installing or accessing R and RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./a2-firstR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">A first session in RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./a3-basicsR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Some basic tasks in R</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#fitting-the-slr-model-and-model-diagnostics." id="toc-fitting-the-slr-model-and-model-diagnostics." class="nav-link active" data-scroll-target="#fitting-the-slr-model-and-model-diagnostics."> <span class="header-section-number">14.1</span> Fitting the SLR model and model diagnostics.</a></li>
+  <li><a href="#testing-the-significance-of-the-linear-relationship-using-t-based-methods." id="toc-testing-the-significance-of-the-linear-relationship-using-t-based-methods." class="nav-link" data-scroll-target="#testing-the-significance-of-the-linear-relationship-using-t-based-methods."> <span class="header-section-number">14.2</span> Testing the significance of the linear relationship using t-based methods.</a></li>
+  <li><a href="#testing-the-significance-of-the-linear-relationship-using-a-randomization-test" id="toc-testing-the-significance-of-the-linear-relationship-using-a-randomization-test" class="nav-link" data-scroll-target="#testing-the-significance-of-the-linear-relationship-using-a-randomization-test"> <span class="header-section-number">14.3</span> Testing the significance of the linear relationship using a randomization test</a></li>
+  <li><a href="#sec-remedmeasure" id="toc-sec-remedmeasure" class="nav-link" data-scroll-target="#sec-remedmeasure"> <span class="header-section-number">14.4</span> Remedial measures</a></li>
+  <li><a href="#sample-size-estimation-and-power-analysis-for-slr" id="toc-sample-size-estimation-and-power-analysis-for-slr" class="nav-link" data-scroll-target="#sample-size-estimation-and-power-analysis-for-slr"> <span class="header-section-number">14.5</span> Sample size estimation and power analysis for SLR</a></li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/emontoya2/edit/master/lr.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="sec-regression" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Simple linear regression</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header><div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/linmod/regpic.jpg" class="img-fluid figure-img" style="width:50.0%"></p>
+<p></p><figcaption class="figure-caption">AI art generated by keywords “linear regression”</figcaption><p></p>
+</figure>
+</div>
+<p><a href="numsum.html#sec-multinumvar"><span>Section&nbsp;10.2</span></a> addresses how to investigate the relationship between two numerical variables by looking at a scatterplot. Simple linear regression (SLR) is a statistical method used to model the linear relationship between two numerical variables, where one variable is the response variable and the other is the explanatory variable. SLR is a special case of linear regression, which models the relationship between two or more variables by fitting a linear equation to the observed data. This section focuses on SLR, which involves only one explanatory variable.</p>
+<div class="cell quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<div id="fig-lrex" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="lr_files/figure-html/fig-lrex-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure 14.1: Example of a linear relationship with the estimated or best fit SLR line with the predicted values shown as black points on the line</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Notation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We start with some required notation and definitions: Let <span class="math inline">\(y\)</span> denote the response variable and <span class="math inline">\(x\)</span> denote the explanatory variable. The SLR model is of the form:</p>
+<p><span class="math display">\[y = \beta_0 + \beta_1 x + \varepsilon\]</span></p>
+<p>where:</p>
+<ul>
+<li><p><span class="math inline">\(\beta_0\)</span> is the true intercept, which represents the value of <span class="math inline">\(y\)</span> when <span class="math inline">\(x\)</span> is equal to 0.</p></li>
+<li><p><span class="math inline">\(\beta_1\)</span> is the true slope, which represents the average change in <span class="math inline">\(y\)</span> for a unit increase in <span class="math inline">\(x\)</span>.</p></li>
+<li><p><span class="math inline">\(\varepsilon\)</span> is the random error term, which represents the random variability about the line in the relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> that is not accounted for by the linear regression model.</p></li>
+</ul>
+</div>
+</div>
+<p>The SLR model assumes that the value of <span class="math inline">\(y\)</span> is linearly related to <span class="math inline">\(x\)</span> via the line <span class="math inline">\(\beta_0 + \beta_1 x\)</span>. However, the observed <span class="math inline">\(y\)</span> values deviate randomly from this line, as quantified by an error term. On average, the value of <span class="math inline">\(y\)</span> for a given value of <span class="math inline">\(x\)</span> is <span class="math inline">\(\beta_0 + \beta_1 x\)</span>. The random error term signifies that other factors, such as measurement errors, unmeasured variables, or inherent variability in the data, may influence the response variable and are not captured or explained by the estimated SLR line</p>
+<p>Note that the line shown in the above scatterplot is the estimated SLR line denoted by <span class="math inline">\(\hat{y} = b_0 + b_1 x\)</span>.</p>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Notation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note the following notation regarding the estimated SLR line:</p>
+<ul>
+<li>
+<p><span class="math inline">\(\hat{y}\)</span> is the predicted/fitted value of <span class="math inline">\(y\)</span> for a given value of <span class="math inline">\(x\)</span>.</p>
+<ul>
+<li>A value of <span class="math inline">\(\hat{y}\)</span> represent the estimated expected/average/mean value of the response (<span class="math inline">\(y\)</span>) at a given value of <span class="math inline">\(x\)</span>.</li>
+</ul>
+</li>
+<li><p><span class="math inline">\(b_0\)</span> is the estimated intercept</p></li>
+<li>
+<p><span class="math inline">\(b_1\)</span> is the estimated slope.</p>
+<ul>
+<li>The slope estimate represents the change in <span class="math inline">\(\hat{y}\)</span> corresponding to a 1-unit increase in <span class="math inline">\(x\)</span><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>Due to the random error in the relationship between the explanatory and response variables, the estimated line may not pass through every data point. The estimates of <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> are obtained using the method of least squares, which minimizes the sum of squared differences between the observed values of <span class="math inline">\(y\)</span> and predicted values <span class="math inline">\(\hat{y}\)</span>.</p>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Notation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>
+<span class="math inline">\(e\)</span> is the difference between the observed value of the dependent variable (<span class="math inline">\(y\)</span>) and the predicted value (<span class="math inline">\(\hat{y}\)</span>) and it is called a residual.
+<ul>
+<li>The residuals represent the unexplained variation in the dependent variable that is not accounted for by the estimated SLR line.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>Now that some basic of SLR have been covered, this section illustrates common key aspects of SLR, including:</p>
+<ul>
+<li><p>Fitting the SLR model to data using R, model diagnostics, and interpreting the fit.</p></li>
+<li><p>Performing a t-based test or a randomization test to determine the significance of the linear relationship between the two variables.</p></li>
+<li><p>Constructing a t-based confidence interval for the slope of the regression line.</p></li>
+<li><p>Applying basic remediation approaches.</p></li>
+</ul>
+<p>For inferential methods to provide meaningful results, several assumptions are made about the data on which the method is intended to be used.</p>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Data assumptions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The methods discussed here assume one or more of the following assumptions about the data:</p>
+<ul>
+<li><p><strong>Assumption 1</strong>. <em>Independence of the observations</em>. This means that the value of one observation should not be influenced by the value of another observation.</p></li>
+<li><p><strong>Assumption 2</strong>. <em>No influential outliers</em>. The data should not contain any influential outliers<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> that significantly affect the estimate SLR line.</p></li>
+<li><p><strong>Assumption 3</strong>. <em>Normality</em> or <em>large sample</em>. The residuals should be normally distributed if small sample.</p></li>
+<li><p><strong>Assumption 4</strong>. <em>Equal variance or spread</em>. The spread of observed values across the values of the explanatory variable should be roughly constant.</p></li>
+<li><p><strong>Assumption 5</strong>. The variables are <em>linearly related</em>, meaning that a straight line can accurately represent the trend in the scatterplot.</p></li>
+</ul>
+<p>While these assumptions are assessed below with a case study, assumption 1 can be assessed using residual plots along with the study design. Assumption 2 can be examined using a histogram or boxplot of the data or residuals, assumption 3 with normal QQ-plot of the residuals, assumption 4 with a scatterplot of the residuals against the predicted values, and assumption 5 with a scatterplot of the data.</p>
+</div>
+</div>
+<section id="fitting-the-slr-model-and-model-diagnostics." class="level2" data-number="14.1"><h2 data-number="14.1" class="anchored" data-anchor-id="fitting-the-slr-model-and-model-diagnostics.">
+<span class="header-section-number">14.1</span> Fitting the SLR model and model diagnostics.</h2>
+<p>The function <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> is used to fit the SLR model to the data.</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### lm( y ~ x , data )
+# y: replace y with the name of the resposne (measured) 
+#  variable of interest
+# x: replace x with the name of the explantory variable
+# data: set equal to a dataframe that is in tidy form
+#</code></pre>
+</div>
+</div>
+<p>Note that the R functions used in these modules often have identical arguments, which will no longer be described in this module. The <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function provides more than just the values of <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span>, and the illustrations below show how to use it to create an <em>lm object</em> that contains useful information. To summarize the SLR model fit, extract fitted values, or extract residuals from the <em>lm object</em>, we use the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code>, <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code>, and <code><a href="https://rdrr.io/r/stats/residuals.html">residuals()</a></code> functions on the <em>lm object</em>, respectively. The function <code><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">xyplot()</a></code> can be used to plot the data along with the estimated SLR line by specifying an argument called <code>type</code>:</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### summary( lm object )
+# lm object: An object saving the result of usuing 
+#      the lm function.
+#
+### predict( lm object )
+#
+### residuals( lm object )
+#
+### xyplot( y ~ x, data, type=c("p", "r") )
+#</code></pre>
+</div>
+</div>
+<p>The <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function will provide a lot of information, including the values of <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span>.</p>
+<p>To perform model diagnostics (process of of assess the validity of the assumptions of data) with will use <code><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">xyplot()</a></code> in a different way. The R package <code>tactile</code> expands the functionality of <code><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">xyplot()</a></code> so that it creates a set of residual plot by specifying only an <em>lm object</em>. Specifically, for a SLR model fit, it will provide the following residual plots:</p>
+<ul>
+<li><p><strong>Residuals vs.&nbsp;predicted values</strong>: This residual plot shows the relationship between the residuals and the predicted values. The plot helps to assess assumptions 1, 2, and 4. A plot that shows no clear pattern or trend, no outlying observations, and a spread that is fairly constant suggest that these assumptions are reasonable. If there is a pattern or structure in the residual plot, this suggests that there may be dependence between the observations. Similarly, if spread of residuals change as a function of predicted values, it suggests non-constant variance.</p></li>
+<li><p><strong>Normal QQ-plot of the residuals</strong>: The plot helps to assess assumption 3. If the residuals are normally distributed, the points on the plot will roughly follow a straight line.</p></li>
+<li><p><strong>Standardized residuals vs.&nbsp;predicted values</strong>. This residual plot is generally referred to as a scale-location plot. This plots the square root of the standardized residual versus the predicted values. Note that standardization has these transformed residuals to have a mean of zero and a standard deviation of one. This allows for comparisons between models with different explanatory variables or dependent variables on different scales. It is analyzed and interpreted in the same manner as the residuals vs.&nbsp;predicted values plot.</p></li>
+<li><p><strong>Residuals vs.&nbsp;leverage plot</strong>. This plot shows the leverage (the degree to which an observation affects the estimated slope of the fitted regression line) against the standardized residuals. Although it helps identify potential influential outliers (such outliers have high leverage and correspond to a large residual), a plot that shows no clear pattern or trend and and a spread that is fairly constant suggest that will suggest assumptions 1 and 4 are reasonable. If the spread of standardized residuals changes as a function of leverage, it indicates non-constant variance. Similarly, a trend or pattern as a function of leverage would indicate a violation of assumption 1.</p></li>
+</ul>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We fit the SLR model to the data described in the case study provided in <a href="datacs3.html"><span>Chapter&nbsp;3</span></a> to model the linear relationship between Pm10 and temperature. The data provided in the case study consists of several variables (<code>PM10</code>, <code>AQI</code>, …, <code>county</code>, and <code>City.Name</code>) with <code>PM10</code> and <code>temp</code> being the variables of interest.</p>
+<p>To begin, we import the data, and then one would explore the data using numerical and graphical data summaries. Numerical and graphical data exploration for bivariate data are covered in other modules but we start by assessing the linearity of the relationship.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Import data </span></span>
+<span><span class="va">PM10df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"datasets/DailyPM10.2021.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># obtain the names of the variables</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span> <span class="va">PM10df</span> <span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "PM10"      "AQI"       "temp"      "Latitude"  "Longitude" "windspeed"</span></span>
+<span><span class="co">#&gt; [7] "state"     "county"    "City.Name"</span></span>
+<span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://lattice.r-forge.r-project.org/">lattice</a></span><span class="op">)</span> <span class="co"># provides the xyplot() function</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">xyplot</a></span><span class="op">(</span> <span class="va">PM10</span> <span class="op">~</span> <span class="va">temp</span> , </span>
+<span>    data<span class="op">=</span> <span class="va">PM10df</span> , </span>
+<span>    xlab<span class="op">=</span> <span class="st">"Temperature"</span> , </span>
+<span>    ylab<span class="op">=</span> <span class="st">"Particulate matter 10 micrometers or less (PM10)"</span> ,</span>
+<span>    main<span class="op">=</span> <span class="st">"PM10 vs Temperature"</span> ,</span>
+<span>    col<span class="op">=</span><span class="st">"black"</span> <span class="op">)</span> <span class="co"># default color is "blue")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="lr_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/d1LI4eSXKGU" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The scatterplot reflect a positive linear trend with some outlying PM10 measurements. To address the presence of outliers when conducting inference, we will consider some approaches in the last section. For now, we will proceed with fitting the SLR model in R for the purpose of illustration. This will involve using the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> to fit the model and <code><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">xyplot()</a></code> to show the estimated SLR line:</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># The function will require the following information:</span></span>
+<span><span class="co"># y: replace with 'PM10'</span></span>
+<span><span class="co"># x: replace with 'temp'</span></span>
+<span><span class="co"># data: set equal to a 'PM10df'</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span> <span class="va">PM10</span> <span class="op">~</span> <span class="va">temp</span>,</span>
+<span>  data<span class="op">=</span> <span class="va">PM10df</span> <span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; lm(formula = PM10 ~ temp, data = PM10df)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt; (Intercept)         temp  </span></span>
+<span><span class="co">#&gt;    -12.7702       0.8053</span></span>
+<span></span>
+<span><span class="co"># xyplot now includes a new argument called type. </span></span>
+<span><span class="co"># Set type=c("p", "r"). This tells xyplot() to plot both the </span></span>
+<span><span class="co"># points and the estimated line. A few additional</span></span>
+<span><span class="co"># aesthetic arguments are provided below as well. </span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">xyplot</a></span><span class="op">(</span> <span class="va">PM10</span> <span class="op">~</span> <span class="va">temp</span>,</span>
+<span>  data<span class="op">=</span> <span class="va">PM10df</span>,</span>
+<span>  type<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"p"</span>, <span class="st">"r"</span><span class="op">)</span>, <span class="co"># ensures both data points and est. reg. line is plotted</span></span>
+<span>  col.line <span class="op">=</span> <span class="st">"red"</span>, <span class="co"># make the line red </span></span>
+<span>  lwd<span class="op">=</span> <span class="fl">2</span> <span class="op">)</span> <span class="co"># make the line wider</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="lr_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/oLqPQjRUKhg" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The output provides <span class="math inline">\(b_0=-12.77\)</span> and <span class="math inline">\(b_1=0.8053\)</span>. With <span class="math inline">\(b_1=0.8053\)</span>, it is estimated that PM10 levels (the response), on average, changes by <span class="math inline">\(.8053\)</span> when temperature (the explanatory) is increased by 1 degree. The <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function provides much more than just these values. To extract other information, the result from <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> must be stored. Below the resulting <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> fit is stored and then the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> is applied to this object. The functions <code><a href="https://rdrr.io/r/stats/residuals.html">residuals()</a></code> and <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> are also illustrated below.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Store lm() fit in an object, call it PM10fit</span></span>
+<span><span class="va">PM10fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span> <span class="va">PM10</span> <span class="op">~</span> <span class="va">temp</span>,</span>
+<span>         data<span class="op">=</span> <span class="va">PM10df</span> <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># PM10fit is called an lm object</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span> <span class="va">PM10fit</span> <span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; lm(formula = PM10 ~ temp, data = PM10df)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Residuals:</span></span>
+<span><span class="co">#&gt;    Min     1Q Median     3Q    Max </span></span>
+<span><span class="co">#&gt; -47.88 -16.94  -7.25   8.58 401.17 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt;              Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span><span class="co">#&gt; (Intercept) -12.77025    2.67450  -4.775 1.89e-06 ***</span></span>
+<span><span class="co">#&gt; temp          0.80532    0.03899  20.655  &lt; 2e-16 ***</span></span>
+<span><span class="co">#&gt; ---</span></span>
+<span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Residual standard error: 30.77 on 2722 degrees of freedom</span></span>
+<span><span class="co">#&gt;   (391 observations deleted due to missingness)</span></span>
+<span><span class="co">#&gt; Multiple R-squared:  0.1355, Adjusted R-squared:  0.1352 </span></span>
+<span><span class="co">#&gt; F-statistic: 426.6 on 1 and 2722 DF,  p-value: &lt; 2.2e-16</span></span>
+<span></span>
+<span><span class="co"># extract the residuals from PMfit</span></span>
+<span><span class="co"># and store in an object called PM10res</span></span>
+<span><span class="va">PM10res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span><span class="op">(</span> <span class="va">PM10fit</span> <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># extract the predicted values from PMfit</span></span>
+<span><span class="co"># and store in an object called PM10predict</span></span>
+<span><span class="va">PM10predict</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span> <span class="va">PM10fit</span> <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/QnGjWGY5znE" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Note that the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> provides the following table:</p>
+<table class="table">
+<thead><tr class="header">
+<th></th>
+<th>Estimate</th>
+<th>Std. Error</th>
+<th>t-value</th>
+<th>p-value</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>(Intercept)</td>
+<td><span class="math inline">\(b_0\)</span></td>
+<td><span class="math inline">\(SE_{b_0}\)</span></td>
+<td><span class="math inline">\(T_{b_0}\)</span></td>
+<td>p-value<span class="math inline">\(_{b_0}\)</span>
+</td>
+</tr>
+<tr class="even">
+<td>explanatory</td>
+<td><span class="math inline">\(b_1\)</span></td>
+<td><span class="math inline">\(SE_{b_1}\)</span></td>
+<td><span class="math inline">\(T_{b_1}\)</span></td>
+<td>p-value<span class="math inline">\(_{b_1}\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The terms <span class="math inline">\(SE_{b_0}\)</span> and <span class="math inline">\(SE_{b_1}\)</span> are the standard errors for <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span>. The table also provides the coefficient of determination or <span class="math inline">\(R^2\)</span> (<code>Multiple R-squared: 0.1355</code>). The value of <span class="math inline">\(R^2\)</span> is the sample correlation, <span class="math inline">\(r\)</span>, squared. In terms of its interpretation, <span class="math inline">\(R^2\)</span>, measures how well the estimated SLR line fits the data. A higher value of <span class="math inline">\(R^2\)</span> indicates a better fit, meaning that more of the variance in the response variable can be explained by the explanatory variable. However, a high or low value of does not necessarily imply a significant linear relationship. Here, temperature explains <span class="math inline">\(13.55\)</span>% of the total variation observed in PM10 measurements. In other words, the SLR model accounts for only a small fraction of the variability in PM10 measurements, and there may be other variables that are not included in the model that also affect PM10 levels. The rest of the information provided by <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> will be addressed as needed throughout the rest of these sections.</p>
+<p>The next sections cover different inferential methods for a SLR, and they require for the assumptions of the data to be reasonable. Next, we perform model diagnostics to assess the model assumptions with the help of <code><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">xyplot()</a></code> after loading the <code>tactile</code> R package:</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div>
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="co"># This package provides diagnostic </span></span>
+<span><span class="co"># plots using xyplot()</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span> <span class="va"><a href="https://github.com/jolars/tactile">tactile</a></span> <span class="op">)</span> </span>
+<span></span>
+<span><span class="co"># To create a set of pre-specified </span></span>
+<span><span class="co"># residual plots, provide the lm object</span></span>
+<span><span class="co"># to xyplot()</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">xyplot</a></span><span class="op">(</span> <span class="va">PM10fit</span> <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<div id="fig-usingtactile" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="lr_files/figure-html/fig-usingtactile-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure 14.2: Diagnostic plots</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<p>See previous video.</p>
+</div>
+</div>
+</div>
+<p>The scatterplot showed a linear trend in the data, so assumption 5 (linearity) is reasonable. The residual plots provided by <code><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">xyplot()</a></code> (excluding the normal QQ-plot) will have a black (not necessarily linear) trend line that is lowess smoother<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. Each plot is analyzed and interpreted below:</p>
+<ul>
+<li>
+<p>The upper and lower left plots display the residuals against the predicted value and the squared rooted standardized residuals against the predicted values, respectively. The plot shows the following characteristics:</p>
+<ul>
+<li>No clear strong patterns or trends are evident in either plot so assumption 1 may be considered reasonable.</li>
+<li>There are a few potential outliers and the variability of the residuals is not constant across the predicted values, so assumptions 2 and 4 are questionable.</li>
+</ul>
+</li>
+<li><p>The upper right plot is a normal QQ-plot of the residuals<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> and it suggests that residuals are not approximately normality distributed but the sample size is large, so assumption 3 is met</p></li>
+<li><p>The lower right plot shows the standardized residuals against the leverage. The presence of outliers, which are also visible in other residual plots, can be seen in this plot. Cook’s distance<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> of 1/2 and 1 will appear as orange contour lines if any values values have a Cook’s distance exceeding these numbers, but no leverage values exceed a Cook’s distance of 1. The plot also shows that the variability in residuals decreases as leverage increases, suggesting that the non-constant assumption of the SLR model is violated.</p></li>
+</ul>
+<p>Overall, not all data assumptions are met for the SLR model. In such cases, we say the model did not pass the model diagnostics. Possible remedial measures will be discussed in the last section. For now, we will proceed with this model for the purpose of illustrating inferential methods, as if it were appropriate for the data.</p>
+</div>
+</div>
+</section><section id="testing-the-significance-of-the-linear-relationship-using-t-based-methods." class="level2" data-number="14.2"><h2 data-number="14.2" class="anchored" data-anchor-id="testing-the-significance-of-the-linear-relationship-using-t-based-methods.">
+<span class="header-section-number">14.2</span> Testing the significance of the linear relationship using t-based methods.</h2>
+<p>The focus in this section is on is on inference for <span class="math inline">\(\beta_1\)</span> (the true slope), where <span class="math inline">\(\beta_1\)</span> represents the change in the average value of <span class="math inline">\(y\)</span> when <span class="math inline">\(x\)</span> is increased by 1-unit. The t-test for the slope of a regression line is a widely used hypothesis test to assess the significance of a linear relationship between two variables. Specifically, test is be used to determine if the true slope <span class="math inline">\(\beta_1\)</span> is significantly different from zero, based on the observed value of <span class="math inline">\(b_1\)</span>. It is important to note that the observed value of <span class="math inline">\(b_1\)</span> can vary. If a study were replicated, the value of <span class="math inline">\(b_1\)</span> would likely be different. The use of inferential methods allows us to account for this variability and make statistically valid conclusions about the true slope <span class="math inline">\(\beta_1\)</span>. A t-based confidence interval can be constructed for <span class="math inline">\(\beta_1\)</span> and it provides a range of plausible values for the true slope at a specified significance level. These methods are generally referred to as t-based methods for the slope.</p>
+<p>The t-test for the slope of a regression line requires that certain assumptions (1, 2, 3, 4, and 5<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>) about the data are reasonable. The test statistic for this t-test is given by:</p>
+<p><span class="math display">\[T=\frac{b_1-\beta_1}{SE_{b_1}} \]</span></p>
+<p>Here, <span class="math inline">\(SE_{b_1}\)</span> represents the standard error of <span class="math inline">\(b_1\)</span><a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>. Our primary interest is in determining if there is a significant linear relationship (association) between the explanatory variable and response variable, which translate to <span class="math inline">\(\beta_1\neq 0\)</span>. Consequently, the null and alternative hypotheses are:</p>
+<p><span class="math display">\[H_0: \beta_1=0 \qquad H_a: \beta_1 \neq 0\]</span></p>
+<p>Note that when two variables are linearly related or associated, it means that they are correlated, and when two variables are correlated and linearly related, it implies that they have a linear relationship or association. Under <span class="math inline">\(H_0\)</span>, the null distribution of the test statistic <span class="math inline">\(T\)</span> follows a t-distribution with <span class="math inline">\(n-2\)</span> degrees of freedom, where <span class="math inline">\(n\)</span> is the sample size. This distribution is used to compute the p-value. The function <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> computes the test statistic and p-value for the t-test for a linear association in a SLR, and the results are provided by the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> output. Recall that the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function provides a table with relevant information, including the test statistic and p-value for the t-test, as well as other statistics like the coefficient estimates and standard errors:</p>
+<table class="table">
+<thead><tr class="header">
+<th></th>
+<th>Estimate</th>
+<th>Std. Error</th>
+<th>t-value</th>
+<th>p-value</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>(Intercept)</td>
+<td><span class="math inline">\(b_0\)</span></td>
+<td><span class="math inline">\(SE_{b_0}\)</span></td>
+<td><span class="math inline">\(T_{b_0}\)</span></td>
+<td>p-value<span class="math inline">\(_{b_0}\)</span>
+</td>
+</tr>
+<tr class="even">
+<td>explanatory</td>
+<td><span class="math inline">\(b_1\)</span></td>
+<td><span class="math inline">\(SE_{b_1}\)</span></td>
+<td><span class="math inline">\(T_{b_1}\)</span></td>
+<td>p-value<span class="math inline">\(_{b_1}\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Here, <span class="math inline">\(T_{b_1}\)</span> and p-value<span class="math inline">\(_{b_1}\)</span> refer to the test statistic for the slope and two-sided p-value<span class="math inline">\(_{b_1}\)</span>, respectively for testing if <span class="math inline">\(\beta_1\neq 0\)</span>. The function <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> can also be utilized to obtain a confidence interval (CI) for the true slope <span class="math inline">\(\beta_1\)</span>. To obtain a CI, apply the <code><a href="https://rdrr.io/r/stats/confint.html">confint()</a></code> function to the resulting <em>lm object</em>.</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### confint( lm object , parm , level)
+# lm object: An object saving the result of usuing 
+#      the lm function.
+# parm: Set equal to 2 
+# level: Set to desired confidence level.
+#</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We apply an t-test to the data described in the case study from <a href="datacs3.html"><span>Chapter&nbsp;3</span></a> to determine if there is a significant linear association between PM10 and temperature levels at <span class="math inline">\(\alpha=.05\)</span>. Recall that not all the required assumptions are met, but we perform the test for the purpose of illustration. Let <span class="math inline">\(\beta_1\)</span> denote the true slope in the linear association between PM10 and temperature. Since the aim is to determine if there is a significant linear relationship or association, the hypothesis is</p>
+<p><span class="math display">\[H_0: \beta_1=0 \qquad H_a: \beta_1 \neq 0\]</span></p>
+<p>The following code uses <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> and <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> to obtain compute the test statistic and the corresponding p-value for a t-test:</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># PM10fit was created in the previous section</span></span>
+<span><span class="co"># but the code is given here as reminder. </span></span>
+<span><span class="co"># Below, the result from lm() is </span></span>
+<span><span class="co"># stored in an object, called PM10fit</span></span>
+<span><span class="va">PM10fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span> <span class="va">PM10</span> <span class="op">~</span> <span class="va">temp</span>,</span>
+<span>         data<span class="op">=</span> <span class="va">PM10df</span> <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># summarize the lm object, PM10fit. </span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span> <span class="va">PM10fit</span> <span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; lm(formula = PM10 ~ temp, data = PM10df)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Residuals:</span></span>
+<span><span class="co">#&gt;    Min     1Q Median     3Q    Max </span></span>
+<span><span class="co">#&gt; -47.88 -16.94  -7.25   8.58 401.17 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt;              Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span><span class="co">#&gt; (Intercept) -12.77025    2.67450  -4.775 1.89e-06 ***</span></span>
+<span><span class="co">#&gt; temp          0.80532    0.03899  20.655  &lt; 2e-16 ***</span></span>
+<span><span class="co">#&gt; ---</span></span>
+<span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Residual standard error: 30.77 on 2722 degrees of freedom</span></span>
+<span><span class="co">#&gt;   (391 observations deleted due to missingness)</span></span>
+<span><span class="co">#&gt; Multiple R-squared:  0.1355, Adjusted R-squared:  0.1352 </span></span>
+<span><span class="co">#&gt; F-statistic: 426.6 on 1 and 2722 DF,  p-value: &lt; 2.2e-16</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/9CG0vvg016k" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Based on output from <code>summary( PM10fit )</code>, the observed value of test statistic is <span class="math inline">\(T=20.655\)</span>. The corresponding p-value is approximately 0, indicating that the data provides very strong evidence against the null hypothesis. Since the p-value<span class="math inline">\(\leq \alpha=.05\)</span>, we have sufficient evidence to reject the null hypothesis <span class="math inline">\(H_0\)</span> in favor of the alternative hypothesis <span class="math inline">\(H_a\)</span> at significance level of <span class="math inline">\(\alpha=.05\)</span>. This result suggests that changes in temperature are linearly associated with changes in PM10 levels, and that the relationship between these variables is not due to chance alone.</p>
+<p>The function <code><a href="https://rdrr.io/r/stats/confint.html">confint()</a></code> is used to obtain a 95% CI for <span class="math inline">\(\beta1\)</span>:</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span> </span>
+<span><span class="co"># summarize the lm object, PM10fit. </span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/confint.html">confint</a></span><span class="op">(</span> <span class="va">PM10fit</span> ,</span>
+<span>     parm<span class="op">=</span> <span class="fl">2</span> , <span class="co"># Setting parm =1 will provide CI for beta0</span></span>
+<span>     level<span class="op">=</span> <span class="fl">.95</span> <span class="op">)</span></span>
+<span><span class="co">#&gt;          2.5 %    97.5 %</span></span>
+<span><span class="co">#&gt; temp 0.7288668 0.8817716</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+<div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
+<p>See previous video.</p>
+</div>
+</div>
+</div>
+<p>The output provides a 95% CI for <span class="math inline">\(\beta_1\)</span> with bounds <span class="math inline">\((0.729, 0.882)\)</span>. Thus, we can be 95% confident that on average, the PM10 levels will change, on average, anywhere between 0.729 and 0.882 units per 1-degree change in temperature. Since the interval does not contain 0, it further supports the conclusion that changes in PM10 levels are linearly associated with changes in temperature.</p>
+<p>Thus, we are 95% confidence that on average, the response will change anywhere between .729 to .882 per unit increase in the explanatory variable. Since the interval does not contain 0, it is clear that changes in PM10 levels are linearly associated with changes in temperature. Note that this conclusion only applies to the monitoring sites where PM10 levels were measured, as these measurements were not taken at random locations. Thus, the observed relationship between PM10 levels and temperature is not generalizable to all locations or situations beyond the scope of the monitoring sites in this study.</p>
+</div>
+</div>
+</section><section id="testing-the-significance-of-the-linear-relationship-using-a-randomization-test" class="level2" data-number="14.3"><h2 data-number="14.3" class="anchored" data-anchor-id="testing-the-significance-of-the-linear-relationship-using-a-randomization-test">
+<span class="header-section-number">14.3</span> Testing the significance of the linear relationship using a randomization test</h2>
+<p>Recall that <span class="math inline">\(\beta_1\)</span> represents the change in the average value of <span class="math inline">\(y\)</span> when <span class="math inline">\(x\)</span> is increased by 1-unit. If <span class="math inline">\(\beta_1=0\)</span>, then there is no linear relationship or association between the response and explanatory variable. If <span class="math inline">\(\beta_1\neq 0\)</span>, then there is a linear associated or a correlation between the variables. If the variables are in fact linearly related (as illustrated in a scatterplot), it would not make sense to pair, for example, the 3rd measurement of the explanatory variable (circled in red) with a different measurement of the response variable. This is because the linear relationship between the variables implies that each value of the explanatory variable corresponds to a specific value of the response variable according to the linear pattern. Mixing up these pairings would distort the true linear relationship between the variables.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
+<div class="cell quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<div id="fig-randlrex" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="lr_files/figure-html/fig-randlrex-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure 14.3: Example of a linear relationship with the estimated or best fit SLR line. The red circle denote the third observation in the data.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/QnGjWGY5znE" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>However, if instead <span class="math inline">\(\beta_1=0\)</span> (indicating no linear association or correlation), then it wouldn’t matter how we matched up the 3rd measurement of the explanatory variable with some other measurement of the response variable. This is because, with no linear relationship between the variables, mixing up these pairings would not distort any relationship between them, as there is no linear relationship to be affected.</p>
+<p>The aim is still to see if there is a significant linear relationship or association:</p>
+<p><span class="math display">\[H_0: \beta_1=0 \qquad H_a: \beta_1 \neq 0\]</span></p>
+<p>With a randomization test, we assume that the null hypothesis (<span class="math inline">\(H_0: \beta_1 = 0\)</span>) is true, implying there is no linear relationship between the variables. If this is the case, we could just randomly shuffle the observed values of the response variable and it would not change any relationship between the response and the explanatory. Since the randomization (in this context it is the randomly shuffling the order of observations) of observed values of the response is permitted under <span class="math inline">\(H_0\)</span>, the size of observed value of <span class="math inline">\(b_1\)</span> for this shuffled data is due to chance alone.</p>
+<p>Another way to view it is that chance enters the analysis only through the random shuffling of the response values when the null hypothesis is assumed to be true and nothing else. The figure below shows the results of one such randomization. The resulting size of <span class="math inline">\(b_1\)</span> under this randomization represents one observed value of <span class="math inline">\(b_1\)</span> due to chance when the null hypothesis is assumed to be true.</p>
+<div class="cell quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<div id="fig-randlrexshuff" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="lr_files/figure-html/fig-randlrexshuff-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure 14.4: The resulting scatterplot after randomly shuffling the observe values of the response variable, which produced a slope estimate of -0.3754</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>If assumptions 3 or 4 do not hold, a randomization test is a good alternative to the t-test. To conduct this randomization test, we use the same test statistic as the t-test, namely</p>
+<p><span class="math display">\[T=\frac{b_1-\beta_1}{SE_{b_1}} \]</span></p>
+<p>To obtain the null distribution of <span class="math inline">\(T\)</span>, the randomization process is repeated many times, each time computing the value of <span class="math inline">\(T\)</span>. We then obtain the null distribution of <span class="math inline">\(T\)</span> by randomly shuffling (randomization) the observed values of the response variable many times, each time computing the value of the test statistic for the randomized data. The R function <code>slr.randtest()</code> computes the test statistic and p-value for the randomization test.</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### slr.randtest( y ~ x, data, nshuffles, direction )
+# nshuffles: Set equal to the desired number of randomizations. 
+# x: replace x with the name of the explantory variable
+# direction: the sign in the alternative, "two.sided", "greater" , or "less"
+#</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We apply the randomization test to the data described in the case study from <a href="datacs3.html"><span>Chapter&nbsp;3</span></a> to determine if there is a significant linear association between PM10 and temperature levels at <span class="math inline">\(\alpha=.05\)</span>. Recall that after fitting the SLR to the data, it was found that no influential outliers were present. Thus, the necessary assumptions for this test (assumptions 1, 2, and 5) are reasonable for the data. The aim of the randomization test is to determine if a significant linear association exists:</p>
+<p><span class="math display">\[H_0: \beta_1=0 \qquad H_a: \beta_1 \neq 0\]</span></p>
+<p>The following code uses <code>slr.randtest</code> to obtain compute the test statistic and the corresponding p-value for the randomization test:</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Source the function so that it's R's memory.</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"rfuns/slr.randtest.R"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># The function will require the following information:</span></span>
+<span><span class="co"># y: replace with 'PM10'</span></span>
+<span><span class="co"># x: replace with 'temp'</span></span>
+<span><span class="co"># data: set equal to a 'PM10df'</span></span>
+<span><span class="co"># nshuffles: Set to 30000 randomization </span></span>
+<span><span class="co"># direction: Set to "two.sided"</span></span>
+<span><span class="fu">slr.randtest</span><span class="op">(</span> <span class="va">PM10</span> <span class="op">~</span> <span class="va">temp</span> ,</span>
+<span>       data<span class="op">=</span> <span class="va">PM10df</span> , </span>
+<span>       nshuffles<span class="op">=</span><span class="fl">30000</span> , </span>
+<span>       direction <span class="op">=</span> <span class="st">"two.sided"</span> <span class="op">)</span></span>
+<span><span class="co"># Randomization test for a linear association in SLR </span></span>
+<span><span class="co">#</span></span>
+<span><span class="co">#&gt; data: PM10 ~ temp </span></span>
+<span><span class="co">#&gt; Obs. test statistic= 20.65466    </span></span>
+<span><span class="co">#&gt; Obs. slope estimate= 0.8053192    </span></span>
+<span><span class="co">#&gt; R-squared = 0.135493 </span></span>
+<span><span class="co">#&gt; p-value = 0 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+<div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/p0LXHWTX7lI" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell quarto-layout-panel">
+
+</div>
+<p>Based on output, the observed value of test statistic is <span class="math inline">\(T=20.655\)</span> with a corresponding p-value is approximately 0, indicating that the data provides very strong evidence against the null hypothesis. Considering a significance level of <span class="math inline">\(\alpha = 0.05\)</span>, since the p-value <span class="math inline">\(\leq \alpha = 0.05\)</span>, we have sufficient evidence to reject the null hypothesis <span class="math inline">\(H_0\)</span> in favor of the alternative hypothesis <span class="math inline">\(H_a\)</span>. The randomization test suggests that changes in temperature are linearly associated with changes in PM10 levels, and that the relationship between these variables is not due to chance alone.</p>
+</div>
+</div>
+</section><section id="sec-remedmeasure" class="level2" data-number="14.4"><h2 data-number="14.4" class="anchored" data-anchor-id="sec-remedmeasure">
+<span class="header-section-number">14.4</span> Remedial measures</h2>
+<p>If the model fails diagnostics, one possible remedial measure is to transform the response variable. This can be particularly helpful if only assumption 4 (equal variance or spread) is not met and/or if the small sampled data are skewed. A transformation is a rescaling of the data. Below are some standard transformations for the response variable that may help the data (on a transformed scale) better meet the assumptions<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>:</p>
+<table class="table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 18%">
+<col style="width: 63%">
+</colgroup>
+<thead><tr class="header">
+<th>Transformation</th>
+<th>Formula</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Square root</td>
+<td><span class="math inline">\(y' = \sqrt{y}\)</span></td>
+<td>Square root of the response</td>
+</tr>
+<tr class="even">
+<td>Natural log</td>
+<td><span class="math inline">\(y' = \ln(y)\)</span></td>
+<td>Natural log of the response</td>
+</tr>
+<tr class="odd">
+<td>Square</td>
+<td><span class="math inline">\(y' = y^2\)</span></td>
+<td>Square of the response</td>
+</tr>
+<tr class="even">
+<td>Inverse</td>
+<td><span class="math inline">\(y' = \frac{1}{y}\)</span></td>
+<td>Inverse of the response</td>
+</tr>
+</tbody>
+</table>
+<p>The function <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> from the <code>dplyr</code> package will be used to add transform variables to a dataframe.</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### mutate( dataframe ,'new variable' = 'function of variable in data frame', ...)
+# dataframe: Replace with the name of the dataframe
+# 'new variable': Replace with the name of the new variable
+# 'function of variable in data frame': Replace with a function 
+# of a variable pesent in the dataframe. 
+# </code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Recall that the residual plots suggested the variability of the residuals is not constant across the predicted values, which makes assumption 4 (equal variance or spread) questionable. To address this issue, we will apply a transformation to the PM10 levels using `mutate():</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Source the function so that it's R's memory.</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span> <span class="co"># provides mutate()</span></span>
+<span></span>
+<span><span class="co"># Below we create a modified version of the PM10df,</span></span>
+<span><span class="co"># called PM10mod, that contains the transformed response</span></span>
+<span><span class="va">PM10dfmod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span> <span class="va">PM10df</span>,</span>
+<span>           sqrty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span> <span class="va">PM10</span> <span class="op">)</span> , <span class="co"># square root transformed</span></span>
+<span>           invy <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="va">PM10</span> ,    <span class="co"># inverse transformed</span></span>
+<span>           ysq <span class="op">=</span>  <span class="va">PM10</span><span class="op">^</span><span class="fl">2</span> <span class="op">)</span>    <span class="co"># squared transformed</span></span>
+<span><span class="co"># natural log and inverse considered due to 0's. </span></span>
+<span></span>
+<span><span class="co"># The dataframe contains the transformed variables</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span> <span class="va">PM10dfmod</span> <span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "PM10"      "AQI"       "temp"      "Latitude"  "Longitude" "windspeed"</span></span>
+<span><span class="co">#&gt;  [7] "state"     "county"    "City.Name" "sqrty"     "invy"      "ysq"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+<div id="tabset-9-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/I0UOPc1ykc0" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Now, plot the transformed variables against the explanatory:</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-10-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-10-1-tab">
+<div>
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">xyplot</a></span><span class="op">(</span> <span class="va">PM10</span> <span class="op">~</span> <span class="va">temp</span>, </span>
+<span>    data<span class="op">=</span> <span class="va">PM10dfmod</span>, </span>
+<span>    xlab<span class="op">=</span> <span class="st">"Temperature"</span>, </span>
+<span>    ylab<span class="op">=</span> <span class="st">"Original scale"</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">xyplot</a></span><span class="op">(</span> <span class="va">sqrty</span> <span class="op">~</span> <span class="va">temp</span> , </span>
+<span>    data<span class="op">=</span> <span class="va">PM10dfmod</span> , </span>
+<span>    xlab<span class="op">=</span> <span class="st">"Temperature"</span> , </span>
+<span>    ylab<span class="op">=</span> <span class="st">"Square root scale"</span> <span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">xyplot</a></span><span class="op">(</span> <span class="va">invy</span> <span class="op">~</span> <span class="va">temp</span> , </span>
+<span>    data<span class="op">=</span> <span class="va">PM10dfmod</span> , </span>
+<span>    xlab<span class="op">=</span> <span class="st">"Temperature"</span> , </span>
+<span>    ylab<span class="op">=</span> <span class="st">"Inverse scale"</span> <span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">xyplot</a></span><span class="op">(</span> <span class="va">ysq</span> <span class="op">~</span> <span class="va">temp</span> , </span>
+<span>    data<span class="op">=</span> <span class="va">PM10dfmod</span> , </span>
+<span>    xlab<span class="op">=</span> <span class="st">"Temperature"</span> , </span>
+<span>    ylab<span class="op">=</span> <span class="st">"Squared scale"</span> <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="lr_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="lr_files/figure-html/unnamed-chunk-20-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="lr_files/figure-html/unnamed-chunk-20-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="lr_files/figure-html/unnamed-chunk-20-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-10-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-2-tab">
+<p>See previous video.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The square root transformation appears to reduce the impact of outliers and make the linear trend more evident. Next, the SLR model would be fitted using <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> with the formula <code>sqrty ~ temp</code> and <code>data = PM10dfmod argument</code>. After fitting the model, the residuals would be assessed to determine if the transformed data are appropriate for the model.</p>
+</section><section id="sample-size-estimation-and-power-analysis-for-slr" class="level2" data-number="14.5"><h2 data-number="14.5" class="anchored" data-anchor-id="sample-size-estimation-and-power-analysis-for-slr">
+<span class="header-section-number">14.5</span> Sample size estimation and power analysis for SLR</h2>
+<p>Ideally, estimating the sample size for a study is one of the first things that researchers do prior to collecting data. Knowing the sample size required to detect a desired effect at the beginning of a project allows one to manage their data collection efforts. Further, this allows for one to determine how much statistical power the test will have to detect an effect if it exist.</p>
+<p>The R function <code><a href="https://rdrr.io/pkg/pwr/man/pwr.f2.test.html">pwr.f2.test()</a></code> from the <code>pwr</code> R package provides statistical power calculations for a SLR model when the sample size, significant level (<span class="math inline">\(\alpha\)</span>), and effect size are provided. It is assumed the appropriate assumptions about the data for the t-test are met.</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### pwr.f2.test( u, v, f2, sig.level , 
+###           power)
+# u: Set equal 2.
+# v: Set equal to n-2, where n is the 
+#   sample size.
+# f2: Set equal to the desired effect size
+# sig.level: Set equal to the desired alpha value (significance level)
+# power: Set equal to the desired power (a number between 0 and 1). 
+#</code></pre>
+</div>
+</div>
+<!-- The effect size, `f2`, is a function of $R^2$, $f2=\frac{R^2}{1-R^2}$. For example, if a SLR is sought that we explain 60% of the variation in the response, then -->
+<!-- $$f2=.60/.40=1.5$$ -->
+<p><span class="math inline">\(f2\)</span> is a called Cohen’s <span class="math inline">\(f2\)</span> and is typically interpreted as follows:</p>
+<ul>
+<li><p>Small effect size: <span class="math inline">\(f2 = 0.02\)</span></p></li>
+<li><p>Medium effect size: <span class="math inline">\(f2 = 0.15\)</span></p></li>
+<li><p>Large effect size: <span class="math inline">\(f2 = 0.35\)</span> or higher.</p></li>
+</ul>
+<p>These are suggested guidelines and may vary slightly depending on the specific field of research or context of the study.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Suppose we want to determine the statistical power to detect a medium-sized effect assuming a sample size of 30 observations at significance level of <span class="math inline">\(\alpha=.001\)</span>.</p>
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/heliosdrm/pwr">pwr</a></span><span class="op">)</span> <span class="co"># provides power.f2.test</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/pwr/man/pwr.f2.test.html">pwr.f2.test</a></span><span class="op">(</span>u <span class="op">=</span> <span class="fl">2</span> , </span>
+<span>      v <span class="op">=</span> <span class="fl">28</span> , <span class="co"># 30 - 2 </span></span>
+<span>      f2 <span class="op">=</span> <span class="fl">.02</span> , </span>
+<span>      sig.level <span class="op">=</span> <span class="fl">.001</span> <span class="op">)</span> </span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;      Multiple regression power calculation </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;               u = 2</span></span>
+<span><span class="co">#&gt;               v = 28</span></span>
+<span><span class="co">#&gt;              f2 = 0.02</span></span>
+<span><span class="co">#&gt;       sig.level = 0.001</span></span>
+<span><span class="co">#&gt;           power = 0.003225818</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>The statistical power of this test is rather low, although not surprising given the sample size, <span class="math inline">\(\alpha\)</span> specified, and size of the effect. To increase the power, on may increase the effect size (the larger it is, the easier it is to detect), increase <span class="math inline">\(\alpha\)</span> (make it easier to reject <span class="math inline">\(H_0\)</span> and find a significant effect), and/or increase the number of observations per group.</p>
+<p>If instead you sought to collect a sample that would provided a power of <span class="math inline">\(.90\)</span> for detecting a small effect at <span class="math inline">\(\alpha=.001\)</span>, we use the <code>power</code> argument but not specifying <span class="math inline">\(v\)</span>:</p>
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/pwr/man/pwr.f2.test.html">pwr.f2.test</a></span><span class="op">(</span>u <span class="op">=</span> <span class="fl">2</span> , </span>
+<span>      power <span class="op">=</span> <span class="fl">.90</span> ,  </span>
+<span>      f2 <span class="op">=</span> <span class="fl">.02</span> , </span>
+<span>      sig.level <span class="op">=</span> <span class="fl">.001</span> <span class="op">)</span> </span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;      Multiple regression power calculation </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;               u = 2</span></span>
+<span><span class="co">#&gt;               v = 1194.778</span></span>
+<span><span class="co">#&gt;              f2 = 0.02</span></span>
+<span><span class="co">#&gt;       sig.level = 0.001</span></span>
+<span><span class="co">#&gt;           power = 0.9</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Thus, to ensure a power of at least .90, a sample of size 1195 should be collected.</p>
+</div>
+</div>
+
+
+</section><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<ol>
+<li id="fn1" role="doc-endnote"><p>The meaning of the intercept is the estimated average value of the response <span class="math inline">\(\hat{y}\)</span> when the value of <span class="math inline">\(x\)</span> is 0. In practice, the meaning of the intercept is not of concern.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>An influential outlier is an observation that greatly impacts the estimated SLR line, resulting in a bad fit to the data. It can have a substantial impact on the estimated slope and/or intercept of the line.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>A lowess smoother is a method used to smooth out noisy data by fitting a curve to the data points based on a local neighborhood around each point, where closer points have a higher influence on the resulting curve. It helps to identify trends and patterns in the data that might not be immediately visible.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p>QQ-plots are discussed in the Basic Exploratory Data Analysis module.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5" role="doc-endnote"><p>Cook’s distance is a measure of both the leverage and influence of a data point on the regression coefficients. This measure is often used to identify potentially influential observations (typically those with a Cook’s distance exceeding 1). Note that Cook’s distance is just one tool (of many others) for identifying influential observations.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6" role="doc-endnote"><p>Readers may have heard of a correlation test, which is equivalent to a t-test for the slope in SLR, but a correlation test requires the normality assumption even for large samples.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7" role="doc-endnote"><p>The standard error of the slope estimate quantifies how much <span class="math inline">\(b_1\)</span> will vary across different samples if the study were replicated many times. A smaller standard error means that the estimate is more precise and varies less across different samples, while a larger standard error means the opposite.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8" role="doc-endnote"><p>The explanatory variable may also be transformed to address issues with the model’s assumptions or to better capture the relationship between variables. However, for brevity, we will only focus on transforming the response variable.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./anova.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Analysis of variance (ANOVA)</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./logisticreg.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Simple logistic regression</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

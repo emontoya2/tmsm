@@ -1,0 +1,20 @@
+{
+  "hash": "d2a2398687e7cad9f4cc8954f36969f9",
+  "result": {
+    "markdown": "# Preface {.unnumbered}\n\nGraduate programs vary with regard to required statistical training.   The intention of this resource is to enable graduate students to improve their ability to apply appropriate  statistical methodologies.    \n \n## Some prerequisites\n\nThese modules assumes one has practiced some basic statistical concepts at some point in their studies. If you seek a refresher on some basic statistical concepts, it is encouraged that one reviews one of the following textbooks:\n\n-   *OpenIntro Statistics* by @openintro. This is an open education resource that it is very well written and straightforward for students. This book book is utilized by our general education statistics course (Math 1209.)\n\n-   *Introductory Statistics* by @openintro2. This is another open education resource that it is very well written more in the style of traditional textbooks.\n\nR and RStudio will also have to be installed (see the appendix for installation instructions).\n \n \n \n## Acknowledgements\n\nthe grant, R, RStudio, quarto.... \n\n \n\n## Contributing\n\nContributions are encouraged on any part of the project, including:\n\n- improvements to the text, e.g. clarifying unclear sentences, notation, and fixing typos;\n- changes to the R code to make it easier to read or to do things in a more efficient way; \n- suggestions on topics to consider adding;\n- examples or case studies to considering integrating into the project; \n\n\n\n\n\n::: {.cell layout-align=\"center\"}\nContributers: .\n:::\n",
+    "supporting": [
+      "preface_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {
+      "knitr": [
+        "{\"type\":\"list\",\"attributes\":{},\"value\":[]}"
+      ]
+    },
+    "preserve": null,
+    "postProcess": false
+  }
+}

@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.35">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Training modules on selected statistical methods - 12&nbsp; Two sample methods</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./anovalin.html" rel="next">
+<link href="./siframework.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script><link href="site_libs/vembedr-0.1.5/css/vembedr.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Two sample methods</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Training modules on selected statistical methods</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/emontoya2" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="" title="Share" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+<li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+            <i class="bi bi-bi-twitter pe-1"></i>
+          Twitter
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+            <i class="bi bi-bi-facebook pe-1"></i>
+          Facebook
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+            <i class="bi bi-bi-linkedin pe-1"></i>
+          LinkedIn
+          </a>
+        </li>
+    </ul>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Welcome</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./preface.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./casestudies.html" class="sidebar-item-text sidebar-link">Module: Case Studies</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Case study 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Case study 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs3.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Case study 3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs4.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Case study 4</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs5.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Case study 5</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs6.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Case study 6</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./data.html" class="sidebar-item-text sidebar-link">Module: Data basics and drawing statistical conclusions</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Basics of data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./drawingconclusions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Drawing statistical conclusions</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./summaries.html" class="sidebar-item-text sidebar-link">Module:  Basic Exploratory  Data Analysis</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./catsum.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Summarizing categorical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./numsum.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summarizing numerical data</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./twosample.html" class="sidebar-item-text sidebar-link">Module: Two sample methods</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./siframework.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Statistical inference framework via a case study</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./twoindptmeans.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Two sample methods</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./anovalin.html" class="sidebar-item-text sidebar-link">Module: ANOVA, linear regression, and logistic regression</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./anova.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Analysis of variance (ANOVA)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Simple linear regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logisticreg.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Simple logistic regression</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./eda.html" class="sidebar-item-text sidebar-link">Module: Advanced Exploratory Data Analysis</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pca.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">PCA</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./a1-startingR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Installing or accessing R and RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./a2-firstR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">A first session in RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./a3-basicsR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Some basic tasks in R</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#two-sample-t-based-methods-for-comparing-two-means" id="toc-two-sample-t-based-methods-for-comparing-two-means" class="nav-link active" data-scroll-target="#two-sample-t-based-methods-for-comparing-two-means"> <span class="header-section-number">12.1</span> Two sample t-based methods for comparing two means</a></li>
+  <li><a href="#wilcoxon-based-methods-comparing-two-medians" id="toc-wilcoxon-based-methods-comparing-two-medians" class="nav-link" data-scroll-target="#wilcoxon-based-methods-comparing-two-medians"> <span class="header-section-number">12.2</span> Wilcoxon-based methods comparing two medians</a></li>
+  <li>
+<a href="#a-randomization-test-using-a-t-test-test-statistic" id="toc-a-randomization-test-using-a-t-test-test-statistic" class="nav-link" data-scroll-target="#a-randomization-test-using-a-t-test-test-statistic"> <span class="header-section-number">12.3</span> A randomization test using a t-test test statistic</a>
+  <ul class="collapse">
+<li><a href="#comparing-means" id="toc-comparing-means" class="nav-link" data-scroll-target="#comparing-means">Comparing means</a></li>
+  <li><a href="#comparing-medians" id="toc-comparing-medians" class="nav-link" data-scroll-target="#comparing-medians">Comparing medians</a></li>
+  </ul>
+</li>
+  <li><a href="#sample-size-estimation-and-power-analysis" id="toc-sample-size-estimation-and-power-analysis" class="nav-link" data-scroll-target="#sample-size-estimation-and-power-analysis"> <span class="header-section-number">12.4</span> Sample size estimation and power analysis</a></li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/emontoya2/edit/master/twoindptmeans.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="sec-indpttwosamp" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Two sample methods</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header><div id="fig-hist_art" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/twosampmod/histart.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure 12.1: AI art generated by keywords “two-sample t-test”</figcaption><p></p>
+</figure>
+</div>
+<p>Consider comparing independent populations in regard to the mean or median of some attribute, or two treatments by comparing the true mean or median response under each treatment in an experiment. In this section, the following hypothesis tests (HT) for such comparisons are illustrated:</p>
+<ul>
+<li><p><em>t</em>-based or t-test based for comparing two means</p></li>
+<li><p>Wilcoxon rank sum test for comparing two medians</p></li>
+<li><p>Randomization test for comparing two means or two medians</p></li>
+</ul>
+<p>For confidence intervals (CIs), an overview of the two-sample <span class="math inline">\(t\)</span>-based CI for comparing means and Wilcoxon-based CI for comparing medians is provided. Equations/formulas used in HT or CIs will be kept at a minimum as the focus is on using software to carry out these methods. That being said, those new to or not comfortable with HT or CIs should consider reviewing <a href="siframework.html"><span>Chapter&nbsp;11</span></a>. These methods will be illustrated using a case study.</p>
+<p>For any statistical inferential method to provide meaningful results, several assumptions are made about the data on which the method is intended to be used.</p>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Data assumptions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The methods discussed in this section one or more of the following assumptions about the data.</p>
+<ul>
+<li><p><strong>Assumption 1</strong>. <em>Independence of the observations</em>. The two groups or populations being compared should be independent of each other. This means that the observations in one group should not be related or dependent on the observations in the other group.</p></li>
+<li><p><strong>Assumption 2</strong>. <em>No clear outliers</em> in either sample.</p></li>
+<li><p><strong>Assumption 3</strong>. <em>Normality</em> or <em>large sample</em>. The data for each sample should be roughly normally distributed. If the sample size is large enough, the normality assumption is not needed.</p></li>
+<li><p><strong>Assumption 4</strong>. <em>Equal variance or spread</em>. The variability in each sample should be about the same.</p></li>
+</ul>
+<p>While these assumptions are assessed within the illustrations of the inferential methods using a case study, assumption 1 can be assessed based on study design, histograms and boxplots for assumption 2, quantile-quantile plots for normality component of assumption 3, and boxplots, histograms, and sample standard deviation for assumption 4.</p>
+</div>
+</div>
+<p>In these sections, we use R functions to conduct the inferential methods described earlier and provide detailed explanations of their use. While other functions may be used for tasks such as importing data and summarizing data numerically or graphically, we do not discuss them in this section as they have been covered in a previous module.</p>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Notation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To improve readability, we minimize the use of notation. However, when comparing two populations or treatments denoted by A and B, we use the following notation:</p>
+<ul>
+<li><p><span class="math inline">\(\mu_A\)</span> and <span class="math inline">\(\mu_B\)</span> denote the population or true mean response under A and B, respectively.</p></li>
+<li><p><span class="math inline">\(\bar{y}_A\)</span> and <span class="math inline">\(\bar{y}_B\)</span> denote the sample mean of the corresponding samples obtained from A and B.</p></li>
+<li><p><span class="math inline">\(\eta_A\)</span> and <span class="math inline">\(\eta_B\)</span> denote the population or true median response under A and B, respectively.</p></li>
+<li><p><span class="math inline">\(m_A\)</span> and <span class="math inline">\(m_B\)</span> denote the sample median of the corresponding samples obtained from A and B.</p></li>
+</ul>
+</div>
+</div>
+<section id="two-sample-t-based-methods-for-comparing-two-means" class="level2" data-number="12.1"><h2 data-number="12.1" class="anchored" data-anchor-id="two-sample-t-based-methods-for-comparing-two-means">
+<span class="header-section-number">12.1</span> Two sample t-based methods for comparing two means</h2>
+<p>The independent two-sample t-test is a commonly used hypothesis test for comparing two groups or populations. There are two versions of this test: Student’s t-test and Welch’s t-test. Both tests can be used to compare whether the difference between the true averages (from two independent populations) is statistically significant or to determine if an effect (when comparing two treatments) is significant. This helps to determine if the difference or effect is due to chance or not. The t-based confidence interval for the difference in true averages provides a range of plausible values for the difference at a specified level of significance. These methods are generally referred to as t-based methods.</p>
+<p>Student’s two-sample t-based methods assume assumptions 1, 2, 3, and 4 hold. The version of the t-based methods used here are called the Welch two-sample t-based methods, which do not require homogeneity of variances assumption. The Welch two-sample t-test statistic takes the following form:</p>
+<p><span class="math display">\[T=\frac{(\bar{y}_{A}-\bar{y}_{B}) -(\mu_{A}-\mu_{B})}{\sqrt{\frac{s_{A}^2}{n_{A}}+\frac{s_{A}^2}{n_{B}}}},\]</span></p>
+<p>where <span class="math inline">\(n\)</span> and <span class="math inline">\(s\)</span> denote the sample size and sample standard deviation from each group.</p>
+<p>The data should consist of two variables of interest: a numerical variable that measures the outcome or response of interest and a factor or grouping variable with two levels. The grouping variable distinguishes the different populations or treatments (A or B). The hypothesis takes the form</p>
+<p><span class="math display">\[H_0: \mu_A - \mu_B=0 \qquad H_a: \mu_A -\mu_B \neq 0\]</span></p>
+<p>One may also consider the test in terms of an effect <span class="math inline">\(\delta_\mu=\mu_A - \mu_B\)</span>,</p>
+<p><span class="math display">\[H_0: \delta_\mu=0 \qquad H_a: \delta_\mu \neq 0\]</span></p>
+<p>Under <span class="math inline">\(H_0\)</span>, the null distribution of T is a t-distribution with a certain degree of freedom<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, and it is used to compute the p-value. The function <code>two.mean.test()</code><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> computes the test statistic and p-value for the two-sample t-test, as well as provide a confidence interval for <span class="math inline">\(\mu_A - \mu_B\)</span>.</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### two.mean.test( y ~ x , data , first.level,
+###            direction, conf.level,
+###            welch)
+# y: Replace y with the name of the resposne (measured) 
+#  variable of interest.
+# x: Replace x with the name of the factor or grouping
+#  variable that distinguishes the different populations 
+#  or treatments.
+# data: Set equal to the dataframe name.
+# first.level: Set equal to the level/category from the 
+#       grouping variable. It determines how the difference 
+#       in sample means is computed.  It should be consistent 
+#       with the formulation of the hypothesis.
+# direction: Set equal to the sign in the alternative: "two.sided",
+#             "greater" , or "less".
+# conf.level: Set equal to the confidence level for the CI (default is .95). 
+#               The function will always provide a CI by default.
+# welch: Set equal to TRUE (default) for Welch's t-test. Set
+#        to FALSE for Student's t-test.</code></pre>
+</div>
+</div>
+<p>Many of the R functions used in this resource will have identical arguments. Therefore, while the arguments will be provided for any functions used, common arguments such as <code>data</code>, <code>direction</code>, … will generally only be described once within a given module.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We apply two-sample t-based methods (hypothesis testing and CI) to the data described in the case study provided in <a href="datacs3.html"><span>Chapter&nbsp;3</span></a>. The goal is to determine if there is a significant difference in PM10 concentration between Kern and Fresno counties and to estimate the difference between the true means.</p>
+<p>The data provided in the case study consists of several variables (<code>PM10</code>, <code>AQI</code>, …, <code>county</code>, and <code>City.Name</code>). A subset of the data was created so that it included only <code>PM10</code> (daily PM10 levels) and <code>county</code> (county in which the monitoring site is located) for the two counties of interest. To start, the data are imported and numerical and graphical summaries of the data would be created. However, graphical and numerical data summaries are covered in other modules. The focus here is to assess model assumptions either numerically or graphically.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Import the data and save the data in a </span></span>
+<span><span class="co"># dataframe called 'KernFresnoPM10df'</span></span>
+<span><span class="va">KernFresnoPM10df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"datasets/KernFresnoDailyPM10.2021.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Load the 'dplyr' package, which provides the 'mutate()' function.</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co"># Tell R that 'county' should be treated as a factor variable by using mutate().</span></span>
+<span><span class="va">KernFresnoPM10df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span> <span class="va">KernFresnoPM10df</span>, </span>
+<span>              county<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span> <span class="va">county</span> <span class="op">)</span> <span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># Print a summary of the data frame, including </span></span>
+<span><span class="co"># variable names and other information.</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span> <span class="va">KernFresnoPM10df</span> <span class="op">)</span> </span>
+<span><span class="co">#&gt;       PM10             AQI             temp           Latitude    </span></span>
+<span><span class="co">#&gt;  Min.   :  0.00   Min.   :  0.0   Min.   : 35.13   Min.   :35.05  </span></span>
+<span><span class="co">#&gt;  1st Qu.: 18.00   1st Qu.: 17.0   1st Qu.: 54.04   1st Qu.:35.44  </span></span>
+<span><span class="co">#&gt;  Median : 31.00   Median : 29.0   Median : 64.64   Median :35.64  </span></span>
+<span><span class="co">#&gt;  Mean   : 37.34   Mean   : 32.1   Mean   : 66.78   Mean   :35.98  </span></span>
+<span><span class="co">#&gt;  3rd Qu.: 48.00   3rd Qu.: 44.0   3rd Qu.: 80.00   3rd Qu.:36.79  </span></span>
+<span><span class="co">#&gt;  Max.   :437.00   Max.   :316.0   Max.   :102.00   Max.   :36.99  </span></span>
+<span><span class="co">#&gt;                                   NA's   :391                     </span></span>
+<span><span class="co">#&gt;    Longitude        windspeed          state              county    </span></span>
+<span><span class="co">#&gt;  Min.   :-119.8   Min.   : 0.7708   Length:2773        Fresno:1046  </span></span>
+<span><span class="co">#&gt;  1st Qu.:-119.7   1st Qu.: 2.4333   Class :character   Kern  :1727  </span></span>
+<span><span class="co">#&gt;  Median :-119.0   Median : 3.6500   Mode  :character                </span></span>
+<span><span class="co">#&gt;  Mean   :-118.9   Mean   : 4.4577                                   </span></span>
+<span><span class="co">#&gt;  3rd Qu.:-118.1   3rd Qu.: 5.2583                                   </span></span>
+<span><span class="co">#&gt;  Max.   :-117.7   Max.   :22.4625                                   </span></span>
+<span><span class="co">#&gt;                                                                     </span></span>
+<span><span class="co">#&gt;   City.Name        </span></span>
+<span><span class="co">#&gt;  Length:2773       </span></span>
+<span><span class="co">#&gt;  Class :character  </span></span>
+<span><span class="co">#&gt;  Mode  :character  </span></span>
+<span><span class="co">#&gt;                    </span></span>
+<span><span class="co">#&gt;                    </span></span>
+<span><span class="co">#&gt;                    </span></span>
+<span><span class="co">#&gt; </span></span>
+<span></span>
+<span></span>
+<span><span class="co"># Load the 'lattice' package, which provides the 'bwplot()' function.</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://lattice.r-forge.r-project.org/">lattice</a></span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co"># Create a box plot of Air Quality Index (AQI) by county levels using the 'bwplot()' function</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">bwplot</a></span><span class="op">(</span><span class="va">AQI</span> <span class="op">~</span> <span class="va">county</span>,                   <span class="co">#  y ~ x</span></span>
+<span>       data <span class="op">=</span> <span class="va">KernFresnoPM10df</span>,        <span class="co"># set the data frame to use</span></span>
+<span>       xlab <span class="op">=</span> <span class="st">"County"</span>,                <span class="co"># set the x-axis label</span></span>
+<span>       ylab <span class="op">=</span> <span class="st">"AQI"</span>,                   <span class="co"># set the y-axis label</span></span>
+<span>       main <span class="op">=</span> <span class="st">"AQI Distribution by County"</span>, <span class="co"># set the plot title</span></span>
+<span>       fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gray"</span>, <span class="st">"brown"</span><span class="op">)</span><span class="op">)</span>      <span class="co"># fill the boxes with specified colors</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="twoindptmeans_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="co"># Load the 'mosaic' package, which allows using </span></span>
+<span><span class="co"># formula expressions in 'mean()' and 'sd()'</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span> <span class="va"><a href="https://github.com/ProjectMOSAIC/mosaic">mosaic</a></span> <span class="op">)</span> </span>
+<span></span>
+<span><span class="co"># Compute the sample mean for each county</span></span>
+<span><span class="fu">mean</span><span class="op">(</span> <span class="va">AQI</span> <span class="op">~</span> <span class="va">county</span> , </span>
+<span>   data<span class="op">=</span> <span class="va">KernFresnoPM10df</span> <span class="op">)</span></span>
+<span><span class="co">#&gt;   Fresno     Kern </span></span>
+<span><span class="co">#&gt; 35.20076 30.21656</span></span>
+<span></span>
+<span><span class="co"># Compute the sample standard deviation for each county</span></span>
+<span><span class="fu"><a href="https://www.mosaic-web.org/mosaic/reference/aggregating.html">sd</a></span><span class="op">(</span> <span class="va">AQI</span> <span class="op">~</span> <span class="va">county</span> , </span>
+<span>  data<span class="op">=</span> <span class="va">KernFresnoPM10df</span> <span class="op">)</span></span>
+<span><span class="co">#&gt;   Fresno     Kern </span></span>
+<span><span class="co">#&gt; 22.18129 23.16972</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/zFTeJ559NIY" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The difference in samples means between Kern and Fresno county is</p>
+<p><span class="math display">\[30.217-35.201=\bar{x}_K-\bar{x}_F=-4.984.\]</span></p>
+<p>While the observed difference serves as one estimate of <span class="math inline">\(\mu_K - \mu_F\)</span>, a confidence interval (CI) provides a better sense of the size of the difference between <span class="math inline">\(\mu_K\)</span> and <span class="math inline">\(\mu_F\)</span>. Additionally, a hypothesis test is used to determine whether this difference is significant, but this depends on certain assumptions about the data. While the samples are not necessarily random, they are independent from each other in the sense that the measurements in Kern county are not affected by the measurements in Fresno county. Although random sampling is ideal, the t-based methods can still be used with non-random samples, but any conclusions drawn only apply to the specific sample and not necessarily to a larger population<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. According to the <code>summary</code> output, the sample size for each group is large. A common rule of thumb is that a sample is considered large if it contains more than 30 observations<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. The boxplots indicate that the variability in PM10 concentration appears to be about the same for both counties, and that there are several outliers present in both counties.</p>
+<p>Although the boxplots suggest the variability is about the same in both groups, for illustration, we also assess numerically using the sample standard deviations. The standard deviations for Fresno and Kern are 22.18 and 23.17, respectively, and they appear to be similar. One rule of thumb for comparing the variability in two groups is to take the ratio of their sample standard deviations (22.18/23.17 or 23.17/22.18). If the ratio falls between 0.5 and 2, then the variability in both groups is considered similar enough. However, it is important to note that graphical assessment of assumptions is generally sufficient and this rule of thumb should not be used if outliers are present.</p>
+<p>Overall, not all data assumptions are met. Alternative methods to be discussed would be more appropriate for this data, but for illustration we analyze the data using the two-sample t-based methods. Let <span class="math inline">\(\mu_K\)</span> denote the true mean PM10 levels in Kern county. <span class="math inline">\(\mu_F\)</span> is defined analogous for Fresno county. Since an aim is to determine if there is significant difference between PM10 levels in Kern and Fresno county, the hypothesis is</p>
+<p><span class="math display">\[H_0: \mu_K - \mu_F=0 \qquad H_a: \mu_K- \mu_F \neq 0\]</span></p>
+<p>The following code uses <code>two.mean.test()</code> to compute the test statistic, the corresponding p-value, and a 99% confidence interval:</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div>
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Source the function two.mean.test() so that it's R's memory.</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"rfuns/two.mean.test.R"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Recall that the data was imported and stored in "KernFresnoPM10df"</span></span>
+<span></span>
+<span><span class="co"># The function will require the following information:</span></span>
+<span><span class="co"># y: Replace with 'PM10'</span></span>
+<span><span class="co"># x: Replace with 'county'</span></span>
+<span><span class="co"># data: Set equal to a 'KernFresnoPM10df'</span></span>
+<span><span class="co"># first.level: The county that appears first in the hypothesis</span></span>
+<span><span class="co">#                (Kern county), so set equal to "Kern"</span></span>
+<span><span class="co"># direction: It is a two-sided alternative, so set equal to "two.sided"</span></span>
+<span><span class="co"># conf.level: Set equal .99 since we seek a 99% CI</span></span>
+<span><span class="co"># welch: The Welch t-test is the default method here, so using </span></span>
+<span><span class="co">#     the default value (TRUE)</span></span>
+<span></span>
+<span></span>
+<span><span class="fu">two.mean.test</span><span class="op">(</span> <span class="va">PM10</span> <span class="op">~</span> <span class="va">county</span> ,          <span class="co"># y ~ x</span></span>
+<span>               data <span class="op">=</span> <span class="va">KernFresnoPM10df</span> ,<span class="co"># specify the data frame to use</span></span>
+<span>               first.level <span class="op">=</span> <span class="st">"Kern"</span> ,   <span class="co"># specify the first level in the hypothesis</span></span>
+<span>               direction <span class="op">=</span> <span class="st">"two.sided"</span> ,<span class="co"># specify a two-sided alternative</span></span>
+<span>               conf.level <span class="op">=</span> <span class="fl">.99</span> <span class="op">)</span>       <span class="co"># set the confidence level to .99</span></span>
+<span><span class="co">#&gt;      Theoretical-based two-sample test for independent samples </span></span>
+<span><span class="co">#&gt;                               </span></span>
+<span><span class="co">#&gt; formula:  PM10 ~ county </span></span>
+<span><span class="co">#&gt; sample mean of  Kern  group: 35.06717 </span></span>
+<span><span class="co">#&gt; sample mean of  Fresno  group: 41.09943 </span></span>
+<span><span class="co">#&gt; sample sd of  Kern  group: 32.26383 </span></span>
+<span><span class="co">#&gt; sample sd of  Fresno  group: 31.88051 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; difference between groups: ( Kern  group ) - (  Fresno  group ) </span></span>
+<span><span class="co">#&gt; obs t-test statistic: -4.807498              p-value = 0 </span></span>
+<span><span class="co">#&gt; df=  2225.184 </span></span>
+<span><span class="co">#&gt; direction: two.sided </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Confidence level:  0.99 </span></span>
+<span><span class="co">#&gt; CI:(  -9.267081 ,  -2.797435 )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell quarto-layout-panel">
+
+</div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/CoCyvWPDEPs" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The output includes the following information:</p>
+<ul>
+<li><p>The sample mean and standard deviation under each level of the grouping/factor variable.</p></li>
+<li><p>The value of the observed statistic: <span class="math inline">\(T=-4.10\)</span></p></li>
+<li><p>p-value</p></li>
+<li><p>A confidence interval</p></li>
+</ul>
+<p>Based on the output, the observed value of the test statistic is <span class="math inline">\(T=-4.10\)</span>. The p-value is extremely small (0). Since p-value<span class="math inline">\(\leq\alpha=.01\)</span>, we have significant evidence to reject <span class="math inline">\(H_0\)</span>. Based on the size of the p-value, we may also say that there is very strong evidence to reject <span class="math inline">\(H_0\)</span>. By setting <span class="math inline">\(\alpha = 0.01\)</span>, we require “stronger evidence” to reject <span class="math inline">\(H_0\)</span> than if we had used a larger significance level. Therefore, we have strong evidence that there is significant difference between PM10 levels in Kern and Fresno county at the designated monitoring sites.</p>
+<p>The output also provides a 99% CI for the difference in true means. The CI is <span class="math inline">\((-9.270, -2.794)\)</span>, and we are 99% confidence that the difference in true means is anywhere between <span class="math inline">\(-9.270\)</span> and <span class="math inline">\(-2.794\)</span>. Since the interval does not contain <span class="math inline">\(0\)</span>, it is clear that the true average PM10 levels at Fresno county are higher than in Kern county at the designated monitoring sites at 99% confidence. Note that this conclusion only applies to the monitoring sites, since PM10 levels were not measured at random locations within each county.</p>
+</div>
+</div>
+</section><section id="wilcoxon-based-methods-comparing-two-medians" class="level2" data-number="12.2"><h2 data-number="12.2" class="anchored" data-anchor-id="wilcoxon-based-methods-comparing-two-medians">
+<span class="header-section-number">12.2</span> Wilcoxon-based methods comparing two medians</h2>
+<p>When assumption 2 and/or 3 do not hold, t-based methods are no longer applicable. The Wilcoxon-based methods do not require the normality assumption when the samples are small nor is it affected by outliers. Further, the distributions from which each data were sampled do not have to be known<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> for these methods, but these methods do require for the distributions to have approximately the same shape. Since the distribution does not have to be a known distribution, it called a non-parametric method<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>. In short, these methods require assumptions 1 and 4, but also require for the distributions from which each data were sampled to have approximately the same shape and for each sample to be of at least size 10.</p>
+<p>The Wilcoxon rank sum test, also called the Mann-Whitney test, can be applied to compare whether the difference between true medians from two independent populations is really different from zero. It can also be used to determine if an effect (when comparing two treatments via medians) is significant or not, as opposed to the size of the difference or effect being due to random chance.</p>
+<p>The test statistic for the Wilcoxon rank sum test depends on the ranks of the observed data, and its value will be provided by software. However, some details regarding the computation of the test statistic are provided below:</p>
+<ol type="1">
+<li><p>List the observations for both samples from smallest to largest across both groups.</p></li>
+<li><p>Assign the numbers <span class="math inline">\(1\)</span> to <span class="math inline">\(n_A+n_B=N\)</span> to the observations (across both groups) with 1 assigned to the smallest observations and <span class="math inline">\(N\)</span> to the largest observation. These are called ranks of the observations.</p></li>
+<li><p>If there are ties (due to repeated values) in the combined data set, the ranks for the observations in a tie are taken to be the average of the ranks for those observations.</p></li>
+<li><p>Let <span class="math inline">\(W\)</span> denote the sum of the ranks for the observations from group A.</p></li>
+</ol>
+<p>The test statistic then takes the form</p>
+<p><span class="math display">\[U=W-\frac{n_A(n_A+1)}{2}\]</span></p>
+<p>Whereas the null hypothesis of the two-sample t test is equal means, the null hypothesis of the Wilcoxon test<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> is taken as equal medians:</p>
+<p><span class="math display">\[H_0: \eta_A - \eta_B=0 \qquad H_a: \eta_A -\eta_B \neq 0\]</span></p>
+<p>One may also consider the test in terms of an effect <span class="math inline">\(\delta_\eta=\eta_A - \eta_B\)</span>,</p>
+<p><span class="math display">\[H_0: \delta_\eta=0 \qquad H_a: \delta_\eta \neq 0\]</span></p>
+<p>Under <span class="math inline">\(H_0\)</span>, the null distribution of U is called the Wilcoxon distribution and it is used to compute the p-value<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>. The function <code>two.wilcox.test()</code><a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> computes the test statistic and p-value<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a>, as well as a CI.</p>
+<p>The CI provided by this method is for the difference in medians between two randomly chosen observations (one from each group)<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a>. This still provides some sense of how different the medians are from each other. However, if both distributions from which the data were sampled are symmetric, then the CI provided is for a difference in medians.</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### two.wilcox.test( y ~ x , data , first.level,
+###            direction, conf.level)
+# y: Replace y with the name of the resposne (measured) 
+#  variable of interest
+# x: Replace x with the name of the factor or grouping
+#  variable that distinguishes the different populations 
+#  or treatments
+# data: Set equal to the dataframe being used.
+# first.level: Set equal to a level/category from the grouping 
+#              variable. It determines how the difference in 
+#              sample means is computed.  It should be consisent 
+#              with the formulation of the hypothesis.
+# direction: Set equal to the sign in the alternative: "two.sided", 
+#            "greater" , or "less"
+# conf.level: Set equal to the confidence level for the CI (default 
+#             is .95). The function will always provide a CI by default.</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We apply the two-sample Wilcoxon-based methods (hypothesis testing and CI) to the data described in the case study provided in <a href="datacs3.html"><span>Chapter&nbsp;3</span></a> to determine if there is a significant difference in PM10 concentration between Kern and Fresno county and to get a sense of how different the true medians are. The four assumptions of the data discussed earlier in this chapter were explored when illustrating the t-based methods. Although the data consists of large samples and the independence and equal variance assumptions are reasonable, the presence of many outliers in the data should be noted. The Wilcoxon-based methods are not affected by outliers but the distributions from which each sample were obtained should have the same shape. This is explored via a violin boxplot.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://lattice.r-forge.r-project.org/">lattice</a></span><span class="op">)</span> <span class="co"># Provides the bwplot() function</span></span>
+<span></span>
+<span><span class="co"># Create a violin plot </span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">bwplot</a></span><span class="op">(</span> <span class="va">PM10</span> <span class="op">~</span> <span class="va">county</span> , </span>
+<span>    data<span class="op">=</span> <span class="va">KernFresnoPM10df</span> , </span>
+<span>    xlab<span class="op">=</span> <span class="st">"County"</span> , </span>
+<span>    ylab<span class="op">=</span> <span class="st">"PM10"</span> ,</span>
+<span>    main<span class="op">=</span> <span class="st">"PM10 vs county"</span> , </span>
+<span>    panel<span class="op">=</span> <span class="va">panel.violin</span> <span class="op">)</span> <span class="co"># set equal to panel.violin to create violin plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="twoindptmeans_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/CxlMXEWbi3U" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The violin boxplot makes it clearer that the distribution of PM10 in both counties approximately have the same shape.</p>
+<p>Let <span class="math inline">\(\eta_K\)</span> denote the true median PM10 levels in Kern county. <span class="math inline">\(\eta_F\)</span> is defined analogous for Fresno county. Since an aim is to determine if there is significant difference between PM10 levels in Kern and Fresno county, the hypothesis is</p>
+<p><span class="math display">\[H_0: \eta_K - \eta_F=0 \qquad H_a: \eta_K- \eta_F \neq 0\]</span></p>
+<p>The following code uses <code>two.wilcox.test()</code> to compute the test statistic, the corresponding p-value, and a 99% confidence interval:</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div>
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Source the function two.wilcox.test() so that it's R's memory.</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"rfuns/two.wilcox.test.R"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># The function will require the following information:</span></span>
+<span><span class="co"># y: Replace with 'PM10'</span></span>
+<span><span class="co"># x: Replace with 'county'</span></span>
+<span><span class="co"># data: Set equal to a 'KernFresnoPM10df'</span></span>
+<span><span class="co"># first.level: The county that appears first in the hypothesis</span></span>
+<span><span class="co">#                (Kern county), set equal to "Kern"</span></span>
+<span><span class="co"># direction: It is a two-sided alternative, so set equal to "two.sided"</span></span>
+<span></span>
+<span></span>
+<span><span class="fu">two.wilcox.test</span><span class="op">(</span><span class="va">PM10</span> <span class="op">~</span> <span class="va">county</span> ,           <span class="co"># y ~ x</span></span>
+<span>                data <span class="op">=</span> <span class="va">KernFresnoPM10df</span> , <span class="co"># Specify the data frame to use</span></span>
+<span>                first.level <span class="op">=</span> <span class="st">"Kern"</span> ,    <span class="co"># Specify the first level in the hypothesis</span></span>
+<span>                direction <span class="op">=</span> <span class="st">"two.sided"</span> , <span class="co"># Specify a two-sided alternative</span></span>
+<span>                conf.level <span class="op">=</span> <span class="fl">.99</span> <span class="op">)</span>        <span class="co"># Set the confidence level to .99</span></span>
+<span><span class="co">#&gt;      Theoretical-based two-sample test for independent samples </span></span>
+<span><span class="co">#&gt;                               </span></span>
+<span><span class="co">#&gt; formula:  PM10 ~ county </span></span>
+<span><span class="co">#&gt; sample median of  Kern  group: 28 </span></span>
+<span><span class="co">#&gt; sample median of  Fresno  group: 34 </span></span>
+<span><span class="co">#&gt; sample IQR of  Kern  group: 30 </span></span>
+<span><span class="co">#&gt; sample IQR of  Fresno  group: 29 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; method:  Wilcoxon rank sum test with continuity correction </span></span>
+<span><span class="co">#&gt; difference between groups: ( Kern  group ) - (  Fresno  group ) </span></span>
+<span><span class="co">#&gt; obs test statistic: U=  759219.5              p-value = 0 </span></span>
+<span><span class="co">#&gt; obs standardized test statistic: Z=  -7.048 </span></span>
+<span><span class="co">#&gt; direction: two.sided </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; difference in location (pseudomedian):  -6.000007 </span></span>
+<span><span class="co">#&gt; confidence level:  0.99 </span></span>
+<span><span class="co">#&gt; CI:(  -8.000049 ,  -3.999966 )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell quarto-layout-panel">
+
+</div>
+</div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/75m-E5v5w20" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The output includes the following information:</p>
+<ul>
+<li><p>The sample median and IQR under each level of the grouping/factor variable.</p></li>
+<li><p>The value of the observed statistic</p></li>
+<li><p>p-value</p></li>
+<li><p>A confidence interval</p></li>
+</ul>
+<p>Based on the output, the observed value of the test statistic is <span class="math inline">\(U=759219.5\)</span>. The p-value is extremely small (0). Since p-value<span class="math inline">\(\leq\alpha=.01\)</span>, we have significant evidence to reject <span class="math inline">\(H_0\)</span>. Therefore, we have strong evidence that there is significant difference between PM10 levels in Kern and Fresno county at the designated monitoring sites.</p>
+<p>The output also provides a 99% CI for median of difference between all pairs of observations between both groups (not the difference in group medians). Based on the CI, we are 99% confident that the median difference between two randomly chosen PM10 levels from each county is anywhere between -8.000 and -4.000. Since the interval does not contain <span class="math inline">\(0\)</span>, it is clear that the PM10 levels at Fresno county are higher than in Kern county at the designated monitoring sites at 99% confidence. Note that this conclusion only applies to the monitoring sites, since PM10 levels were not measured at random locations within each county.</p>
+</div>
+</div>
+</section><section id="a-randomization-test-using-a-t-test-test-statistic" class="level2" data-number="12.3"><h2 data-number="12.3" class="anchored" data-anchor-id="a-randomization-test-using-a-t-test-test-statistic">
+<span class="header-section-number">12.3</span> A randomization test using a t-test test statistic</h2>
+<p>Randomization methods seek to determine if the observed data in each group is different due to an effect of a factor, compared to what would be expected by random chance if the groups were the same and the factor had no effect on the response. These methods can test whether the observed data in each group are different from a randomization distribution generated by randomly allocating the observed data into the two groups. If the observed data are in fact the same (no effect), then it should be just as likely as any ordering generated by random allocation of the data between groups. In other words, if the factor being studied has no effect on the response, then the behavior of the data should be similar to what we would expect if the observations were randomly assigned to the two groups (randomized group assignment). If, however, the groups are different due to a significant factor effect, then the behavior of the data would not be similar to what we would expect if the observations were randomly assigned to the two groups.”</p>
+<p>If assumption 2, 3, and/or 3 do not hold, t-based or Wilcoxon methods are no longer applicable. Randomization technically does not require any assumptions, although some assumptions or conditions may be needed depending on how the effect is being quantified (differences in mean, medians, or other measures). Here, we use randomization tests to determine if an effect is significant when using a difference in means and difference in medians. Keep in mind that randomization tests do not have sample size requirements. However, the less data you have, the less power the test has to detect a significant effect or significant difference between two groups.</p>
+<section id="comparing-means" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="comparing-means">Comparing means</h3>
+<p>Here we use a randomization test when quantifying the attribute using the mean. As a test statistic, we use the form of the test statistic provided by Welch’s t-test for the randomization test. The interest here is in determining if an effect (when measures as a difference in means) is significant. Since the test statistic uses both the sample mean and sample standard deviation, this version of the randomization test will require assumption 2. The R function used to conduct the randomization test has similar syntax to that of the t-based methods, but with additional arguments.</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### two.mean.test( y ~ x , data , first.level,
+###            direction, randtest, 
+###            nshuffles)
+# randtest: Set equal to TRUE to obtain the test statistic and p-value
+#      for the randomization test (for comparing means).
+# nshuffles: Set equal to the desired number of randomizations. </code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Discussion of the t-based methods showed that outliers are present in the data from the case study discussed in <a href="datacs3.html"><span>Chapter&nbsp;3</span></a>, so this test is not appropriate for the data. However, for illustration we carry out the test on the data. The aim is to determine if there is significant county effect on PM10 levels when considering Kern and Fresno county. Let <span class="math inline">\(\delta_\mu=\mu_K - \mu_F\)</span>. The hypothesis is</p>
+<p><span class="math display">\[H_0: \delta_\mu=0 \qquad H_a: \delta_\mu \neq 0\]</span></p>
+<p>The following code uses <code>two.mean.test()</code> to compute the test statistic and the corresponding p-value for a randomization test involving a difference in means.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
+<div>
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Data was imported earlier in the section </span></span>
+<span><span class="co"># and 'mutate' converted 'county' into a factor variable.</span></span>
+<span></span>
+<span><span class="co"># Source the function two.mean.test() so that it's R's memory.</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"rfuns/two.mean.test.R"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># The function will require the following information:</span></span>
+<span><span class="co"># y: Replace with 'PM10'</span></span>
+<span><span class="co"># x: Replace with 'county'</span></span>
+<span><span class="co"># data: Set equal to a 'KernFresnoPM10df'</span></span>
+<span><span class="co"># first.level: In the hypothesis, Kern county appeared first in the</span></span>
+<span><span class="co">#       difference, so set equal to "Kern"</span></span>
+<span><span class="co"># direction: It is a two-sided alternative, so set equal to "two.sided"</span></span>
+<span><span class="co"># randtest: Set equal to TRUE. </span></span>
+<span><span class="co"># nshuffles: Set equal to 30,000 </span></span>
+<span></span>
+<span></span>
+<span><span class="fu">two.mean.test</span><span class="op">(</span><span class="va">PM10</span> <span class="op">~</span> <span class="va">county</span> ,           <span class="co"># specify the variables for the test</span></span>
+<span>              data <span class="op">=</span> <span class="va">KernFresnoPM10df</span> , <span class="co"># specify the data frame to use</span></span>
+<span>              first.level <span class="op">=</span> <span class="st">"Kern"</span> ,    <span class="co"># specify the first level in the hypothesis</span></span>
+<span>              direction <span class="op">=</span> <span class="st">"two.sided"</span> , <span class="co"># specify a two-sided alternative</span></span>
+<span>              randtest <span class="op">=</span> <span class="cn">TRUE</span> ,         <span class="co"># perform a simulation-based test</span></span>
+<span>              nshuffles <span class="op">=</span> <span class="fl">30000</span> <span class="op">)</span>       <span class="co"># set the number of randomizations to 30,000</span></span>
+<span></span>
+<span></span>
+<span></span>
+<span><span class="co">#&gt;   Simulation based two-sample test for independent samples </span></span>
+<span><span class="co">#&gt;               </span></span>
+<span><span class="co">#&gt; formula: PM10 ~ county </span></span>
+<span><span class="co">#&gt; sample mean of Kern group: 35.06717 </span></span>
+<span><span class="co">#&gt; sample mean of Fresno group: 41.09943 </span></span>
+<span><span class="co">#&gt; sample sd of Kern group: 32.26383 </span></span>
+<span><span class="co">#&gt; sample sd of Fresno group: 31.88051 </span></span>
+<span></span>
+<span><span class="co">#&gt; difference between groups: ( Kern group ) - ( Fresno group ) </span></span>
+<span><span class="co">#&gt; obs t-test statistic: -4.807498       p-value = 0 </span></span>
+<span><span class="co">#&gt; df= N/A </span></span>
+<span><span class="co">#&gt; direction: two.sided </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell quarto-layout-panel">
+
+</div>
+</div>
+</div>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/Kbkt9vf7eiU" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The output is nearly identical as when conducting a Welch t-test in that it provides some summary statistics, the observed value of the test statistic, and p-value. These type of randomization methods do not provide CIs so one can not assess the size of the effect. At <span class="math inline">\(\alpha=.01\)</span>, we obtain the same decision and conclusion as with the previous tests.</p>
+</div>
+</div>
+</section><section id="comparing-medians" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="comparing-medians">Comparing medians</h3>
+<p>Here we quantify the attribute using the median. For the test statistic in the randomization test, we use the form of the test statistic provided by the Wilcox rank sum test. The interest here is in determining if an effect (when measures as a difference in medians) is significant. The R function to carry out this test is the same function as with the wilcoxon-based methods, but with some additional arguments to conduct the randomization test.</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### two.wilcox.test( y ~ x , data , first.level,
+###            direction, conf.level)
+###            randtest, nshuffles)
+# randtest: Set equal to TRUE to obtain the test statistic and p-value
+#      for the randomization test (for comparing medians).
+# nshuffles: Set equal to the desired number of randomizations. </code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Discussion of the wilcoxon-based methods showed that the data described the case study provided in <a href="datacs3.html"><span>Chapter&nbsp;3</span></a> are appropriate for the data. However, given the large sample, the Wilcox rank sum test approximates the p-value using the standard normal distribution. This approximation generally works well, but the quality of the approximation declines when the underlying distributions of the two groups are highly skewed or have heavy tails, or as the number of ties increases. Note below that the histogram shows that the PM10 levels in both counties are right skewed. Further, there are over 2000 ties in the data. Therefore, this randomization test provides a more accurate result for this data.</p>
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Data was imported earlier in the section </span></span>
+<span><span class="co"># and 'mutate' converted 'county' into a factor variable.</span></span>
+<span></span>
+<span><span class="co"># Load the 'lattice' package</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://lattice.r-forge.r-project.org/">lattice</a></span><span class="op">)</span> <span class="co"># provides the histogram() function</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/histogram.html">histogram</a></span><span class="op">(</span><span class="op">~</span> <span class="va">PM10</span> <span class="op">|</span> <span class="va">county</span> ,         <span class="co"># ~ "variable" | "grouping factor"</span></span>
+<span>          data <span class="op">=</span> <span class="va">KernFresnoPM10df</span> , <span class="co"># Specify the data frame to use</span></span>
+<span>          xlab <span class="op">=</span> <span class="st">"PM10"</span> ,           <span class="co"># Label the x-axis</span></span>
+<span>          ylab <span class="op">=</span> <span class="st">"Frequency"</span> ,      <span class="co"># Label the y-axis</span></span>
+<span>          main <span class="op">=</span> <span class="st">"PM10 by county"</span> <span class="op">)</span> <span class="co"># Add a title to the plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="twoindptmeans_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>To determine if there is significant county effect on PM10 levels when comparing Kern and Fresno county, let <span class="math inline">\(\delta_\eta=\eta_K - \eta_F\)</span>. The hypotheses are</p>
+<p><span class="math display">\[H_0: \delta_\eta=0 \qquad H_a: \delta_\eta \neq 0\]</span></p>
+<p>The following code uses <code>two.wilcox.test()</code> to compute the test statistic and the corresponding p-value for a randomization test involving a difference in medians</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
+<div>
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Data was imported earlier in the section </span></span>
+<span><span class="co"># and 'mutate' converted 'county' into a factor variable.</span></span>
+<span></span>
+<span><span class="co"># Source the function two.wilcox.test() so that it's R's memory.</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"rfuns/two.wilcox.test.R"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># The function will require the following information:</span></span>
+<span><span class="co"># y: replace with 'PM10'</span></span>
+<span><span class="co"># x: replace with 'county'</span></span>
+<span><span class="co"># data: set equal to a 'KernFresnoPM10df'</span></span>
+<span><span class="co"># first.level: In the hypothesis, Kern county appeared first in the</span></span>
+<span><span class="co">#       difference, so set equal to "Kern"</span></span>
+<span><span class="co"># direction: It is a two-sided alternative, so set equal to "two.sided"</span></span>
+<span><span class="co"># randtest: Set equal to TRUE. </span></span>
+<span><span class="co"># nshuffles: Set equal to 30,000 </span></span>
+<span></span>
+<span><span class="fu">two.wilcox.test</span><span class="op">(</span><span class="va">PM10</span> <span class="op">~</span> <span class="va">county</span> ,           <span class="co"># Specify the variables for the test</span></span>
+<span>                data <span class="op">=</span> <span class="va">KernFresnoPM10df</span> , <span class="co"># Specify the data frame to use</span></span>
+<span>                first.level <span class="op">=</span> <span class="st">"Kern"</span> ,    <span class="co"># Specify the first level in the hypothesis</span></span>
+<span>                direction <span class="op">=</span> <span class="st">"two.sided"</span> , <span class="co"># Specify a two-sided alternative</span></span>
+<span>                randtest <span class="op">=</span> <span class="cn">TRUE</span> ,         <span class="co"># Perform a simulation-based test</span></span>
+<span>                nshuffles <span class="op">=</span> <span class="fl">30000</span> <span class="op">)</span>       <span class="co"># Set the number of randomizations to 30,000</span></span>
+<span><span class="co">#&gt;   Simulation based two-sample test for independent samples </span></span>
+<span>              </span>
+<span><span class="co">#&gt; formula: PM10 ~ county </span></span>
+<span><span class="co">#&gt; sample median of Kern group: 28 </span></span>
+<span><span class="co">#&gt; sample median of Fresno group: 34 </span></span>
+<span><span class="co">#&gt; sample IQR of Kern group: 30 </span></span>
+<span><span class="co">#&gt; sample IQR of Fresno group: 29 </span></span>
+<span></span>
+<span><span class="co">#&gt; method: randomization test </span></span>
+<span><span class="co">#&gt; difference between groups: ( Kern group ) - ( Fresno group ) </span></span>
+<span><span class="co">#&gt; obs test statistic: U= 759219.5       p-value = 0 </span></span>
+<span><span class="co">#&gt; direction: two.sided </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell quarto-layout-panel">
+
+</div>
+</div>
+</div>
+<div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/JkBLLFUfkbg" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The output is nearly identical as when conducting the Wilcox rank-sum test in that it provides summary statistics, the observed value of the test statistic, and p-value. These types of randomization methods do not provide CIs. At <span class="math inline">\(\alpha=.01\)</span>, we obtain the same decision and conclusion as with the previous tests.</p>
+</div>
+</div>
+</section></section><section id="sample-size-estimation-and-power-analysis" class="level2" data-number="12.4"><h2 data-number="12.4" class="anchored" data-anchor-id="sample-size-estimation-and-power-analysis">
+<span class="header-section-number">12.4</span> Sample size estimation and power analysis</h2>
+<p>Ideally, estimating sample size for a study is one of the first steps that researchers take prior to collecting data. Knowing the sample size required to detect a desired effect at the beginning of a project allows one to manage their data collection efforts. Further, this allows for one to determine how much statistical power the test will have to detect an effect.</p>
+<p>The R function <code><a href="https://rdrr.io/pkg/pwr/man/pwr.t2n.test.html">pwr.t2n.test()</a></code> from the <code>pwr</code> R package can be used to calculate statistical power for a two sample t-test when the sample sizes, significance level (<span class="math inline">\(\alpha\)</span>), and effect size are provided. The function <code>pwr.t.test</code> from the same package will provide the sample sizes required for a given power level, significant level (<span class="math inline">\(\alpha\)</span>), and effect size. Note that variability in each sample is assumed to be about the same. It is assumed the appropriate assumptions about the data are met<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a>.</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### power.t2n.test( n1 , n2 , d , sig.level , 
+###                    power, alternative)
+# n1: Set equal to the number of observations in first sample.
+# n2: Set equal to the effect size.
+# d: Set equal to the effect size.
+# sig.level: Set equal to the desired alpha value (significance level)
+# power: Set equal to the desired power (a number between 0 and 1). 
+# alternative: The direction of the alternative. Set equal to "two.sided".
+#
+#
+### power.t.test(power, d , sig.level , 
+###                  alternative , type)
+# power: Set equal to the desired power.
+# type: Set equal to "two.sample" .
+#</code></pre>
+</div>
+</div>
+<p>The effect size refers to Cohen’s <span class="math inline">\(d\)</span>, which is defined as the difference between the true means divided by the pooled standard deviation. Cohen’s <span class="math inline">\(d\)</span> is typically interpreted as follows:</p>
+<ul>
+<li><p>Small effect size: <span class="math inline">\(d = 0.20\)</span></p></li>
+<li><p>Medium effect size: <span class="math inline">\(d = 0.50\)</span></p></li>
+<li><p>Large effect size: <span class="math inline">\(d = 0.80\)</span> or higher.</p></li>
+</ul>
+<p>These are suggested guidelines and may vary slightly depending on the specific field of research or context of the study.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Refer to the data described in the case study provided in <a href="datacs3.html"><span>Chapter&nbsp;3</span></a>. Let’s suppose the goal is to determine the statistical power of a two sample t-test if one wanted to detect a medium-sized effect when the sample size from each county is 100 at <span class="math inline">\(\alpha=.01\)</span>.</p>
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/heliosdrm/pwr">pwr</a></span><span class="op">)</span> <span class="co"># provides pwr.t2n.test</span></span>
+<span></span>
+<span><span class="co"># Note:  The output of this function call will be the statistical power for the t-test.</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/pwr/man/pwr.t2n.test.html">pwr.t2n.test</a></span><span class="op">(</span>n1 <span class="op">=</span> <span class="fl">100</span> ,          <span class="co"># Set the sample size for group 1</span></span>
+<span>             n2 <span class="op">=</span> <span class="fl">100</span> ,          <span class="co"># Set the sample size for group 2</span></span>
+<span>             d <span class="op">=</span> <span class="fl">0.50</span> ,          <span class="co"># Set Cohen's d</span></span>
+<span>             sig.level <span class="op">=</span> <span class="fl">0.01</span> ,  <span class="co"># Set the significance level for the test</span></span>
+<span>             alternative <span class="op">=</span> <span class="st">"two.sided"</span><span class="op">)</span> <span class="co"># Specify a two-sided alternative hypothesis</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;      t test power calculation </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;              n1 = 100</span></span>
+<span><span class="co">#&gt;              n2 = 100</span></span>
+<span><span class="co">#&gt;               d = 0.5</span></span>
+<span><span class="co">#&gt;       sig.level = 0.01</span></span>
+<span><span class="co">#&gt;           power = 0.8238225</span></span>
+<span><span class="co">#&gt;     alternative = two.sided</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>The statistical power of this test is <span class="math inline">\(.824\)</span>. To further increase the power, one may increase the effect size (the larger it is, the easier it is to detect), increase the value of <span class="math inline">\(\alpha\)</span> (make it easier to reject <span class="math inline">\(H_0\)</span> and find a significant effect), and/or increase the sample sizes. The sample data consisted of at least 1000 observations from each county, so set each sample to <span class="math inline">\(1000\)</span>:</p>
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/pwr/man/pwr.t2n.test.html">pwr.t2n.test</a></span><span class="op">(</span>n1 <span class="op">=</span> <span class="fl">1000</span> ,</span>
+<span>             n2 <span class="op">=</span> <span class="fl">1000</span> , </span>
+<span>             d <span class="op">=</span> <span class="fl">.50</span> , </span>
+<span>             sig.level <span class="op">=</span> <span class="fl">0.01</span> ,</span>
+<span>             alternative <span class="op">=</span> <span class="st">"two.sided"</span> <span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;      t test power calculation </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;              n1 = 1000</span></span>
+<span><span class="co">#&gt;              n2 = 1000</span></span>
+<span><span class="co">#&gt;               d = 0.5</span></span>
+<span><span class="co">#&gt;       sig.level = 0.01</span></span>
+<span><span class="co">#&gt;           power = 1</span></span>
+<span><span class="co">#&gt;     alternative = two.sided</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>If instead you seek the required sample size for a given power, the argument <code>power</code> could be set to the desired power in the function <code><a href="https://rdrr.io/pkg/pwr/man/pwr.t.test.html">pwr.t.test()</a></code>:</p>
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Note:  The output of this function call will be the required sample size for the t-test.</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/pwr/man/pwr.t.test.html">pwr.t.test</a></span><span class="op">(</span>power <span class="op">=</span> <span class="fl">0.90</span> ,         <span class="co"># Set the desired power level</span></span>
+<span>           d <span class="op">=</span> <span class="fl">0.50</span> ,             <span class="co"># Set the standardized mean difference between groups</span></span>
+<span>           sig.level <span class="op">=</span> <span class="fl">0.01</span> ,     <span class="co"># Set the significance level for the test</span></span>
+<span>           type <span class="op">=</span> <span class="st">"two.sample"</span> ,  <span class="co"># Set a two-sample t-test</span></span>
+<span>           alternative <span class="op">=</span> <span class="st">"two.sided"</span><span class="op">)</span> <span class="co"># Specify a two-sided alternative hypothesis</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;      Two-sample t test power calculation </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;               n = 120.7055</span></span>
+<span><span class="co">#&gt;               d = 0.5</span></span>
+<span><span class="co">#&gt;       sig.level = 0.01</span></span>
+<span><span class="co">#&gt;           power = 0.9</span></span>
+<span><span class="co">#&gt;     alternative = two.sided</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; NOTE: n is number in *each* group</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+</div>
+<p>This module provides a few methods for independent two-sample inference. Parametric methods (such as t-based methods) are generally more powerful (assuming all assumptions are reasonably met) than nonparametric methods, such as Wilcoxon-based methods. Nonparametric tests are based on fewer assumptions compared to their parametric counterparts. The cost of fewer assumptions is that nonparametric tests are generally less powerful than their parametric counterparts. Nonparametric tests are used in cases where parametric tests are not appropriate.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-sleuth" class="csl-entry" role="doc-biblioentry">
+Ramsey, F. L., and D. W. Schafer. 2013. <span>“The Statistical Sleuth: A Course in Methods of Data Analysis.”</span> <em>Cengage Learning</em> 30 (4): 413–14. <a href="https://doi.org/10.1080/00224065.1998.11979882">https://doi.org/10.1080/00224065.1998.11979882</a>.
+</div>
+</div>
+</section><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<ol>
+<li id="fn1" role="doc-endnote"><p>For the Welch t-test, the degree of freedom can be tedious to compute. Software will provide the corresponding degrees of freedom and p-value.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>For a two-sample t-test, <code>two.mean.test()</code> is a wrapper function of the R function <code>t.test</code>, but <code>two.mean.test</code> allows the user to choose the order of the difference.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>It turns out that the null distribution of a t-based method approximates the null distribution of a randomization test fairly well, which does not require random samples.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p>The rule assumes all other assumptions are met. Although a common rule, it can fail when the distribution of the data resembles a heavy-tailed distribution. Please see <span class="citation" data-cites="sleuth">Ramsey and Schafer (<a href="#ref-sleuth" role="doc-biblioref">2013</a>)</span> for further discussion on this issue.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5" role="doc-endnote"><p>Known distributions are parametric distributions in that they can be expressed using math formulas. Parametric methods assume that the underlying population data follows a known distribution<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6" role="doc-endnote"><p>Non-parametric methods assume less things about the data compare to parametric methods.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7" role="doc-endnote"><p>If the data distributions do not have approximately the same shape, this test may be used but it is no longer testing a difference in medians, but rather it tests if the median of all pairwise differences (pseudomedian) is not equal to zero. The pseudomedian is not commonly used in practice, but never the less, it can be used to show that two groups are different under this measure.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8" role="doc-endnote"><p>The distribution is discrete. However, if a sample size is larger than 50 and there are ties, the distribution is approximated well by a standard normal distribution (default for most software).<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9" role="doc-endnote"><p>The R function <code>two.wilcox.test</code> is a wrapper function for the R function <code><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test()</a></code>.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10" role="doc-endnote"><p>If there are ties or the sample size is large (rule of thumb is more than 20 in a given group is considered large), the p-value is approximated using a standard normal distribution. The larger the sample, the better the approximation. However, this approximation may be poor especially when the sample size are not very large and/or the underlying distributions of the two groups are highly skewed or have heavy tailed.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11" role="doc-endnote"><p>Recall that the mean and median are measures of central location of a distribution. This CI is for a measure of central location called the pseudomedian, which is the median of differences between all pairs of observations between both groups (not the difference in group medians). For symmetric distributions, the median and pseudomedian coincide.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12" role="doc-endnote"><p>The R function <code>power.welch.t.test()</code> and <code>sim.ssize.wilcox.test()</code> from the <code>MKpower</code> R package provides statistical power calculations for the two-sample Welch t-test and two-sample Wilcox rank sum test, respectively. However, these functions may be difficult to use for those not familiar with power analysis.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./siframework.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Statistical inference framework via a case study</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./anovalin.html" class="pagination-link">
+        <span class="nav-page-text">Module: ANOVA, linear regression, and logistic regression</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

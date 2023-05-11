@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.35">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Training modules on selected statistical methods - 10&nbsp; Summarizing numerical data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./twosample.html" rel="next">
+<link href="./catsum.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script><script src="site_libs/kePrint-0.0.1/kePrint.js"></script><link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="site_libs/vembedr-0.1.5/css/vembedr.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summarizing numerical data</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Training modules on selected statistical methods</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/emontoya2" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="" title="Share" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+<li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+            <i class="bi bi-bi-twitter pe-1"></i>
+          Twitter
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+            <i class="bi bi-bi-facebook pe-1"></i>
+          Facebook
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+            <i class="bi bi-bi-linkedin pe-1"></i>
+          LinkedIn
+          </a>
+        </li>
+    </ul>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Welcome</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./preface.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./casestudies.html" class="sidebar-item-text sidebar-link">Module: Case Studies</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Case study 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Case study 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs3.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Case study 3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs4.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Case study 4</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs5.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Case study 5</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs6.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Case study 6</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./data.html" class="sidebar-item-text sidebar-link">Module: Data basics and drawing statistical conclusions</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Basics of data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./drawingconclusions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Drawing statistical conclusions</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./summaries.html" class="sidebar-item-text sidebar-link">Module:  Basic Exploratory  Data Analysis</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./catsum.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Summarizing categorical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./numsum.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summarizing numerical data</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./twosample.html" class="sidebar-item-text sidebar-link">Module: Two sample methods</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./siframework.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Statistical inference framework via a case study</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./twoindptmeans.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Two sample methods</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./anovalin.html" class="sidebar-item-text sidebar-link">Module: ANOVA, linear regression, and logistic regression</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./anova.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Analysis of variance (ANOVA)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Simple linear regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logisticreg.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Simple logistic regression</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./eda.html" class="sidebar-item-text sidebar-link">Module: Advanced Exploratory Data Analysis</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pca.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">PCA</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./a1-startingR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Installing or accessing R and RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./a2-firstR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">A first session in RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./a3-basicsR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Some basic tasks in R</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#sec-onenumvar" id="toc-sec-onenumvar" class="nav-link active" data-scroll-target="#sec-onenumvar"> <span class="header-section-number">10.1</span> Single numerical variable</a></li>
+  <li><a href="#sec-multinumvar" id="toc-sec-multinumvar" class="nav-link" data-scroll-target="#sec-multinumvar"> <span class="header-section-number">10.2</span> Two or more numerical variable</a></li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/emontoya2/edit/master/numsum.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="sec-numsum" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summarizing numerical data</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header><div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/datasummary/numpic.jpg" class="img-fluid figure-img" style="width:50.0%"></p>
+<p></p><figcaption class="figure-caption">AI art generated from the text “Summarizing numerical data”</figcaption><p></p>
+</figure>
+</div>
+<p>Here we cover the following graphically and numerical summaries:</p>
+<ul>
+<li><p>histogram</p></li>
+<li><p>mean and standard deviation</p></li>
+<li><p>median and interquartile range</p></li>
+<li><p>boxplots</p></li>
+<li><p>quantile-quantile plots</p></li>
+<li><p>scatterplots</p></li>
+<li><p>correlation</p></li>
+<li><p>strip plot</p></li>
+</ul>
+<section id="sec-onenumvar" class="level2" data-number="10.1"><h2 data-number="10.1" class="anchored" data-anchor-id="sec-onenumvar">
+<span class="header-section-number">10.1</span> Single numerical variable</h2>
+<p>Often it helps to summarize the distribution by quantifying its center and spread. The mean or average is the most common way to measure the center of a distribution. A common way to measure spread or variability of the distribution is the standard deviation.</p>
+<p>Here, we denote the mean of sample or sample mean by <span class="math inline">\(\bar{x}\)</span>. The sample standard deviation is denoted by <span class="math inline">\(s\)</span>. The function <code>mean()</code> and <code><a href="https://www.mosaic-web.org/mosaic/reference/aggregating.html">sd()</a></code> computes the mean and standard deviation of a sample of data, respectively:</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### mean( ~ x , data, na.rm)
+# x: Replace x with the name of the variable of interest
+# data: Set equal to dataframe name
+# na.rm: Should missing values be remove? The 
+#       default is FALSE. Set equal to TRUE if
+#       missing values are to be excluded.
+#
+### sd( ~ x , data, na.rm)
+#</code></pre>
+</div>
+</div>
+<p>Many of the R functions used in these modules will have identical arguments. Therefore, while the arguments will be provided for any functions used, arguments such as <code>x</code>, <code>data</code>, … will generally no longer be described.</p>
+<p>Other measures of the center and spread of the distribution used in practice are the median and interquartile range (IQR) range, respectively. The median, denoted <span class="math inline">\(M\)</span>, is the (middle) value separating the upper half from the lower half of the ordered sample of data. The IQR measures the spread of the middle half of the data. Measures of center are generally used to describe what a “typical” value in the data, where as measures of spread quantify the amount of variability in the sample. The function <code><a href="https://www.mosaic-web.org/mosaic/reference/aggregating.html">median()</a></code> and <code><a href="https://www.mosaic-web.org/mosaic/reference/aggregating.html">iqr()</a></code> computes the median and IQR of a sample of data:</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### median( ~ x , data, na.rm)
+#
+### IQR( ~ x , data, na.rm)
+#</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The case study data given in <a href="datacs.html#sec-csdelta"><span>Section&nbsp;1.1</span></a> consist of a single numerical variable: <code>Survival</code>. Here we compute the measures of center and spread discussed above for <code>Survival</code>:</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># import data</span></span>
+<span><span class="va">dssurv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span> <span class="st">"datasets/dssurv.csv"</span> <span class="op">)</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ProjectMOSAIC/mosaic">mosaic</a></span><span class="op">)</span> <span class="co"># provides formula interface for the functions below.</span></span>
+<span></span>
+<span><span class="co"># Note: this dataset does not have any missing values</span></span>
+<span><span class="fu">mean</span><span class="op">(</span> <span class="op">~</span> <span class="va">Survival</span> , </span>
+<span>      data<span class="op">=</span> <span class="va">dssurv</span> <span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 62.22</span></span>
+<span></span>
+<span><span class="fu"><a href="https://www.mosaic-web.org/mosaic/reference/aggregating.html">median</a></span><span class="op">(</span> <span class="op">~</span> <span class="va">Survival</span> , </span>
+<span>        data<span class="op">=</span> <span class="va">dssurv</span> <span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 59.56</span></span>
+<span></span>
+<span><span class="fu"><a href="https://www.mosaic-web.org/mosaic/reference/aggregating.html">sd</a></span><span class="op">(</span> <span class="op">~</span> <span class="va">Survival</span> , </span>
+<span>    data<span class="op">=</span> <span class="va">dssurv</span> <span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 12.07902</span></span>
+<span></span>
+<span><span class="fu"><a href="https://www.mosaic-web.org/mosaic/reference/aggregating.html">IQR</a></span><span class="op">(</span> <span class="op">~</span> <span class="va">Survival</span> , </span>
+<span>     data<span class="op">=</span> <span class="va">dssurv</span> <span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 11.45</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Which summary statistics better describes the center and spread of the distribution depends on the shape of the distribution provided by graphical summaries (to be discussed later).</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+
+<table class="table table-striped table-condensed" style="margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:center;"> Mean </th>
+   <th style="text-align:center;"> Median </th>
+   <th style="text-align:center;"> Std. deviation </th>
+   <th style="text-align:center;"> IQR </th>
+  </tr></thead>
+<tbody><tr>
+<td style="text-align:center;"> 62.22 </td>
+   <td style="text-align:center;"> 59.56 </td>
+   <td style="text-align:center;"> 12.079 </td>
+   <td style="text-align:center;"> 11.45 </td>
+  </tr></tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/DdvjMWcwCLc" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Histograms provide a visualization of the distribution of a single numerical variable, where observations are placed into bins of equal length along the horizontal axis so that a bin represents an interval of numbers. Like bar graphs, the histogram consists of bars with widths determined by the bins. The higher the bar, the higher the relative proportion of observations that fall in the respective bin</p>
+<p>Generally, attention should be paid to certain features of the distribution, such as</p>
+<ul>
+<li>Overall pattern of graph
+<ul>
+<li>symmetric?</li>
+<li>skewed right (a few unusually large measurements, the longer tail is on the right side)?</li>
+<li>skewed left (a few unusually small measurements, the longer tail is on the left side)?</li>
+</ul>
+</li>
+<li>Outlying, extreme observations, or values that are far away from the bulk of the data?</li>
+</ul>
+<p>The function <code><a href="https://rdrr.io/pkg/lattice/man/histogram.html">histogram()</a></code> creates a histogram:</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### histogram( ~ x , data , xlab , ylab , main , type , nint , xlim , ylim, col )
+# xlab: Set equal to the label for x-axis (optional).
+# ylab: Set equal to the label for y-axis (optional).
+# main: Set equal to the title of the plot (optional).
+# type: Set equal to "percent",  "count", or "density" (default).
+# nint: Set equal to the number of desired bins (optional).
+# xlim: Set equal to the  range of the x-axis (e.g., c(0, 1)  provides
+#       a lower bound 0 and upper bound of 1) (optional). 
+# ylim: Set equal to the  range of the y-axis (optional). 
+# col: Set equal to desired color. Default color is cyan (optional).  
+#</code></pre>
+</div>
+</div>
+<p>A frequency histogram is obtained by <code>type="count"</code>. A relative frequency histogram is a histogram where relative frequencies are plotted on the y-axis. The relative frequencies are provided as percentages with <code>type="percent"</code>. A density histogram (<code>type="density"</code>) is just a modified relative frequency histogram in that the area of each rectangle equals the relative frequency of the corresponding class, and the area of the entire histogram equals 1.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The case study given in <a href="datacs4.html"><span>Chapter&nbsp;4</span></a> provides the BMI values for various regions and countries. Here we create a histogram of the variable <code>BMI</code>:</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div>
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="co"># Import data</span></span>
+<span><span class="va">bmidf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"datasets/BMIcsdata.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://lattice.r-forge.r-project.org/">lattice</a></span><span class="op">)</span> <span class="co"># provides histogram()</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/histogram.html">histogram</a></span><span class="op">(</span> <span class="op">~</span> <span class="va">BMI</span> , </span>
+<span>           data<span class="op">=</span> <span class="va">bmidf</span> ,  </span>
+<span>           type<span class="op">=</span> <span class="st">"count"</span> , </span>
+<span>           xlab<span class="op">=</span> <span class="st">"Body Mass Index"</span> , </span>
+<span>           main<span class="op">=</span> <span class="st">"Frequency histogram"</span> <span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/histogram.html">histogram</a></span><span class="op">(</span> <span class="op">~</span> <span class="va">BMI</span> , </span>
+<span>           data<span class="op">=</span> <span class="va">bmidf</span> , </span>
+<span>           type<span class="op">=</span> <span class="st">"density"</span> , </span>
+<span>           xlab<span class="op">=</span> <span class="st">"Body Mass Index"</span> , </span>
+<span>           main<span class="op">=</span> <span class="st">"Density histogram"</span> , </span>
+<span>           col<span class="op">=</span> <span class="st">"green"</span> <span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/histogram.html">histogram</a></span><span class="op">(</span> <span class="op">~</span> <span class="va">BMI</span> , </span>
+<span>           data<span class="op">=</span> <span class="va">bmidf</span> , </span>
+<span>           type<span class="op">=</span> <span class="st">"density"</span> , </span>
+<span>           xlab<span class="op">=</span> <span class="st">"Body Mass Index"</span> , </span>
+<span>           main<span class="op">=</span> <span class="st">"Using specified number of bins"</span> , </span>
+<span>           nint<span class="op">=</span> <span class="fl">20</span> , </span>
+<span>           col<span class="op">=</span> <span class="st">"pink"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div id="fig-histobmi-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="numsum_files/figure-html/fig-histobmi-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure 10.1: Frequency histogram</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div id="fig-histobmi-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="numsum_files/figure-html/fig-histobmi-2.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure 10.2: Density histogram</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div id="fig-histobmi-3" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="numsum_files/figure-html/fig-histobmi-3.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure 10.3: Density histogram with additional options</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The distribution of <code>BMI</code> looks roughly symmetric.</p>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/fXYqEHbU07k" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>A boxplot is another common graphical summary that provides a visual of the five-number summary (the maximum and minimum values, the lower and upper quartiles, and the median). The function <code><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">bwplot()</a></code> creates a boxplot.</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### bwplot( ~ x , data , xlab, ylab, main, xlim, ylim, box.ratio, fill, panel,  pch)
+# box.ratio: Set equal to a number between 0 and 1 to control the 
+#            width of the rectangles. (optional)
+# fill: Set equal to color to fill the box. Be default the box
+#       is clear.
+# panel: Set equal to panel.violin to create violin plot.
+(optional)
+# pch: Set equal to "|" to denote median by a line rather than dot. (optional)
+#</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The code below creates a boxplot of the variable <code>BMI</code>:</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<div>
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># bwplot() is from the lattice package.</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span> <span class="va"><a href="http://lattice.r-forge.r-project.org/">lattice</a></span> <span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">bwplot</a></span><span class="op">(</span> <span class="op">~</span> <span class="va">BMI</span> , </span>
+<span>        data<span class="op">=</span> <span class="va">bmidf</span> ,  </span>
+<span>        xlab<span class="op">=</span> <span class="st">"Body Mass Index"</span> , </span>
+<span>        main<span class="op">=</span> <span class="st">"Boxplot of BMI"</span> <span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">bwplot</a></span><span class="op">(</span> <span class="op">~</span> <span class="va">BMI</span> , </span>
+<span>        data<span class="op">=</span> <span class="va">bmidf</span> ,  </span>
+<span>        xlab<span class="op">=</span> <span class="st">"Body Mass Index"</span> , </span>
+<span>        main<span class="op">=</span> <span class="st">"Boxplot of BMI with additional options"</span> , </span>
+<span>        box.ratio<span class="op">=</span> <span class="fl">.5</span> , </span>
+<span>       fill<span class="op">=</span> <span class="st">"orange"</span> , </span>
+<span>       pch<span class="op">=</span> <span class="st">"|"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-boxbmi-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="numsum_files/figure-html/fig-boxbmi-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure 10.4: Boxplot</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-boxbmi-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="numsum_files/figure-html/fig-boxbmi-2.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure 10.5: Boxplot of BMI with additional options</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/B5-l-jXOkgE" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The dot inside the box represents the median. The two boundaries of the box are called the first quartile (the 25th percentile) and the third quartile (the 75th percentile). Extending out from the box, the whiskers reflect the range of data outside of the box and reach the minimum and the maximum values, unless unless there are potential outliers (points beyond the whiskers). When the median is closer the first (third) quartile than the median, the distribution is potentially skewed left (right).</p>
+<p>An extension of the boxplot is a violin boxplot or plot. This plot is a hybrid of a box plot and a kernel density plot (think of a kernel density plot as a smooth density histogram). The violin boxplot conveys the same information as the boxplot, but provides better picture of distribution. The code below creates a violin boxplot.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The code below creates a violin plot of the variable <code>BMI</code>:</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div class="cell" data-layout-align="center" data-fig.asp="0.5">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="co"># bwplot() is from the lattice package.</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">bwplot</a></span><span class="op">(</span> <span class="op">~</span> <span class="va">BMI</span> , </span>
+<span>        data<span class="op">=</span> <span class="va">bmidf</span> ,  </span>
+<span>        xlab<span class="op">=</span> <span class="st">"Body Mass Index"</span> , </span>
+<span>        main<span class="op">=</span> <span class="st">"Violin plot of BMI"</span> , </span>
+<span>        panel <span class="op">=</span> <span class="va">panel.violin</span> <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="numsum_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The middle part of the plot is the widest because it has the most data and has the highest data density. The lower and upper ends of the violin plot are thinner because there are fewer data points in these regions.</p>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/PUG3mwPDzXQ" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Quantile-quantile plots, also known as QQ-plots, allow one to view the distributional similarity between two sets of sample data. With a QQ-plot, the observed values of a sample are plotted against the expected values of a theoretical distribution, usually a normal distribution. If the sample data are approximately normally distributed, the QQ-plot will show points on a scatterplot that approximately or roughly follow a straight or linear line. We limit our discussion to normal QQ-plots, which plot the sample quantiles of a sample against the quantiles of a normal distribution. The function <code>normqqplot</code> creates the normal QQ-plot.</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### normqqplot( ~ x , data , ylab, main)
+# x: Relace x with the name of the variable of interest
+# data: Set equal to dataframe name only if x is stored in the dataframe.
+#       Otherwise, do not include this argument if the variable is 
+#       in R's memory (outside a dataframe)
+# Note: xlab will always have the label 'Normal quantiles`. </code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The code below creates a normal QQ-plot of the variable <code>BMI</code>:</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
+<div>
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Source the function so that it's R's memory.</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"rfuns/normqqplot.R"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Use the normqqplot() function to create a QQ plot </span></span>
+<span><span class="co"># of the BMI variable in the bmidf dataset.</span></span>
+<span><span class="fu">normqqplot</span><span class="op">(</span> <span class="op">~</span> <span class="va">BMI</span> , </span>
+<span>             data<span class="op">=</span> <span class="va">bmidf</span> ,  </span>
+<span>             ylab<span class="op">=</span> <span class="st">"sample quantiles of BMI"</span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-qqmi" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="numsum_files/figure-html/fig-qqmi-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure 10.6: Boxplot</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>While the points of the QQ-plot follow a linear trend in the middle, they taper off to form a slightly “u” shaped pattern. This is a sign that the distribution of the data is skewed right.</p>
+</div>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/65VOES4q_WU" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The behavior of the QQ-plot gives a sense of the normality of data and can also provide some guidance on the distribution of non-normal data, depending on the trend exhibited by the points and how they deviate from the linear line. If the tails of a QQ-plot wander off in opposite directions but follow a linear line in the middle, it is a sign that the distribution of the data resembles a heavy-tailed distribution. On the other hand, if the points follow a “u” or “n” shape, it indicates that the data distribution is skewed, with clearer “u” or “n” shapes indicating stronger skewness.</p>
+</section><section id="sec-multinumvar" class="level2" data-number="10.2"><h2 data-number="10.2" class="anchored" data-anchor-id="sec-multinumvar">
+<span class="header-section-number">10.2</span> Two or more numerical variable</h2>
+<p>A scatterplot graphically summarizes the relationship between two numerical variables. When describing a scatterplot, look for the following features:</p>
+<ul>
+<li><p>What is the direction of the pattern? Positive or negative association</p></li>
+<li><p>Are there any unusual observations? Clusters or outliers.</p></li>
+<li><p>Linear relationship, non-linear relationship, or no relationship (no linear or non-linear trend)?</p></li>
+</ul>
+<p><code><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">xyplot()</a></code> creates a scatterplot.</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### xyplot( y ~ x , data , xlab, ylab, main, xlim, ylim, col, pch )
+# y: replace y with the name of the response numerical variable.
+# x: replace x with the name of the explanatory numerical variable.
+# col:  Set equal to desired color for points. (optional) 
+# pch:  Set equalt o a number between 1-25 to change the point symbol. (optional) 
+#</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The case study given in <a href="datacs3.html"><span>Chapter&nbsp;3</span></a> consists of several variables (<code>PM10</code>, <code>AQI</code>, <code>temp</code> …, <code>county</code>, and <code>City.Name</code>). Here, we graphically summarize the relationship between daily PM10 levels and daily temperature:</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Video</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
+<div class="cell" data-layout-align="center" data-fig.asp="0.5">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Import data</span></span>
+<span><span class="va">pmdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"datasets/dailyPM10.2021.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># create a scatterplot of PM10 vs temperature</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">xyplot</a></span><span class="op">(</span><span class="va">PM10</span> <span class="op">~</span> <span class="va">temp</span>,                <span class="co"># response variable (y-axis) is PM10, explanatory variable (x-axis) is temperature</span></span>
+<span>       data <span class="op">=</span> <span class="va">pmdf</span>,                <span class="co"># data is set to pmdf </span></span>
+<span>       ylab <span class="op">=</span> <span class="st">"Daily PM10"</span>,        <span class="co"># label for the y-axis</span></span>
+<span>       xlab <span class="op">=</span> <span class="st">"Daily temperature"</span>, <span class="co"># label for the x-axis</span></span>
+<span>       main <span class="op">=</span> <span class="st">"PM10 vs temperature"</span> <span class="op">)</span> <span class="co"># main title of the plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="numsum_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The relationship is clearer on the square root scale:</p>
+<div class="cell" data-layout-align="center" data-fig.asp="0.5">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="co">### mutate( dataframe ,'new variable' = 'function of variable in data frame', ...)</span></span>
+<span><span class="va">pmdf</span> <span class="op">&lt;-</span> <span class="fu">mutate</span><span class="op">(</span> <span class="va">pmdf</span>, PM10sqrt<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span> <span class="va">PM10</span> <span class="op">)</span> ,</span>
+<span>                      tempsqrt<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span> <span class="va">temp</span> <span class="op">)</span> <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># pmdf now has two additional variables: "square root versions' of </span></span>
+<span><span class="co"># PM10 and temp</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">xyplot</a></span><span class="op">(</span> <span class="va">PM10sqrt</span> <span class="op">~</span> <span class="va">tempsqrt</span> , </span>
+<span>        data<span class="op">=</span> <span class="va">pmdf</span> , </span>
+<span>        ylab<span class="op">=</span> <span class="st">"Daily PM10 (square root scale)"</span> , </span>
+<span>        xlab<span class="op">=</span> <span class="st">"Daily temperature (square root scale)"</span> , </span>
+<span>        main<span class="op">=</span> <span class="st">"PM10 vs temperature (on transformed scale)"</span> , </span>
+<span>        col<span class="op">=</span><span class="st">"black"</span> <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="numsum_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The scatterplots suggest that there is a positive association between daily PM10 and temperature levels, as well as outlying observations but less so on the transformed scale.</p>
+</div>
+<div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/1ZkI5BoNMhk" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The scatterplot conveys the direction and type of relationship. If the data shows a linear trend, then correlation may be used to numerically summarize the strength and direction of the relationship. Correlation is a sample statistic generally referred to as the correlation coefficient or sample correlation, denoted by <span class="math inline">\(r\)</span>. <span class="math inline">\(r\)</span> will always be between -1 and 1, with <span class="math inline">\(|r|\)</span> closer to one reflecting a stronger linear association, with positive (negative) values quantifying positive (negative) associations. The following guidelines regarding the size and the strength of the relationship will aid interpretation:</p>
+<ul>
+<li>
+<span class="math inline">\(|r|\geq 0.9\)</span>: Very strong linear association</li>
+<li>
+<span class="math inline">\(0.7 \leq |r| &lt; 0.9\)</span>: Strong linear association</li>
+<li>
+<span class="math inline">\(0.4 \leq |r| &lt; 0.7\)</span>: Moderate linear association</li>
+<li>
+<span class="math inline">\(0.2 \leq |r| &lt; 0.4\)</span>: Weak linear association</li>
+<li>
+<span class="math inline">\(|r| &lt;0.2\)</span>: Very weak linear association</li>
+</ul>
+<p>The <code><a href="https://www.mosaic-web.org/mosaic/reference/aggregating.html">cor()</a></code> computes the correlation coefficient:</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### cor( y ~ x , data )
+#</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We use the sample correlation to quantify the strength and direction of the relationship between <code>PM10</code> and <code>temp</code>:</p>
+<div class="cell" data-layout-align="center">
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ProjectMOSAIC/mosaic">mosaic</a></span><span class="op">)</span> <span class="co"># provides formula interface for the functions below.</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># The variable `temp` has missing values but currently </span></span>
+<span><span class="co"># the standard argument to remove missing values does </span></span>
+<span><span class="co"># not work.  Instead, we us na.omit() on the dataframe</span></span>
+<span><span class="co"># so that all missing values are omitted from the data</span></span>
+<span><span class="co"># for the purpose of this function. </span></span>
+<span><span class="fu"><a href="https://www.mosaic-web.org/mosaic/reference/aggregating.html">cor</a></span><span class="op">(</span> <span class="va">PM10</span> <span class="op">~</span> <span class="va">temp</span> , </span>
+<span>     data<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span> <span class="va">pmdf</span> <span class="op">)</span> <span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.3680937</span></span>
+<span></span>
+<span><span class="fu"><a href="https://www.mosaic-web.org/mosaic/reference/aggregating.html">cor</a></span><span class="op">(</span> <span class="va">PM10sqrt</span> <span class="op">~</span> <span class="va">tempsqrt</span> , </span>
+<span>     data<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span> <span class="va">pmdf</span> <span class="op">)</span> <span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.4875372</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>The sample correlations shows that there this weak and moderate linear association between the variables, with the variables on the transformed scaled having a moderate association.</p>
+</div>
+</div>
+<p>If the explanatory variable is a factor/categorical variable, then boxplots, violin plots, and strip plots can summarize the relationship between the response and the explanatory variable. In the strip plot, values of the response as shown as dots along the factor level, and generally the dots with the same value can overlap.</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### bwplot( y ~ x , data , xlab, ylab, main, xlim, ylim, box.ratio, 
+             varwidth, horizonal, panel  )
+# y: Replace y with the name of the response categorical variable.
+# x: Replace x with the name of the explanatory categorical variable.
+# horizontal: Set equal to TRUE if boxplots are to be drawn 
+#            horizontally.  If set equal to true, change y~x
+#            to x ~ y.
+#
+### stripplot( y ~ x , data , xlab, ylab, main, xlim, ylim, jitter, horizonal)
+# jitter: Set equal to TRUE to add jitter (a small bit of meaningless noise) to obervations of 
+#         the response. Default is FALSE.
+#</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The data for the case study given in <a href="datacs3.html"><span>Chapter&nbsp;3</span></a> consist of several variables (<code>PM10</code>, <code>AQI</code>, …, <code>county</code>, and <code>City.Name</code>). Here, we graphically explore the relationship of <code>AQI</code> and <code>county</code>.</p>
+<div>
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="co"># import data</span></span>
+<span><span class="va">pmdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"datasets/dailyPM10.2021.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">### We tell R that  'county'  is a factor variable by using</span></span>
+<span><span class="co">### as.factor() within mutate()</span></span>
+<span><span class="co">### mutate( dataframe ,'new variable' = 'function of variable in data frame', ...)</span></span>
+<span><span class="va">pmdf</span> <span class="op">&lt;-</span> <span class="fu">mutate</span><span class="op">(</span> <span class="va">pmdf</span> , </span>
+<span>                county <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span> <span class="va">county</span> <span class="op">)</span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># 'county' has three levels. To have different color</span></span>
+<span><span class="co"># boxes for each level use set col to a vector with</span></span>
+<span><span class="co"># three elements reflecting the color for each box, but</span></span>
+<span><span class="co"># this option is optional. </span></span>
+<span></span>
+<span><span class="co"># Create a box plot of AQI vs. county</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">bwplot</a></span><span class="op">(</span> <span class="va">AQI</span> <span class="op">~</span> <span class="va">county</span> , </span>
+<span>        data<span class="op">=</span> <span class="va">pmdf</span> ,  </span>
+<span>        xlab<span class="op">=</span> <span class="st">"County"</span> , </span>
+<span>        ylab<span class="op">=</span> <span class="st">"AQI"</span> ,</span>
+<span>        main<span class="op">=</span> <span class="st">"AQI vs county"</span> , </span>
+<span>        fill<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span> <span class="st">"gray"</span>, <span class="st">"brown"</span>, <span class="st">"cyan"</span> <span class="op">)</span> , </span>
+<span>        varwidth<span class="op">=</span> <span class="cn">TRUE</span> <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create a horizontal box plot of AQI vs. county</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">bwplot</a></span><span class="op">(</span> <span class="va">county</span> <span class="op">~</span> <span class="va">AQI</span> , </span>
+<span>        data<span class="op">=</span> <span class="va">pmdf</span> ,  </span>
+<span>        xlab<span class="op">=</span> <span class="st">"County"</span> , </span>
+<span>        ylab<span class="op">=</span> <span class="st">"AQI"</span> ,</span>
+<span>        main<span class="op">=</span> <span class="st">"AQI vs county"</span> , </span>
+<span>        horizontal <span class="op">=</span> <span class="cn">TRUE</span> <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create a violin plot of AQI vs. county</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">bwplot</a></span><span class="op">(</span> <span class="va">AQI</span> <span class="op">~</span> <span class="va">county</span> , </span>
+<span>        data<span class="op">=</span> <span class="va">pmdf</span> ,  </span>
+<span>        xlab<span class="op">=</span> <span class="st">"County"</span> , </span>
+<span>        ylab<span class="op">=</span> <span class="st">"AQI"</span> ,</span>
+<span>        main<span class="op">=</span> <span class="st">"AQI vs county"</span> , </span>
+<span>        panel<span class="op">=</span> <span class="va">panel.violin</span> <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create a strip plot of AQI vs. county</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">stripplot</a></span><span class="op">(</span> <span class="va">AQI</span> <span class="op">~</span> <span class="va">county</span> , </span>
+<span>           data<span class="op">=</span> <span class="va">pmdf</span> ,  </span>
+<span>           xlab<span class="op">=</span> <span class="st">"County"</span> , </span>
+<span>           ylab<span class="op">=</span> <span class="st">"AQI"</span> ,</span>
+<span>           main<span class="op">=</span> <span class="st">"Strip plot"</span>, </span>
+<span>           jitter<span class="op">=</span> <span class="cn">TRUE</span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-xyfactorplots2-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="numsum_files/figure-html/fig-xyfactorplots2-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure 10.7: Vertical boxplots</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-xyfactorplots2-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="numsum_files/figure-html/fig-xyfactorplots2-2.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure 10.8: Horizontal boxplots</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-xyfactorplots2-3" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="numsum_files/figure-html/fig-xyfactorplots2-3.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure 10.9: Violin plots</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-xyfactorplots2-4" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="numsum_files/figure-html/fig-xyfactorplots2-4.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure 10.10: Strip plots</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>All three counties have outlying <code>AQI</code> values. The distribution of <code>AQI</code> for all three counties are roughly symmetric if the outliers are ignored.</p>
+</div>
+</div>
+<p>The plots above are comparative plots or conditional plots since they graphically summarize a numerical variables at each level of a factor variable. The factor variable in such summaries is typically called a grouping factor variable.</p>
+<p>Conditional plots may also be created by having the graphical summary appear in a single panel for each level of the factor variable, which can be achieved by using the <code>| gfactor</code> element within the formula expression, where <code>gfactor</code> represents the grouping factor variable.</p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R functions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>### bwplot( ~ y | gfactor , data , xlab, ylab, main, xlim, ylim, box.ratio, 
+             varwidth, horizonal, panel  )
+# y: the variable of interest.
+# gfactor: The grouping variable. 
+#
+### stripplot( ~ y| gfactor , data , xlab, ylab, main, xlim, ylim, 
+#                                    jitter, horizontal)
+#</code></pre>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Here, the relationship of <code>AQI</code> and <code>county</code> is explored by graphically summarizing <code>AQI</code> the at the factor levels of <code>county</code>.</p>
+<div>
+<details open=""><summary>Code</summary><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># For this type of conditional vertical violin plot, use the following formula</span></span>
+<span><span class="co"># expression: y ~ 1 | gfactor  </span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">bwplot</a></span><span class="op">(</span> <span class="va">AQI</span><span class="op">~</span> <span class="fl">1</span> <span class="op">|</span> <span class="va">county</span> , </span>
+<span>        data<span class="op">=</span> <span class="va">pmdf</span> ,  </span>
+<span>        xlab<span class="op">=</span> <span class="st">"County"</span>, </span>
+<span>        ylab<span class="op">=</span> <span class="st">"AQI"</span> ,</span>
+<span>        main<span class="op">=</span> <span class="st">"AQI vs county"</span> , </span>
+<span>        panel<span class="op">=</span> <span class="va">panel.violin</span>, </span>
+<span>        horizontal<span class="op">=</span> <span class="cn">FALSE</span> <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># formula expression: ~ x | gfactor</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">bwplot</a></span><span class="op">(</span><span class="op">~</span> <span class="va">AQI</span> <span class="op">|</span> <span class="va">county</span> , </span>
+<span>       data<span class="op">=</span> <span class="va">pmdf</span> ,  </span>
+<span>       xlab<span class="op">=</span> <span class="st">"County"</span>, </span>
+<span>       ylab<span class="op">=</span> <span class="st">"AQI"</span> ,</span>
+<span>       main<span class="op">=</span> <span class="st">"AQI vs county"</span> , </span>
+<span>       fill<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span> <span class="st">"gray"</span>, <span class="st">"brown"</span>, <span class="st">"cyan"</span> <span class="op">)</span> , </span>
+<span>       varwidth<span class="op">=</span> <span class="cn">TRUE</span> <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-xyfactorplots-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="numsum_files/figure-html/fig-xyfactorplots-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure 10.11: Vertical boxplots</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-xyfactorplots-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="numsum_files/figure-html/fig-xyfactorplots-2.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure 10.12: Horizontal boxplots</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Most functions to graphically or numerically summarize data conditional on the levels of another factor/grouping variable (<code>gfactor</code>) use the general layout of <code>task( y ~ x | gfactor, data )</code> or <code>task( ~ y | gfactor, data )</code>.</p>
+
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./catsum.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Summarizing categorical data</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./twosample.html" class="pagination-link">
+        <span class="nav-page-text">Module: Two sample methods</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

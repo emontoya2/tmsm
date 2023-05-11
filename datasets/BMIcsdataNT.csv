@@ -1,0 +1,793 @@
+Country,Sex,Region,yr.1985,yr.2017
+Afghanistan,Men,Rural,19.7,22.5
+Afghanistan,Men,Urban,22.4,23.6
+Afghanistan,Women,Rural,20.1,23.6
+Afghanistan,Women,Urban,23.2,26.3
+Albania,Men,Rural,25,26.9
+Albania,Men,Urban,25.4,27
+Albania,Women,Rural,26.1,26.2
+Albania,Women,Urban,25.9,25.9
+Algeria,Men,Rural,21.8,24.8
+Algeria,Men,Urban,22.3,25.2
+Algeria,Women,Rural,23.3,27
+Algeria,Women,Urban,24.8,27.5
+American Samoa,Men,Rural,32.6,34.6
+American Samoa,Men,Urban,34,34.2
+American Samoa,Women,Rural,34.1,35
+American Samoa,Women,Urban,34.4,35.4
+Andorra,Men,Rural,25.3,26.8
+Andorra,Men,Urban,25,26.8
+Andorra,Women,Rural,25.4,25.2
+Andorra,Women,Urban,25.2,25.3
+Angola,Men,Rural,20.2,22
+Angola,Men,Urban,21.4,23.2
+Angola,Women,Rural,20.9,23.3
+Angola,Women,Urban,22.7,25.7
+Antigua and Barbuda,Men,Rural,23.2,26
+Antigua and Barbuda,Men,Urban,24.2,26.7
+Antigua and Barbuda,Women,Rural,24,28
+Antigua and Barbuda,Women,Urban,25.4,28.5
+Argentina,Men,Rural,24.3,26.9
+Argentina,Men,Urban,25.4,27.9
+Argentina,Women,Rural,23.3,27
+Argentina,Women,Urban,24.5,27.3
+Armenia,Men,Rural,22.8,25.3
+Armenia,Men,Urban,23.7,25.8
+Armenia,Women,Rural,25.2,27.5
+Armenia,Women,Urban,25.5,26.8
+Australia,Men,Rural,25.6,27.9
+Australia,Men,Urban,25.3,27.5
+Australia,Women,Rural,24.7,27.3
+Australia,Women,Urban,24.4,26.6
+Austria,Men,Rural,24.7,27
+Austria,Men,Urban,24.2,26.6
+Austria,Women,Rural,24.3,24.5
+Austria,Women,Urban,23.3,23.7
+Azerbaijan,Men,Rural,23.6,26
+Azerbaijan,Men,Urban,24.3,26.4
+Azerbaijan,Women,Rural,24.2,26.9
+Azerbaijan,Women,Urban,26,27.7
+Bahamas,Men,Rural,23.3,26.1
+Bahamas,Men,Urban,24.3,26.8
+Bahamas,Women,Rural,24,28
+Bahamas,Women,Urban,25.4,28.5
+Bahrain,Men,Rural,23.7,27
+Bahrain,Men,Urban,24.4,27.7
+Bahrain,Women,Rural,24,28.4
+Bahrain,Women,Urban,25.6,29
+Bangladesh,Men,Rural,18.8,21.1
+Bangladesh,Men,Urban,21.8,22.4
+Bangladesh,Women,Rural,17.7,21.7
+Bangladesh,Women,Urban,20.6,23.9
+Barbados,Men,Rural,24.1,26.4
+Barbados,Men,Urban,24.5,26.5
+Barbados,Women,Rural,26.8,29.5
+Barbados,Women,Urban,27.7,29.3
+Belarus,Men,Rural,24.7,26.2
+Belarus,Men,Urban,24.7,26.6
+Belarus,Women,Rural,26.7,27.3
+Belarus,Women,Urban,25.8,26.1
+Belgium,Men,Rural,25,26.4
+Belgium,Men,Urban,24.8,26.4
+Belgium,Women,Rural,25.1,25.3
+Belgium,Women,Urban,24.8,25.4
+Belize,Men,Rural,24.4,27.3
+Belize,Men,Urban,25.4,27.9
+Belize,Women,Rural,26.2,30.4
+Belize,Women,Urban,27.5,30.8
+Benin,Men,Rural,20.3,22.1
+Benin,Men,Urban,21.7,23.4
+Benin,Women,Rural,20.1,23.2
+Benin,Women,Urban,21.8,25.5
+Bermuda,Men,Urban,24.3,26.7
+Bermuda,Women,Urban,25.4,28.5
+Bhutan,Men,Rural,20.3,23.1
+Bhutan,Men,Urban,23.1,24.2
+Bhutan,Women,Rural,20.3,23.8
+Bhutan,Women,Urban,23,25.9
+Bolivia,Men,Rural,22.9,25.3
+Bolivia,Men,Urban,23.6,26.5
+Bolivia,Women,Rural,23,27
+Bolivia,Women,Urban,24.6,28.3
+Bosnia and Herzegovina,Men,Rural,24.8,26.7
+Bosnia and Herzegovina,Men,Urban,25,26.8
+Bosnia and Herzegovina,Women,Rural,25.7,26
+Bosnia and Herzegovina,Women,Urban,25.1,25.3
+Botswana,Men,Rural,20.3,21.9
+Botswana,Men,Urban,21.4,23.2
+Botswana,Women,Rural,23.7,25
+Botswana,Women,Urban,25.6,27
+Brazil,Men,Rural,22.2,25
+Brazil,Men,Urban,23.7,26.4
+Brazil,Women,Rural,23.1,26.4
+Brazil,Women,Urban,24.4,26.9
+Brunei Darussalam,Men,Rural,23.7,26.6
+Brunei Darussalam,Men,Urban,24.2,27.2
+Brunei Darussalam,Women,Rural,22.9,27
+Brunei Darussalam,Women,Urban,24,27.5
+Bulgaria,Men,Rural,24.9,27
+Bulgaria,Men,Urban,25.1,27
+Bulgaria,Women,Rural,25.5,26
+Bulgaria,Women,Urban,25,25.5
+Burkina Faso,Men,Rural,20,21.8
+Burkina Faso,Men,Urban,21.4,23.1
+Burkina Faso,Women,Rural,19.6,21.1
+Burkina Faso,Women,Urban,22,24.7
+Burundi,Men,Rural,20.1,22
+Burundi,Men,Urban,21.2,23.2
+Burundi,Women,Rural,19.5,20.7
+Burundi,Women,Urban,21.7,24
+Cabo Verde,Men,Rural,20.9,22.7
+Cabo Verde,Men,Urban,22.3,24.1
+Cabo Verde,Women,Rural,21.8,24.2
+Cabo Verde,Women,Urban,23.3,26.3
+Cambodia,Men,Rural,19.7,21.9
+Cambodia,Men,Urban,20.6,22.9
+Cambodia,Women,Rural,19,22.3
+Cambodia,Women,Urban,20.4,23.2
+Cameroon,Men,Rural,21.2,22.9
+Cameroon,Men,Urban,22.5,24.1
+Cameroon,Women,Rural,21.1,23.1
+Cameroon,Women,Urban,23.5,26.2
+Canada,Men,Rural,25.6,27.6
+Canada,Men,Urban,25.4,27.4
+Canada,Women,Rural,24.9,27
+Canada,Women,Urban,24.3,26.6
+Central African Republic,Men,Rural,19.6,21.3
+Central African Republic,Men,Urban,20.8,22.5
+Central African Republic,Women,Rural,20.1,22.6
+Central African Republic,Women,Urban,21.3,24.5
+Chad,Men,Rural,20.1,22
+Chad,Men,Urban,21.4,23.1
+Chad,Women,Rural,19.3,21.2
+Chad,Women,Urban,21.1,23.9
+Chile,Men,Rural,24.9,27.8
+Chile,Men,Urban,25.3,28.1
+Chile,Women,Rural,25.3,29.4
+Chile,Women,Urban,25.9,28.8
+China,Men,Rural,20.9,23.9
+China,Men,Urban,22,24.7
+China,Women,Rural,21.2,23.4
+China,Women,Urban,22.2,23.7
+China (Hong Kong SAR),Men,Rural,21.5,NA
+China (Hong Kong SAR),Men,Urban,22.4,24.8
+China (Hong Kong SAR),Women,Rural,21.2,NA
+China (Hong Kong SAR),Women,Urban,22.1,24.2
+Colombia,Men,Rural,22,24.8
+Colombia,Men,Urban,23.2,26
+Colombia,Women,Rural,23.3,26.6
+Colombia,Women,Urban,24,26.7
+Comoros,Men,Rural,21,22.9
+Comoros,Men,Urban,22.1,24.2
+Comoros,Women,Rural,21,25
+Comoros,Women,Urban,22.2,26.9
+Congo,Men,Rural,19.9,21.6
+Congo,Men,Urban,21.1,22.8
+Congo,Women,Rural,20.6,22.5
+Congo,Women,Urban,22.6,25
+Cook Islands,Men,Rural,29.3,32.4
+Cook Islands,Men,Urban,31.2,32.6
+Cook Islands,Women,Rural,30.5,32.4
+Cook Islands,Women,Urban,31.6,33.4
+Costa Rica,Men,Rural,24,26.4
+Costa Rica,Men,Urban,24.7,27.1
+Costa Rica,Women,Rural,23.1,27.6
+Costa Rica,Women,Urban,24.5,28.1
+Cote d'Ivoire,Men,Rural,21.1,22.9
+Cote d'Ivoire,Men,Urban,22.1,23.8
+Cote d'Ivoire,Women,Rural,20.7,22.7
+Cote d'Ivoire,Women,Urban,22.9,25.4
+Croatia,Men,Rural,25.1,27.4
+Croatia,Men,Urban,25.6,27.7
+Croatia,Women,Rural,25.3,26.7
+Croatia,Women,Urban,24.7,25.9
+Cuba,Men,Rural,22,24.7
+Cuba,Men,Urban,23.1,25.5
+Cuba,Women,Rural,22.7,26.2
+Cuba,Women,Urban,23.8,26.3
+Cyprus,Men,Rural,25.8,27.4
+Cyprus,Men,Urban,25.5,27.4
+Cyprus,Women,Rural,25.6,25.4
+Cyprus,Women,Urban,25.3,25.5
+Czech Republic,Men,Rural,26.6,28.2
+Czech Republic,Men,Urban,26.3,27.8
+Czech Republic,Women,Rural,27.6,26.8
+Czech Republic,Women,Urban,26.3,25.9
+Denmark,Men,Rural,24.1,26.3
+Denmark,Men,Urban,23.9,26.3
+Denmark,Women,Rural,24.6,24.6
+Denmark,Women,Urban,24.2,24.5
+Djibouti,Men,Rural,20.1,22
+Djibouti,Men,Urban,21.2,23.3
+Djibouti,Women,Rural,20.8,23
+Djibouti,Women,Urban,22.4,25.4
+Dominica,Men,Rural,21.9,24.5
+Dominica,Men,Urban,22.8,25.2
+Dominica,Women,Rural,24.7,28.7
+Dominica,Women,Urban,26.1,29.2
+Dominican Republic,Men,Rural,22.4,25.6
+Dominican Republic,Men,Urban,23.4,26.3
+Dominican Republic,Women,Rural,22.6,27.4
+Dominican Republic,Women,Urban,24,27.7
+DR Congo,Men,Rural,19.1,20.8
+DR Congo,Men,Urban,20.2,22
+DR Congo,Women,Rural,19.5,21.7
+DR Congo,Women,Urban,21.2,24.1
+Ecuador,Men,Rural,23.1,25.6
+Ecuador,Men,Urban,24,27
+Ecuador,Women,Rural,23.8,27.4
+Ecuador,Women,Urban,25.2,28.3
+Egypt,Men,Rural,24.7,27.2
+Egypt,Men,Urban,25.3,27.9
+Egypt,Women,Rural,25.4,31.3
+Egypt,Women,Urban,28.1,32.3
+El Salvador,Men,Rural,23.8,26.3
+El Salvador,Men,Urban,24.9,27.4
+El Salvador,Women,Rural,23.2,28
+El Salvador,Women,Urban,24.8,28.7
+Equatorial Guinea,Men,Rural,20.2,22
+Equatorial Guinea,Men,Urban,21.4,23.2
+Equatorial Guinea,Women,Rural,22.3,25
+Equatorial Guinea,Women,Urban,24,27.3
+Eritrea,Men,Rural,18.9,20.2
+Eritrea,Men,Urban,20,21.6
+Eritrea,Women,Rural,18.8,20.5
+Eritrea,Women,Urban,20.5,23.1
+Estonia,Men,Rural,25,26.6
+Estonia,Men,Urban,24.7,26.6
+Estonia,Women,Rural,25.8,26.2
+Estonia,Women,Urban,25.1,25.5
+Ethiopia,Men,Rural,18.4,19.8
+Ethiopia,Men,Urban,19.8,21.5
+Ethiopia,Women,Rural,18.7,20.4
+Ethiopia,Women,Urban,20.2,23.1
+Fiji,Men,Rural,23.4,26.4
+Fiji,Men,Urban,25.1,26.7
+Fiji,Women,Rural,25.5,28.3
+Fiji,Women,Urban,26.4,29.2
+Finland,Men,Rural,25.5,26.6
+Finland,Men,Urban,25.1,26.3
+Finland,Women,Rural,25.2,25.9
+Finland,Women,Urban,24.3,25.3
+France,Men,Rural,25.4,26.3
+France,Men,Urban,24.7,25.9
+France,Women,Rural,24.6,24.2
+France,Women,Urban,24,24
+French Polynesia,Men,Rural,27.1,29.6
+French Polynesia,Men,Urban,29,29.8
+French Polynesia,Women,Rural,28.1,29.1
+French Polynesia,Women,Urban,29.1,30
+Gabon,Men,Rural,20.9,22.9
+Gabon,Men,Urban,22.2,24.2
+Gabon,Women,Rural,21.3,24.4
+Gabon,Women,Urban,23.2,27.1
+Gambia,Men,Rural,19.6,22.3
+Gambia,Men,Urban,20.9,23.5
+Gambia,Women,Rural,19.8,22.9
+Gambia,Women,Urban,22.1,25.8
+Georgia,Men,Rural,24.4,27.3
+Georgia,Men,Urban,25.1,27.6
+Georgia,Women,Rural,24,27.9
+Georgia,Women,Urban,24.5,27.3
+Germany,Men,Rural,25.6,27.5
+Germany,Men,Urban,25.1,27.3
+Germany,Women,Rural,25.2,26
+Germany,Women,Urban,24.4,25.5
+Ghana,Men,Rural,20.2,21.7
+Ghana,Men,Urban,22.1,23.6
+Ghana,Women,Rural,20.6,23.8
+Ghana,Women,Urban,23.2,27.1
+Greece,Men,Rural,25.6,26.7
+Greece,Men,Urban,25.5,26.9
+Greece,Women,Rural,26.2,24.7
+Greece,Women,Urban,26.3,25.1
+Greenland,Men,Rural,23.7,25.4
+Greenland,Men,Urban,23.9,25.9
+Greenland,Women,Rural,26,26.9
+Greenland,Women,Urban,25.3,26.4
+Grenada,Men,Rural,22.4,25
+Grenada,Men,Urban,23.4,25.7
+Grenada,Women,Rural,24.6,28.7
+Grenada,Women,Urban,25.9,29.1
+Guatemala,Men,Rural,22.5,24.8
+Guatemala,Men,Urban,24,26.4
+Guatemala,Women,Rural,22.3,26.8
+Guatemala,Women,Urban,24.1,27.9
+Guinea,Men,Rural,20.2,21.9
+Guinea,Men,Urban,21.5,23.1
+Guinea,Women,Rural,20.3,22.4
+Guinea,Women,Urban,22.5,25.5
+Guinea Bissau,Men,Rural,20.4,22.2
+Guinea Bissau,Men,Urban,21.7,23.4
+Guinea Bissau,Women,Rural,20.6,22.8
+Guinea Bissau,Women,Urban,22.7,25.6
+Guyana,Men,Rural,22.3,24.9
+Guyana,Men,Urban,23.1,25.5
+Guyana,Women,Rural,23.6,27.5
+Guyana,Women,Urban,24.8,27.8
+Haiti,Men,Rural,23.2,26
+Haiti,Men,Urban,24.3,26.7
+Haiti,Women,Rural,19.4,23.5
+Haiti,Women,Urban,21.8,25.2
+Honduras,Men,Rural,23.1,25.5
+Honduras,Men,Urban,24.2,26.6
+Honduras,Women,Rural,21.4,26.9
+Honduras,Women,Urban,23.4,28.3
+Hungary,Men,Rural,25.6,27.9
+Hungary,Men,Urban,25.7,27.9
+Hungary,Women,Rural,25.6,26.2
+Hungary,Women,Urban,25.3,25.8
+Iceland,Men,Rural,25.2,27.3
+Iceland,Men,Urban,24.8,27.1
+Iceland,Women,Rural,24.9,25.9
+Iceland,Women,Urban,24.3,25.5
+India,Men,Rural,18.9,21.5
+India,Men,Urban,21.9,22.6
+India,Women,Rural,19,21.5
+India,Women,Urban,22.2,23.2
+Indonesia,Men,Rural,19.8,21.9
+Indonesia,Men,Urban,20.9,23.1
+Indonesia,Women,Rural,20,23.3
+Indonesia,Women,Urban,21.9,24.5
+Iran,Men,Rural,22,24.5
+Iran,Men,Urban,23.2,25.7
+Iran,Women,Rural,23.1,26.5
+Iran,Women,Urban,25.1,27.5
+Iraq,Men,Rural,24.2,27.2
+Iraq,Men,Urban,24.8,27.9
+Iraq,Women,Rural,24.8,29.1
+Iraq,Women,Urban,26.7,30.1
+Ireland,Men,Rural,25.7,28.1
+Ireland,Men,Urban,25.2,27.7
+Ireland,Women,Rural,24.7,27
+Ireland,Women,Urban,24.2,26.7
+Israel,Men,Rural,24.3,25.6
+Israel,Men,Urban,24.6,26.4
+Israel,Women,Rural,24,24.5
+Israel,Women,Urban,25,25.7
+Italy,Men,Rural,25.1,26.1
+Italy,Men,Urban,24.9,26.3
+Italy,Women,Rural,25.4,24.3
+Italy,Women,Urban,24.6,24.5
+Jamaica,Men,Rural,22.1,25
+Jamaica,Men,Urban,23.1,25.7
+Jamaica,Women,Rural,24.6,29.1
+Jamaica,Women,Urban,25.5,29
+Japan,Men,Rural,22.3,23.6
+Japan,Men,Urban,22.3,23.6
+Japan,Women,Rural,22.2,21.9
+Japan,Women,Urban,22,21.6
+Jordan,Men,Rural,25,27.9
+Jordan,Men,Urban,25.4,28.4
+Jordan,Women,Rural,27,30
+Jordan,Women,Urban,28.1,29.9
+Kazakhstan,Men,Rural,23.8,26.2
+Kazakhstan,Men,Urban,24.4,26.5
+Kazakhstan,Women,Rural,24.9,26.6
+Kazakhstan,Women,Urban,25.4,26.3
+Kenya,Men,Rural,19.9,21.6
+Kenya,Men,Urban,21.2,23.1
+Kenya,Women,Rural,20.9,23.7
+Kenya,Women,Urban,23,26.5
+Kiribati,Men,Rural,26.6,28.7
+Kiribati,Men,Urban,28.4,28.9
+Kiribati,Women,Rural,28.7,29.9
+Kiribati,Women,Urban,29.7,30.9
+Kuwait,Men,Rural,25.2,28.2
+Kuwait,Men,Urban,26,29
+Kuwait,Women,Rural,26.3,29.8
+Kuwait,Women,Urban,28.2,30.6
+Kyrgyzstan,Men,Rural,23.2,25.8
+Kyrgyzstan,Men,Urban,23.9,26.2
+Kyrgyzstan,Women,Rural,22.8,27.4
+Kyrgyzstan,Women,Urban,23.4,26.8
+Lao PDR,Men,Rural,20.3,22.5
+Lao PDR,Men,Urban,20.9,23.2
+Lao PDR,Women,Rural,19.6,22.8
+Lao PDR,Women,Urban,21.2,23.9
+Latvia,Men,Rural,25.2,26.9
+Latvia,Men,Urban,24.8,26.8
+Latvia,Women,Rural,25.9,26.5
+Latvia,Women,Urban,25.1,25.5
+Lebanon,Men,Rural,24.7,27.4
+Lebanon,Men,Urban,24.9,27.7
+Lebanon,Women,Rural,24.3,27.1
+Lebanon,Women,Urban,25.2,27
+Lesotho,Men,Rural,20.7,22.3
+Lesotho,Men,Urban,21.8,23.5
+Lesotho,Women,Rural,25.3,26.4
+Lesotho,Women,Urban,27,28.1
+Liberia,Men,Rural,21.1,22.6
+Liberia,Men,Urban,22.2,23.6
+Liberia,Women,Rural,20.8,23.8
+Liberia,Women,Urban,22.7,26.3
+Libya,Men,Rural,23.7,26.3
+Libya,Men,Urban,24.4,27.1
+Libya,Women,Rural,25,28.9
+Libya,Women,Urban,26.8,29.6
+Lithuania,Men,Rural,25.7,26.9
+Lithuania,Men,Urban,25.5,27.1
+Lithuania,Women,Rural,27.1,26.5
+Lithuania,Women,Urban,26.5,25.8
+Luxembourg,Men,Rural,25.2,27.1
+Luxembourg,Men,Urban,24.8,26.9
+Luxembourg,Women,Rural,24.9,25.6
+Luxembourg,Women,Urban,24.4,25.4
+Macedonia (TFYR),Men,Rural,25.3,27.3
+Macedonia (TFYR),Men,Urban,25.4,27.3
+Macedonia (TFYR),Women,Rural,25.9,26.4
+Macedonia (TFYR),Women,Urban,25.4,25.9
+Madagascar,Men,Rural,19.7,21.4
+Madagascar,Men,Urban,20.8,22.7
+Madagascar,Women,Rural,19.5,20.8
+Madagascar,Women,Urban,20.4,22.6
+Malawi,Men,Rural,20,21.8
+Malawi,Men,Urban,20.9,22.9
+Malawi,Women,Rural,20.7,23.1
+Malawi,Women,Urban,22.3,25.9
+Malaysia,Men,Rural,21.9,24.7
+Malaysia,Men,Urban,22.6,25.5
+Malaysia,Women,Rural,21.8,26.2
+Malaysia,Women,Urban,22.5,26.1
+Maldives,Men,Rural,21.1,23.5
+Maldives,Men,Urban,22.1,24.5
+Maldives,Women,Rural,22.3,25.7
+Maldives,Women,Urban,23.3,26.2
+Mali,Men,Rural,20.4,22.4
+Mali,Men,Urban,21.8,23.6
+Mali,Women,Rural,19.6,22.3
+Mali,Women,Urban,21.7,25.6
+Malta,Men,Rural,25.8,27.2
+Malta,Men,Urban,25.5,27.2
+Malta,Women,Rural,25.8,25.4
+Malta,Women,Urban,25.5,25.5
+Marshall Islands,Men,Rural,26.3,28.8
+Marshall Islands,Men,Urban,28.1,29
+Marshall Islands,Women,Rural,28.4,29.9
+Marshall Islands,Women,Urban,29.4,30.8
+Mauritania,Men,Rural,20.7,22.6
+Mauritania,Men,Urban,22,23.8
+Mauritania,Women,Rural,22.6,24.9
+Mauritania,Women,Urban,24.6,27.7
+Mauritius,Men,Rural,22.4,24.4
+Mauritius,Men,Urban,22.8,25
+Mauritius,Women,Rural,23.5,25.5
+Mauritius,Women,Urban,24,26.3
+Mexico,Men,Rural,24.4,26.8
+Mexico,Men,Urban,25.4,27.9
+Mexico,Women,Rural,23.3,28.1
+Mexico,Women,Urban,24.6,28.6
+Micronesia (Federated States of),Men,Rural,26,28.8
+Micronesia (Federated States of),Men,Urban,27.7,28.7
+Micronesia (Federated States of),Women,Rural,28.6,29.9
+Micronesia (Federated States of),Women,Urban,30.1,31.5
+Moldova,Men,Rural,24.8,26.3
+Moldova,Men,Urban,25.1,27
+Moldova,Women,Rural,27,27.4
+Moldova,Women,Urban,26.5,26.8
+Mongolia,Men,Rural,22.6,25.6
+Mongolia,Men,Urban,23.2,25.8
+Mongolia,Women,Rural,23.1,26.8
+Mongolia,Women,Urban,23.8,26.5
+Montenegro,Men,Rural,25.1,27.1
+Montenegro,Men,Urban,25.2,27.1
+Montenegro,Women,Rural,25.8,26.3
+Montenegro,Women,Urban,25.4,25.8
+Morocco,Men,Rural,21.9,24.1
+Morocco,Men,Urban,22.7,24.9
+Morocco,Women,Rural,22.8,26.3
+Morocco,Women,Urban,25.3,27.6
+Mozambique,Men,Rural,19.7,21.6
+Mozambique,Men,Urban,21,23.2
+Mozambique,Women,Rural,20.3,22.4
+Mozambique,Women,Urban,22.2,25.3
+Myanmar,Men,Rural,19.5,21.4
+Myanmar,Men,Urban,20.6,22.6
+Myanmar,Women,Rural,19.8,22.5
+Myanmar,Women,Urban,21.3,23.9
+Namibia,Men,Rural,20.6,22.3
+Namibia,Men,Urban,21.8,23.7
+Namibia,Women,Rural,22,23.9
+Namibia,Women,Urban,25,26.8
+Nauru,Men,Urban,32.6,32.9
+Nauru,Women,Urban,34.1,33.6
+Nepal,Men,Rural,19.5,22.2
+Nepal,Men,Urban,22.2,23.2
+Nepal,Women,Rural,18.3,22.1
+Nepal,Women,Urban,20.5,23.9
+Netherlands,Men,Rural,24.3,26
+Netherlands,Men,Urban,24,25.9
+Netherlands,Women,Rural,24.5,24.9
+Netherlands,Women,Urban,24.2,25
+New Zealand,Men,Rural,25.3,28
+New Zealand,Men,Urban,25.3,28.1
+New Zealand,Women,Rural,24.8,28
+New Zealand,Women,Urban,24.6,28
+Nicaragua,Men,Rural,23.6,26.1
+Nicaragua,Men,Urban,24.8,27.2
+Nicaragua,Women,Rural,22.6,27.3
+Nicaragua,Women,Urban,24.5,28.5
+Niger,Men,Rural,19.5,21.2
+Niger,Men,Urban,20.8,22.4
+Niger,Women,Rural,19.6,21.6
+Niger,Women,Urban,22.4,25.3
+Nigeria,Men,Rural,20.8,22.1
+Nigeria,Men,Urban,21.7,22.9
+Nigeria,Women,Rural,21.8,23.1
+Nigeria,Women,Urban,23.5,25
+Niue,Men,Rural,28.8,31.5
+Niue,Men,Urban,30.7,31.6
+Niue,Women,Rural,31.2,32.8
+Niue,Women,Urban,32.2,33.8
+North Korea,Men,Rural,21.5,24.1
+North Korea,Men,Urban,22.4,24.7
+North Korea,Women,Rural,21.8,24
+North Korea,Women,Urban,22.6,24.3
+Norway,Men,Rural,24.7,26.8
+Norway,Men,Urban,24.4,26.7
+Norway,Women,Rural,24.3,25.8
+Norway,Women,Urban,23.4,25
+Occupied Palestinian Territory,Men,Rural,24.6,27.4
+Occupied Palestinian Territory,Men,Urban,25.2,28.1
+Occupied Palestinian Territory,Women,Rural,25.8,29.5
+Occupied Palestinian Territory,Women,Urban,27.3,29.9
+Oman,Men,Rural,22.9,25.6
+Oman,Men,Urban,23.9,26.7
+Oman,Women,Rural,24.3,27
+Oman,Women,Urban,25.7,27.3
+Pakistan,Men,Rural,19.8,23.1
+Pakistan,Men,Urban,22.2,23.9
+Pakistan,Women,Rural,20.2,23.9
+Pakistan,Women,Urban,22.8,26.2
+Palau,Men,Rural,27,29.5
+Palau,Men,Urban,28.8,29.5
+Palau,Women,Rural,28.1,29
+Palau,Women,Urban,28.9,29.8
+Panama,Men,Rural,23.1,25.6
+Panama,Men,Urban,24.3,26.8
+Panama,Women,Rural,23.1,27.3
+Panama,Women,Urban,24.6,28.1
+Papua New Guinea,Men,Rural,22.4,25.3
+Papua New Guinea,Men,Urban,24.1,25.7
+Papua New Guinea,Women,Rural,22,25.6
+Papua New Guinea,Women,Urban,23.5,26.9
+Paraguay,Men,Rural,23.4,26
+Paraguay,Men,Urban,24.9,27.6
+Paraguay,Women,Rural,24.1,27.9
+Paraguay,Women,Urban,25.3,28.3
+Peru,Men,Rural,22,24.5
+Peru,Men,Urban,23.8,27
+Peru,Women,Rural,23.3,26
+Peru,Women,Urban,25.1,27.9
+Philippines,Men,Rural,20.7,22.5
+Philippines,Men,Urban,21.7,23.6
+Philippines,Women,Rural,19.5,23
+Philippines,Women,Urban,20.9,24.1
+Poland,Men,Rural,25.3,27.5
+Poland,Men,Urban,25.4,27.4
+Poland,Women,Rural,26.3,26.4
+Poland,Women,Urban,25.7,25.7
+Portugal,Men,Rural,24.6,26.4
+Portugal,Men,Urban,24.1,26.2
+Portugal,Women,Rural,25.6,25.1
+Portugal,Women,Urban,25.1,25
+Puerto Rico,Men,Rural,24.8,27.6
+Puerto Rico,Men,Urban,25.9,28.4
+Puerto Rico,Women,Rural,24.3,28.3
+Puerto Rico,Women,Urban,25.7,28.8
+Qatar,Men,Rural,25,27.9
+Qatar,Men,Urban,25.7,28.7
+Qatar,Women,Rural,25.2,29.6
+Qatar,Women,Urban,27,30.4
+Romania,Men,Rural,24.3,27.1
+Romania,Men,Urban,24.3,26.9
+Romania,Women,Rural,25.3,27
+Romania,Women,Urban,25.2,26.7
+Russian Federation,Men,Rural,24.9,25.8
+Russian Federation,Men,Urban,24.8,26.2
+Russian Federation,Women,Rural,26.7,26.9
+Russian Federation,Women,Urban,26.5,26.6
+Rwanda,Men,Rural,19.4,21.1
+Rwanda,Men,Urban,20.2,22.1
+Rwanda,Women,Rural,20.3,22.4
+Rwanda,Women,Urban,21.5,24.5
+Saint Kitts and Nevis,Men,Rural,25.3,28.3
+Saint Kitts and Nevis,Men,Urban,26.2,28.9
+Saint Kitts and Nevis,Women,Rural,26.4,30.7
+Saint Kitts and Nevis,Women,Urban,27.7,31.1
+Saint Lucia,Men,Rural,25.1,29.2
+Saint Lucia,Men,Urban,25.5,29.2
+Saint Lucia,Women,Rural,25.5,30.5
+Saint Lucia,Women,Urban,26.5,30.5
+Saint Vincent and the Grenadines,Men,Rural,23.2,26
+Saint Vincent and the Grenadines,Men,Urban,24.2,26.7
+Saint Vincent and the Grenadines,Women,Rural,24.1,28
+Saint Vincent and the Grenadines,Women,Urban,25.4,28.5
+Samoa,Men,Rural,27,30.3
+Samoa,Men,Urban,29.6,31.1
+Samoa,Women,Rural,29.7,33.7
+Samoa,Women,Urban,30.8,34.7
+Sao Tome and Principe,Men,Rural,21.2,23.1
+Sao Tome and Principe,Men,Urban,22.4,24.2
+Sao Tome and Principe,Women,Rural,22,24.5
+Sao Tome and Principe,Women,Urban,23.2,26.3
+Saudi Arabia,Men,Rural,24.8,27
+Saudi Arabia,Men,Urban,25.9,28.2
+Saudi Arabia,Women,Rural,25.9,28.9
+Saudi Arabia,Women,Urban,27.7,29.6
+Senegal,Men,Rural,19.6,21.3
+Senegal,Men,Urban,20.7,22.3
+Senegal,Women,Rural,21.2,22.4
+Senegal,Women,Urban,23.2,25.3
+Serbia,Men,Rural,25.1,27
+Serbia,Men,Urban,25.3,27.1
+Serbia,Women,Rural,26,25.9
+Serbia,Women,Urban,25.5,25.3
+Seychelles,Men,Rural,22.6,25.2
+Seychelles,Men,Urban,23.1,25.9
+Seychelles,Women,Rural,25,27.6
+Seychelles,Women,Urban,25.1,28.2
+Sierra Leone,Men,Rural,20,21.6
+Sierra Leone,Men,Urban,21.1,22.5
+Sierra Leone,Women,Rural,20.9,22.5
+Sierra Leone,Women,Urban,22.8,25.1
+Singapore,Men,Urban,22.8,24.4
+Singapore,Women,Urban,23.5,23
+Slovakia,Men,Rural,25.5,27.4
+Slovakia,Men,Urban,25.6,27.4
+Slovakia,Women,Rural,25.6,25.9
+Slovakia,Women,Urban,25.1,25.3
+Slovenia,Men,Rural,25,26.8
+Slovenia,Men,Urban,25.2,26.9
+Slovenia,Women,Rural,26.1,27
+Slovenia,Women,Urban,25.9,26.9
+Solomon Islands,Men,Rural,22.8,25.7
+Solomon Islands,Men,Urban,24.2,25.7
+Solomon Islands,Women,Rural,23.9,26.5
+Solomon Islands,Women,Urban,25.3,28.1
+Somalia,Men,Rural,20.2,22
+Somalia,Men,Urban,21.2,23.3
+Somalia,Women,Rural,20.9,23
+Somalia,Women,Urban,22.4,25.4
+South Africa,Men,Rural,22.5,24.2
+South Africa,Men,Urban,23.7,25.6
+South Africa,Women,Rural,26.2,28.7
+South Africa,Women,Urban,27.8,30
+South Korea,Men,Rural,22,24.5
+South Korea,Men,Urban,22.4,24.6
+South Korea,Women,Rural,22.2,23.3
+South Korea,Women,Urban,22.4,23.1
+Spain,Men,Rural,25.6,27
+Spain,Men,Urban,25.2,26.9
+Spain,Women,Rural,25.9,25.1
+Spain,Women,Urban,25.4,24.7
+Sri Lanka,Men,Rural,20,22.4
+Sri Lanka,Men,Urban,20.8,23.3
+Sri Lanka,Women,Rural,20.3,23.6
+Sri Lanka,Women,Urban,21.5,24.4
+Sudan (former),Men,Rural,20.8,22.5
+Sudan (former),Men,Urban,21.9,23.8
+Sudan (former),Women,Rural,22,23.4
+Sudan (former),Women,Urban,23.9,26.4
+Suriname,Men,Rural,22.6,25.2
+Suriname,Men,Urban,23.5,25.8
+Suriname,Women,Rural,24,28
+Suriname,Women,Urban,25.4,28.4
+Swaziland,Men,Rural,22.2,24.1
+Swaziland,Men,Urban,23.3,25.4
+Swaziland,Women,Rural,26.4,28.6
+Swaziland,Women,Urban,27.5,29.6
+Sweden,Men,Rural,24.8,26.8
+Sweden,Men,Urban,24.1,26.3
+Sweden,Women,Rural,24.7,25.4
+Sweden,Women,Urban,23.7,24.8
+Switzerland,Men,Rural,25.1,26.7
+Switzerland,Men,Urban,24.6,26.4
+Switzerland,Women,Rural,23.8,24.1
+Switzerland,Women,Urban,23.2,23.8
+Syrian Arab Republic,Men,Rural,24.2,27
+Syrian Arab Republic,Men,Urban,25,27.7
+Syrian Arab Republic,Women,Rural,25.3,29
+Syrian Arab Republic,Women,Urban,27,29.7
+Taiwan,Men,Rural,22.3,24.7
+Taiwan,Men,Urban,22.7,24.8
+Taiwan,Women,Rural,22.4,23.7
+Taiwan,Women,Urban,22.5,23.2
+Tajikistan,Men,Rural,23.2,25.9
+Tajikistan,Men,Urban,24,26.3
+Tajikistan,Women,Rural,22.1,26.3
+Tajikistan,Women,Urban,23.5,26.7
+Tanzania,Men,Rural,20.2,21.9
+Tanzania,Men,Urban,21.9,23.7
+Tanzania,Women,Rural,20.5,23.1
+Tanzania,Women,Urban,22.1,26.3
+Thailand,Men,Rural,20.7,23.3
+Thailand,Men,Urban,21.7,24.5
+Thailand,Women,Rural,21.7,24.6
+Thailand,Women,Urban,22.8,25.3
+Timor-Leste,Men,Rural,18.7,20.8
+Timor-Leste,Men,Urban,19.3,21.5
+Timor-Leste,Women,Rural,18.2,20.9
+Timor-Leste,Women,Urban,19.7,21.9
+Togo,Men,Rural,20.3,22.1
+Togo,Men,Urban,21.6,23.2
+Togo,Women,Rural,20.3,22.7
+Togo,Women,Urban,22.7,26.3
+Tokelau,Men,Rural,29.6,32.3
+Tokelau,Women,Rural,31.7,33.4
+Tonga,Men,Rural,28.4,30.8
+Tonga,Men,Urban,30.3,31.1
+Tonga,Women,Rural,31.7,33.3
+Tonga,Women,Urban,32.8,34.3
+Trinidad and Tobago,Men,Rural,24.2,26.8
+Trinidad and Tobago,Men,Urban,25.3,27.6
+Trinidad and Tobago,Women,Rural,25.2,28.6
+Trinidad and Tobago,Women,Urban,26.9,29.3
+Tunisia,Men,Rural,21.9,24.8
+Tunisia,Men,Urban,22.9,25.9
+Tunisia,Women,Rural,23.4,26.8
+Tunisia,Women,Urban,25.7,28.1
+Turkey,Men,Rural,24,26.8
+Turkey,Men,Urban,24.1,27.1
+Turkey,Women,Rural,25.7,28.8
+Turkey,Women,Urban,26.7,28.8
+Turkmenistan,Men,Rural,23.6,26.3
+Turkmenistan,Men,Urban,24.4,26.7
+Turkmenistan,Women,Rural,22.6,26.6
+Turkmenistan,Women,Urban,23.6,26.6
+Tuvalu,Men,Rural,27.6,30.2
+Tuvalu,Men,Urban,29.5,30.4
+Tuvalu,Women,Rural,29.2,30.7
+Tuvalu,Women,Urban,30.2,31.6
+Uganda,Men,Rural,19.4,21.3
+Uganda,Men,Urban,20.6,22.7
+Uganda,Women,Rural,20.5,22.8
+Uganda,Women,Urban,22.6,25.7
+Ukraine,Men,Rural,25.1,26.6
+Ukraine,Men,Urban,25,26.9
+Ukraine,Women,Rural,26.2,26.6
+Ukraine,Women,Urban,25.6,25.9
+United Arab Emirates,Men,Rural,24.4,27.3
+United Arab Emirates,Men,Urban,25.3,28.2
+United Arab Emirates,Women,Rural,24.7,28.2
+United Arab Emirates,Women,Urban,27,29.7
+United Kingdom,Men,Rural,24.9,27.4
+United Kingdom,Men,Urban,24.7,27.3
+United Kingdom,Women,Rural,24.4,26.6
+United Kingdom,Women,Urban,24.3,26.9
+United States of America,Men,Rural,26.1,29.2
+United States of America,Men,Urban,25.7,28.8
+United States of America,Women,Rural,26,29.5
+United States of America,Women,Urban,25.6,29
+Uruguay,Men,Rural,23.4,26.3
+Uruguay,Men,Urban,24.5,27.3
+Uruguay,Women,Rural,23.5,27.1
+Uruguay,Women,Urban,24.7,27.4
+Uzbekistan,Men,Rural,23.4,26.3
+Uzbekistan,Men,Urban,23.8,26.3
+Uzbekistan,Women,Rural,22.8,27.6
+Uzbekistan,Women,Urban,23.6,27.3
+Vanuatu,Men,Rural,23.6,25.8
+Vanuatu,Men,Urban,25.3,26
+Vanuatu,Women,Rural,24.2,26.5
+Vanuatu,Women,Urban,25.4,27.6
+Venezuela,Men,Rural,23.7,25.7
+Venezuela,Men,Urban,24.9,26.9
+Venezuela,Women,Rural,22.6,26.1
+Venezuela,Women,Urban,24.3,27
+Viet Nam,Men,Rural,18.8,21.4
+Viet Nam,Men,Urban,19.8,22.4
+Viet Nam,Women,Rural,18.2,21.4
+Viet Nam,Women,Urban,19.8,22.5
+Yemen,Men,Rural,21.2,23.6
+Yemen,Men,Urban,22,24.5
+Yemen,Women,Rural,20,23.7
+Yemen,Women,Urban,22.5,25.5
+Zambia,Men,Rural,19.6,21.7
+Zambia,Men,Urban,20.7,23
+Zambia,Women,Rural,20.7,22.7
+Zambia,Women,Urban,22.5,25.5
+Zimbabwe,Men,Rural,20.9,21.9
+Zimbabwe,Men,Urban,22.1,23.3
+Zimbabwe,Women,Rural,24,24.5
+Zimbabwe,Women,Urban,26.5,27.1

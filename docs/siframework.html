@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.35">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Training modules on selected statistical methods - 11&nbsp; Statistical inference framework via a case study</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./twoindptmeans.html" rel="next">
+<link href="./twosample.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Statistical inference framework via a case study</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Training modules on selected statistical methods</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/emontoya2" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="" title="Share" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+<li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+            <i class="bi bi-bi-twitter pe-1"></i>
+          Twitter
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+            <i class="bi bi-bi-facebook pe-1"></i>
+          Facebook
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+            <i class="bi bi-bi-linkedin pe-1"></i>
+          LinkedIn
+          </a>
+        </li>
+    </ul>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Welcome</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./preface.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./casestudies.html" class="sidebar-item-text sidebar-link">Module: Case Studies</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Case study 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Case study 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs3.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Case study 3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs4.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Case study 4</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs5.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Case study 5</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datacs6.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Case study 6</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./data.html" class="sidebar-item-text sidebar-link">Module: Data basics and drawing statistical conclusions</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Basics of data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./drawingconclusions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Drawing statistical conclusions</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./summaries.html" class="sidebar-item-text sidebar-link">Module:  Basic Exploratory  Data Analysis</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./catsum.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Summarizing categorical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./numsum.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summarizing numerical data</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./twosample.html" class="sidebar-item-text sidebar-link">Module: Two sample methods</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./siframework.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Statistical inference framework via a case study</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./twoindptmeans.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Two sample methods</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./anovalin.html" class="sidebar-item-text sidebar-link">Module: ANOVA, linear regression, and logistic regression</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./anova.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Analysis of variance (ANOVA)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Simple linear regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logisticreg.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Simple logistic regression</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./eda.html" class="sidebar-item-text sidebar-link">Module: Advanced Exploratory Data Analysis</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pca.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">PCA</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./a1-startingR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Installing or accessing R and RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./a2-firstR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">A first session in RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./a3-basicsR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Some basic tasks in R</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li>
+<a href="#hypothesis-testing-framework" id="toc-hypothesis-testing-framework" class="nav-link active" data-scroll-target="#hypothesis-testing-framework"> <span class="header-section-number">11.1</span> Hypothesis testing framework</a>
+  <ul class="collapse">
+<li><a href="#a-simulation-based-approach" id="toc-a-simulation-based-approach" class="nav-link" data-scroll-target="#a-simulation-based-approach"> <span class="header-section-number">11.1.1</span> A simulation-based approach</a></li>
+  <li><a href="#theory-based-approach" id="toc-theory-based-approach" class="nav-link" data-scroll-target="#theory-based-approach"> <span class="header-section-number">11.1.2</span> Theory-based approach</a></li>
+  <li><a href="#two-sided-and-one-sided-hypothesis-test." id="toc-two-sided-and-one-sided-hypothesis-test." class="nav-link" data-scroll-target="#two-sided-and-one-sided-hypothesis-test."> <span class="header-section-number">11.1.3</span> Two-sided and one-sided hypothesis test.</a></li>
+  <li><a href="#p-values" id="toc-p-values" class="nav-link" data-scroll-target="#p-values"> <span class="header-section-number">11.1.4</span> p-values</a></li>
+  <li><a href="#general-steps-in-hypothesis-testing" id="toc-general-steps-in-hypothesis-testing" class="nav-link" data-scroll-target="#general-steps-in-hypothesis-testing"> <span class="header-section-number">11.1.5</span> General steps in hypothesis testing</a></li>
+  </ul>
+</li>
+  <li><a href="#confidence-interval-framework" id="toc-confidence-interval-framework" class="nav-link" data-scroll-target="#confidence-interval-framework"> <span class="header-section-number">11.2</span> Confidence interval framework</a></li>
+  <li><a href="#decision-errors-and-confidence-levels" id="toc-decision-errors-and-confidence-levels" class="nav-link" data-scroll-target="#decision-errors-and-confidence-levels"> <span class="header-section-number">11.3</span> Decision errors and confidence levels</a></li>
+  <li><a href="#statistical-power" id="toc-statistical-power" class="nav-link" data-scroll-target="#statistical-power"> <span class="header-section-number">11.4</span> Statistical power</a></li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/emontoya2/edit/master/siframework.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="sec-sifwork" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Statistical inference framework via a case study</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header><p>Statistical inference is the practice of making decisions from data in the presence of uncertainty. The common procedures for making statistical inferences include</p>
+<ul>
+<li><p>Hypothesis Testing: Uses representative samples to assess two competing hypotheses about a population parameter or treatment effect.</p></li>
+<li><p>Confidence Intervals: A range of plausible values for the population parameter or effect value.</p></li>
+</ul>
+<section id="hypothesis-testing-framework" class="level2" data-number="11.1"><h2 data-number="11.1" class="anchored" data-anchor-id="hypothesis-testing-framework">
+<span class="header-section-number">11.1</span> Hypothesis testing framework</h2>
+<p>This case study is adapted from <span class="citation" data-cites="sleuth">Ramsey and Schafer (<a href="#ref-sleuth" role="doc-biblioref">2013</a>)</span> and is discussed in <a href="datacs2.html"><span>Chapter&nbsp;2</span></a>: Reward systems are integrated into schools and in the workplace, but are rewards operating in precisely the opposite way from what is intended? Do external incentives affect creativity? To address this, we will use a study that investigated whether people tend to display different creativity levels when they are thinking about intrinsic or extrinsic motivations. Undergraduate students of similar creative writing experience from a private university in New England were randomly assigned to one of two groups. One group received an intrinsic and the other an extrinsic questionnaire to classify their motivation. All subjects were instructed to write a haiku, and those poems were evaluated for creativity by a panel of judges.</p>
+<div class="cell" data-layout-align="center" data-fig.asp="0.35">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="siframework_files/figure-html/h2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Based on the collected data, do subjects thinking about intrinsic motivations display different creativity than subjects who were thinking about extrinsic motivations?</p>
+<div class="cell" data-layout-align="center" data-fig.asp="0.35">
+
+</div>
+<p>The sample mean (based on a sample of 24) of the intrinsic group mean is 19.88 and standard deviation 4.44. For the extrinsic group the sample mean (based on a sample of 23) is 15.74 and standard deviation is 5.25. The difference between the sample means is 4.14. Is the difference large enough to convince you that subjects thinking about intrinsic motivations display different levels of creativity than subjects who were thinking about extrinsic motivations? Or is this differences of 4.14 small enough that one may wonder if the size of difference is more due to chance (random/sampling/natural variability) and not due to a motivation type effect.</p>
+<p>If the study was reproduced, the results would differ. But if results are different each time, how does one determine how large (in magnitude) the differences in sample means should be in order to say that subjects thinking about intrinsic motivations display different levels creativity than subjects who were thinking about extrinsic motivations?</p>
+<p>In terms of the null and alternative hypothesis we have:</p>
+<ul>
+<li><p><span class="math inline">\(H_o:\)</span> There is no difference in creativity under extrinsic and intrinsic motivations.</p></li>
+<li><p><span class="math inline">\(H_a:\)</span> Subjects thinking about intrinsic motivations display different levels of creativity than subjects who were thinking about extrinsic motivations.</p></li>
+</ul>
+<p>At this stage, consider how the effect intrinsic motivation on creativity can be quantified. One approach is to quantify the effect by using the difference between the true mean creativity score under intrinsic and extrinsic motivation. Let the true mean under intrinsic motivation be denoted as <span class="math inline">\(\mu_{int}\)</span>. Similarly, we denote the true mean under extrinsic motivation as <span class="math inline">\(\mu_{ext}\)</span>. If motivation type has no effect on creativity, then we should expect <span class="math inline">\(\mu_{int}-\mu_{ext}=\delta=0\)</span>, where <span class="math inline">\(\delta\)</span> represents the effect of intrinsic motivation on creativity. If subjects thinking about intrinsic motivations display more or less creativity than subjects who were thinking about extrinsic motivations, then this would correspond to <span class="math inline">\(\mu_{int}-\mu_{ext}\neq 0\)</span> or <span class="math inline">\(\delta \neq 0\)</span>. Thus, <span class="math inline">\(H_0\)</span> and <span class="math inline">\(H_a\)</span> may be expressed as</p>
+<p><span class="math display">\[H_0: \mu_{int}-\mu_{ext}=0 \qquad H_a:\mu_{int}-\mu_{ext} \neq 0\]</span></p>
+<p>or</p>
+<p><span class="math display">\[H_0: \delta=0 \qquad H_a:\delta \neq 0\]</span></p>
+<p>Any hypothesis test is always conducted under the assumption that the null hypothesis is true. The observed data will either provide sufficient evidence to reject this assumption or fail to reject this assumption. A test statistic is simply a sample statistic (numerical summary of the data). An extreme value of the test statistic will be consistent with the idea reflected in <span class="math inline">\(H_a\)</span>.</p>
+<p>What is considered extreme depends on the sign of <span class="math inline">\(H_a\)</span>. If the sign is <span class="math inline">\(&gt;\)</span>, then extreme means really large. If the sign is <span class="math inline">\(&lt;\)</span>, then extreme means really small. A <span class="math inline">\(\neq\)</span> sign means extreme is really large or really small. To evaluate the evidence against the <span class="math inline">\(H_0\)</span>, we compare the observed value of the test statistic to what one would expect to obtain (for the value of test statistics) if <span class="math inline">\(H_0\)</span> were true (i.e., under the null hypothesis). This will allow one to determine if the observed value of the test statistic is extreme or not if in fact <span class="math inline">\(H_0\)</span> were true.</p>
+<p>A test statistic could be any numerical summary statistic, but the form of the test statistic is generally chosen to have the following qualities:</p>
+<ul>
+<li><p>An extreme value of the test statistic is consistent with the idea reflected in <span class="math inline">\(H_a\)</span></p></li>
+<li><p>The distribution of test statistic under <span class="math inline">\(H_0\)</span> can be obtained or is known. That is, to determine if the value of the observed test statistic is extreme, we need to know what range of values the test statistic can take under the null hypothesis. This distribution is generally referred to as a <em>Null distribution</em>.</p></li>
+</ul>
+<p>A common test statistic for testing the above hypothesis is of the form:</p>
+<p><span class="math display">\[T=\frac{(\bar{y}_{int}-\bar{y}_{ext}) -(\mu_{int}-\mu_{ext})}{\sqrt{\frac{s_{int}^2}{n_{int}}+\frac{s_{ext}^2}{n_{ext}}}}\]</span></p>
+<p>where <span class="math inline">\(\bar{y}\)</span>, <span class="math inline">\(s\)</span>, and <span class="math inline">\(n\)</span> represent the sample mean, sample standard deviation, and sample size for a given sample. Under <span class="math inline">\(H_0\)</span>, <span class="math inline">\(\mu_{int}-\mu_{ext}=0\)</span>, so the observed value of the test statistic is</p>
+<p><span class="math display">\[T=\frac{(\bar{y}_{int}-\bar{y}_{ext}) }{\sqrt{\frac{s_{int}^2}{n_{int}}+\frac{s_{ext}^2}{n_{ext}}}}=\frac{19.88-15.74}{\sqrt{\frac{4.44^2}{24}+\frac{5.25^2}{23}}}= 2.926\]</span></p>
+<p>While a value of <span class="math inline">\(T=2.926\)</span> (or larger) is consistent with the idea that <span class="math inline">\(\mu_{int}\neq\mu_{ext}\)</span>, is <span class="math inline">\(T=2.926\)</span> large enough to convince you that in fact <span class="math inline">\(\mu_{int}\neq\mu_{ext}\)</span>, or is its value (<span class="math inline">\(T=2.926\)</span>) simply due to chance (sampling/natural variability)? To decide between supporting or not supporting what is reflected in <span class="math inline">\(H_a\)</span>, we compute the chances or probability of observing <span class="math inline">\(T=2.926\)</span> or larger or <span class="math inline">\(T=-2.926\)</span> or smaller (since the sign in <span class="math inline">\(H_a\)</span> is <span class="math inline">\(\neq\)</span>), under the assumption that motivation type has no effect on creativity (<span class="math inline">\(H_0\)</span> true). If this probability is very low, we would have reason to reject <span class="math inline">\(H_0\)</span>.</p>
+<p>To compute this probability, we require the Null distribution of <span class="math inline">\(T\)</span>. That is, if <span class="math inline">\(\mu_{int}=\mu_{ext}\)</span>, what range of values can <span class="math inline">\(T\)</span> take, and how often does a given range of values of <span class="math inline">\(T\)</span> occur? If the study were replicated many many times in a scenario where the type of motivation has no effect on creativity (i.e., <span class="math inline">\(\mu_{int}=\mu_{ext}\)</span>), then <span class="math inline">\(T\)</span> could be computed for each replication to obtain the Null distribution of <span class="math inline">\(T\)</span>. Such an approach is unrealistic. In practice, one of two methods can be used to obtain the Null distribution.</p>
+<ul>
+<li><p>Simulation-based approach – simulate sample data sets many times under the assumption that motivation type has no effect on creativity. Then calculate the proportion of these simulated sample data sets that provided a value of <span class="math inline">\(T\)</span> of 2.926 or greater and a value of <span class="math inline">\(T\)</span> of -2.926 or smaller.</p></li>
+<li><p>Theory-based approach – Under certain assumptions, statistical theory provides a distribution model for the distribution of <span class="math inline">\(T\)</span> under <span class="math inline">\(H_0\)</span>. This model can then be used to determine the proportion of times that <span class="math inline">\(T\)</span> is 2.926 or greater or <span class="math inline">\(T\)</span> is -2.926 or smaller</p></li>
+</ul>
+<section id="a-simulation-based-approach" class="level3" data-number="11.1.1"><h3 data-number="11.1.1" class="anchored" data-anchor-id="a-simulation-based-approach">
+<span class="header-section-number">11.1.1</span> A simulation-based approach</h3>
+<p>A simulation-based approach is used here to illustrate the hypothesis testing framework. The simulation approach used here is called a randomization test. If <span class="math inline">\(\mu_{int}=\mu_{ext}\)</span>, then motivation type has no effect on creativity. So under <span class="math inline">\(H_0\)</span>, a student in the intrinsic group would obtain about the same score as a student in the extrinsic group. In fact, we could just randomly shuffle the students between the groups (extrinsic, intrinsic), since these groups are the same in terms of creativity, as it is not affected by motivation type. Note that this randomization (randomly shuffling students between groups) simulates the assignment of students to groups in a scenario of when a students’ creativity score is independent of motivation type.</p>
+<p>Since the random shuffling of students between the two groups is independent of the type of motivation (intrinsic or extrinsic) that they are thinking about, any difference between the groups in terms of creativity is due to chance. That is, the size of the corresponding value of <span class="math inline">\(T\)</span> is due to randomly shuffling students between the groups (not due to motivation type). Another way to view it is that chance enters through the random assignment of units to treatments and nothing else under <span class="math inline">\(H_0\)</span>. The figure below shows the results of one such simulation. The resulting size of <span class="math inline">\(T\)</span> under this simulation represents one observed value of <span class="math inline">\(T\)</span> due to chance when the null hypothesis is assumed to be true.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/twosampmod/oneshuffle.png" class="img-fluid figure-img" alt="Result of one randomization" style="width:90.0%"></p>
+<p></p><figcaption class="figure-caption">The result of randomly shuffling students between groups</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This simulation process is repeated enough times so that we have a good idea of the shape of the Null distribution of <span class="math inline">\(T\)</span>. The figure below shows a histogram of <span class="math inline">\(T\)</span> obtained from 10,000 simulations, with the x-axis representing the range of the value of <span class="math inline">\(T\)</span> under <span class="math inline">\(H_0\)</span>. How often would one observe a value of <span class="math inline">\(T\)</span> of -2.962 or smaller, or observe a value of <span class="math inline">\(T\)</span> of 2.962 or greater?</p>
+<div class="cell quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<div id="fig-nullsimdist" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="siframework_files/figure-html/fig-nullsimdist-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure 11.1: Histogram of test statistic T, calculated from 10,000 different randomizations. The area to the right of the observed value of test statistic (T=2.926) is shaded light pink.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>Out of the 10,000 randomizations, only 58 produced a value of 2.926 or larger. That is, it appears that a value of <span class="math inline">\(T\)</span> of at least 2.926 under <span class="math inline">\(H_0\)</span> would only occur about 0.6% of the time according to the above histogram. Such a low chance or probability reflects that observing such a large value of <span class="math inline">\(T\)</span> under <span class="math inline">\(H_0\)</span> from chance alone is very rare. Since it is nearly impossible to observe a value of <span class="math inline">\(T=2.926\)</span> or greater (as well as <span class="math inline">\(-2.926\)</span> or smaller) under <span class="math inline">\(H_0\)</span>, this reflects that the value of <span class="math inline">\(T=2.926\)</span> inconsistent with <span class="math inline">\(H_0\)</span>, and we reject <span class="math inline">\(H_0\)</span> in favor of <span class="math inline">\(H_a\)</span>. Here, we conclude that students tend to display different levels of creativity when they are thinking about intrinsic motivations rather than extrinsic motivations.</p>
+</section><section id="theory-based-approach" class="level3" data-number="11.1.2"><h3 data-number="11.1.2" class="anchored" data-anchor-id="theory-based-approach">
+<span class="header-section-number">11.1.2</span> Theory-based approach</h3>
+<p>Under certain conditions, statistical theory provides a distribution model for the null distribution of <span class="math inline">\(T\)</span>. This model can then be used to determine the proportion of times that a value of <span class="math inline">\(T\)</span> of 2.926 or larger would be observed under <span class="math inline">\(H_0\)</span>. Under these certain conditions, most of the theory-based approaches to be discussed work because of a theorem in Statistics called the Central Limit Theorem (CLT). To paraphrase the CLT, it states that if we repeatedly take independent random samples from each population (intrinsically and extrinsically motivated students), the distribution of the difference in sample means (<span class="math inline">\(\bar{x}_{int}-\bar{x}_{ext}\)</span>) tends to resembles a normal distribution as the sample size increases. This occurs regardless of the shape of the distribution of the populations. As a consequence, the distribution of the test statistic,</p>
+<p><span class="math display">\[T=\frac{(\bar{y}_{int}-\bar{y}_{ext}) -(\mu_{int}-\mu_{ext})}{\sqrt{\frac{s_{int}^2}{n_{int}}+\frac{s_{ext}^2}{n_{ext}}}},\]</span></p>
+<p>is a t-distribution with degrees of freedom <span class="math inline">\(df=min(n_{int}-1, n_{ext}-1)=min(23-1, 24-1)=22\)</span></p>
+<div class="cell quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<div id="fig-nulltheodist" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="siframework_files/figure-html/fig-nulltheodist-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure 11.2: The distribution model for T: A t-distribution with 22 degrees of freedom. The area to the right of the observed value of test statistic (T=2.926) is shaded light pink.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>Using the distribution model for T under <span class="math inline">\(H_0\)</span>, an extreme value of <span class="math inline">\(T\)</span> (2.926 or greater, or -2.926 or smaller) would only occur about 0.8% of the time according to the above distributional model. Such a probability (.008) reflects that observing such a large value of <span class="math inline">\(T\)</span> under <span class="math inline">\(H_0\)</span> from chance alone is very rare. This indicates that the value of <span class="math inline">\(T=2.926\)</span> inconsistent with <span class="math inline">\(H_0\)</span>, and we reject <span class="math inline">\(H_0\)</span> in favor of <span class="math inline">\(H_a\)</span>. We conclude that students tend to display different levels of creativity when they are thinking about intrinsic motivations rather than extrinsic motivations.</p>
+</section><section id="two-sided-and-one-sided-hypothesis-test." class="level3" data-number="11.1.3"><h3 data-number="11.1.3" class="anchored" data-anchor-id="two-sided-and-one-sided-hypothesis-test.">
+<span class="header-section-number">11.1.3</span> Two-sided and one-sided hypothesis test.</h3>
+<p>The hypothesis test conducted in the case study is what is called a two-sided hypothesis test. If a one-sided test would have been conducted, say with alternative <span class="math inline">\(H_a:\delta &gt; 0\)</span>, then one is exploring only one direction of possibilities. A one-sided hypothesis test may be appropriate when the interest is in a single direction, but generally, we want to consider all possibilities. While one may suspect a certain directional relationship, formulating <span class="math inline">\(H_a\)</span> to confirm to ones belief about the study will generally inflate what is called a Type 1 Error rate (discussed later in this section). Further, such practices subject themselves to confirmation bias<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. With a two-sided hypothesis, it allows one to consider the possibility that the data may reflect something that we may not expect. It is recommended to always use a two-sided hypothesis as to keep an open mind when analyzing data and statistical evidence. In the modules, only two-sided tests are considered.</p>
+</section><section id="p-values" class="level3" data-number="11.1.4"><h3 data-number="11.1.4" class="anchored" data-anchor-id="p-values">
+<span class="header-section-number">11.1.4</span> p-values</h3>
+<p>Here, we used the simulation based probability of <span class="math inline">\(.006\)</span> to discuss the p-value, although the same applies to the theory-based probability of <span class="math inline">\(.008\)</span>. The probability of <span class="math inline">\(0.006\)</span> is called a p-value. The p-value is a measure of the strength of the evidence against the null hypothesis. A small p-value indicates that the observed data are unlikely to occur, if <span class="math inline">\(H_0\)</span> is true. That is, the null hypothesis is not a reasonable assumption, and we reject <span class="math inline">\(H_0\)</span>.</p>
+<p>Consider a p-value as a measure of evidence against <span class="math inline">\(H_0\)</span>. The smaller the p-value (closer to 0), the stronger the evidence against <span class="math inline">\(H_0\)</span>. The larger the p-value, the weaker to evidence against <span class="math inline">\(H_0\)</span>, with a p-value larger than <span class="math inline">\(.10\)</span> signifying no evidence against the null hypothesis. Note that the p-values measures evidence against <span class="math inline">\(H_0\)</span>, not evidence for <span class="math inline">\(H_0\)</span> (the absence of evidence is not evidence of absence). The chart below provides some guidance on interpreting the size of the p-value.</p>
+<table class="table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 71%">
+</colgroup>
+<thead><tr class="header">
+<th>p-value</th>
+<th>Inference</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>p-value&gt;.10</td>
+<td>Little to no evidence against the null hypothesis</td>
+</tr>
+<tr class="even">
+<td>0.07<span class="math inline">\(\leq\)</span>p-value&lt; 0.10</td>
+<td>Some evidence against the null hypothesis</td>
+</tr>
+<tr class="odd">
+<td>0.05<span class="math inline">\(\leq\)</span>p-value&lt; 0.07</td>
+<td>Moderate evidence against the null hypothesis</td>
+</tr>
+<tr class="even">
+<td>0.001<span class="math inline">\(\leq\)</span>p-value&lt; 0.05</td>
+<td>Strong evidence against the null hypothesis</td>
+</tr>
+<tr class="odd">
+<td>p-value <span class="math inline">\(\leq\)</span> 0.001</td>
+<td>Very strong evidence against the null hypothesis</td>
+</tr>
+</tbody>
+</table>
+<p>For the case study, the p-value was <span class="math inline">\(0.0058\)</span>. When the p-value is small compared to a set threshold, results are <em>statistically significant</em>. This means the data provide such strong evidence against null hypothesis, that we reject the null hypothesis in favor of the alternative hypothesis. This threshold is called the <em>significance or <span class="math inline">\(\alpha\)</span> level</em>, which is generally denoted by <span class="math inline">\(\alpha\)</span>. The value of <span class="math inline">\(\alpha\)</span> is set by the practitioner or researcher, but in practice <span class="math inline">\(\alpha\)</span> is generally set to <span class="math inline">\(0.01\)</span>, <span class="math inline">\(0.05\)</span>, and <span class="math inline">\(0.10\)</span>, with <span class="math inline">\(0.05\)</span> being the most common. By choosing an <span class="math inline">\(\alpha\)</span> level, you are conveying to the reader the strength of evidence required to reject <span class="math inline">\(H_0\)</span>. Regardless of the test used, the decision rule is as follows:</p>
+<ul>
+<li>If p-value <span class="math inline">\(\leq \alpha\)</span>, we reject <span class="math inline">\(H_0\)</span>.</li>
+<li>If p-value <span class="math inline">\(&gt; \alpha\)</span>, we fail to reject <span class="math inline">\(H_0\)</span>.</li>
+</ul>
+<p>If <span class="math inline">\(\alpha=.05\)</span>, <span class="math inline">\(H_0\)</span> is rejected, so we may support what is reflected in <span class="math inline">\(H_a\)</span>. That is, based on the size of the p-value, we have strong evidence that subjects thinking about intrinsic motivations display more creativity than subjects who were thinking about extrinsic motivations at <span class="math inline">\(\alpha=.05\)</span>.</p>
+<p>A word of caution with the idea of “statistically significant”. Note that while we concluded the result was statistically significant, it only indicated that the required amount of evidence against <span class="math inline">\(H_0\)</span> was obtained. However, this result gives us no information regarding the size of the difference (the effect) in creativity scores between the groups. Any effect, no matter how inconsequential, can provide a small p-value if the sample size is extremely large. Also, a large effect may produce a large p-value if the sample size is small. Note that one may select an <span class="math inline">\(\alpha\)</span> that is smaller or larger than <span class="math inline">\(0.05\)</span> depending on the consequence of the conclusion reached from a test. Regardless of the <span class="math inline">\(\alpha\)</span> chosen, the size of the effect and what is practical should be conveyed as well. For those interested on more discussion about the p-value, potential misuse of p-values, and caution with statistical significance, consider reading <span class="citation" data-cites="baker2016statisticians">Baker et al. (<a href="#ref-baker2016statisticians" role="doc-biblioref">2016</a>)</span>, <span class="citation" data-cites="amrhein2019">Amrhein, Greenland, and McShane (<a href="#ref-amrhein2019" role="doc-biblioref">2019</a>)</span>, and <span class="citation" data-cites="lakens2021">Lakens (<a href="#ref-lakens2021" role="doc-biblioref">2021</a>)</span>.</p>
+</section><section id="general-steps-in-hypothesis-testing" class="level3" data-number="11.1.5"><h3 data-number="11.1.5" class="anchored" data-anchor-id="general-steps-in-hypothesis-testing">
+<span class="header-section-number">11.1.5</span> General steps in hypothesis testing</h3>
+<p>The following general steps should be followed when conducting a hypothesis test:</p>
+<ol type="1">
+<li>Check assumptions about the data, and write hypotheses.</li>
+</ol>
+<ul>
+<li>The assumptions will vary depending on the test.</li>
+<li>Write the null and alternative hypotheses in terms of the population parameters or treatment effects.</li>
+</ul>
+<ol start="2" type="1">
+<li>Calculate the test statistic.</li>
+</ol>
+<ul>
+<li>This calculation can be done using RStudio or another statistical software.</li>
+</ul>
+<ol start="3" type="1">
+<li>Determine the p-value using the calculated test statistic.</li>
+</ol>
+<ul>
+<li>This will be done using RStudio or another statistical software.</li>
+</ul>
+<ol start="4" type="1">
+<li>Make a decision based on the p-value and the chosen significance level.</li>
+</ol>
+<ul>
+<li>If p-value <span class="math inline">\(\leq \alpha\)</span>, reject the null hypothesis. Otherwise, we fail to reject <span class="math inline">\(H_0\)</span>.</li>
+</ul>
+<ol start="5" type="1">
+<li>State a conclusion in the context of the problem.</li>
+</ol>
+<ul>
+<li>The conclusion should be in terms of what is reflected in <span class="math inline">\(H_a\)</span> in context.</li>
+</ul>
+<p>When applying hypothesis tests in the modules, the testing procedures will generally follow these steps.</p>
+</section></section><section id="confidence-interval-framework" class="level2" data-number="11.2"><h2 data-number="11.2" class="anchored" data-anchor-id="confidence-interval-framework">
+<span class="header-section-number">11.2</span> Confidence interval framework</h2>
+<p>A confidence interval (CI) is an approach for estimating a parameter or the treatment effect, and it provides an interval of values (constructed based on the sample data) to provide a range of plausible values of the parameters or effects of interest. In this case study, we construct a CI for <span class="math inline">\(\mu_{int} - \mu_{ext}=\delta\)</span>. Associated with every CI is a confidence level. The confidence level specifies the “success rate” of the CI in capturing/containing the unknown value of the parameter in repeated sampling. That is, if samples are repeatedly obtained and a CI is computed each time, the confidence level specifies the percentage of those CIs that will contain the parameter or effect of interest. Thus, the confidence level associated with a CI tells one how “confident” one should be that the interval captures the value of the parameter or effect of interest (but not the confidence in any one particular interval).</p>
+<p>CIs generally follow the same basic form, which depends on the sample statistic(s) and the margin of error (MOE) of the sample statistic(s):</p>
+<p><span class="math display">\[(sample ~ statistic(s)) \pm MOE \]</span> Here, the CI for <span class="math inline">\(\mu_{int} - \mu_{ext}\)</span> takes the form</p>
+<p><span class="math display">\[(\bar{y}_{int} - \bar{y}_{ext}) \pm MOE_{(\bar{y}_{int} - \bar{y}_{ext})}\]</span></p>
+<p>where <span class="math inline">\(MOE_{(\bar{y}_{int} - \bar{y}_{ext})}\)</span> denotes the MOE for <span class="math inline">\((\bar{y}_{int} - \bar{y}_{ext})\)</span>. For a given sample size, the MOE provides a upper bound to the difference between a particular estimate (i.e., a given <span class="math inline">\(\bar{y}_{int} - \bar{y}_{ext}\)</span>) and the parameter (<span class="math inline">\(\mu_{int} - \mu_{ext}\)</span>) that it estimates. Common choices for confidence levels are 90%, 95%, and 99%, with 95% being the most common. For the case study, a 95% confidence level for <span class="math inline">\(\mu_{int} - \mu_{ext}=\delta\)</span> is (1.196, 7.092). Thus, we are 95% confident that the difference between the true mean creativity scores for the intrinsic and extrinsic students is between 1.196 and 7.092. Since the interval only contains positive values, we can conclude that thinking about intrinsic motivations has a positive effect on creativity scores at 95% confidence.</p>
+</section><section id="decision-errors-and-confidence-levels" class="level2" data-number="11.3"><h2 data-number="11.3" class="anchored" data-anchor-id="decision-errors-and-confidence-levels">
+<span class="header-section-number">11.3</span> Decision errors and confidence levels</h2>
+<p>Hypothesis tests are not flawless. There is always a chance that the wrong decision will be made. The decision errors are called <em>Type I error</em> and <em>Type II error</em>. A Type I error is made when <span class="math inline">\(H_0\)</span> is rejected when in fact it should not have been rejected. A Type II error occurs when failing to reject <span class="math inline">\(H_0\)</span> when in fact it should have been rejected. When making a decision in a hypothesis test (HT) one will not know if a Type I error or Type II error is made, but the good news is that one can control the chances of making a Type I error and reduce the chances of making a Type II error.</p>
+<p>The probability of making a Type I error is denoted by <span class="math inline">\(\alpha\)</span>, the significance level in a HT. By setting <span class="math inline">\(\alpha=.05\)</span>, you ensure that the chances of making a Type I error is at most <span class="math inline">\(\alpha\)</span>. The smaller <span class="math inline">\(\alpha\)</span>, the smaller the chances of making a Type I error but at the same time the smaller <span class="math inline">\(\alpha\)</span> is set, the more evidence that is required to reject <span class="math inline">\(H_0\)</span>. It is worth noting that the level of <span class="math inline">\(\alpha\)</span> is related to the confidence level in a CI. For example, <span class="math inline">\(\alpha=.05\)</span> corresponds to a <span class="math inline">\((1-\alpha)100=(.95)100=95\%\)</span> confidence interval. A <span class="math inline">\(95\%\)</span> confidence level means that the interval will fail to capture the true parameter or effect of interest at most <span class="math inline">\(5\%\)</span> of the time, and this failure corresponds to making a Type I error (wrong decision) in a HT at most <span class="math inline">\(5\%\)</span> of the time.</p>
+<p>While Type II error can not be directly controlled, it may be reduced by collecting more data (the more data you have the easier it should be to detect the desired effect and make the correct decision) or increasing <span class="math inline">\(\alpha\)</span> (making it easier to reject <span class="math inline">\(H_0\)</span> decreases the chance of falsely failing to reject <span class="math inline">\(H_0\)</span>). Thus, there is a trade-off in trying to keep <span class="math inline">\(\alpha\)</span> small and reducing the chances of making a Type II error.</p>
+</section><section id="statistical-power" class="level2" data-number="11.4"><h2 data-number="11.4" class="anchored" data-anchor-id="statistical-power">
+<span class="header-section-number">11.4</span> Statistical power</h2>
+<p>Statistical power is the chance or probability that you correctly reject the null hypothesis (correct decision). The opposite of this correct decision is a Type II error. Simply put, statistical power conveys how powerful the hypothesis testing procedure can detect a desired effect in a sample when it the desired effect exists. The higher the statistical power, the greater the chance it will find the desired effect. If you fail to reject <span class="math inline">\(H_0\)</span>, then either the desired effect is not present or your testing procedure failed to detect an effect (even though it exist). Such failures happen when the test has low statistical power.</p>
+<p>While there is no general approach for obtaining the desired statistical power, there are things one can do to increase statistical power. The following conditions increase the ability of a testing procedure to detect the desired effect:</p>
+<ul>
+<li><p>Increase the sample size. The larger your sample, the more precise the estimate of the parameter or effect. This, in turn, leads to a larger test statistic (and more likely to reject <span class="math inline">\(H_0\)</span>) and the CI will be narrower.</p></li>
+<li><p>Increase the desired effect size. The larger the effect, the easier it should be to detect.</p></li>
+<li><p>Increase <span class="math inline">\(\alpha\)</span>. The larger the value of <span class="math inline">\(\alpha\)</span>, the easier it becomes to reject <span class="math inline">\(H_0\)</span>.</p></li>
+</ul>
+<p>Of these conditions, researchers typically aim to increase the size of the sample to increase statistical power as the desired effect is either unknown or fixed in advance.</p>
+<p>Note that many of the equations/formulas used to compute the p-value, construct the CI, and other elements were not provided as software will be used to compute any required information from the data. The form of the test statistic was provided to help motivate the meaning of an extreme observed test statistic.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-amrhein2019" class="csl-entry" role="doc-biblioentry">
+Amrhein, Valentin, Sander Greenland, and Blake McShane. 2019. <span>“Scientists Rise up Against Statistical Significance.”</span> <em>Nature</em> 567 (7748): 305–7.
+</div>
+<div id="ref-baker2016statisticians" class="csl-entry" role="doc-biblioentry">
+Baker, Monya et al. 2016. <span>“Statisticians Issue Warning on p Values.”</span> <em>Nature</em> 531 (7593): 151–51.
+</div>
+<div id="ref-lakens2021" class="csl-entry" role="doc-biblioentry">
+Lakens, Daniël. 2021. <span>“The Practical Alternative to the p Value Is the Correctly Used p Value.”</span> <em>Perspectives on Psychological Science</em> 16 (3): 639–48.
+</div>
+<div id="ref-sleuth" class="csl-entry" role="doc-biblioentry">
+Ramsey, F. L., and D. W. Schafer. 2013. <span>“The Statistical Sleuth: A Course in Methods of Data Analysis.”</span> <em>Cengage Learning</em> 30 (4): 413–14. <a href="https://doi.org/10.1080/00224065.1998.11979882">https://doi.org/10.1080/00224065.1998.11979882</a>.
+</div>
+</div>
+</section><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<ol>
+<li id="fn1" role="doc-endnote"><p>Confirmation bias occurs when one interprets evidence in a way that supports pre-existing beliefs, rather than considering all possibilities.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./twosample.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Module: Two sample methods</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./twoindptmeans.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Two sample methods</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
