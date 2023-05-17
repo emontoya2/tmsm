@@ -97,19 +97,21 @@ R has many built-in function or function that become available once a library is
 ##  Summarizing data with R
 
 Exploring data using graphical and numerical summary statistics will be discussed in @sec-summaries. 
-  For now, a brief introduction to graphing and computing summary statistics is provided.  When wanting to summarize a single variable, functions to create graphical and numerical summaries follows the general form `task( ~ x , data)` where `x` is the variable you want to graph or compute a statistic of. Depending on the summary, we may have to specify some additional things.  If the variable `x`  is a variable in the data frame, then data would be set equal to the name of the data frame. The names used for `x` and the name of the data frame must be the names that R has given the data set and variable. `task` would be replaced with the name of the function. For bivariate, the form becomes `task( y ~ x , data)` becomes where `y` represent the dependent variable and `x` is the explanatory variable. Most R tasks covered in the modules will follow this general form. The expressions `y~x` or `~x` are called formulas in R.
+  For now, a brief introduction to graphing and computing summary statistics is provided.  When wanting to summarize a single variable, functions to create graphical and numerical summaries follows the general form `task( ~ x , data)` where `x` is the variable you want to graph or compute a statistic of. Depending on the summary, we may have to specify some additional things.  If the variable `x`  is a variable in the data frame, then data would be set equal to the name of the data frame. The names used for `x` and the name of the data frame must be the names that R has given the data set and variable. `task` would be replaced with the name of the function. For bivariate, the form becomes `task( y ~ x , data)` becomes where `y` represent the dependent variable and `x` is the explanatory variable. Most R tasks covered in the modules will follow this general form. The expressions `y ~ x` or `~ x` are called formulas in R.
 
 Recall that we imported the MLB dataset and we stored it in a data frame called `mlbDataImport`.  Here, the task is to create a histogram of `salary`.  `salary` represents the salary (in $1000s) of a given baseball player in 2010.  Again, the basic formula is `task( ~ x , data)` where `task` would be replaced with the name of the function to create the desired graph.  **RStudio** refers to histograms as `histogram`.  The variable of interest is `salary` and it would replace `x`.  The argument `data` is set equal to `mlbDataImport`.
 ```{r gr2, echo=T,   eval=T ,message=FALSE,    collapse = T,   fig.width=5.5, warning=F,  fig.height=2.5}
 library( lattice ) # load the lattice package. This package provides the histogram function
-histogram( ~ salary  , data=  mlbDataImport )
+histogram( ~ salary  , 
+           data=  mlbDataImport )
 ```
 
 To  compute the mean salary of these baseball players we replace `task` with `mean`.  As with the histogram, 
 `x` is replace with the name of the variable `salary`, and `data` is set equal to `mlbDataImport`:
 ```{r gras4, echo=T,   eval=T ,message=FALSE,    collapse = T,   fig.width=5.5, warning=F,  fig.height=2.5}
 library( mosaic ) # load the mosaic package. This provides the  mean function 
-mean( ~ salary  , data=  mlbDataImport )
+mean( ~ salary  , 
+      data=  mlbDataImport )
 ```	
 
 Suppose you wanted to compute the average salary for each position. To so, we can tell RStudio to compute the mean by levels/groups of a grouping variable. A grouping variable groups data into categories or groups. Grouping variables are categorical variables.  When summaries are computed based on the levels or groups of the grouping variables, they are called side-by-side or comparative summaries. 
@@ -139,12 +141,12 @@ Functions in R will have a number of *arguments*.  An argument is piece of infor
 
 ```
 :::
-Some arguments will be required, others optional depending on the function.  More often than not, the functions will require at least the following arguments to run: A formula (such as `y~x` or `~x`) and the name of the data frame (`data=`'*name of data frame*').  The phrase `task` will be replaced with the name of the function, such as `mean` or `histogram`.
+Some arguments will be required, others are optional depending on the function.  More often than not, the functions will require at least the following arguments to run: A formula (such as `y ~ x` or `~ x`) and the name of the data frame (`data=`'*name of data frame*').  The phrase `task` will be replaced with the name of the function, such as `mean` or `histogram`.
 
 :::
 
 
-In some sense, you can use the code provided in this resource as a template  to adapt to your dataframe and the names of the variables within your dataframe (discussed in the next section). 
+You can use the code provided in this resource as a template  to adapt to your dataframe and the names of the variables within your dataframe (discussed in the next section). 
 
 
 All functions used in the module will only be described when they are first used.  Any subsequent uses of a given function will not provided a description but the reader may search for the name of the function in the search bar provided in the upper left of the module.   
@@ -152,7 +154,7 @@ All functions used in the module will only be described when they are first used
 
 ## Adapting the R code provided for your data and interest
 
-In this section, we demonstrate how to adapt the provided code to your own data frame and variables of interest by using formula expressions with examples from two different datasets. Recall that most functions will have a layout of  `task( y ~ x , data)` or `task( y ~ x , data)`. For this illustration, we use two dataframes, `ChickWeight` and  `trees` dataframe. Both of these dataframes are built-in with R. Note the following variable names in each dataframe:
+In this section, we demonstrate how to adapt the provided code to your own data frame and variables of interest by using formula expressions with examples from two different datasets. Recall that most functions will have a layout of  `task( y ~ x , data)` or `task( ~ x , data)`. For this illustration, we use two dataframes, `ChickWeight` and  `trees` dataframe. Both of these dataframes are built-in with R. Note the following variable names in each dataframe:
 
 ```{r , echo=T,   eval=T ,message=FALSE,    collapse = T,   fig.width=5.5, warning=F, fig.height=2.5}
 # "ChickWeight" measurements on weight, time since birth, 
@@ -168,17 +170,19 @@ names( trees ) # this dataset comes built-in with R
 
 ### A univariate summary: {-}
 
-The following computes the weight of the chicks:
+The following computes the mean weight of the chicks:
 ```{r , echo=T,   eval=T ,message=FALSE,    collapse = T,   fig.width=5.5, warning=F, fig.height=2.5}
 # Compute the mean weight
-mean( ~ weight  , data=  ChickWeight )
+mean( ~ weight  , 
+      data=  ChickWeight )
 ```	
 Note that weight is spelled `weight` and not `Weight` or `WEIGHT` since it appears as `weight` in the dataframe. 
 
 The code below computes the mean volume of the 31 trees:
 ```{r , echo=T,   eval=T ,message=FALSE,    collapse = T,   fig.width=5.5, warning=F, fig.height=2.5}
 # Compute the mean
-mean( ~ Volume  , data=  trees )
+mean( ~ Volume  , 
+      data=  trees )
 ```	
 
  

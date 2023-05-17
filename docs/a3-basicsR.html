@@ -449,11 +449,12 @@ URLs
 <p>R has many built-in function or function that become available once a library is loaded. For example, the <code>mean( )</code> function computes the mean of sample of data.</p>
 </section><section id="summarizing-data-with-r" class="level2" data-number="C.3"><h2 data-number="C.3" class="anchored" data-anchor-id="summarizing-data-with-r">
 <span class="header-section-number">C.3</span> Summarizing data with R</h2>
-<p>Exploring data using graphical and numerical summary statistics will be discussed in <span class="quarto-unresolved-ref">?sec-summaries</span>. For now, a brief introduction to graphing and computing summary statistics is provided. When wanting to summarize a single variable, functions to create graphical and numerical summaries follows the general form <code>task( ~ x , data)</code> where <code>x</code> is the variable you want to graph or compute a statistic of. Depending on the summary, we may have to specify some additional things. If the variable <code>x</code> is a variable in the data frame, then data would be set equal to the name of the data frame. The names used for <code>x</code> and the name of the data frame must be the names that R has given the data set and variable. <code>task</code> would be replaced with the name of the function. For bivariate, the form becomes <code>task( y ~ x , data)</code> becomes where <code>y</code> represent the dependent variable and <code>x</code> is the explanatory variable. Most R tasks covered in the modules will follow this general form. The expressions <code>y~x</code> or <code>~x</code> are called formulas in R.</p>
+<p>Exploring data using graphical and numerical summary statistics will be discussed in <span class="quarto-unresolved-ref">?sec-summaries</span>. For now, a brief introduction to graphing and computing summary statistics is provided. When wanting to summarize a single variable, functions to create graphical and numerical summaries follows the general form <code>task( ~ x , data)</code> where <code>x</code> is the variable you want to graph or compute a statistic of. Depending on the summary, we may have to specify some additional things. If the variable <code>x</code> is a variable in the data frame, then data would be set equal to the name of the data frame. The names used for <code>x</code> and the name of the data frame must be the names that R has given the data set and variable. <code>task</code> would be replaced with the name of the function. For bivariate, the form becomes <code>task( y ~ x , data)</code> becomes where <code>y</code> represent the dependent variable and <code>x</code> is the explanatory variable. Most R tasks covered in the modules will follow this general form. The expressions <code>y ~ x</code> or <code>~ x</code> are called formulas in R.</p>
 <p>Recall that we imported the MLB dataset and we stored it in a data frame called <code>mlbDataImport</code>. Here, the task is to create a histogram of <code>salary</code>. <code>salary</code> represents the salary (in $1000s) of a given baseball player in 2010. Again, the basic formula is <code>task( ~ x , data)</code> where <code>task</code> would be replaced with the name of the function to create the desired graph. <strong>RStudio</strong> refers to histograms as <code>histogram</code>. The variable of interest is <code>salary</code> and it would replace <code>x</code>. The argument <code>data</code> is set equal to <code>mlbDataImport</code>.</p>
 <div class="cell" data-layout-align="center">
 <details open=""><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span> <span class="va"><a href="http://lattice.r-forge.r-project.org/">lattice</a></span> <span class="op">)</span> <span class="co"># load the lattice package. This package provides the histogram function</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/histogram.html">histogram</a></span><span class="op">(</span> <span class="op">~</span> <span class="va">salary</span>  , data<span class="op">=</span>  <span class="va">mlbDataImport</span> <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/histogram.html">histogram</a></span><span class="op">(</span> <span class="op">~</span> <span class="va">salary</span>  , </span>
+<span>           data<span class="op">=</span>  <span class="va">mlbDataImport</span> <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="a3-basicsR_files/figure-html/gr2-1.png" class="img-fluid figure-img" width="528"></p>
@@ -464,7 +465,8 @@ URLs
 <p>To compute the mean salary of these baseball players we replace <code>task</code> with <code>mean</code>. As with the histogram, <code>x</code> is replace with the name of the variable <code>salary</code>, and <code>data</code> is set equal to <code>mlbDataImport</code>:</p>
 <div class="cell" data-layout-align="center">
 <details open=""><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span> <span class="va"><a href="https://github.com/ProjectMOSAIC/mosaic">mosaic</a></span> <span class="op">)</span> <span class="co"># load the mosaic package. This provides the  mean function </span></span>
-<span><span class="fu">mean</span><span class="op">(</span> <span class="op">~</span> <span class="va">salary</span>  , data<span class="op">=</span>  <span class="va">mlbDataImport</span> <span class="op">)</span></span>
+<span><span class="fu">mean</span><span class="op">(</span> <span class="op">~</span> <span class="va">salary</span>  , </span>
+<span>      data<span class="op">=</span>  <span class="va">mlbDataImport</span> <span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 3281.828</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
@@ -510,14 +512,14 @@ R functions
 </code></pre>
 </div>
 </div>
-<p>Some arguments will be required, others optional depending on the function. More often than not, the functions will require at least the following arguments to run: A formula (such as <code>y~x</code> or <code>~x</code>) and the name of the data frame (<code>data=</code>‘<em>name of data frame</em>’). The phrase <code>task</code> will be replaced with the name of the function, such as <code>mean</code> or <code>histogram</code>.</p>
+<p>Some arguments will be required, others are optional depending on the function. More often than not, the functions will require at least the following arguments to run: A formula (such as <code>y ~ x</code> or <code>~ x</code>) and the name of the data frame (<code>data=</code>‘<em>name of data frame</em>’). The phrase <code>task</code> will be replaced with the name of the function, such as <code>mean</code> or <code>histogram</code>.</p>
 </div>
 </div>
-<p>In some sense, you can use the code provided in this resource as a template to adapt to your dataframe and the names of the variables within your dataframe (discussed in the next section).</p>
+<p>You can use the code provided in this resource as a template to adapt to your dataframe and the names of the variables within your dataframe (discussed in the next section).</p>
 <p>All functions used in the module will only be described when they are first used. Any subsequent uses of a given function will not provided a description but the reader may search for the name of the function in the search bar provided in the upper left of the module.</p>
 </section><section id="adapting-the-r-code-provided-for-your-data-and-interest" class="level2" data-number="C.4"><h2 data-number="C.4" class="anchored" data-anchor-id="adapting-the-r-code-provided-for-your-data-and-interest">
 <span class="header-section-number">C.4</span> Adapting the R code provided for your data and interest</h2>
-<p>In this section, we demonstrate how to adapt the provided code to your own data frame and variables of interest by using formula expressions with examples from two different datasets. Recall that most functions will have a layout of <code>task( y ~ x , data)</code> or <code>task( y ~ x , data)</code>. For this illustration, we use two dataframes, <code>ChickWeight</code> and <code>trees</code> dataframe. Both of these dataframes are built-in with R. Note the following variable names in each dataframe:</p>
+<p>In this section, we demonstrate how to adapt the provided code to your own data frame and variables of interest by using formula expressions with examples from two different datasets. Recall that most functions will have a layout of <code>task( y ~ x , data)</code> or <code>task( ~ x , data)</code>. For this illustration, we use two dataframes, <code>ChickWeight</code> and <code>trees</code> dataframe. Both of these dataframes are built-in with R. Note the following variable names in each dataframe:</p>
 <div class="cell" data-layout-align="center">
 <details open=""><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># "ChickWeight" measurements on weight, time since birth, </span></span>
 <span><span class="co"># age, and diet plan of chicks</span></span>
@@ -531,10 +533,11 @@ R functions
 </details>
 </div>
 <section id="a-univariate-summary" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="a-univariate-summary">A univariate summary:</h3>
-<p>The following computes the weight of the chicks:</p>
+<p>The following computes the mean weight of the chicks:</p>
 <div class="cell" data-layout-align="center">
 <details open=""><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Compute the mean weight</span></span>
-<span><span class="fu">mean</span><span class="op">(</span> <span class="op">~</span> <span class="va">weight</span>  , data<span class="op">=</span>  <span class="va">ChickWeight</span> <span class="op">)</span></span>
+<span><span class="fu">mean</span><span class="op">(</span> <span class="op">~</span> <span class="va">weight</span>  , </span>
+<span>      data<span class="op">=</span>  <span class="va">ChickWeight</span> <span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 121.8183</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
@@ -542,7 +545,8 @@ R functions
 <p>The code below computes the mean volume of the 31 trees:</p>
 <div class="cell" data-layout-align="center">
 <details open=""><summary>Code</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Compute the mean</span></span>
-<span><span class="fu">mean</span><span class="op">(</span> <span class="op">~</span> <span class="va">Volume</span>  , data<span class="op">=</span>  <span class="va">trees</span> <span class="op">)</span></span>
+<span><span class="fu">mean</span><span class="op">(</span> <span class="op">~</span> <span class="va">Volume</span>  , </span>
+<span>      data<span class="op">=</span>  <span class="va">trees</span> <span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 30.17097</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
