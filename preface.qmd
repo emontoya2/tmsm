@@ -25,7 +25,7 @@ Those new to R and RStudio should work through the appendices.  If you have used
 
 Most sections include embedded R code.  R functions are generally described only when first introduced. Additionally, code to import specific data sets or load particular R packages may appear multiple times in different modules. Any subsequent uses of a given R function or its description may not be provided, but readers can search for the R function name using the search bar in the upper left corner of the module to find where it was first introduced and where it has been used.  
 
-An R package (`CSUBstats`) has been developed for this resource, providing custom functions specifically designed for it, along with data from the case studies, while leveraging datasets and additional functions from other packages. To install the package run the following code:
+An R package (`CSUBstats`) has been developed for this resource, providing custom functions specifically designed for it, along with data from the case studies, while leveraging datasets and additional functions from other packages. To install the package, run the following code:
 
 ```{r }
 #| echo: true
