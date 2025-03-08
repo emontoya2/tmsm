@@ -4,7 +4,7 @@ This repository hosts the source code for this resources. This open source proje
 
 This work is licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License](https://creativecommons.org/licenses/by-nc/4.0/). You may share and adapt, with attribution. No commercial uses or derivatives. 
 
-An R package (`CSUBstats`) has been developed for this resource, providing custom functions designed specifically for it, while utilizing datasets and additional functions from other packages.
+An R package (`CSUBstats`) has been developed for this resource, providing custom functions specifically designed for it, along with data from the case studies, while leveraging datasets and additional functions from other packages.
 
 ```
 install.packages("remotes")
