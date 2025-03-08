@@ -17,7 +17,7 @@ editor_options:
 knitr::include_graphics("images/casestudy/bmiob.jpg")
 ```
 
-Motivated by the work of   @ncd2019rising, a case study by @Wright2020 explored global patterns of obesity across different regions.  The questions in their case study were related to the  association between Body mass index (BMI) rates with region (rural vs urban) and countries.  BMI may be considered a measurement of health, where BMI is defined as an individual’s weight divided by the individual’s height. The data used for the case study is described @ncd2019rising, where the data  consisted of the following variables:+
+Motivated by the work of   @ncd2019rising, a case study by @Wright2020 explored global patterns of obesity across different regions.  The questions in their case study were related to the  association between Body mass index (BMI) rates with region (rural vs urban) and countries.  BMI may be considered a measurement of health, where BMI is defined as an individual’s weight divided by the individual’s height. The data used for the case study is described @ncd2019rising, where the data  consisted of the following variables:
 
 - Country: Countries in the sample
 

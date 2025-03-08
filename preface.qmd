@@ -58,7 +58,7 @@ The color-coded system will hopefully make it easier to navigate and understand 
 
 - CSUB Title Vb program for supporting the creation of this resource.
 
-- The R Core team, RStudio, Quarto, and Github for their continued advancement of these open-source softwares.
+- The R Core Team and Quarto for their continued advancement of these open-source software, and RStudio and GitHub for providing free access to their platforms, which support open-source development.
 
 - Dr. Brandon Pratt for providing the data for the case study on xylem characteristics in shrub species, as well as providing feedback for the case study.
 

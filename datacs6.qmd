@@ -31,7 +31,7 @@ different plant species were collected. Below is a list and small description of
 
 - P75: the water potential at 75% loss of its hydraulic conductivity (MPa). 
 
-- Ks: a measure of xylem-specific conductivity.  conductivity (kg s$^{-1}$ MPa$^{-1}$ m$^{-1}$).
+- Ks: a measure of xylem-specific conductivity.  (kg s$^{-1}$ MPa$^{-1}$ m$^{-1}$).
 
 - Starch: amount of starch content in the xylem tissues (%). 
 
