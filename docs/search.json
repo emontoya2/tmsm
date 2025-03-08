@@ -11,14 +11,20 @@
     "href": "index.html",
     "title": "Training modules on selected statistical methods",
     "section": "",
-    "text": "This repository hosts the source code for this resources. This open source project was developed by Eduardo L. Montoya. If you find the contents useful, please cite or acknowledge this project to encourage further use by others. Please use the following citation:\n\nMontoya, E. L. (2022). Training modules on selected statistical methods. GitHub repository, https://github.com/emontoya2/tmsm"
+    "text": "Welcome\nThis repository hosts the source code for this resources. This open source project was developed by Eduardo L. Montoya. If you find the contents useful, please cite or acknowledge this project to encourage further use by others. Please use the following citation:",
+    "crumbs": [
+      "Welcome"
+    ]
   },
   {
     "objectID": "index.html#purpose-of-this-resource",
     "href": "index.html#purpose-of-this-resource",
     "title": "Training modules on selected statistical methods",
     "section": "Purpose of this resource",
-    "text": "Purpose of this resource\nThe purpose of this project is to help students learn and apply selected statistical methods. Each module focuses on specific areas with integrated R code offering students an informative way to learn and practice these methods. Most R code within a given section are linked to video demonstrating how to run the code in RStudio.\nR is chosen because it is open source, platform independent, remains among the most popular and best statistical software packages, provides great on-line documentation, and is well supported with a large and useful user community from a diverse range of backgrounds. Furthermore, most sections incorporate R code, enabling students to learn and practice the material as they progress through a given module. To use R, the integrated development environment (IDE) RStudio will be used, which has made R more user-friendly for many users."
+    "text": "Purpose of this resource\nThe purpose of this project is to help students learn and apply selected statistical methods. Each module focuses on specific areas with integrated R code offering students an informative way to learn and practice these methods. Most R code within a given section are linked to video demonstrating how to run the code in RStudio.\nR is chosen because it is open source, platform independent, remains among the most popular and best statistical software packages, provides great on-line documentation, and is well supported with a large and useful user community from a diverse range of backgrounds. Furthermore, most sections incorporate R code, enabling students to learn and practice the material as they progress through a given module. To use R, the integrated development environment (IDE) RStudio will be used, which has made R more user-friendly for many users.",
+    "crumbs": [
+      "Welcome"
+    ]
   },
   {
     "objectID": "index.html#organization-of-the-modules",
@@ -32,14 +38,20 @@
     "href": "index.html#what-this-resource-is-not",
     "title": "Training modules on selected statistical methods",
     "section": "What this resource is not",
-    "text": "What this resource is not\nThis resource does not aim to provide an all-encompassing guide to statistical methods or their implementation in R. Numerous statistical methods and various ways to conduct these methods in R can be utilized in practice, many of which are not covered in these modules. That being said, the concepts and techniques presented are intended to enhance the reader’s ability to apply the covered methods to their research, as well as to connect their statistical knowledge with more advanced methods."
+    "text": "What this resource is not\nThis resource does not aim to provide an all-encompassing guide to statistical methods or their implementation in R. Numerous statistical methods and various ways to conduct these methods in R can be utilized in practice, many of which are not covered in these modules. That being said, the concepts and techniques presented are intended to enhance the reader’s ability to apply the covered methods to their research, as well as to connect their statistical knowledge with more advanced methods.",
+    "crumbs": [
+      "Welcome"
+    ]
   },
   {
     "objectID": "index.html#license",
     "href": "index.html#license",
     "title": "Training modules on selected statistical methods",
     "section": "License",
-    "text": "License\nThis resource is free to use, and is licensed under the Creative Commons Attribution-NonCommercial-NoDerivs 4.0 License."
+    "text": "License\nThis resource is free to use, and is licensed under the Creative Commons Attribution-NonCommercial-NoDerivs 4.0 License.",
+    "crumbs": [
+      "Welcome"
+    ]
   },
   {
     "objectID": "datacs3.html",
@@ -60,7 +72,10 @@
     "href": "preface.html",
     "title": "Preface",
     "section": "",
-    "text": "Graduate programs vary with regard to required statistical training. The intention of this resource is to enable graduate students to improve their ability to apply appropriate statistical methodologies."
+    "text": "Some prerequisites\nGraduate programs vary with regard to required statistical training. The intention of this resource is to enable graduate students to improve their ability to apply appropriate statistical methodologies.\nPlease note that this resource is designed for practitioners and does not assume prior knowledge of statistical concepts. R and RStudio will also have to be installed (see ?sec-appendix-startingR for installation instructions).",
+    "crumbs": [
+      "Preface"
+    ]
   },
   {
     "objectID": "preface.html#some-prerequisites",
@@ -74,21 +89,30 @@
     "href": "preface.html#acknowledgements",
     "title": "Preface",
     "section": "Acknowledgements",
-    "text": "Acknowledgements\n\nCSUB Title Vb program for supporting the creation of this resource.\nThe R Core team, RStudio, Quarto, and Github for their continued advancement of these open-source softwares.\nDr. Brandon Pratt for providing the data for the case study on xylem characteristics in shrub species, as well as providing feedback for the case study.\nDr. Tien-Chieh Hung for providing the data for the case study on Delta smelt.\nDr. David Riedman for providing the data for the case study on school shootings."
+    "text": "Acknowledgements\n\nCSUB Title Vb program for supporting the creation of this resource.\nThe R Core team, RStudio, Quarto, and Github for their continued advancement of these open-source softwares.\nDr. Brandon Pratt for providing the data for the case study on xylem characteristics in shrub species, as well as providing feedback for the case study.\nDr. Tien-Chieh Hung for providing the data for the case study on Delta smelt.\nDr. David Riedman for providing the data for the case study on school shootings.",
+    "crumbs": [
+      "Preface"
+    ]
   },
   {
     "objectID": "preface.html#contributing",
     "href": "preface.html#contributing",
     "title": "Preface",
     "section": "Contributing",
-    "text": "Contributing\nContributions are encouraged on any part of the project, including:\n\nImprovements to the text or code, such as clarifying unclear sentences, notation, and fixing typos. This resource is not error-free, so please inform the author of any errors so that they can be corrected.\nChanges to the R code to make it easier to read or to do things in a more efficient way.\nSuggestions on topics to consider adding."
+    "text": "Contributing\nContributions are encouraged on any part of the project, including:\n\nImprovements to the text or code, such as clarifying unclear sentences, notation, and fixing typos. This resource is not error-free, so please inform the author of any errors so that they can be corrected.\nChanges to the R code to make it easier to read or to do things in a more efficient way.\nSuggestions on topics to consider adding.",
+    "crumbs": [
+      "Preface"
+    ]
   },
   {
     "objectID": "casestudies.html",
     "href": "casestudies.html",
     "title": "Module: Case Studies",
     "section": "",
-    "text": "The chapters in this module cover various small examples of analyzing data from case studies or research projects. The data used in a given study are referenced throughout the modules to demonstrate how statistical software and tools can be utilized.\nModule chapters:\n\nCase Study 1\nCase Study 2\nCase Study 3\nCase Study 4\nCase Study 5\nCase Study 6"
+    "text": "Module outline",
+    "crumbs": [
+      "Module: Case Studies"
+    ]
   },
   {
     "objectID": "datacs.html",
@@ -668,8 +692,11 @@
     "objectID": "casestudies.html#module-outline",
     "href": "casestudies.html#module-outline",
     "title": "Module: Case Studies",
-    "section": "Module outline",
-    "text": "Module outline\n\nThe chapters in this module cover various small examples of analyzing data from case studies or research projects that are referenced throughout the modules to show how statistical software and tools can be utilized.\nModule chapters:\n\nCase Study 1\nCase Study 2\nCase Study 3\nCase Study 4\nCase Study 5\nCase Study 6"
+    "section": "",
+    "text": "The chapters in this module cover various small examples of analyzing data from case studies or research projects. The data used in a given study are referenced throughout the modules to demonstrate how statistical software and tools can be utilized.\nModule chapters:\n\nCase Study 1\nCase Study 2\nCase Study 3\nCase Study 4\nCase Study 5\nCase Study 6",
+    "crumbs": [
+      "Module: Case Studies"
+    ]
   },
   {
     "objectID": "datacs.html#sec-csdelta",
@@ -788,21 +815,30 @@
     "href": "preface.html#organization-of-the-materials",
     "title": "Preface",
     "section": "Organization of the materials",
-    "text": "Organization of the materials\nThe materials are organized based on the typical order in which these topics are introduced in practice, though the section on principal component analysis can be studied after covering basic exploratory data analysis. Sections generally follow a similar pattern:\n\nIntroduction of core material\nPresentation of relevant R functions\nApplication and illustration of core material and R code through case studies"
+    "text": "Organization of the materials\nThe materials are organized based on the typical order in which these topics are introduced in practice, though the section on principal component analysis can be studied after covering basic exploratory data analysis. Sections generally follow a similar pattern:\n\nIntroduction of core material\nPresentation of relevant R functions\nApplication and illustration of core material and R code through case studies",
+    "crumbs": [
+      "Preface"
+    ]
   },
   {
     "objectID": "preface.html#r-and-rstudio",
     "href": "preface.html#r-and-rstudio",
     "title": "Preface",
     "section": "R and RStudio",
-    "text": "R and RStudio\nThose new to R and RStudio should work through the appendices. If you have used R or RStudio in the past, but have not imported .csv or .xlsx files, or used a formula expression of the form response ~ explanatory, then Chapter C should be reviewed.\nMost sections include embedded R code. R functions are generally described only when first introduced. Additionally, code to import specific data sets or load particular R packages may appear multiple times in different modules. Any subsequent uses of a given R function or its description may not be provided, but readers can search for the R function name using the search bar in the upper left corner of the module to find where it was first introduced and where it has been used."
+    "text": "R and RStudio\nThose new to R and RStudio should work through the appendices. If you have used R or RStudio in the past, but have not imported .csv or .xlsx files, or used a formula expression of the form response ~ explanatory, then sec-appendix-basicsR should be reviewed.\nMost sections include embedded R code. R functions are generally described only when first introduced. Additionally, code to import specific data sets or load particular R packages may appear multiple times in different modules. Any subsequent uses of a given R function or its description may not be provided, but readers can search for the R function name using the search bar in the upper left corner of the module to find where it was first introduced and where it has been used.\nAn R package (CSUBstats) has been developed for this resource, providing custom functions specifically designed for it, along with data from the case studies, while leveraging datasets and additional functions from other packages. To install the package run the following code:\n\nCodeinstall.packages(\"remotes\")\n\nremotes::install_github(\"emontoya2/csubstats\")\n\nlibrary(CSUBstats)",
+    "crumbs": [
+      "Preface"
+    ]
   },
   {
     "objectID": "preface.html#callouts-blocks",
     "href": "preface.html#callouts-blocks",
     "title": "Preface",
     "section": "Callouts blocks",
-    "text": "Callouts blocks\nThroughout this resource, you will encounter callout boxes in various colors, each of which serves a specific purpose. The callout boxes are color-coded as follows:\n\nOrange: Data assumptions related to the statistical method discussed.\nBlue: Case studies or examples to illustrate the statistical method using real-world data using R.\nGreen: R functions and their arguments.\nRed: Notation or terminology that is important for understanding the statistical method, or additional notes, tips, or warnings related to the material.\n\nThe color-coded system will hopefully make it easier to navigate and understand the statistical methods presented in this resource"
+    "text": "Callouts blocks\nThroughout this resource, you will encounter callout boxes in various colors, each of which serves a specific purpose. The callout boxes are color-coded as follows:\n\nOrange: Data assumptions related to the statistical method discussed.\nBlue: Case studies or examples to illustrate the statistical method using real-world data using R.\nGreen: R functions and their arguments.\nRed: Notation or terminology that is important for understanding the statistical method, or additional notes, tips, or warnings related to the material.\n\nThe color-coded system will hopefully make it easier to navigate and understand the statistical methods presented in this resource",
+    "crumbs": [
+      "Preface"
+    ]
   },
   {
     "objectID": "anova.html#footnotes",
@@ -831,5 +867,15 @@
     "title": "Appendix C — Some basic tasks in R",
     "section": "\nC.4 Adapting the R code provided for your data and interest",
     "text": "C.4 Adapting the R code provided for your data and interest\nIn this section, we demonstrate how to adapt the provided code to your own data frame and variables of interest by using formula expressions with examples from two different datasets. Recall that most functions will have a layout of task( y ~ x , data) or task( ~ x , data). For this illustration, we use two dataframes, ChickWeight and trees dataframe. Both of these dataframes are built-in with R. Note the following variable names in each dataframe:\n\nCode# \"ChickWeight\" measurements on weight, time since birth, \n# age, and diet plan of chicks\nnames( ChickWeight )\n#> [1] \"weight\" \"Time\"   \"Chick\"  \"Diet\"\n\n# \"trees\" dataset contains the height, girth,\n# and volume measurements for 31 trees\nnames( trees ) # this dataset comes built-in with R\n#> [1] \"Girth\"  \"Height\" \"Volume\"\n\n\nA univariate summary:\nThe following computes the mean weight of the chicks:\n\nCode# Compute the mean weight\nmean( ~ weight  , \n      data=  ChickWeight )\n#> [1] 121.8183\n\n\nNote that weight is spelled weight and not Weight or WEIGHT since it appears as weight in the dataframe.\nThe code below computes the mean volume of the 31 trees:\n\nCode# Compute the mean\nmean( ~ Volume  , \n      data=  trees )\n#> [1] 30.17097\n\n\nNotice the similarity between these two commands. The only differences are the names of the data frames and the variable names (spelled exactly as they appear in the respective data frames, keeping in mind that R is case sensitive). The general form used here is: task( ~ x, data )\nA bivariate summary:\nThe following creates a scatterplot of the weight of a chick against the time since birth:\n\nCode# Load the R package lattice\nlibrary(lattice) # provides xyplot() \n\n# create the scatterplot\nxyplot(weight ~ Time  , data=  ChickWeight  )\n\n\n\n\n\n\n\nThe code below plots the volume of a tree against height of a tree:\n\nCode# create the scatterplot\nxyplot( Volume ~ Height  , data=  trees  )\n\n\n\n\n\n\n\nNotice the similarity between these two commands. The only differences are the names of the data frames and the variable names (spelled exactly as they appear in the respective data frames, keeping in mind that R is case sensitive). The general form used here is: task( y ~ x, data )"
+  },
+  {
+    "objectID": "index.html#welcome",
+    "href": "index.html#welcome",
+    "title": "Training modules on selected statistical methods",
+    "section": "",
+    "text": "Montoya, E. L. (2022). Training modules on selected statistical methods. GitHub repository, https://github.com/emontoya2/tmsm",
+    "crumbs": [
+      "Welcome"
+    ]
   }
 ]
