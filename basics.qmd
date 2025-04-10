@@ -98,8 +98,10 @@ The case study data given in @sec-casestudy1 consist of two factor variables.   
 #| eval: true
 
 # Import the dataset 'dssurv' from a csv file
-dssurv <- read.csv("datasets/dssurv.csv")
- 
+#dssurv <- read.csv("datasets/dssurv.csv")
+library( CSUBstats ) 
+data( dssurv ) #load the dataset named `dssurv` into your current workspace
+
 # Print a summary of the dataset, including the 
 # five-number summary for numeric variables and counts 
 # of observations for categorical variables.
@@ -188,10 +190,16 @@ The code below imports the data (tidy and non-tidy format) for the case study gi
 #| eval: true
 
 # Import tidy data from a csv file and store it in a dataframe called "bmidf"
-bmidf <- read.csv( "datasets/BMIcsdata.csv" )
+#bmidf <- read.csv( "datasets/BMIcsdata.csv" )
+library( CSUBstats ) 
+data( BMIcsdata ) #load the dataset named `BMIcsdata` into your current workspace
+
 
 # Import non-tidy data from a csv file and store it in a dataframe called "bmidfnt"
-bmidfnt <- read.csv( "datasets/BMIcsdataNT.csv" )
+#bmidfnt <- read.csv( "datasets/BMIcsdataNT.csv" )
+library( CSUBstats ) 
+data( BMIcsdataNT ) #load the dataset named `BMIcsdataNT` into your current workspace
+
 
 # View the first 5 rows of the "bmidf" dataframe.
 head( bmidf , 

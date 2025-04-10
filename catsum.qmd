@@ -61,7 +61,10 @@ Here, the categorical variables are summarized graphically.
 #| warning: false
 
 # Import data from case study on delta smelt
-dssurv <- read.csv( "datasets/dssurv.csv" )
+#dssurv <- read.csv( "datasets/dssurv.csv" )
+library( CSUBstats ) 
+data( dssurv ) #load the dataset named `dssurv` into your current workspace
+
 
 # Load the dplyr package. This package provides mutate()
 library(dplyr)
@@ -74,7 +77,10 @@ dssurv <- mutate( dssurv,
 
 
 # Import data from case study on air pollution
-pmdf <- read.csv("datasets/dailyPM10.2021.csv")
+#pmdf <- read.csv("datasets/dailyPM10.2021.csv")
+
+data( pmdf ) #load the dataset named `pmdf` into your current workspace
+
 
 # Convert variable county to a factor
 pmdf <- mutate( pmdf, 
@@ -249,7 +255,9 @@ The case study in @sec-casestudy5 contains many variables dealing with character
 # Import data 
 # Note: na.strings=c("","NA") tells R to treat any blank 
 # and NA entries in the csv file as NA values. 
-ssd <- read.csv("datasets/ssdsample.csv" , na.strings=c("","NA")) 
+#ssd <- read.csv("datasets/ssdsample.csv" , na.strings=c("","NA")) 
+data( ssd ) #load the dataset named `ssd` into your current workspace
+
 
 # Next, we use the mutate() function to 
 # convert AgeGroup, Media_Attention, and During_School 
