@@ -1,15 +1,69 @@
-# tmsm
+# Training Modules on Selected Statistical Methods (tmsm)
 
-This repository hosts the source code for this resources. This open source project was developed by [Eduardo L. Montoya](https://emontoya2.github.io/).  If you find the contents useful, please cite or acknowledge this project to encourage further use by others.  
+This repository hosts the source code for training modules on selected statistical methods. It is an open source project developed by [Eduardo L. Montoya](https://emontoya2.github.io/). If you find the contents useful, please cite or acknowledge this project to encourage further use by others.
 
-This work is licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License](https://creativecommons.org/licenses/by-nc/4.0/). You may share and adapt, with attribution. No commercial uses or derivatives. 
+**Project Status:** Concept – Minimal or no implementation has been done yet. This repository serves as a limited example, demo, or proof-of-concept.
 
-An R package (`CSUBstats`) has been developed for this resource, providing custom functions specifically designed for it, along with data from the case studies, while leveraging datasets and additional functions from other packages.
+---
 
-```
+## Welcome
+
+Welcome to the **Training Modules on Selected Statistical Methods** repository. This resource is designed to help students learn and apply selected statistical methods with integrated R code and video demonstrations. The modules combine theoretical explanations with practical examples using **R** and **RStudio**.
+
+---
+
+## Purpose
+
+The purpose of this project is to:
+- Provide structured training modules that facilitate learning of statistical methods.
+- Demonstrate statistical techniques through integrated R code examples.
+- Enhance understanding through case studies and video tutorials.
+
+---
+
+## About the Resource
+
+This repository contains:
+- Source code for the training modules.
+- An R package, **CSUBstats**, offering custom functions tailored for this resource. This package includes data from case studies and additional functions from other packages.
+- Demonstrations on how to run the provided code in **RStudio**, supporting a practical learning approach.
+
+**R** was chosen for its open-source nature, cross-platform compatibility, extensive online documentation, and the support of a large community. **RStudio** provides a user-friendly IDE that facilitates the learning experience.
+
+---
+
+## Citation
+
+If you use this resource, please cite it as follows:
+
+> **Montoya, E. L. (2022).** *Training Modules on Selected Statistical Methods.* GitHub repository, [https://github.com/emontoya2/tmsm](https://github.com/emontoya2/tmsm)
+
+---
+
+## License
+
+This work is licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License](https://creativecommons.org/licenses/by-nc/4.0/). You may share and adapt the content with appropriate attribution. Commercial use or derivatives are not permitted under this license.
+
+---
+
+## Getting Started with CSUBstats
+
+An R package (`CSUBstats`) has been developed for this resource, providing custom functions along with case study data. To install and load the package, run the following commands in R:
+
+```r
 install.packages("remotes")
-
 remotes::install_github("emontoya2/csubstats")
-
 library(CSUBstats)
 ```
+
+## What This Resource Is Not
+
+This resource is not intended to be an exhaustive guide to all statistical methods or their R implementations. It covers only a subset of statistical techniques to provide a solid foundation for further exploration. Users are encouraged to consult additional resources to broaden their understanding of statistical methods.
+
+## Contributing
+
+Since the project is still in the conceptual phase, contributions and suggestions are welcome. If you have ideas for improvements or additions, please submit issues or pull requests through the project's GitHub page.
+
+## Contact
+
+For any questions, suggestions, or further information, please reach out via the GitHub issues page.
