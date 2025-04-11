@@ -61,7 +61,7 @@ This resource is not intended to be an exhaustive guide to all statistical metho
 
 ## Contributing
 
-Since the project is still in the conceptual phase, contributions and suggestions are welcome. If you have ideas for improvements or additions, please submit issues or pull requests through the project's GitHub page.
+This project is ongoing, so any contributions and suggestions are welcome. If you have ideas for improvements or additions, please submit issues or pull requests through the project’s GitHub page, or feel free to reach out directly.
 
 ## Contact
 
