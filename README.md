@@ -2,7 +2,6 @@
 
 This repository hosts the source code for training modules on selected statistical methods. It is an open source project developed by [Eduardo L. Montoya](https://emontoya2.github.io/). If you find the contents useful, please cite or acknowledge this project to encourage further use by others.
 
-**Project Status:** Concept – Minimal or no implementation has been done yet. This repository serves as a limited example, demo, or proof-of-concept.
 
 ---
 
@@ -66,4 +65,4 @@ Since the project is still in the conceptual phase, contributions and suggestion
 
 ## Contact
 
-For any questions, suggestions, or further information, please reach out via the GitHub issues page.
+For any questions, suggestions, or further information, please reach out.
