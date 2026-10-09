@@ -20,7 +20,7 @@ The following are some important data basics:
 
 
 ::: callout-note
-Recall the data given in  @sec-casestudy1. Each row in the data table above represents a single early-stage Delta smelt larvae in the sample. The formal name for a row is a **case** or **observational unit**. The columns represent characteristics of interest for each early-stage Delta smelt larvae, where each column is referred to as a **variable**. Here, the only characteristics that are of concern for each larvae are the level of exposure of light intensity (`Light`), turbidity level exposure (`Turbidity`), and the percentage of larvae that survived. For example, the first row represents a early-stage Delta smelt larvae that was exposed to a light intensity of 4.5 $\mu mol/m^2/s$ and a turbidity level of 2 NTUs, where only 56.8% of larvae survived under these conditions.
+Recall the data in @sec-casestudy1. Each row records the survival percentage for a group of early-stage Delta smelt larvae exposed to specified light and turbidity conditions. A row is a **case** or **observational unit**; here it is a group-level record, not an individual larva. The columns are **variables**: light intensity (`Light`), turbidity (`Turbidity`), and survival percentage (`Survival`). For example, the first row records 56.8% survival for larvae exposed to light intensity of 4.5 $\mu mol/m^2/s$ and turbidity of 2 NTUs. The experimental unit and any dependence among groups should be established from the original rearing-trial design before conducting inference.
 :::
 
 
@@ -31,16 +31,14 @@ Variables in a statistical study can be classified as either **categorical** or 
 
 - A variable is **categorical** if the individual observations are categorical responses, such as labels, people's attributes, opinions, etc.
 
-- A variable is **numerical** (or quantitative) if its corresponding observations are a numerical values that are measured or counted.
+- A variable is **numerical** (or quantitative) if its corresponding observations are numerical values that are measured or counted.
 
-**Factor variables** generally refers to the software's treatment of categorical variables. The levels of a factor variable refers to the value that a categorical variable takes on. For example, the variable "first-generation college student" may take on levels 0 and 1, with 1 representing a student who is first-generation college student born before 1999 and 0 representing a student whose is not a first-generation college student.  Factor variable will be used interchangeably with categorical variable. If the levels of a factor variables have a natural ordering, it is called an  **ordinal** variable, while a factor variable without this type of special ordering is called a **nominal** variable. For readability, factor variables will be treated as a nominal factor variables in this resource.  
+**Factor variables** refer to the software's representation of categorical variables. The levels of a factor are its possible categories. For example, “first-generation college student” might be coded as 1 for a first-generation student and 0 for a student who is not first-generation. A categorical variable is **ordinal** when its categories have a natural order, and **nominal** otherwise. Light and turbidity levels have a natural low-to-high order, but the examples use unordered R factors to compare categories without imposing a particular trend.
  
 
 ::: callout-note
-The case study data given in   @sec-casestudy1 frame consist of three variables labeled as `Light`, `Turbidity`, and `Survival` in the data set.
-
--   `Survival` is a continuous numerical variable. These observations can take a wide range of values.  A numerical variable is **continuous** if its possible values form an entire interval on the number line. 
-
+The case-study data in @sec-casestudy1 consist of three variables: `Light`, `Turbidity`, and `Survival`.
+- `Survival` is a numerical percentage, treated as continuous for these summaries. A numerical variable is **continuous** if its possible values form an interval on the number line; a proportion computed from a fixed number of larvae has a discrete set of possible values.
 -   `Light` and `Turbidity` are both factor variables, with each having levels low, medium, and high.
 :::
 
@@ -64,24 +62,22 @@ To convert a variable to a factor variable, you can use the `mutate()` function 
 ```
 ### mutate( data ,
 ###        'new variable' = 'function of variable in data frame', ...)
-# data: Replace with the name of the dataframe being used.
+# data: Replace with the name of the data frame being used.
 # 'new variable' = 'function of variable in data frame': Replace 
 #                 'new variable' with name of desired variable 
 #                  and set equal to a function of 
-#                  a current variable in the  dataframe. 
+#                  a current variable in the  data frame.
 #                  This will add the new variable to the 
-#                  dataframe.  The 'new variable' name may 
+#                  data frame.  The 'new variable' name may
 #                  also be replaced with the name of a current 
 #                  variable as this will override/replace the 
 #                  current variable.
-#...: additional new variables can be added to the dataframe. 
+#...: additional new variables can be added to the data frame.
 #
 ### summary( data )
-# Note: This function provides a summary of each numerical variable 
-# in the data frame, including the five-number summary (minimum, 
-# lower quartile, median, upper quartile, maximum) and the number 
-# of non-missing observations. For factor variables, the function 
-# provides the count of each level of the factor variable.
+# Numeric variables: minimum, quartiles, median, mean, maximum,
+# and an NA count when applicable. Factors: counts by level.
+# Use sum(!is.na(x)) for the nonmissing sample size.
 
 ```
 ::: 
@@ -92,11 +88,10 @@ The case study data given in @sec-casestudy1 consist of two factor variables.   
 
 ::: {.panel-tabset}
 ## R code
-
 ```{r}
 #| echo: true
-#| eval: true
-
+#| message: false
+#| warning: false
 # Import the dataset 'dssurv' from a csv file
 #dssurv <- read.csv("datasets/dssurv.csv")
 library( CSUBstats ) 
@@ -140,7 +135,7 @@ embed_youtube("gXjJ7TusxQA")
 
 ## .csv files {#sec-csv}
 
-To provide a consistent approach to using R, it is assumed that any research data will be saved in the tidy format using a comma separated values (*.csv*) file. A *.csv* may be viewed with a spread sheet program such as Microsoft Excel. It is assumed readers have used an excel spreadsheet. If not, please view the tutorial [Excel Tutorial for Beginners](https://www.youtube.com/watch?v=rwbho0CgEAE) .
+To provide a consistent approach to using R, it is assumed that any research data will be saved in the tidy format using a comma separated values (*.csv*) file. A *.csv* may be viewed with a spreadsheet program such as Microsoft Excel. It is assumed readers have used an Excel spreadsheet. If not, please view the tutorial [Excel Tutorial for Beginners](https://www.youtube.com/watch?v=rwbho0CgEAE) .
 
 To store data in a *.csv* file, organize your data in an Excel worksheet, such that the first row (Row 1) contains the column (variable) names and each subsequent row contains all the necessary information for each data point. Next, save the worksheet as a *.csv* file type.
 
@@ -156,7 +151,7 @@ Note the format of the data presented in @sec-casestudy1:
 
 -   Each value must have its own cell.
 
-Then data are stored in this format, it is called **tidy data** [@wickham2014].
+When data are stored in this format, it is called **tidy data** [@wickham2014].
 
 ![Tidy data format. source: @wickham2016r](images/tidydata.png){#fig-tidydata}
 
@@ -168,7 +163,7 @@ The R code below imports two versions of the data  (a tidy and non-tidy version)
 ## R functions
 ```
 ### head( data , n )
-# data: Replace with the name of the dataframe
+# data: Replace with the name of the data frame
 # n: Set equal to a number.  The first 'n' rows will be printed
 #
 ### tail( data , n )
@@ -189,28 +184,30 @@ The code below imports the data (tidy and non-tidy format) for the case study gi
 #| echo: true
 #| eval: true
 
-# Import tidy data from a csv file and store it in a dataframe called "bmidf"
+# Import tidy data from a csv file and store it in a data frame called "bmidf"
 #bmidf <- read.csv( "datasets/BMIcsdata.csv" )
 library( CSUBstats ) 
-data( BMIcsdata ) #load the dataset named `BMIcsdata` into your current workspace
+data( BMIcsdata )
+bmidf <- BMIcsdata #load the dataset named `BMIcsdata` into your current workspace
 
 
-# Import non-tidy data from a csv file and store it in a dataframe called "bmidfnt"
+# Import non-tidy data from a csv file and store it in a data frame called "bmidfnt"
 #bmidfnt <- read.csv( "datasets/BMIcsdataNT.csv" )
 library( CSUBstats ) 
-data( BMIcsdataNT ) #load the dataset named `BMIcsdataNT` into your current workspace
+data( BMIcsdataNT )
+bmidfnt <- BMIcsdataNT #load the dataset named `BMIcsdataNT` into your current workspace
 
 
-# View the first 5 rows of the "bmidf" dataframe.
+# View the first 5 rows of the "bmidf" data frame.
 head( bmidf , 
      n= 5 )  
 
-# View the last 5 rows of the "bmidf" dataframe.
-head( bmidfnt , 
+# View the last 5 rows of the "bmidfnt" data frame.
+tail( bmidfnt ,
      n= 5 ) 
 ```
 
-The tidy format make a clear distinction between a variable, an observation and a value. The format of the second data set may be useful for quickly observing some year to year changes. However, this format violates the tidy form because information regarding year appears both in the rows and columns. Tidy data helps to think about a data set in terms of variables and their observed values.
+The tidy format makes a clear distinction between variables, observations, and values. The second data set may be useful for viewing year-to-year changes, but it places year information in both rows and columns. Tidy data make variables and their observed values explicit.
 
 ## Video
 ```{r}
@@ -232,7 +229,7 @@ embed_youtube("90gjWDm2dWU")
 
 ## Codebooks
 
-An important task in a data based research project is to document the structure and content of project dataset. This can be done in the form of a **codebook**, a file that lists at least the names of the variables, variable descriptions, and data source. Sometimes it may also provide the variables' type (e.g., continuous, categorical) and levels of factor variables (e.g., 1 = disagree,..., 3 = agree). Writing a codebook is an important step in the managing the data aspect of your research project. The codebook will serve as an important reference for the researcher and any collaborators, and there are multiple approaches for creating a codebook, with Excel being a popular choice. The next section contains a sample codebook for the case study data.
+An important task in a data based research project is to document the structure and content of project dataset. This can be done in the form of a **codebook**, a file that lists at least the names of the variables, variable descriptions, and data source. Sometimes it may also provide the variables' type (e.g., continuous, categorical) and levels of factor variables (e.g., 1 = disagree,..., 3 = agree). Writing a codebook is an important step in managing the data aspect of your research project. The codebook will serve as an important reference for the researcher and any collaborators, and there are multiple approaches for creating a codebook, with Excel being a popular choice. The next section contains a sample codebook for the case study data.
 
 ::: callout-note
 

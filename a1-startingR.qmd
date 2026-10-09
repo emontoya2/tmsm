@@ -2,7 +2,7 @@
 
  
 
-This resource uses R for data analysis.  As a programming language, R, like any programming language or statistical software, is not perfect, but R does have the distinction of being a programming language that was created and developed for the purpose of making the analysis of data easier.   RStudio may be thought of as a graphical user interface (GUI) for R. Think of R as the engine for a car, whereas RStudio is the dashboard, wheel, etc. that allows one to control the engine.  Although RStudio is much more than a GUI, it will only be used as in interface for R in the modules. That is, R will not be used directly, rather R will always used through RStudio. 
+This resource uses R for data analysis.  As a programming language, R, like any programming language or statistical software, is not perfect, but R does have the distinction of being a programming language that was created and developed for the purpose of making the analysis of data easier.   RStudio may be thought of as a graphical user interface (GUI) for R. Think of R as the engine for a car, whereas RStudio is the dashboard, wheel, etc. that allows one to control the engine.  Although RStudio is much more than a GUI, it will only be used as an interface for R in the modules. That is, R will not be used directly, rather R will always be used through RStudio.
 
 R and RStudio were selected for various reasons, including:
 
@@ -28,7 +28,7 @@ To install R, follow these steps:
 
 2. Select the appropriate link for your operating system.
 
-3. Select the "base" link, and then select the link at the top of the page that opens. This link should read "Download R ... for [Operating System]," where ... is the current version number (currently **4.2.0** as of July 2022).
+3. Follow the download instructions for your operating system and select the current R installer. The Windows page includes a "base" link; the macOS page provides its installers directly.
 
 4. Download the installer program, which installs the most up-to-date version of R for your operating system.
 

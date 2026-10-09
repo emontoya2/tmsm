@@ -10,14 +10,14 @@ bibliography: references.bib
 [![minimal R version](https://img.shields.io/badge/R%3E%3D-`4.1.2`-6666ff.svg)](https://cran.r-project.org/)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable.svg)](https://www.tidyverse.org/lifecycle/#stable)
 
-This repository hosts the source code for this resources. This open source project was developed by [Eduardo L. Montoya](https://emontoya2.github.io/).  If you find the contents useful, please cite or acknowledge this project to encourage further use by others.  Please use the following citation:
+This repository hosts the source code for this resource. This open source project was developed by [Eduardo L. Montoya](https://emontoya2.github.io/).  If you find the contents useful, please cite or acknowledge this project to encourage further use by others.  Please use the following citation:
 
 > Montoya, E. L. (2022).  Training modules on selected statistical methods. GitHub repository, https://github.com/emontoya2/tmsm
 
 
 ## Purpose of this resource
 
-The purpose of this project is to help students learn and apply selected statistical methods. Each module focuses on specific areas with integrated R code offering students an informative way to learn and practice these methods. Most R code within a given section are linked to video demonstrating how to run the code in RStudio.
+The purpose of this project is to help students learn and apply selected statistical methods. Each module focuses on specific areas with integrated R code offering students an informative way to learn and practice these methods. Most R code examples within a section are linked to videos demonstrating how to run the code in RStudio.
 
 R is chosen because it is open source, platform independent, remains among the most popular and best statistical software packages, provides great on-line documentation, and is well supported with a large and useful user community from a diverse range of backgrounds. Furthermore, most sections incorporate R code, enabling students to learn and practice the material as they progress through a given module. To use R, the integrated development environment (IDE) RStudio will be used, which has made R more user-friendly for many users.
  

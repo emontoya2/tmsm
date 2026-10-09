@@ -2,16 +2,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.35">
+<meta name="generator" content="quarto-1.9.38">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Training modules on selected statistical methods - 13&nbsp; Analysis of variance (ANOVA)</title>
+<title>13&nbsp; Analysis of variance (ANOVA) – Training modules on selected statistical methods</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -38,43 +48,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -86,21 +66,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <meta name="quarto:offset" content="./">
 <link href="./lr.html" rel="next">
 <link href="./anovalin.html" rel="prev">
-<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-4b058e8f47af081303ddb0b93c0d0d5f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -109,256 +96,320 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script><link href="site_libs/vembedr-0.1.5/css/vembedr.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 </head>
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Analysis of variance (ANOVA)</span></h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./anovalin.html">Module: ANOVA, linear regression, and logistic regression</a></li><li class="breadcrumb-item"><a href="./anova.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Analysis of variance (ANOVA)</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Training modules on selected statistical methods</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/emontoya2" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
-    <a href="" title="Share" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
-    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+    <a href="https://github.com/emontoya2" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
 <li>
-          <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
-            <i class="bi bi-bi-twitter pe-1"></i>
-          Twitter
-          </a>
-        </li>
-        <li>
-          <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
-            <i class="bi bi-bi-facebook pe-1"></i>
-          Facebook
-          </a>
-        </li>
-        <li>
-          <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
-            <i class="bi bi-bi-linkedin pe-1"></i>
-          LinkedIn
-          </a>
-        </li>
-    </ul>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+              <i class="bi bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+              <i class="bi bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+</div>
 </div>
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Welcome</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./preface.html" class="sidebar-item-text sidebar-link">Preface</a>
+  <a href="./preface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./casestudies.html" class="sidebar-item-text sidebar-link">Module: Case Studies</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a href="./casestudies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Module: Case Studies</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./datacs.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Case study 1</span></a>
+  <a href="./datacs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Case study 1</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./datacs2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Case study 2</span></a>
+  <a href="./datacs2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Case study 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./datacs3.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Case study 3</span></a>
+  <a href="./datacs3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Case study 3</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./datacs4.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Case study 4</span></a>
+  <a href="./datacs4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Case study 4</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./datacs5.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Case study 5</span></a>
+  <a href="./datacs5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Case study 5</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./datacs6.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Case study 6</span></a>
+  <a href="./datacs6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Case study 6</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./data.html" class="sidebar-item-text sidebar-link">Module: Data basics and drawing statistical conclusions</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a href="./data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Module: Data basics and drawing statistical conclusions</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./basics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Basics of data</span></a>
+  <a href="./basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Basics of data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./drawingconclusions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Drawing statistical conclusions</span></a>
+  <a href="./drawingconclusions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Drawing statistical conclusions</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./summaries.html" class="sidebar-item-text sidebar-link">Module:  Basic Exploratory  Data Analysis</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a href="./summaries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Module:  Basic Exploratory  Data Analysis</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./catsum.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Summarizing categorical data</span></a>
+  <a href="./catsum.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Summarizing categorical data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./numsum.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summarizing numerical data</span></a>
+  <a href="./numsum.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summarizing numerical data</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./twosample.html" class="sidebar-item-text sidebar-link">Module: Two sample methods</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a href="./twosample.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Module: Two sample methods</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./siframework.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Statistical inference framework via a case study</span></a>
+  <a href="./siframework.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Statistical inference framework via a case study</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./twoindptmeans.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Two sample methods</span></a>
+  <a href="./twoindptmeans.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Two sample methods</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./anovalin.html" class="sidebar-item-text sidebar-link">Module: ANOVA, linear regression, and logistic regression</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <a href="./anovalin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Module: ANOVA, linear regression, and logistic regression</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./anova.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Analysis of variance (ANOVA)</span></a>
+  <a href="./anova.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Analysis of variance (ANOVA)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Simple linear regression</span></a>
+  <a href="./lr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Simple linear regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./logisticreg.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Simple logistic regression</span></a>
+  <a href="./logisticreg.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Simple logistic regression</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./eda.html" class="sidebar-item-text sidebar-link">Module: Advanced Exploratory Data Analysis</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <a href="./eda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Module: Advanced Exploratory Data Analysis</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pca.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">PCA</span></a>
+  <a href="./pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">PCA</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">Appendices</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./a1-startingR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Installing or accessing R and RStudio</span></a>
+  <a href="./a1-startingR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Installing or accessing R and RStudio</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./a2-firstR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">A first session in RStudio</span></a>
+  <a href="./a2-firstR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">A first session in RStudio</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./a3-basicsR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Some basic tasks in R</span></a>
+  <a href="./a3-basicsR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Some basic tasks in R</span></span></a>
   </div>
 </li>
       </ul>
 </li>
     </ul>
 </div>
-</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc"><h2 id="toc-title">Table of contents</h2>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#single-factor-or-one-way-anova" id="toc-single-factor-or-one-way-anova" class="nav-link active" data-scroll-target="#single-factor-or-one-way-anova"> <span class="header-section-number">13.1</span> Single factor or one-way ANOVA</a></li>
-  <li><a href="#kruskalwallis-test-single-factor-anova-for-ranks" id="toc-kruskalwallis-test-single-factor-anova-for-ranks" class="nav-link" data-scroll-target="#kruskalwallis-test-single-factor-anova-for-ranks"> <span class="header-section-number">13.2</span> Kruskal–Wallis test (single-factor ANOVA for ranks)</a></li>
+<li><a href="#single-factor-or-one-way-anova" id="toc-single-factor-or-one-way-anova" class="nav-link active" data-scroll-target="#single-factor-or-one-way-anova"><span class="header-section-number">13.1</span> Single factor or one-way ANOVA</a></li>
+  <li><a href="#kruskalwallis-test-single-factor-anova-for-ranks" id="toc-kruskalwallis-test-single-factor-anova-for-ranks" class="nav-link" data-scroll-target="#kruskalwallis-test-single-factor-anova-for-ranks"><span class="header-section-number">13.2</span> Kruskal–Wallis test (single-factor ANOVA for ranks)</a></li>
   <li>
-<a href="#multiple-comparisons" id="toc-multiple-comparisons" class="nav-link" data-scroll-target="#multiple-comparisons"> <span class="header-section-number">13.3</span> Multiple comparisons</a>
+<a href="#multiple-comparisons" id="toc-multiple-comparisons" class="nav-link" data-scroll-target="#multiple-comparisons"><span class="header-section-number">13.3</span> Multiple comparisons</a>
   <ul class="collapse">
-<li><a href="#tukeys-hsd-method" id="toc-tukeys-hsd-method" class="nav-link" data-scroll-target="#tukeys-hsd-method"> <span class="header-section-number">13.3.1</span> Tukey’s HSD method</a></li>
-  <li><a href="#games-howell-test" id="toc-games-howell-test" class="nav-link" data-scroll-target="#games-howell-test"> <span class="header-section-number">13.3.2</span> Games-Howell test</a></li>
-  <li><a href="#dunn-test" id="toc-dunn-test" class="nav-link" data-scroll-target="#dunn-test"> <span class="header-section-number">13.3.3</span> Dunn test</a></li>
+<li><a href="#tukeys-hsd-method" id="toc-tukeys-hsd-method" class="nav-link" data-scroll-target="#tukeys-hsd-method"><span class="header-section-number">13.3.1</span> Tukey’s HSD method</a></li>
+  <li><a href="#games-howell-test" id="toc-games-howell-test" class="nav-link" data-scroll-target="#games-howell-test"><span class="header-section-number">13.3.2</span> Games-Howell test</a></li>
+  <li><a href="#dunn-test" id="toc-dunn-test" class="nav-link" data-scroll-target="#dunn-test"><span class="header-section-number">13.3.3</span> Dunn test</a></li>
   </ul>
 </li>
-  <li><a href="#sample-size-estimation-and-power-analysis-for-anova" id="toc-sample-size-estimation-and-power-analysis-for-anova" class="nav-link" data-scroll-target="#sample-size-estimation-and-power-analysis-for-anova"> <span class="header-section-number">13.4</span> Sample size estimation and power analysis for ANOVA</a></li>
-  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/emontoya2/edit/master/anova.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+  <li><a href="#sample-size-estimation-and-power-analysis-for-anova" id="toc-sample-size-estimation-and-power-analysis-for-anova" class="nav-link" data-scroll-target="#sample-size-estimation-and-power-analysis-for-anova"><span class="header-section-number">13.4</span> Sample size estimation and power analysis for ANOVA</a></li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/emontoya2/edit/master/anova.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title"><span id="sec-anova" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Analysis of variance (ANOVA)</span></span></h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./anovalin.html">Module: ANOVA, linear regression, and logistic regression</a></li><li class="breadcrumb-item"><a href="./anova.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Analysis of variance (ANOVA)</span></a></li></ol></nav><div class="quarto-title">
+<h1 class="title"><span id="sec-anova" class="quarto-section-identifier"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Analysis of variance (ANOVA)</span></span></h1>
 </div>
 
 
@@ -366,14 +417,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="quarto-title-meta">
 
     
+  
     
   </div>
   
 
+
 </header><div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="images/linmod/anovaart.jpg" class="img-fluid figure-img" style="width:50.0%"></p>
-<p></p><figcaption class="figure-caption">AI art generated from the text “Analysis of variance”</figcaption><p></p>
-</figure>
+<figcaption>AI art generated from the text “Analysis of variance”</figcaption></figure>
 </div>
 <p>Analysis of Variance (ANOVA) is a statistical method that analyzes the variability of the observations in a dataset and compares it between groups or factor levels to determine if there is a statistically significant difference among them. This section covers the basics of ANOVA, and the following inferential methods for ANOVA:</p>
 <ul>
@@ -381,15 +433,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>A non-parametric alternative to the F-test.</p></li>
 <li><p>Multiple comparison methods to determine which specific groups or treatments have significant differences.</p></li>
 </ul>
-<p>Equations/formulas used in hypothesis testing or confidence intervals will be kept at a minimum as the focus is on the use of software to carry out these methods. That being said, those new to or not comfortable with hypothesis testing or confidence intervals may want to consider reviewing <a href="siframework.html"><span>Chapter&nbsp;11</span></a>.</p>
+<p>Equations/formulas used in hypothesis testing or confidence intervals will be kept at a minimum as the focus is on the use of software to carry out these methods. That being said, those new to or not comfortable with hypothesis testing or confidence intervals may want to consider reviewing <a href="siframework.html" class="quarto-xref"><span>Chapter 11</span></a>.</p>
 <p>To ensure that statistical inferential methods provide meaningful results, several assumptions are made about the data on which the method is intended to be used.</p>
-<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
-Data assumptions
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Data assumptions
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -400,21 +452,21 @@ Data assumptions
 <li><p><strong>Assumption 3</strong>. <em>Normality</em> or <em>large sample</em>. The data under each factor level or group or treatment should be roughly normally distributed or the sample for each factor level or group or treatment should be large.</p></li>
 <li><p><strong>Assumption 4</strong>. <em>Equal variance or spread</em>. The variability in each factor level or groups or treatments should be approximately that of any other factor level or group.</p></li>
 </ul>
-<p>While these assumptions are addressed in the illustrations below using a case study, assumption 1 can be evaluated based on study design. Assumption 2 cay be examined using a histogram or boxplots under each group. The normality component of assumption 3 cay be examined using quantile-quantile plots across all groups, and assumption 4 can be graphically assessed using boxplots or histograms under each group and numerically assessed using sample standard deviations.</p>
+<p>While these assumptions are addressed in the illustrations below using a case study, assumption 1 can be evaluated based on study design. Assumption 2 can be examined using a histogram or boxplots under each group. The normality component of assumption 3 can be examined using quantile-quantile plots within groups or of model residuals; a pooled plot of raw responses can mix different group means, and assumption 4 can be graphically assessed using boxplots or histograms under each group and numerically assessed using sample standard deviations.</p>
 </div>
 </div>
 <p>The terms “factor levels”, “treatments”, and “groups” mean the same thing and will be used interchangeably, although “factor levels” or “treatments” are terms more associated with experiments and “groups” is a term more associated with observational studies. In these sections, R functions provided for conducting the aforementioned inferential methods are used and described. Other functions to import data, numerically or graphically summarize the data, and other tasks may be used but such functions are not described as they have been described and illustrated in detail in previous modules.</p>
-<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
-Notation
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Notation
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Notation is kept at a minimum but for better readability, but we define the following notation for ANOVA:</p>
+<p>For readability, we define the following notation for ANOVA:</p>
 <ul>
 <li><p><span class="math inline">\(\mu_1\)</span>, <span class="math inline">\(\mu_2\)</span>, …, <span class="math inline">\(\mu_k\)</span> denote the population or true mean response under each treatment <span class="math inline">\(1\)</span>, <span class="math inline">\(2\)</span>, …, <span class="math inline">\(k\)</span>, respectively.</p></li>
 <li><p><span class="math inline">\(\mu\)</span> denote the population or true mean response across all treatments.</p></li>
@@ -422,7 +474,7 @@ Notation
 <li><p><span class="math inline">\(s_1\)</span>, <span class="math inline">\(s_2\)</span>, …, <span class="math inline">\(s_k\)</span> denote the sample standard deviation under each treatment <span class="math inline">\(1\)</span>, <span class="math inline">\(2\)</span>, …, <span class="math inline">\(k\)</span>, respectively.</p></li>
 <li><p><span class="math inline">\(\bar{y}=\)</span> sample mean response (across all treatments)</p></li>
 <li><p><span class="math inline">\(n_1\)</span>, <span class="math inline">\(n_2\)</span>, …, <span class="math inline">\(n_k\)</span> denote the number of observations under each treatment <span class="math inline">\(1\)</span>, <span class="math inline">\(2\)</span>, …, <span class="math inline">\(k\)</span>, respectively.</p></li>
-<li><p><span class="math inline">\(n=n_1+n+n_2+\cdots+ n_k\)</span> denote the total number of observations (across all treatment).</p></li>
+<li><p><span class="math inline">\(n=n_1+n_2+\cdots+ n_k\)</span> denote the total number of observations (across all treatment).</p></li>
 <li><p><span class="math inline">\(\eta_1\)</span>, <span class="math inline">\(\eta_2\)</span>, …, <span class="math inline">\(\eta_k\)</span> denote the population or true median response under each treatment <span class="math inline">\(1\)</span>, <span class="math inline">\(2\)</span>, …, <span class="math inline">\(k\)</span>, respectively.</p></li>
 </ul>
 </div>
@@ -431,58 +483,56 @@ Notation
 <span class="header-section-number">13.1</span> Single factor or one-way ANOVA</h2>
 <p>ANOVA partitions the total variability in the data (the sample variance of the all the data) in terms of variability between treatments and the variability within treatments. The variability between groups may be quantified by a measure called the mean square between treatments, denoted by <span class="math inline">\(MST\)</span> or MS(Treatment)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. The variability within each treatment or group is quantified by the mean square error, denoted by <span class="math inline">\(MSE\)</span> or MS(Error). The higher the MS(Treatment), the more the variability in the data are due to the differences among factor levels or groups. The higher the MS(Error), the more the variability in the data are due to differences within the groups. In ANOVA, the hypothesis are</p>
 <p><span class="math inline">\(H_0: \mu_1= \cdots=\mu_k\)</span> (The mean response is the same across all factor levels or treatments)</p>
-<p><span class="math inline">\(H_a:\)</span> At least one treatment means (<span class="math inline">\(\mu_1\)</span>, <span class="math inline">\(\mu_2\)</span>, …, or <span class="math inline">\(\mu_k\)</span>) <span class="math inline">\(\mu_k\)</span> is different from the rest (The mean response is the not same across all factor levels or treatments)</p>
+<p><span class="math inline">\(H_a:\)</span> Not all treatment means are equal; at least one pair differs.</p>
 <p>To test the hypothesis, ANOVA compares the variability between groups to the variability within groups and it assesses whether the differences between group means are statistically significant. The ratio of these two measures provides the test statistic for the F-test in single factor ANOVA:</p>
 <p><span class="math display">\[F=\frac{ MS(Treatment)}{ MS(Error)}\]</span></p>
-<p>This test assumes assumptions 1-4 are reasonable for the data. Under <span class="math inline">\(H_0\)</span>, the mean response is assumed to be the same across all groups, so any differences between groups can be attributed to random chance or natural variation. If <span class="math inline">\(H_0\)</span> is true and the mean response is the same across all groups, the variability in the data should be mainly due to variability within groups, so the MS(Treatment) should be small and the MS(Error) should be large (corresponding to a small value of <span class="math inline">\(F\)</span>). However, if the mean response varies greatly by group, then the variability in the data may be attributed more to this variability between groups rather than due to variability within groups. In this case, the MS(Treatment) would be large and the MS(Error) would be small (corresponding to a large value of <span class="math inline">\(F\)</span>). Under <span class="math inline">\(H_0\)</span>, the null distribution of <span class="math inline">\(F\)</span> is an <span class="math inline">\(F\)</span>-distribution with a numerator degree of freedom <span class="math inline">\(k-1\)</span> and denominator degree of freedom <span class="math inline">\(n-k\)</span>, and the null distribution is used to compute the p-value.</p>
-<p>If instead the variability in each factor level or groups or treatments differs from any other factor level or group, then the F-test for single factor ANOVA is not appropriate. However, a test called Welch’s F-test can be utilized. Welch’s F-test requires assumptions 1-3 be reasonable for the data but it does not require assumption 4. Welch’s F-test uses as a test statistics a ratio of mean squares as the standard F-test but each are weighted by group variances and it is denoted as <span class="math inline">\(F_w\)</span><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, where</p>
-<p><span class="math display">\[F_w=\frac{ MS(Treatment)^w}{ MS(Error)^w}\]</span></p>
-<p>Both <span class="math inline">\(MS(Treatment)^w\)</span> and <span class="math inline">\(MS(Error)^w\)</span> are not the mean squares used to define the F-test for single factor ANOVA, but rather a weighted version of sorts to account for unequal spread under each treatment. This helps to correct for unequal variances and ensures that the F-test is more accurate. Under <span class="math inline">\(H_0\)</span>, the null distribution of <span class="math inline">\(F_w\)</span> is an F distribution with a numerator degree of freedom <span class="math inline">\(k-1\)</span> and denominator degree of freedom is a non-integer value (resulting for a complicated formula), and this null distribution is used to compute the p-value for Welch’s F-test.</p>
+<p>Under the independent normal-error model with common variance, MS(Treatment) and MS(Error) both estimate that same variance under <span class="math inline">\(H_0\)</span>. Their ratio therefore fluctuates around 1. Differences among population means tend to increase MS(Treatment) relative to MS(Error). Under <span class="math inline">\(H_0\)</span>, the statistic follows an F distribution with <span class="math inline">\(k-1\)</span> numerator and <span class="math inline">\(n-k\)</span> denominator degrees of freedom.</p>
+<p>Welch’s ANOVA accommodates unequal group variances. It uses group means weighted by their estimated precision (<span class="math inline">\(n_i/s_i^2\)</span>), together with a correction for estimating those variances. Its statistic, <span class="math inline">\(F_w\)</span>, is not the ordinary ANOVA ratio with renamed mean squares. The null F distribution is an approximation, with <span class="math inline">\(k-1\)</span> numerator degrees of freedom and Welch–Satterthwaite denominator degrees of freedom<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. It still requires independent observations and an adequate distributional approximation.</p>
 <p>The function <code>sfaov()</code><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> obtains the information needed to conduct an F-test or Welch’s F-test and more using the data.</p>
-<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
-R functions
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>R functions
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <pre><code>### sfaov( y ~ x , data , welch )
-# y: Replace y with the name of the resposne (measured) 
+# y: Replace y with the name of the response (measured)
 #  variable of interest.
 # x: Replace x with the name of the factor or grouping
 #  variable that distinguishes the different populations 
 #  or treatments.
-# data: Set equal to the dataframe name
-# welch: Set to TRUE (default) if 'Equal variance or spread' 
-#        assumption is reasonable. Otherwise, set equal to FALSE.
+# data: Set equal to the data frame name
+# welch: Set to TRUE for Welch's unequal-variance ANOVA.
+#        The default FALSE uses the common-variance ANOVA.
 #</code></pre>
 </div>
 </div>
 <p>Many of the R functions used in these modules will have identical arguments. Therefore, while the arguments will be provided for any functions used, arguments such as <code>y</code>, <code>x</code>, <code>data</code>, and <code>welch</code> will generally no longer be described in this module.</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>We apply an ANOVA F-test to the data described in the case study provided in <a href="datacs.html"><span>Chapter&nbsp;1</span></a> to determine if light intensities have a significant effect on survival rates of early-stage Delta smelt larvae. The data provided in the case study consists of three variables (<code>Light</code>, <code>Turbidity</code>, and <code>Survival</code>) with <code>Light</code> and <code>Survival</code> being the variables of interest. There are three levels of light intensity: 4.5 (low), 6.75 (medium), and 9 (high). Our aim here is to determine whether light intensity has a significant effect on the survival of the larvae at <span class="math inline">\(\alpha=.10\)</span>.</p>
+<p>We use the Delta smelt records in <a href="datacs.html" class="quarto-xref"><span>Chapter 1</span></a> to illustrate a one-factor comparison of mean survival percentages among three light groups at <span class="math inline">\(\alpha=.10\)</span>. Medium light occurs only at medium turbidity in this subset, while low and high light occur at low and high turbidity. Light and turbidity are partly confounded, so these comparisons cannot isolate a causal effect of light.</p>
 <p>To begin, we import the data, and then one would explore the data using numerical and graphical data summaries. Numerical and graphical data explorations were covered in other modules. However, we also use these type of summaries to assess model assumptions.</p>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">R code</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Video</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="" aria-current="page">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Video</a></li>
 </ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell" data-layout-align="center">
-<details open=""><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Import data </span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Import data </span></span>
 <span><span class="va">survdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"datasets/dssurv.csv"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Obtain the names of the variables in the data frame</span></span>
@@ -509,20 +559,20 @@ Note
 <span><span class="co">#&gt;                     Max.   :89.09</span></span>
 <span> </span>
 <span><span class="co"># Load the lattice package for graphing functions</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://lattice.r-forge.r-project.org/">lattice</a></span><span class="op">)</span>  </span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lattice.r-forge.r-project.org/">lattice</a></span><span class="op">)</span>  </span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">bwplot</a></span><span class="op">(</span> <span class="va">Survival</span> <span class="op">~</span> <span class="va">Light</span> ,              <span class="co"># y ~ x</span></span>
-<span>    data<span class="op">=</span> <span class="va">survdf</span> ,                      <span class="co"># Specify dataframe</span></span>
+<span>    data<span class="op">=</span> <span class="va">survdf</span> ,                      <span class="co"># Specify data frame</span></span>
 <span>    xlab<span class="op">=</span> <span class="st">"Light intensity level"</span> ,     <span class="co"># Set x-axis label</span></span>
 <span>    ylab<span class="op">=</span> <span class="st">"Survival rate"</span> ,             <span class="co"># Set y-axis label</span></span>
 <span>    main<span class="op">=</span> <span class="st">"Survival vs Light intensity"</span> , <span class="co"># Specify plot title</span></span>
-<span>    fill<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gray"</span>, <span class="st">"brown"</span>, <span class="st">"cyan"</span><span class="op">)</span> <span class="op">)</span>  <span class="co"># Specify color for each plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    fill<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gray"</span>, <span class="st">"brown"</span>, <span class="st">"cyan"</span><span class="op">)</span> <span class="op">)</span>  <span class="co"># Specify color for each plot</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="anova_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="anova_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<details open=""><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
 <span></span>
 <span><span class="co"># Source the function "normqqplot.R" so that </span></span>
 <span><span class="co"># it's in R's memory.</span></span>
@@ -531,25 +581,25 @@ Note
 <span><span class="co"># Create a normal QQ-plot under each group</span></span>
 <span><span class="fu">normqqplot</span><span class="op">(</span> <span class="op">~</span> <span class="va">Survival</span> <span class="op">|</span> <span class="va">Light</span> ,    <span class="co"># ~ x | gfactor</span></span>
 <span>       data<span class="op">=</span> <span class="va">survdf</span> , </span>
-<span>       ylab<span class="op">=</span><span class="st">"Sample quantiles of survival percentage by light intensity"</span> <span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>       ylab<span class="op">=</span><span class="st">"Sample quantiles of survival percentage by light intensity"</span> <span class="op">)</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="anova_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="anova_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<details open=""><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
 <span><span class="co"># Create a normal QQ-plot across all groups</span></span>
 <span><span class="fu">normqqplot</span><span class="op">(</span> <span class="op">~</span> <span class="va">Survival</span>,             <span class="co"># ~ x  </span></span>
 <span>      data<span class="op">=</span> <span class="va">survdf</span> , </span>
-<span>      ylab<span class="op">=</span><span class="st">"Sample quantiles of survival percentage"</span> <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>      ylab<span class="op">=</span><span class="st">"Sample quantiles of survival percentage"</span> <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="anova_files/figure-html/unnamed-chunk-1-3.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="anova_files/figure-html/unnamed-chunk-1-3.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<details open=""><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
 <span><span class="co"># Load the mosaic package </span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span> <span class="va"><a href="https://github.com/ProjectMOSAIC/mosaic">mosaic</a></span> <span class="op">)</span> <span class="co"># provides formula expression in sd()</span></span>
 <span></span>
@@ -563,7 +613,7 @@ Note
 <span><span class="fu"><a href="https://www.mosaic-web.org/mosaic/reference/aggregating.html">sd</a></span><span class="op">(</span> <span class="va">Survival</span> <span class="op">~</span> <span class="va">Light</span> , </span>
 <span>    data<span class="op">=</span> <span class="va">survdf</span> <span class="op">)</span></span>
 <span><span class="co">#&gt;      high       low       med </span></span>
-<span><span class="co">#&gt;  6.345415 12.809045 12.242073</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt;  6.345415 12.809045 12.242073</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </div>
@@ -580,22 +630,21 @@ Note
 </div>
 </div>
 </div>
-<p>The difference in samples means under intensity level 6.75 differs from that intensity level 4.5 and 9. We use an ANOVA F-test to determine if at least one of the true means significantly differs from the rest. However, first the assumptions about the data are considered. While samples are not random, there are no obvious reasons why independence would not hold for these observations in that that survival rates under a given intensity should no have no connection to the survival rate under any other intensity level. The <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> output shows that the sample for each group is small. It can be difficult to assess the normality assumptions with such few observations, especially under light intensity 6.75. When considering the data across all groups, the QQ-plot suggests the data show some skewness. The researcher should either feel comfortable assuming normality based on prior experience or a literature review. Otherwise, it is difficult to say if this assumption about the data are reasonable for small samples.</p>
+<p>The medium-light group has a different sample mean from the low- and high-light groups. Before inference, independent replication must be established from the trial design; different light labels alone do not establish independence. Group sizes are small, particularly for medium light, making normality difficult to assess. Examine within-group QQ-plots or model residuals, rather than a pooled raw-response plot that combines different means. The calculations below are teaching illustrations conditional on assumptions that these records do not fully establish.</p>
 <p>The boxplots suggest that the variability is not the same for the three groups. To further assess this assumption numerically, we use the sample standard deviations. The sample standard deviations under light intensity 4.5 and 6.75 are similar (12.809 and 12.242), but the sample standard deviation under high light intensity is much less. To determine if the variability in both groups is similar enough, we can use a rule of thumb - take the ratio of the largest and smallest sample standard deviations (12.809/6.345 or 6.345/12.809), and if the ratio is between .5 and 2, then the variability in both groups is considered similar enough. Both graphical and numerical assessments suggest that assumption 4 is not reasonable for the data. However, keep in mind that graphical assessments of assumptions are generally enough, and this rule of thumb should not be used if outliers are present.</p>
-<p>Overall, not all data assumptions are met. Please note that possible remedial measures can be applied when one or more assumptions are not met, and these measures are discussed in <a href="lr.html#sec-remedmeasure"><span>Section&nbsp;14.4</span></a> in the context of linear regression and they also apply to the ANOVA setting. Alternative methods to be discussed would be more appropriate for this data, but for illustration, we analyze the data using the F-test in single factor ANOVA. Let <span class="math inline">\(\mu_1\)</span> denote the true mean survival rate under low light intensity. <span class="math inline">\(\mu_2\)</span> and <span class="math inline">\(\mu_3\)</span> are defined similarly for light intensities medium and high, respectively. Since the aim is to determine whether light intensity has a significant effect on the survival of the larvae, the hypothesis is</p>
+<p>For illustration, we compute the ordinary ANOVA despite unresolved independence and questionable small-sample normality and common variance. Welch or rank methods address some distributional issues but do not repair dependence or separate light from turbidity. Let <span class="math inline">\(\mu_1,\mu_2,\mu_3\)</span> denote group mean survival percentages for low, medium, and high light, respectively. The hypotheses are:</p>
 <p><span class="math display">\[H_0: \mu_1=\mu_2=\mu_3 \qquad H_a: \text{Not all } μ_i\text{'s are equal}\]</span></p>
 <p>In the context of ANOVA, we may also define the hypothesis in terms of an effect. Let <span class="math inline">\(\tau_i= \mu - \mu_i\)</span>, where <span class="math inline">\(\tau_i\)</span> measures the effect of the <span class="math inline">\(i\)</span>th factor level. The <span class="math inline">\(i\)</span>th effect is the difference between the overall mean and the mean of <span class="math inline">\(i\)</span>th factor level. In terms of effects, the hypothesis is</p>
 <p><span class="math display">\[H_0: \tau_1=\tau_2=\tau_3=0 \qquad H_a: \text{Not all }\tau_i\text{'s are 0}\]</span></p>
 <p>The following code uses <code>sfaov()</code> to compute the test statistic and the corresponding p-value for an F-test in single factor ANOVA:</p>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R code</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Video</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Video</a></li>
 </ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<div>
-<details open=""><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Source the function so that it's R's memory.</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Source the function so that it's R's memory.</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"rfuns/sfaov.R"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># The function will require the following information:</span></span>
@@ -611,15 +660,14 @@ Note
 <span><span class="co">#&gt; data:  Survival ~ Light </span></span>
 <span><span class="co">#&gt; ============== </span></span>
 <span><span class="co">#&gt; ANOVA Table </span></span>
-<span><span class="co">#&gt;           Df Sum Sq Mean Sq F value p-value</span></span>
-<span><span class="co">#&gt; Treatment  2  892.2  446.10   4.034   0.037</span></span>
-<span><span class="co">#&gt; Error     17 1880.0  110.59                </span></span>
+<span><span class="co">#&gt;           Df Sum Sq Mean Sq F value  p-value</span></span>
+<span><span class="co">#&gt; Treatment  2  892.2  446.10   4.034 0.036839</span></span>
+<span><span class="co">#&gt; Error     17 1880.0  110.59                 </span></span>
 <span><span class="co">#&gt; ============== </span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; R-squared=  0.475</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell quarto-layout-panel">
+<span><span class="co">#&gt; R-squared=  0.322</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell quarto-layout-panel" data-layout-ncol="1" data-layout-align="center">
 
-</div>
 </div>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
@@ -636,7 +684,7 @@ Note
 </div>
 </div>
 <p>The R output provides part of what is called an ANOVA table. An ANOVA table is a table that summarizes the results of an ANOVA test. It displays the sources of variation (Treatment [between groups], Error [within groups]), degrees of freedom, sums of squares, mean squares, F-test test statistic, and p-value<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. Below is a general form of ANOVA table.</p>
-<table class="table">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 20%">
 <col style="width: 18%">
@@ -681,17 +729,16 @@ Note
 </tbody>
 </table>
 <p>The output also provides the coefficient of determination or <span class="math inline">\(R^2\)</span>. <span class="math inline">\(R^2\)</span> is a number between 0 and 1, and it measures the proportion of variability in the response that can be explained or accounted for by the factor variable, and it is defined as SS(Treatment)/SS(Total). The higher <span class="math inline">\(R^2\)</span>, the larger the proportion of the total variation that is accounted for by the factor variable. However, either a high or low value of <span class="math inline">\(R^2\)</span> does not necessarily imply statistical significance.</p>
-<p>Based on the output, the observed value of the test statistic is <span class="math inline">\(F=4.034\)</span>. The p-value is <span class="math inline">\(.037\)</span>. Since p-value<span class="math inline">\(\leq\alpha=.10\)</span>, we have significant evidence to reject <span class="math inline">\(H_0\)</span> at <span class="math inline">\(\alpha=.10\)</span>. Based on the size of the p-value, we may also say that there is strong evidence to reject <span class="math inline">\(H_0\)</span>. Note that by setting <span class="math inline">\(\alpha=.10\)</span>, it is conveyed to the reader that at most “some evidence” is needed to reject <span class="math inline">\(H_0\)</span> and support what is reflected in <span class="math inline">\(H_a\)</span>. Overall, at <span class="math inline">\(\alpha=.10\)</span>, light intensity has a significant effect on the survival of the larvae. Although the data provides some evidence that light intensity affects survival rates, we can not say if changes in light intensity causes changes in survival rates because the treatments (low, medium, and high light intensities) were not randomly assigned. Further, because the subjects were not randomly selected from some larger population, the findings that survival rates are affected by the strength of light intensity only applies to those subjects in the sample and not some larger population.</p>
+<p>The ordinary ANOVA gives <span class="math inline">\(F=4.034\)</span> and p approximately <span class="math inline">\(.037\)</span>. Under its assumptions, this would reject equality of the group means at <span class="math inline">\(\alpha=.10\)</span>. Here equal variance and normality are questionable, independent replication is unverified, and light is partly confounded with turbidity. Treat this as a nominal calculation illustrating ANOVA, rather than a validated causal conclusion.</p>
 <p>Recall that not all data assumptions are met (assumptions 3 and 4 are questionable). Welch’s F-test does not require assumption 4. We will assume assumption 3 is met for the data to illustrate Welch’s F-test. To carry out Welch’s F-test, we use <code>sfaov()</code> but with an additional argument of <code>welch=TRUE</code>:</p>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R code</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Video</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">Video</a></li>
 </ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
-<div>
-<details open=""><summary>Code</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span> </span>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span> </span>
 <span><span class="co"># The function will require the following information:</span></span>
 <span><span class="co"># y: Replace with 'Survival'.</span></span>
 <span><span class="co"># x: Replace with 'Light'.</span></span>
@@ -706,16 +753,15 @@ Note
 <span><span class="co">#&gt; ============== </span></span>
 <span><span class="co">#&gt; ANOVA Table </span></span>
 <span><span class="co">#&gt;              Df Sum Sq Mean Sq F value p-value</span></span>
-<span><span class="co">#&gt; Treatment 2.000  892.2  446.10   3.236   0.101</span></span>
+<span><span class="co">#&gt; Treatment 2.000  892.2  446.10   3.236 0.10081</span></span>
 <span><span class="co">#&gt; Error     7.037 1880.0  110.59                </span></span>
 <span><span class="co">#&gt; ============== </span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; R-squared=  0.475 </span></span>
+<span><span class="co">#&gt; R-squared=  0.322 </span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Note: The Df for the Error component, F value and p-value provided are for Welch's F-test</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell quarto-layout-panel">
+<span><span class="co">#&gt; Note: The Df for the Error component, F value and p-value provided are for Welch's F-test</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell quarto-layout-panel" data-layout-ncol="1" data-layout-align="center">
 
-</div>
 </div>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
@@ -731,27 +777,27 @@ Note
 </div>
 </div>
 </div>
-<p>The <code>sfaov()</code> output is nearly identical when using <code>sfaov()</code> to conduct the standard F-test but with the F value, p-value, and df(Treatment) corresponding to Welch’s F-test. The rest of the information is defined as before. Note that <span class="math inline">\(R^2\)</span> still has the same meaning, as do MS(Treatment) and MS(Error), and their computations are independent of Welch’s F-test.</p>
-<p>Note that Welch’s F-test provides <span class="math inline">\(F_w=4.034\)</span>, with a corresponding p-value of <span class="math inline">\(0.101\)</span>. Since p-value<span class="math inline">\(&gt;\alpha=.05\)</span>, we do not have significant evidence to reject <span class="math inline">\(H_0\)</span> at <span class="math inline">\(\alpha=.05\)</span>. The size of the p-value reflects that that there is very little evidence to reject <span class="math inline">\(H_0\)</span>. Overall, at <span class="math inline">\(\alpha=.05\)</span>, Welch’s F-test shows that there is not enough evidence to conclude that light intensity has a significant effect on the survival of the larvae.</p>
+<p>The <code>sfaov()</code> output is nearly identical when using <code>sfaov()</code> to conduct the standard F-test but with the F value, p-value, and denominator df(Error) corresponding to Welch’s F-test; the numerator df(Treatment) remains <span class="math inline">\(k-1\)</span>. The rest of the information is defined as before. Note that <span class="math inline">\(R^2\)</span> still has the same meaning, as do MS(Treatment) and MS(Error), and their computations are independent of Welch’s F-test.</p>
+<p>Welch’s ANOVA gives <span class="math inline">\(F_w=3.236\)</span>, numerator df = 2, denominator df approximately 7.037, and p approximately .10081. Since p <span class="math inline">\(&gt;\alpha=.10\)</span>, we fail to reject equality of the group means at the stated level. This does not establish equality. Welch’s method addresses unequal variances, but it does not resolve dependence, confounding, or uncertain small-sample normality.</p>
 </div>
 </div>
 </section><section id="kruskalwallis-test-single-factor-anova-for-ranks" class="level2" data-number="13.2"><h2 data-number="13.2" class="anchored" data-anchor-id="kruskalwallis-test-single-factor-anova-for-ranks">
 <span class="header-section-number">13.2</span> Kruskal–Wallis test (single-factor ANOVA for ranks)</h2>
-<p>Kruskal–Wallis test is sometimes referred to as a single-factor ANOVA for ranks. The Kruskal-Wallis test is similar to a single factor ANOVA test, but does not make assumptions about the normality and is useful when the data are ordinal (e.g.&nbsp;Likert item data). However, it does require that the distribution of the data under each factor level or group be roughly the same shape. It is a non-parametric test alternative to the F-test that tests whether there are significant differences between the medians of two or more treatments or groups.</p>
+<p>The Kruskal–Wallis test compares rank distributions across independent groups and does not require normality. It is useful for numerical or ordinal responses. Under a common-shape location-shift model, it can be interpreted as testing equality of group medians. With different shapes or spreads, rejection need not indicate different medians.</p>
 <p>Like ANOVA, it partitions the total variability in the data but when using the ranks of the data (not the data themselves). For the Kruskal–Wallis test, the hypotheses are</p>
 <p><span class="math inline">\(H_0: \eta_1= \cdots=\eta_k\)</span> (The median response is the same across all factor levels or treatments)<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
-<p><span class="math inline">\(H_a:\)</span> At least one treatment medians (<span class="math inline">\(\eta_1\)</span>, <span class="math inline">\(\eta_2\)</span>, …, or <span class="math inline">\(\eta_k\)</span>) is different from the rest (The median response is the not same across all factor levels or treatments)</p>
+<p><span class="math inline">\(H_a:\)</span> Not all group medians are equal, under the common-shape shift model.</p>
 <p>The Kruskal–Wallis test statistic is:</p>
 <p><span class="math display">\[H=\frac{MSranks(Treatment)\times (k-1)}{ (SSranks(Total))/(n-1)}\]</span></p>
-<p>Where MSranks(Treatment) denotes the mean of square treatment of the ranked data, and SSranks(Total) is the total sum of squares of the ranked data. Under <span class="math inline">\(H_0\)</span>, the null distribution of <span class="math inline">\(H\)</span> is a <span class="math inline">\(\chi^2\)</span>-distribution degree of freedom <span class="math inline">\(k-1\)</span>, and the null distribution is used to compute the p-value.</p>
+<p>Here MSranks(Treatment) is the between-group mean square of the ranks, and SSranks(Total) is their total sum of squares. The usual Kruskal–Wallis statistic includes an adjustment for tied ranks. Under the equal-distribution null, its reference distribution is approximately <span class="math inline">\(\chi^2\)</span> with <span class="math inline">\(k-1\)</span> degrees of freedom.</p>
 <p>The function <code>sfkw()</code><a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> obtains the information needed to conduct the Kruskal–Wallis test using the data.</p>
-<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
-R functions
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>R functions
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -759,20 +805,20 @@ R functions
 #</code></pre>
 </div>
 </div>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Here, we apply the Kruskal–Wallis test to the data described in the case study provided in <a href="datacs.html"><span>Chapter&nbsp;1</span></a> to determine if light intensities have a significant effect on survival rates of early-state Delta smelt larvae. Recall that <code>Light</code> and <code>Survival</code> are the variables of interest, and that there are three levels of light intensity: 4.5 (low), 6.75 (medium), and 9 (high). Our aim here is to determine whether light intensity has a significant effect on the survival of the larvae at <span class="math inline">\(\alpha=.10\)</span> using the Kruskal–Wallis test.</p>
-<p>The data was imported and data assumptions were assessed when the F-test was applied in the previous section. Below we examine the medians and further explore the distribution of the data.</p>
+<p>We illustrate the Kruskal–Wallis comparison of survival distributions among the three light groups at <span class="math inline">\(\alpha=.10\)</span>. The analysis is conditional on independent observations; it cannot separate light from turbidity in these records.</p>
+<p>The data were imported and data assumptions were assessed when the F-test was applied in the previous section. Below we examine the medians and further explore the distribution of the data.</p>
 <div class="cell" data-layout-align="center">
-<details open=""><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://lattice.r-forge.r-project.org/">lattice</a></span><span class="op">)</span> <span class="co"># provides the bwplot() function</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lattice.r-forge.r-project.org/">lattice</a></span><span class="op">)</span> <span class="co"># provides the bwplot() function</span></span>
 <span></span>
 <span><span class="co"># Create violin boxplot</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">bwplot</a></span><span class="op">(</span> <span class="va">Survival</span> <span class="op">~</span> <span class="va">Light</span> , </span>
@@ -781,14 +827,14 @@ Note
 <span>     ylab<span class="op">=</span> <span class="st">"Survival"</span> ,</span>
 <span>     main<span class="op">=</span> <span class="st">"Survival vs Light intensity"</span> , </span>
 <span>     panel<span class="op">=</span> <span class="va">panel.violin</span>, </span>
-<span>     ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">120</span><span class="op">)</span> <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>     ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">120</span><span class="op">)</span> <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="anova_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="anova_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<details open=""><summary>Code</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
 <span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span> <span class="va"><a href="https://github.com/ProjectMOSAIC/mosaic">mosaic</a></span> <span class="op">)</span> <span class="co"># allows formula expression in median and iqr</span></span>
 <span></span>
@@ -800,22 +846,21 @@ Note
 <span><span class="fu"><a href="https://www.mosaic-web.org/mosaic/reference/aggregating.html">iqr</a></span><span class="op">(</span> <span class="va">Survival</span> <span class="op">~</span> <span class="va">Light</span> , </span>
 <span>     data<span class="op">=</span> <span class="va">survdf</span> <span class="op">)</span></span>
 <span><span class="co">#&gt;    high     low     med </span></span>
-<span><span class="co">#&gt;  6.2400  9.7375 16.3225</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt;  6.2400  9.7375 16.3225</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<p>The difference in samples medians under intensity level 6.75 differs from intensity levels 4.5 and 9. The violin plots suggest that the data under each treatment do not all follow the same distribution. This means we can not assess if the medians under each treatment differ but we formulate the hypothesis in terms of the mean of the ranks:</p>
+<p>The difference in samples medians under intensity level 6.75 differs from intensity levels 4.5 and 9. The violin plots suggest that the data under each treatment do not all follow the same distribution. This means we cannot assess if the medians under each treatment differ but we formulate the hypothesis in terms of the mean of the ranks:</p>
 <p><span class="math inline">\(H_0:\)</span> The mean ranks of survival under each light intensity are the same</p>
 <p><span class="math inline">\(H_a:\)</span> Not all the mean ranks of survival under each light intensity are the same</p>
 <p>The following code uses <code>sfkw()</code> to compute the test statistic and the corresponding p-value for the Kruskal–Wallis test:</p>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">R code</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Video</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">Video</a></li>
 </ul>
 <div class="tab-content">
 <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
-<div>
-<details open=""><summary>Code</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Source the function so that it's R's memory.</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Source the function so that it's R's memory.</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"rfuns/sfkw.R"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># The function will require the following information:</span></span>
@@ -829,25 +874,22 @@ Note
 <span><span class="co">#&gt; data:  Survival ~ Light </span></span>
 <span><span class="co">#&gt; ============== </span></span>
 <span><span class="co">#&gt; Kruskal-Wallis test statistic=  5.668 </span></span>
-<span><span class="co">#&gt; p-value=  0.059 </span></span>
-<span><span class="co">#&gt; Null distribition is chi-squared with df=  2 </span></span>
+<span><span class="co">#&gt; p-value=  0.05878 </span></span>
+<span><span class="co">#&gt; Approximate null distribution is chi-squared with df=  2 </span></span>
 <span><span class="co">#&gt; ============== </span></span>
 <span><span class="co">#&gt;  </span></span>
-<span><span class="co">#&gt; Eta-squared=  0.2157563</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell quarto-layout-panel">
+<span><span class="co">#&gt; Eta-squared=  0.2157563</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell quarto-layout-panel" data-layout-ncol="1" data-layout-align="center">
 
-</div>
 </div>
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
-<div class="cell" data-layout-align="center">
 
-</div>
 </div>
 </div>
 </div>
 <p>The output provides the Kruskal-Wallis test statistic and corresponding p-value. The output also provides a measure akin coefficient of determination in traditional ANOVA called rank Eta or eta-squared. The measure eta-squared is appropriate for when the data are ranks, and it provides the proportion of the total variation in the response variable that is explained by the explanatory variable. Again, Eta-squared can be considered a non-parametric analogue to <span class="math inline">\(R^2\)</span>.</p>
-<p>Based on the output, the observed value of the test statistic is <span class="math inline">\(H=5.668\)</span>. The p-value is <span class="math inline">\(0.059\)</span>. Since p-value<span class="math inline">\(\leq\alpha=.10\)</span>, we have have significant evidence to reject <span class="math inline">\(H_0\)</span> at <span class="math inline">\(\alpha=.10\)</span>. Note that the size of the p-value suggests there is some moderate evidence to reject <span class="math inline">\(H_0\)</span>. Overall, at <span class="math inline">\(\alpha=.10\)</span>, light intensity has a significant effect on the survival of the larvae (in terms of mean ranks of survival rates).</p>
+<p>The nominal rank statistic is <span class="math inline">\(H=5.668\)</span>, with p approximately .05878. Under its assumptions, this rejects equal group distributions at <span class="math inline">\(\alpha=.10\)</span>. Because the group shapes differ, this need not reflect different medians. Dependence and light–turbidity confounding still limit substantive interpretation.</p>
 </div>
 </div>
 </section><section id="multiple-comparisons" class="level2" data-number="13.3"><h2 data-number="13.3" class="anchored" data-anchor-id="multiple-comparisons">
@@ -863,44 +905,44 @@ Note
 <span class="header-section-number">13.3.1</span> Tukey’s HSD method</h3>
 <p>In ANOVA, the most common method for multiple comparisons is called Tukey’s Honest Significant Difference (HSD) method. Tukey’s HSD method is used in single-factor ANOVA, and it adjusts the p-value or confidence level for each pairwise comparison to control the FWER for all possible pairwise comparisons, rather than for individual comparisons.</p>
 <p>Recall that the function <code>sfaov()</code> can be used to conduct single-factor ANOVA. This function can also then conduct Tukey’s HSD method to adjust the p-values or confidence intervals for all pairwise comparisons among group or treatment means.</p>
-<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
-R functions
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>R functions
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <pre><code>### sfaov( y ~ x , data , PWC, conf.level )
-# PWC: Set equal to true to conduct all pairwise comparisions using
+# PWC: Set equal to true to conduct all pairwise comparisons using
 #   Tukey's HSD method. Default is FALSE 
-# conf.level: Set equal to desired confidence level for all pairwise comparision. Default is .95
+# conf.level: Set equal to desired confidence level for all pairwise comparison. Default is .95
 # </code></pre>
 </div>
 </div>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Recall that we applied the ANOVA F-test to the data described in <a href="datacs.html"><span>Chapter&nbsp;1</span></a> and determined that light intensities have a significant effect on survival rates of early-stage Delta smelt larvae at <span class="math inline">\(\alpha=.10\)</span>. Thus, the mean survival rates under each intensity are not all the same, but it is not clear how they differ. To determine how they differ, we apply Tukey’s HSD method at <span class="math inline">\(\alpha=.10\)</span></p>
+<p>The ordinary ANOVA calculation rejected equality at <span class="math inline">\(\alpha=.10\)</span> under its model. To illustrate pairwise mean comparisons, we use Tukey’s HSD at the same family-wise level. The unverified independence, questionable common variance, and light–turbidity confounding still limit interpretation.</p>
 <p>The following code uses <code>sfaov()</code> to help conduct the ANOVA F-test and pairwise multiple comparisons using Tukey’s HSD method at <span class="math inline">\(\alpha=.10\)</span><a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>.</p>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">R code</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Video</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true" href="">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false" href="">Video</a></li>
 </ul>
 <div class="tab-content">
 <div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
 <div class="cell" data-layout-align="center">
-<details open=""><summary>Code</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Source the function so that it's R's memory.</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Source the function so that it's R's memory.</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"rfuns/sfaov.R"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># The function will require the following information:</span></span>
@@ -918,12 +960,12 @@ Note
 <span><span class="co">#&gt; data:  Survival ~ Light </span></span>
 <span><span class="co">#&gt; ============== </span></span>
 <span><span class="co">#&gt; ANOVA Table </span></span>
-<span><span class="co">#&gt;           Df Sum Sq Mean Sq F value p-value</span></span>
-<span><span class="co">#&gt; Treatment  2  892.2  446.10   4.034   0.037</span></span>
-<span><span class="co">#&gt; Error     17 1880.0  110.59                </span></span>
+<span><span class="co">#&gt;           Df Sum Sq Mean Sq F value  p-value</span></span>
+<span><span class="co">#&gt; Treatment  2  892.2  446.10   4.034 0.036839</span></span>
+<span><span class="co">#&gt; Error     17 1880.0  110.59                 </span></span>
 <span><span class="co">#&gt; ============== </span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; R-squared=  0.475 </span></span>
+<span><span class="co">#&gt; R-squared=  0.322 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Sample group means: high-58.18  low-59.61  med-75.52  </span></span>
@@ -932,7 +974,7 @@ Note
 <span><span class="co">#&gt;              diff        lwr      upr      p adj</span></span>
 <span><span class="co">#&gt; low-high  1.42125 -10.142221 12.98472 0.96061638</span></span>
 <span><span class="co">#&gt; med-high 17.33250   3.170198 31.49480 0.03898149</span></span>
-<span><span class="co">#&gt; med-low  15.91125   1.748948 30.07355 0.06006956</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; med-low  15.91125   1.748948 30.07355 0.06006956</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </div>
@@ -955,45 +997,45 @@ Note
 </section><section id="games-howell-test" class="level3" data-number="13.3.2"><h3 data-number="13.3.2" class="anchored" data-anchor-id="games-howell-test">
 <span class="header-section-number">13.3.2</span> Games-Howell test</h3>
 <p>The Games-Howell test is a method for performing pairwise multiple comparisons when using Welch’s F-test. This test is somewhat similar to Tukey’s HSD method. Recall that the function <code>sfaov()</code> can be used to conduct Welch’s F-test. This function can also then conduct the Games-Howell test to adjust the p-values or confidence intervals for all pairwise comparisons among group or treatment means.</p>
-<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
-R functions
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>R functions
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <pre><code>### sfaov( y ~ x , data , PWC, conf.level, welch )
-# PWC: Set equal to true to conduct all pairwise comparisions using
+# PWC: Set equal to true to conduct all pairwise comparisons using
 #      Tukey's HSD method. Default is FALSE.
-# conf.level: Set equal to desired confidence level for all pairwise comparision. Default is .95.
+# conf.level: Set equal to desired confidence level for all pairwise comparison. Default is .95.
 # welch: Set equal to TRUE for Welch's F-test.
 #</code></pre>
 </div>
 </div>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Recall that we applied the Welch’s F-test to the data described in <a href="datacs.html"><span>Chapter&nbsp;1</span></a> and it was determined that light intensities did not have a significant effect on survival rates of early-stage Delta smelt larvae at <span class="math inline">\(\alpha=.10\)</span>. Thus, the data did not provide enough evidence to conclude that survival rates under each intensity are different. However, to illustrate the procedure in R, we perform multiple pairwise comparisons using the Games-Howell test at <span class="math inline">\(\alpha=.10\)</span>.</p>
+<p>Welch’s ANOVA failed to reject equality of means at <span class="math inline">\(\alpha=.10\)</span>. This does not establish that the groups have equal means. We illustrate Games–Howell pairwise comparisons with 90% simultaneous intervals, subject to the same design limitations.</p>
 <p>The following code uses <code>sfaov()</code> to conduct the Welch’s F-test and all pairwise multiple comparisons using the Games-Howell test at <span class="math inline">\(\alpha=.10\)</span>:</p>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">R code</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Video</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true" href="">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false" href="">Video</a></li>
 </ul>
 <div class="tab-content">
 <div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
 <div class="cell" data-layout-align="center">
-<details open=""><summary>Code</summary><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Source the function so that it's in R's memory.</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Source the function so that it's in R's memory.</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"rfuns/sfaov.R"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># The function will require the following information:</span></span>
@@ -1014,21 +1056,21 @@ Note
 <span><span class="co">#&gt; ============== </span></span>
 <span><span class="co">#&gt; ANOVA Table </span></span>
 <span><span class="co">#&gt;              Df Sum Sq Mean Sq F value p-value</span></span>
-<span><span class="co">#&gt; Treatment 2.000  892.2  446.10   3.236   0.101</span></span>
+<span><span class="co">#&gt; Treatment 2.000  892.2  446.10   3.236 0.10081</span></span>
 <span><span class="co">#&gt; Error     7.037 1880.0  110.59                </span></span>
 <span><span class="co">#&gt; ============== </span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; R-squared=  0.475 </span></span>
+<span><span class="co">#&gt; R-squared=  0.322 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Note: The Df for the Error component, F value and p-value provided are for Welch's F-test </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Sample group means: high-58.18  low-59.61  med-75.52  </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Games-Howell multiple comparisons of means </span></span>
-<span><span class="co">#&gt;       groups    diff    lwr     upr  p adj</span></span>
-<span><span class="co">#&gt; 1 low : high   1.421 15.222 -12.380  0.958</span></span>
-<span><span class="co">#&gt; 2  low : med -15.911  7.067 -38.889  0.168</span></span>
-<span><span class="co">#&gt; 3 high : med -17.332  6.385 -41.050  0.120</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt;       groups      diff       lwr       upr     p adj</span></span>
+<span><span class="co">#&gt; 1 low : high   1.42125 -10.23181 13.074308 0.9575207</span></span>
+<span><span class="co">#&gt; 2  low : med -15.91125 -34.83432  3.011821 0.1680024</span></span>
+<span><span class="co">#&gt; 3 high : med -17.33250 -35.93898  1.273985 0.1203842</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </div>
@@ -1050,43 +1092,43 @@ Note
 </div>
 </section><section id="dunn-test" class="level3" data-number="13.3.3"><h3 data-number="13.3.3" class="anchored" data-anchor-id="dunn-test">
 <span class="header-section-number">13.3.3</span> Dunn test</h3>
-<p>A common multiple pairwise comparisons method to compliment the Kruskal-Wallis test is Dunn’s test with Holm’s correction. Holm’s correction is what is called a step-down method that adjusts the p-values all pairwise comparisons among group or treatment means to account for multiple testing. Recall that the function <code>sfkw()</code> can be used to conduct the Kruskal–Wallis test. This function can also then conduct the Dunn’s test with Holm’s correction to adjust the p-values for all pairwise comparisons among group or treatment means<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>.</p>
-<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<p>Dunn’s test compares group mean ranks. Holm’s correction adjusts the collection of pairwise p-values to control the family-wise Type I error rate under valid test assumptions. The <code>sfkw()</code> function provides these comparisons after the Kruskal–Wallis calculation<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
-R functions
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>R functions
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <pre><code>### sfkw( y ~ x , data , PWC )
-# PWC: Set equal to true to conduct all pairwise comparisions using
+# PWC: Set equal to true to conduct all pairwise comparisons using
 #      Tukey's HSD method. Default is FALSE 
 #</code></pre>
 </div>
 </div>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Recall that we applied the Kruskal-Wallis test to the data described in <a href="datacs.html"><span>Chapter&nbsp;1</span></a> and determined that light intensities did have an significant effect on survival rates of early-stage Delta smelt larvae at <span class="math inline">\(\alpha=.10\)</span>. The following code uses <code>sfkw()</code> to help conduct the Kruskal-Wallis test and all pairwise multiple comparisons using Dunn’s method with Holm’s correction at <span class="math inline">\(\alpha=.10\)</span>:</p>
-<div class="panel-tabset">
+<p>The nominal Kruskal–Wallis calculation rejected equal distributions at <span class="math inline">\(\alpha=.10\)</span>. The following Dunn–Holm comparisons illustrate differences in mean ranks, conditional on valid independent-observation assumptions. They do not isolate a causal effect of light.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">R code</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Video</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true" href="">R code</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false" href="">Video</a></li>
 </ul>
 <div class="tab-content">
 <div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
 <div class="cell" data-layout-align="center">
-<details open=""><summary>Code</summary><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Source the function so that it's in R's memory.</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Source the function so that it's in R's memory.</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"rfuns/sfkw.R"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># The function will require the following information:</span></span>
@@ -1102,18 +1144,17 @@ Note
 <span><span class="co">#&gt; data:  Survival ~ Light </span></span>
 <span><span class="co">#&gt; ============== </span></span>
 <span><span class="co">#&gt; Kruskal-Wallis test statistic=  5.668 </span></span>
-<span><span class="co">#&gt; p-value=  0.059 </span></span>
-<span><span class="co">#&gt; Null distribition is chi-squared with df=  2 </span></span>
+<span><span class="co">#&gt; p-value=  0.05878 </span></span>
+<span><span class="co">#&gt; Approximate null distribution is chi-squared with df=  2 </span></span>
 <span><span class="co">#&gt; ============== </span></span>
 <span><span class="co">#&gt;  </span></span>
-<span><span class="co">#&gt; Eta-squared=  0.2157563 </span></span>
+<span><span class="co">#&gt; Eta-squared=  0.2157563</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Sample group medians: high-58.72  low-56.42  med-75.525  </span></span>
-<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Sample group medians: high-58.72  low-56.42  med-75.525</span></span>
 <span><span class="co">#&gt;   Comparison         Z    P.unadj      P.adj</span></span>
 <span><span class="co">#&gt; 1 high - low  0.295804 0.76737978 0.76737978</span></span>
 <span><span class="co">#&gt; 2 high - med -2.035693 0.04178115 0.08356230</span></span>
-<span><span class="co">#&gt; 3  low - med -2.277216 0.02277331 0.06831993</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 3  low - med -2.277216 0.02277331 0.06831993</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </div>
@@ -1135,15 +1176,15 @@ Note
 </div>
 </section></section><section id="sample-size-estimation-and-power-analysis-for-anova" class="level2" data-number="13.4"><h2 data-number="13.4" class="anchored" data-anchor-id="sample-size-estimation-and-power-analysis-for-anova">
 <span class="header-section-number">13.4</span> Sample size estimation and power analysis for ANOVA</h2>
-<p>Ideally, estimating the sample size for a study is one of the first things that researchers do prior to collecting data. Knowing the required sample size to detect a desired effect at the beginning of a project allows one to manage their data collection efforts. Furthermore, this allows for one to determine how much statistical power the test will have to detect an effect if it exist.</p>
-<p>The R function <code><a href="https://rdrr.io/pkg/pwr/man/pwr.anova.test.html">pwr.anova.test()</a></code> from the <code>pwr</code> R package calculates statistical power for a balanced single-factor ANOVA, given the sample size, significant level (<span class="math inline">\(\alpha\)</span>), and effect size. Note that all treatments are assumed to have the same number of observations, which is known as a “balanced” design. It is assumed that the appropriate assumptions about the data are met<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>.</p>
-<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<p>Ideally, estimating the sample size for a study is one of the first things that researchers do prior to collecting data. Knowing the required sample size to detect a desired effect at the beginning of a project allows one to manage their data collection efforts. Furthermore, this allows for one to determine how much statistical power the test will have to detect an effect if it exists.</p>
+<p>The R function <code><a href="https://rdrr.io/pkg/pwr/man/pwr.anova.test.html">pwr.anova.test()</a></code> from the <code>pwr</code> R package calculates statistical power for a balanced single-factor ANOVA, given the sample size, significance level (<span class="math inline">\(\alpha\)</span>), and effect size. Note that all treatments are assumed to have the same number of observations, which is known as a “balanced” design. It is assumed that the appropriate assumptions about the data are met<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
-R functions
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>R functions
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1157,26 +1198,26 @@ R functions
 #</code></pre>
 </div>
 </div>
-<p>The effect size refers to Cohen’s <span class="math inline">\(f\)</span>, which is defined as the standard deviation of the k treatment means divided by standard deviation (across all groups). Cohen’s f is typically interpreted as follows:</p>
+<p>Cohen’s <span class="math inline">\(f\)</span> is the root-mean-square deviation of treatment means from their weighted overall mean, divided by the common <strong>within-group</strong> standard deviation. For equally sized groups, <span class="math inline">\(f=\sqrt{\sum_{i=1}^k(\mu_i-\bar{\mu})^2/k}/\sigma\)</span>. It does not use the standard deviation of all pooled observations as its denominator. Conventional benchmarks follow:</p>
 <ul>
 <li><p>Small effect size: <span class="math inline">\(f = 0.10\)</span></p></li>
 <li><p>Medium effect size: <span class="math inline">\(f = 0.25\)</span></p></li>
 <li><p>Large effect size: <span class="math inline">\(f = 0.40\)</span> or higher.</p></li>
 </ul>
 <p>These are suggested guidelines and may vary slightly depending on the specific field of research or context of the study.</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>Suppose we want to determine the statistical power to detect a medium-sized effect assuming five observations per group and at significance level of <span class="math inline">\(\alpha=.01\)</span> and <span class="math inline">\(\alpha=.10\)</span>. Recall that there are three groups:</p>
 <div class="cell" data-layout-align="center">
-<details open=""><summary>Code</summary><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load the "pwr" package</span></span>
+<details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load the "pwr" package</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/heliosdrm/pwr">pwr</a></span><span class="op">)</span> <span class="co"># Provides pwr.anova.test</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/pwr/man/pwr.anova.test.html">pwr.anova.test</a></span><span class="op">(</span>k <span class="op">=</span> <span class="fl">3</span> , </span>
@@ -1192,7 +1233,7 @@ Note
 <span><span class="co">#&gt;       sig.level = 0.01</span></span>
 <span><span class="co">#&gt;           power = 0.02811243</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; NOTE: n is number in each group</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; NOTE: n is number in each group</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <p>The statistical power of this test is low. To increase the power, one may increase the effect size (the larger it is, the easier it is to detect), increase <span class="math inline">\(\alpha\)</span> (make it easier to reject <span class="math inline">\(H_0\)</span> and find a significant effect), and/or increase the number of observations per group.</p>
@@ -1200,120 +1241,423 @@ Note
 </div>
 
 
-</section><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
 <ol>
-<li id="fn1" role="doc-endnote"><p>The MST is also commonly referred to as the mean square between groups (MSG).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>The formulation of Welch’s F-test for single-factor ANOVA is much more complicated but a weighted ratio of mean squares is the basic idea.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3" role="doc-endnote"><p><code>sfaov()</code> is a wrapper function for <code><a href="https://rdrr.io/r/stats/aov.html">aov()</a></code>, <code><a href="https://rdrr.io/r/stats/oneway.test.html">oneway.test()</a></code>, and <code><a href="https://rdrr.io/r/stats/TukeyHSD.html">TukeyHSD()</a></code> and it incorporates additional options. A wrapper function is a function that calls another function or a set of functions to simplify or extend tasks<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4" role="doc-endnote"><p>SS(Treatment) refers to the sum of squares Treatment. The rest of table elements are defined in an analogous manner for the SS, df, and MS. SS(Total) is a measure of the total variation in the data, ignoring the groups or treatments. The sum of squares treatment or SS(Treatment) measures how far the individual sample means are from the overall sample mean, and the sum of squares error or SS(Error) measures how far observations are from the sample mean of its group.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5" role="doc-endnote"><p>If the data distribution under each treatment does not follow the same shape, this test may still be used but it will longer be testing differences in true medians, but rather differences in true means ranks so interpretation becomes more troublesome, but nevertheless can show there the groups are different using this measure.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6" role="doc-endnote"><p><code>sfkw()</code> is a wrapper function for <code><a href="https://rdrr.io/r/stats/kruskal.test.html">kruskal.test()</a></code> but it incorporates additional options.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn7" role="doc-endnote"><p>Significance or <span class="math inline">\(\alpha\)</span> level equals one minus the confidence level. For example, if <span class="math inline">\(\alpha=.05\)</span>, the corresponding confidence level is <span class="math inline">\(1-\alpha=1-.05=.95\)</span>.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn8" role="doc-endnote"><p>The aim of Dunn’s test is to provide a set of p-values that represent the probability of observing the observed difference in median ranks between two groups by chance alone. Since Dunn’s test does not rely on any distributional assumptions like Welch’s F-test or the standard F-test, it is not possible to calculate confidence intervals for the differences between the groups.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn9" role="doc-endnote"><p>There are R functions to compute for the Kruskal-Wallis test or Welch’s F-test, these functions may be difficult to use for those not familiar with power analysis.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>The MST is also commonly referred to as the mean square between groups (MSG).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>The exact calculation used here is implemented by R’s <code>oneway.test(..., var.equal=FALSE)</code>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><code>sfaov()</code> is a wrapper function for <code><a href="https://rdrr.io/r/stats/aov.html">aov()</a></code>, <code><a href="https://rdrr.io/r/stats/oneway.test.html">oneway.test()</a></code>, and <code><a href="https://rdrr.io/r/stats/TukeyHSD.html">TukeyHSD()</a></code> and it incorporates additional options. A wrapper function is a function that calls another function or a set of functions to simplify or extend tasks<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>SS(Treatment) refers to the sum of squares Treatment. The rest of table elements are defined in an analogous manner for the SS, df, and MS. SS(Total) is a measure of the total variation in the data, ignoring the groups or treatments. The sum of squares treatment or SS(Treatment) measures how far the individual sample means are from the overall sample mean, and the sum of squares error or SS(Error) measures how far observations are from the sample mean of its group.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Without a common-shape shift model, formulate the null as equal group distributions and interpret rejection as evidence of a distributional difference.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p><code>sfkw()</code> is a wrapper function for <code><a href="https://rdrr.io/r/stats/kruskal.test.html">kruskal.test()</a></code> but it incorporates additional options.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Significance or <span class="math inline">\(\alpha\)</span> level equals one minus the confidence level. For example, if <span class="math inline">\(\alpha=.05\)</span>, the corresponding confidence level is <span class="math inline">\(1-\alpha=1-.05=.95\)</span>.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>Dunn’s p-values describe the extremeness of rank differences under the null model, not the probability that a difference occurred “by chance.” The wrapper reports adjusted p-values, not confidence intervals.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>There are R functions to compute for the Kruskal-Wallis test or Welch’s F-test, these functions may be difficult to use for those not familiar with power analysis.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
-    }
-  });
-  clipboard.on('success', function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    setTimeout(function() {
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  });
-  function tippyHover(el, contentFn) {
-    const config = {
-      allowHTML: true,
-      content: contentFn,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start'
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
     };
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      return note.innerHTML;
-    });
-  }
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
         }
-        popup.appendChild(citeDiv);
-      });
-      return popup.innerHTML;
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
     });
-  }
-});
-</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./anovalin.html" class="pagination-link">
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/emontoya2\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./anovalin.html" class="pagination-link" aria-label="Module: ANOVA, linear regression, and logistic regression">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Module: ANOVA, linear regression, and logistic regression</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./lr.html" class="pagination-link">
+      <a href="./lr.html" class="pagination-link" aria-label="Simple linear regression">
         <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Simple linear regression</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -1322,4 +1666,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/emontoya2/edit/master/anova.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>

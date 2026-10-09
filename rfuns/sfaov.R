@@ -27,7 +27,7 @@ sfaov <- function(formula,   data, PWC = FALSE, welch= FALSE, conf.level= .95){
   #SSR <- round(aovfit$`Sum Sq`[2],3)
   #MSR <- round(aovfit$`Mean Sq`[1],3)
   #MSE <- round(aovfit$`Mean Sq`[2],3)
-  pvalue<- round(aovfit[[1]]$`Pr(>F)`[1] ,3)
+  pvalue<- aovfit[[1]]$`Pr(>F)`[1]
   obs.teststat <- round( aovfit[[1]]$`F value`[1],3)
   dfMST <-  aovfit[[1]]$Df[2]
   
@@ -35,7 +35,7 @@ sfaov <- function(formula,   data, PWC = FALSE, welch= FALSE, conf.level= .95){
     welchaovfit<- oneway.test( resp  ~  pred, var.equal = var.equal)
     obs.teststat <-  round(welchaovfit$statistic,3)
     dfMST <- round(welchaovfit$parameter[2],3)
-    pvalue <- round(welchaovfit$p.value,3)
+    pvalue <- welchaovfit$p.value
   }  
   
  
@@ -59,7 +59,7 @@ sfaov <- function(formula,   data, PWC = FALSE, welch= FALSE, conf.level= .95){
   
   
   aovfit2 <- aovfit# round(as.data.frame(aovfit),2)
-  aovfit2[[1]]$`Pr(>F)`[1]<- c(round(pvalue,3))	
+  aovfit2[[1]]$`Pr(>F)`[1]<- pvalue
   names(aovfit2[[1]]) <- c(names(aovfit2[[1]])[1:4], "p-value")
   aovfit2[[1]]$Df[2] <- dfMST
   aovfit2[[1]]$`F value`[1] <-  obs.teststat
@@ -77,7 +77,7 @@ sfaov <- function(formula,   data, PWC = FALSE, welch= FALSE, conf.level= .95){
   
   
   SumSqs <- aovfit[[1]]$`Sum Sq`
-  rsqrd <- round(SumSqs[1]/SumSqs[2],3)
+  rsqrd <- round(SumSqs[1]/sum(SumSqs),3)
   
   cat("R-squared= ", rsqrd, "\n")
   cat("\n")
@@ -116,8 +116,8 @@ sfaov <- function(formula,   data, PWC = FALSE, welch= FALSE, conf.level= .95){
       
       cat("Games-Howell multiple comparisons of means", "\n")
       
-      ghresult <- games.howell(grp=pred, obs=resp)
-      ghresult2 <- ghresult[, c(1,2, 7,8, 6)]
+      ghresult <- games.howell(grp=pred, obs=resp, conf.level=conf.level)
+      ghresult2 <- ghresult[, c(1,2, 8,7, 6)]
       names(ghresult2)[2:5] <- c("diff", "lwr", "upr", " p adj")
       ghresult2 <- as.data.frame(ghresult2)
       print(ghresult2 )
@@ -132,7 +132,11 @@ sfaov <- function(formula,   data, PWC = FALSE, welch= FALSE, conf.level= .95){
   
  
 # source: https://gist.github.com/aschleg/ea7942efc6108aedfa9ec98aeb6c2096
-games.howell <- function(grp, obs) {
+games.howell <- function(grp, obs, conf.level=.95) {
+  if (length(conf.level) != 1L || !is.finite(conf.level) ||
+      conf.level <= 0 || conf.level >= 1)
+    stop("conf.level must be between 0 and 1")
+
   
   #Create combinations
   combs <- combn(unique(grp), 2)
@@ -167,12 +171,12 @@ games.howell <- function(grp, obs) {
     
     # Upper Confidence Limit
     upper.conf <- lapply(1:ncol(combs), function(x) {
-      mean.diff + qtukey(p = 0.95, nmeans = groups, df = df) * se
+      mean.diff + qtukey(p = conf.level, nmeans = groups, df = df) * se
     })[[1]]
     
     # Lower Confidence Limit
     lower.conf <- lapply(1:ncol(combs), function(x) {
-      mean.diff - qtukey(p = 0.95, nmeans = groups, df = df) * se
+      mean.diff - qtukey(p = conf.level, nmeans = groups, df = df) * se
     })[[1]]
     
     # Group Combinations
@@ -191,7 +195,7 @@ games.howell <- function(grp, obs) {
   results <- data.frame(matrix(unlist(stats.unlisted), nrow = length(stats.unlisted), byrow=TRUE))
   
   # Select columns set as factors that should be numeric and change with as.numeric
-  results[c(2, 3:ncol(results))] <- round(as.numeric(as.matrix(results[c(2, 3:ncol(results))])), digits = 3)
+  results[2:ncol(results)] <- lapply(results[2:ncol(results)], as.numeric)
   
   # Rename data frame columns
   colnames(results) <- c('groups', 'Mean Difference', 'Standard Error', 't', 'df', 'p', 'upper limit', 'lower limit')

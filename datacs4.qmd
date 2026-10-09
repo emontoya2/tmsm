@@ -17,7 +17,7 @@ editor_options:
 knitr::include_graphics("images/casestudy/bmiob.jpg")
 ```
 
-Motivated by the work of   @ncd2019rising, a case study by @Wright2020 explored global patterns of obesity across different regions.  The questions in their case study were related to the  association between Body mass index (BMI) rates with region (rural vs urban) and countries.  BMI may be considered a measurement of health, where BMI is defined as an individual’s weight divided by the individual’s height. The data used for the case study is described @ncd2019rising, where the data  consisted of the following variables:
+Motivated by @ncd2019rising, the case study by @Wright2020 explored global patterns of mean body mass index (BMI) across rural and urban regions and countries. BMI is a measure of weight relative to height, defined as weight in kilograms divided by height in meters **squared**: $\mathrm{BMI}=\mathrm{weight\ (kg)}/[\mathrm{height\ (m)}]^2$. It is a screening measure, not a complete measure of an individual's health. The data described by @ncd2019rising contain the following variables:
 
 - Country: Countries in the sample
 
@@ -29,7 +29,7 @@ Motivated by the work of   @ncd2019rising, a case study by @Wright2020 explored 
 
 - BMI: Averaged BMI values for the given year, sex, region, and country.
 
-We use the data to assess if BMI rates for urban and rural differ.   The data are shown in table below.
+We use the data to explore whether mean BMI differs between urban and rural regions. The data are shown in the table below.
 
 ```{r, BMIcasestudydata }
 #| echo: false
@@ -70,14 +70,14 @@ Numerical and graphical summaries of the BMI under different regions are provide
 #| warning: false
 library(lattice)
  
-bwplot( BMI ~ Region, data=bmidf, ylab=list(label="BMI rates", cex=1.2), 
+bwplot( BMI ~ Region, data=bmidf, ylab=list(label="mean BMI", cex=1.2),
           scales=list(tck=c(1,0), x=list(cex=1.2), y=list(cex=1.2)))
  
 ```
 
 ```{r }
 #| label: tbl-bmisums
-#| tbl-cap: "A comparison of the mean and standard deviation of BMI rates for each region"
+#| tbl-cap: "A comparison of the mean and standard deviation of mean BMI for each region"
 #| echo: false
 #| eval: true
 #| message: false
@@ -109,11 +109,11 @@ bmidf %>%
 
 ```
   
-The graphical and numerical summaries show that the BMI rates for urban areas tend to be higher in the sample.    However, are the samples means different enough to suggest that BMI rates are affected by region?   Using statistical methods to be addressed later, the data provides convincing  evidence that region affects BMI rates (p-value $<$ 0)
+The summaries suggest higher mean BMI in urban regions in these records. These are aggregate estimates by country, sex, region, and year, rather than individual BMI measurements. Urban and rural estimates within the same country, sex, and year form matched comparisons. An inferential analysis should account for this structure and the uncertainty in the aggregate estimates; no p-value is asserted here without such an analysis.
 
 ### Scope of inference {-}
   
 
-This case study make use of observational data, which provided convincing evidence that there is an association between BMI rates with both region and sex. The sample were not randomly selected, so these conclusions only apply to the men and women in the  sampled countries.  
+This observational case study describes associations among mean BMI, region, and sex in the countries and years represented. It does not establish that region causes changes in BMI. Generalization and inferential uncertainty depend on the original estimation and sampling methods.
 
- 
+

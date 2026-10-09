@@ -6,13 +6,13 @@ editor_options:
 
 # Some basic tasks in R {#sec-appendix-basicsR}
 
-These section covers importing data into R and some basic R functions.
+This section covers importing data into R and some basic R functions.
 
 ## Importing data {#sec-importdata}
 
 ###   .csv and .xlsx files {-}
 
-For importing data, it is assumed the data are stored in a .csv file as described in @sec-csv. To import .csv files, the function `read.csv()` is used and this function comes with R. Note that if your data are stored in an excel sheet (.xlsx), the function `read.csv()` can be replaced with `read.xlsx`. This functions is from the `openxlsx` package. If your excel sheet is a *.xls* file, convert it using excel to *.xlsx*. Installation of R packages are discussed later in this section.
+For importing data, it is assumed the data are stored in a .csv file as described in @sec-csv. To import .csv files, the function `read.csv()` is used and this function comes with R. Note that if your data are stored in an Excel sheet (.xlsx), the function `read.csv()` can be replaced with `read.xlsx`. This function is from the `openxlsx` package. If your excel sheet is a *.xls* file, convert it using excel to *.xlsx*. Installation of R packages are discussed later in this section.
 
 
 ####  Importing data via a URL {-} 
@@ -29,9 +29,9 @@ mlbDataImport = read.csv( "http://www.csub.edu/~emontoya2/datasets/mlb2010.csv" 
 
 ```
 
-Note that `read.csv()` reads in the data into R and we are assigning the resulting data set to an object called `mlbDataImport`.  Since this object consist of the dataset, such objects are called a  *data frame*.  A data frame is the most common way of storing data in R. For our purpose, the term dataframe and data set will be used interchangeably.  Note that the `mlbDataImport` data frame should now appear under the "Environment tab". 
+Note that `read.csv()` reads in the data into R and we are assigning the resulting data set to an object called `mlbDataImport`.  Since this object consist of the dataset, such objects are called a  *data frame*.  A data frame is the most common way of storing data in R. For our purpose, the term data frame and data set will be used interchangeably.  Note that the `mlbDataImport` data frame should now appear under the "Environment tab".
 
-Further note that `read.csv()` only  requires the location of the file or file path (assuming the data was stored as discussed in @sec-csv).  Since the data is located at this URL, we use the URL.  If the data is saved on your computer, then replace the url with the file path or  with `file.choose()`.
+Further note that `read.csv()` only  requires the location of the file or file path (assuming the data were stored as discussed in @sec-csv).  Since the data is located at this URL, we use the URL.  If the data is saved on your computer, then replace the url with the file path or  with `file.choose()`.
 
 
 ::: {.callout-important icon=true}
@@ -65,7 +65,7 @@ Download the *.csv* file below onto your computer.  Make sure to  note where the
  
 [http://www.csub.edu/~emontoya2/datasets/sampledata.csv](http://www.csub.edu/~emontoya2/datasets/sampledata.csv)
 
-After saving this *.csv* file, one can take a "point and click" approach to importing data.  Like most software, RStudio has a toolbar where you can access many commands. To import data using the toolbar menu, select *File>Import Dataset> From Text (base)*. Then select your *.csv* file.  If your data are stored in an excel spreadsheet (.xlsx) in tidy form, then select "From Excel".  
+After saving this *.csv* file, one can take a "point and click" approach to importing data.  Like most software, RStudio has a toolbar where you can access many commands. To import data using the toolbar menu, select *File>Import Dataset> From Text (base)*. Then select your *.csv* file.  If your data are stored in an Excel spreadsheet (.xlsx) in tidy form, then select "From Excel".
 
 Alternatively, if you know the file path for the spreadsheet, you can run following
 ```{r data35, echo=T,   eval=F ,message=FALSE,    collapse = T,   fig.width=5.5, warning=F,  fig.height=2.5}
@@ -83,7 +83,7 @@ The data set `ImportFromDrive` should appear in the *Environment* tab in the upp
  
 ## Using R functions  {#sec-UsingRfuns}
 
-R functions are either ready use when you start a new RStudio session or an R package must be loaded to use a function from that package.  The syntax of an R function consist of the function name followed by parentheses that contain argument(s). The R functions used in this resource will generally consists of the name of the data frame that is in tidy form and one or more of the following arguments:
+R functions are either ready to use when you start a new RStudio session or an R package must be loaded to use a function from that package.  The syntax of an R function consist of the function name followed by parentheses that contain argument(s). The R functions used in this resource will generally consists of the name of the data frame that is in tidy form and one or more of the following arguments:
 
 - Names of response variable as spelled in the data frame
 
@@ -96,10 +96,10 @@ R has many built-in function or function that become available once a library is
 
 ##  Summarizing data with R
 
-Exploring data using graphical and numerical summary statistics will be discussed in @sec-summaries. 
+Exploring data using graphical and numerical summary statistics will be discussed in [the exploratory data analysis module](summaries.qmd).
   For now, a brief introduction to graphing and computing summary statistics is provided.  When wanting to summarize a single variable, functions to create graphical and numerical summaries follows the general form `task( ~ x , data)` where `x` is the variable you want to graph or compute a statistic of. Depending on the summary, we may have to specify some additional things.  If the variable `x`  is a variable in the data frame, then data would be set equal to the name of the data frame. The names used for `x` and the name of the data frame must be the names that R has given the data set and variable. `task` would be replaced with the name of the function. For bivariate, the form becomes `task( y ~ x , data)` becomes where `y` represent the dependent variable and `x` is the explanatory variable. Most R tasks covered in the modules will follow this general form. The expressions `y ~ x` or `~ x` are called formulas in R.
 
-Recall that we imported the MLB dataset and we stored it in a data frame called `mlbDataImport`.  Here, the task is to create a histogram of `salary`.  `salary` represents the salary (in $1000s) of a given baseball player in 2010.  Again, the basic formula is `task( ~ x , data)` where `task` would be replaced with the name of the function to create the desired graph.  **RStudio** refers to histograms as `histogram`.  The variable of interest is `salary` and it would replace `x`.  The argument `data` is set equal to `mlbDataImport`.
+Recall that the MLB data were stored in `mlbDataImport`. To display the distribution of `salary` (in thousands of dollars), use `histogram()` from the `lattice` package, loaded below. The formula-based form is `histogram(~ salary, data = mlbDataImport)`.
 ```{r gr2, echo=T,   eval=T ,message=FALSE,    collapse = T,   fig.width=5.5, warning=F,  fig.height=2.5}
 library( lattice ) # load the lattice package. This package provides the histogram function
 histogram( ~ salary  , 
@@ -116,7 +116,7 @@ mean( ~ salary  ,
 
 Suppose you wanted to compute the average salary for each position. To so, we can tell RStudio to compute the mean by levels/groups of a grouping variable. A grouping variable groups data into categories or groups. Grouping variables are categorical variables.  When summaries are computed based on the levels or groups of the grouping variables, they are called side-by-side or comparative summaries. 
 
-To summarize the data conditional on a value of categorical variable, the general formula becomes  `task( ~ x | gfactor , data)` or `task( y ~ x | gfactor , data)`, where `gfactor` represent the categorical variable, typically called the grouping variable. Here, the task is to compute the mean salary for each potion, so  the grouping variable is `position`:
+To summarize the data conditional on a value of categorical variable, the general formula becomes  `task( ~ x | gfactor , data)` or `task( y ~ x | gfactor , data)`, where `gfactor` represent the categorical variable, typically called the grouping variable. Here, the task is to compute the mean salary for each position, so  the grouping variable is `position`:
 ```{r gr4dd, echo=T,   eval=T ,message=FALSE,    collapse = T,   fig.width=5.5, warning=F,  fig.height=2.5}
 mean( ~ salary | position , data=  mlbDataImport )
 ```	
@@ -146,7 +146,7 @@ Some arguments will be required, others are optional depending on the function. 
 :::
 
 
-You can use the code provided in this resource as a template  to adapt to your dataframe and the names of the variables within your dataframe (discussed in the next section). 
+You can use the code provided in this resource as a template  to adapt to your data frame and the names of the variables within your data frame (discussed in the next section).
 
 
 All functions used in the module will only be described when they are first used.  Any subsequent uses of a given function will not provided a description but the reader may search for the name of the function in the search bar provided in the upper left of the module.   
@@ -154,7 +154,7 @@ All functions used in the module will only be described when they are first used
 
 ## Adapting the R code provided for your data and interest
 
-In this section, we demonstrate how to adapt the provided code to your own data frame and variables of interest by using formula expressions with examples from two different datasets. Recall that most functions will have a layout of  `task( y ~ x , data)` or `task( ~ x , data)`. For this illustration, we use two dataframes, `ChickWeight` and  `trees` dataframe. Both of these dataframes are built-in with R. Note the following variable names in each dataframe:
+In this section, we demonstrate how to adapt the provided code to your own data frame and variables of interest by using formula expressions with examples from two different datasets. Recall that most functions will have a layout of  `task( y ~ x , data)` or `task( ~ x , data)`. For this illustration, we use two data frames, `ChickWeight` and  `trees` data frame. Both of these data frames are built-in with R. Note the following variable names in each data frame:
 
 ```{r , echo=T,   eval=T ,message=FALSE,    collapse = T,   fig.width=5.5, warning=F, fig.height=2.5}
 # "ChickWeight" measurements on weight, time since birth, 
@@ -176,7 +176,7 @@ The following computes the mean weight of the chicks:
 mean( ~ weight  , 
       data=  ChickWeight )
 ```	
-Note that weight is spelled `weight` and not `Weight` or `WEIGHT` since it appears as `weight` in the dataframe. 
+Note that weight is spelled `weight` and not `Weight` or `WEIGHT` since it appears as `weight` in the data frame.
 
 The code below computes the mean volume of the 31 trees:
 ```{r , echo=T,   eval=T ,message=FALSE,    collapse = T,   fig.width=5.5, warning=F, fig.height=2.5}
@@ -225,10 +225,10 @@ There are 3 methods for exporting a plot in R. After creating a plot, go to the 
 
 ## Using custom R functions
 
-Sometimes, this resource will require the usage of what may be called custom functions. Some of these custom functions are wrappers[^1]  for R functions that come with R, while others are entirely new functions that were created. The reason for creating these custom functions is to provide a more consistent and streamlined way to perform certain tasks.
+Sometimes, this resource will require the usage of what may be called custom functions. Some of these custom functions are wrappers[^1]  for R functions that come with R, while others are entirely new functions that were created. The reason for creating these custom function is to provide a more consistent and streamlined way to perform certain tasks.
 
 
-Any time custom functions are used, they must first be sourced. For example, suppose a function called `my_function()` is provided by the `file my_functions.R`, and that this file is located in the following file path or location:  `C:/Users/YourName/Documents/my_functions.R`. This function is saved in the "Documents" folder.  If the code below is executed, it would source the file `my_function.R` so that the R `my_function()` function is in R's memory:
+Standalone custom functions can be loaded with `source()`. For example, if `my_function()` is defined in `C:/Users/YourName/Documents/my_functions.R`, sourcing that file makes the function available in the current R session:
 
 
 ```
@@ -237,7 +237,7 @@ source("C:/Users/YourName/Documents/my_functions.R")
 
 Note that any time you start a new RStudio session, you would need to source the `my_functions.R` file again in order to use the `my_function()` function. This is because R does not automatically remember custom functions that were sourced in previous sessions. 
  
-To use the custom functions provided in this resource, you will need to download them from the repository and update the file path in the `source()` function to reflect the location where you saved the functions on your own system. 
+Functions exported by the `CSUBstats` package are available after `library(CSUBstats)`. Examples that explicitly call `source()` use standalone files from the repository; download those files and update the paths for your system. Loading a package and sourcing a file are different ways to make functions available.
  
  
 [^1]: A wrapper function is a function that calls another function or a set of functions to simplify or extend tasks.  

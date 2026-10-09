@@ -112,10 +112,10 @@ xyplot( avgpm ~  avgtemp  , data=pmdf, xlab="temperature", ylab="PM10")
  
 ```
 
-Are the features reflected in the numerical and graphical summaries distinct enough to convince one that these levels of air quality measurements differ by county? Regarding PM10 and temperature, although they appear to be positively associated, is the relationship strong enough to suggest that the positive association shown is due to more than just random variation? Using statistical methods to be addressed later, the data provides convincing evidence that average daily PM10 levels vary across the three counties (p-value $\approx 0$), and that the data provides strong evidence that there that  daily PM10 (linearly) related to daily temperature across all three counties  (p-value $\approx 0$).  
+The summaries suggest differences in PM10 measurements by county and a positive association between PM10 and temperature. Later chapters illustrate tests of these patterns. Their nominal p-values assume independent observations, an assumption that requires assessment because these are repeated daily measurements at monitoring sites and may share weather conditions. The tests should not be treated as validated inferential conclusions until that dependence is addressed.
 
 
 ### Scope of inference {-}
 
-This case study makes use of observational data, which provided strong evidence that there is an association between the three counties and daily levels of PM10, as well as strong evidence of an association between daily PM10 and daily temperature. The counties were not randomly selected, so these conclusions only apply to the three counties considered here. 
+This observational case study supports describing associations in the measurements from the monitoring sites and year represented. It does not establish causal effects of county or temperature. Repeated measurements, temporal dependence, and shared weather may affect standard errors and tests; broader generalization requires justification from the site-selection and sampling design.
 

@@ -8,7 +8,7 @@ Anytime you open RStudio, we say we are in an RStudio session. After opening RSt
 
 A brief description of each pane follows:
 
-+ The upper left pane is the **R Script file**.  This is where will type in commands to be executed in the script editor. Writing and saving a series of **R** commands  in the script file makes it easy to reuse or modify code at a later time.
++ The upper left pane is the **R Script file**.  This is where you will type in commands to be executed in the script editor. Writing and saving a series of **R** commands  in the script file makes it easy to reuse or modify code at a later time.
 
 + The lower left pane is called the  **console**  pane. Every time you launch **RStudio**, it will have the same text at the top of the  console telling you the version of **R** that you're running.  Below that information is the R*prompt*  (the symbol `>`).  As its name suggests, this prompt is really a request, a request for a command.  It is here where **RStudio** will tell **R** what to do.  This is the most important pane because this is where **R** actually does stuff.
 + Upper right pane	contains your **environment/history** pane.
@@ -30,7 +30,7 @@ A brief description of each pane follows:
 ::: {.callout-important icon=true}
 ## Objects, assignments, and evaluation
 
-Executing the command `2 + 2` only executes/runs the command in R. That is,  RStudio was used to to tell R to add two plus two, and R responded with `4` in the R console.  It did not save the result, it simply *evaluated* `2 + 2`.  
+Executing the command `2 + 2` only executes/runs the command in R. That is,  RStudio was used to tell R to add two plus two, and R responded with `4` in the R console.  It did not save the result, it simply *evaluated* `2 + 2`.
 
 If you want to save the result of `2 + 2` so that you can use it later, then we have to tell R to store the result by *assigning* the result to an *object* you can access later. Think of an R object as anything that holds/stores information (some data structure)
 
@@ -61,9 +61,9 @@ Note the following:
 
 - R is case-sensitive!  `x` and `X` are distinct.
 
-- Get into the habit of saving things in **R objects** so that they  can be accessed  at later time.  As long as your *RStudio session* remains open, **RStudio** keeps any **R objects** that you defined in it's memory. 
+- Get into the habit of saving things in **R objects** so that they  can be accessed  at later time.  As long as your *RStudio session* remains open, **RStudio** keeps any **R objects** that you defined in its memory.
 
-- Once you end your session, RStudio loses what it has stored in its memory. Next time an  RStudio session is started, **no** R objects will appear in its  memory.  Is this a problem? Later you will see that this is not a problem! 
+- Objects exist in the current R session. They can appear in a later session if a saved workspace is restored, depending on RStudio settings. For reproducibility, save your script and rerun it rather than relying on automatic workspace restoration.
 
 - At its most basic level, R can be viewed as a fancy calculator.  While we won't be using **RStudio** do algebra problems, it is a good way to get familiar with **RStudio**.  
 
@@ -119,16 +119,16 @@ x <- 2 + 2
 
 ```
  
-Next, save the **RStudio** script/file by selecting *File > Save as*. Save the text file as an .R file.  Any **RStudio**  *script* should be saved as a *.R* file.     
+Next, save the **RStudio** script/file by selecting *File > Save as*. Save the text file as a .R file.  Any **RStudio**  *script* should be saved as a *.R* file.
 
 
 ## Installing required packages
 
 There are many *packages* (also called *libraries*) that come installed with R or that can be installed to expand the ability of R. There are a few additional packages that need to be installed. The following packages are specifically designed to make **R** more accessible and easier for data analysis:
 
-- `tidyverse`: This packages provide a  collection of R packages designed for data science. Functions front his packages will be utilized for aspects of importing data and data management. 
+- `tidyverse`: This package provides a  collection of R packages designed for data science. Functions from these packages will be utilized for aspects of importing data and data management.
 
-- `mosaic`: This packages provides a number of functions that makes some basic data analysis tasks easier.  
+- `mosaic`: This package provides a number of functions that make some basic data analysis tasks easier.
 
  
 To install these packages, in the **R console** type the following command:
@@ -139,11 +139,11 @@ install.packages( "tidyverse" )  # no spaces within quotation marks!
 ```
 
 Hit enter. Activity will start occurring in the **R console**. This may take a few minutes to complete. During the installation process, if R requests that
-	+ an CRAN mirror be selected for downloading, any USA mirror will do.
+	+ a CRAN mirror be selected for downloading, any USA mirror will do.
 	+ the personal library on your computer be used, answer yes.  This ensures that admin privileges are not required for installation. 
 	+ packages be updated, please agree to the updates.
 
-When it is done installing, it should say something similar to "The downloaded binary packages are in..." right above the R prompt `>`.  This mean the packages were installed without error. Now repeat the sames step for the package `mosaic`. Again, this may take a few minutes to complete.  
+When installation finishes, inspect the console for errors or warnings. A message giving the location of downloaded binary packages does not by itself confirm successful installation. Verify by loading the package with `library(tidyverse)` or `library(mosaic)`. Repeat the installation steps for the other package.
 
 Alternatively, you can select *Tools* from the RStudio menu, followed by *Install packages*. Enter the name of the R package under "Packages (separate...)" and click "Install". Activity will then start occurring in the **R console** as when using `install.packages()`.
 
@@ -181,8 +181,8 @@ Some things to remember when using RStudio:
 
 + You are expected to look back at the appendix or other segments in this resource if you forget something along the way, as you would for any other software that you are starting to learn.
 
-+ Some sections will contain examples or templates of how to do certain analysis.  You job will primarily will be to edit the templates to reflect the data that you are working with.
++ Some sections will contain examples or templates of how to do certain analysis.  Your job will primarily be to edit the templates to reflect the data that you are working with.
 
 + Getting an error message? An online search for the error message will be useful.
 
- 
+

@@ -39,7 +39,7 @@ remotes::install_github("emontoya2/csubstats")
 library(CSUBstats)
 ```
 
-## Callouts blocks
+## Callout blocks
 
 Throughout this resource, you will encounter callout boxes in various colors, each of which serves a specific purpose. The callout boxes are color-coded as follows:
 
@@ -58,7 +58,7 @@ The color-coded system will hopefully make it easier to navigate and understand 
 
 - CSUB Title Vb program for supporting the creation of this resource.
 
-- The R Core Team and Quarto for their continued advancement of these open-source software, and RStudio and GitHub for providing free access to their platforms, which support open-source development.
+- The R Core Team and Quarto for their continued advancement of this open-source software, and RStudio and GitHub for providing free access to their platforms, which support open-source development.
 
 - Dr. Brandon Pratt for providing the data for the case study on xylem characteristics in shrub species, as well as providing feedback for the case study.
 
@@ -80,4 +80,4 @@ Contributions are encouraged on any part of the project, including:
 - Suggestions on topics to consider adding.
 
   
- 
+

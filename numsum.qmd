@@ -10,7 +10,7 @@ editor_options:
 ![AI art generated from the text "Summarizing numerical data"](images/datasummary/numpic.jpg){width=50%} 
 
  
-Here we cover the following graphically and numerical summaries:
+Here we cover the following graphical and numerical summaries:
 
 - histogram
 
@@ -42,7 +42,7 @@ Here, we denote the mean of sample or sample mean by $\bar{x}$. The sample stand
 ```
 ### mean( ~ x , data, na.rm)
 # x: Replace x with the name of the variable of interest
-# data: Set equal to dataframe name
+# data: Set equal to data frame name
 # na.rm: Should missing values be remove? The 
 #       default is FALSE. Set equal to TRUE if
 #       missing values are to be excluded.
@@ -54,7 +54,7 @@ Here, we denote the mean of sample or sample mean by $\bar{x}$. The sample stand
 
 Many of the R functions used in these modules will have identical arguments. Therefore, while the arguments will be provided for any functions used, arguments such as `x`, `data`, ... will generally no longer be described. 
 
-Other measures of the center and spread of the distribution used in practice are the median and  interquartile range (IQR) range, respectively.  The median, denoted $M$, is the (middle) value separating the upper half from the lower half of the ordered sample of data.   The IQR measures the spread of the middle half of the data.  Measures of center are generally used to describe what a "typical" value in the data, where as measures of spread quantify the amount of variability in the sample.   The function `median()` and `iqr()` computes the median and IQR of a sample of data: 
+Other measures of the center and spread of the distribution used in practice are the median and  interquartile range (IQR), respectively.  The median, denoted $M$, is the (middle) value separating the upper half from the lower half of the ordered sample of data.   The IQR measures the spread of the middle half of the data.  Measures of center are generally used to describe what a "typical" value in the data, whereas measures of spread quantify the amount of variability in the sample.   The function `median()` and `iqr()` computes the median and IQR of a sample of data:
 
 ::: {.callout-tip icon=false}
 
@@ -304,7 +304,7 @@ embed_youtube("B5-l-jXOkgE")
 
 ::: 
 
-The dot inside the box represents the median. The two boundaries of the box are called the first quartile (the 25th percentile) and the third quartile (the 75th percentile). Extending out from the box, the whiskers reflect the range of data outside of the box and reach the minimum and the maximum values, unless unless there are potential outliers (points beyond the whiskers).  When the median is closer the first (third) quartile than the median, the distribution is potentially skewed left (right).  
+The dot inside the box represents the median. The box boundaries mark the lower and upper quartiles, approximately the 25th and 75th percentiles. In the default boxplot, whiskers extend to the most extreme observations within 1.5 IQR of the box, and more distant observations are shown separately as potential outliers. A median closer to the lower quartile, together with a longer upper tail, may suggest right skew; the reverse may suggest left skew. Interpret the full distribution rather than one box feature alone.
 
 An extension of the boxplot is a violin boxplot or plot. This plot is a hybrid of a box plot and a kernel density plot (think of a kernel density plot as a smooth density histogram). The violin boxplot conveys the same information as the boxplot, but provides better picture of distribution.  The code below creates a violin boxplot.
 
@@ -358,9 +358,9 @@ Quantile-quantile plots, also known as QQ-plots, allow one to view the distribut
 ```
 ### normqqplot( ~ x , data , ylab, main)
 # x: Relace x with the name of the variable of interest
-# data: Set equal to dataframe name only if x is stored in the dataframe.
+# data: Set equal to data frame name only if x is stored in the data frame.
 #       Otherwise, do not include this argument if the variable is 
-#       in R's memory (outside a dataframe)
+#       in R's memory (outside a data frame)
 # Note: xlab will always have the label 'Normal quantiles`. 
 ```
 ::: 
@@ -413,10 +413,10 @@ embed_youtube("65VOES4q_WU")
 
 ::: 
 
-The behavior of the QQ-plot gives a sense of the normality of data and can also provide some guidance on the distribution of non-normal data, depending on the trend exhibited by the points and how they deviate from the linear line. If the tails of a QQ-plot wander off in opposite directions but follow a linear line in the middle, it is a sign that the distribution of the data resembles a heavy-tailed distribution. On the other hand, if the points follow a "u" or "n" shape, it indicates that the data distribution is skewed, with clearer "u" or "n" shapes indicating stronger skewness.
+In a normal QQ-plot with theoretical quantiles on the horizontal axis, an upward-curving pattern can suggest right skew and a downward-curving pattern can suggest left skew. A lower tail falling below the reference line and an upper tail rising above it can suggest heavier-than-normal tails; the reverse can suggest lighter tails. Interpret the plot together with other summaries and the sample size.
 
 
-## Two or more numerical variable {#sec-multinumvar}
+## Two or more numerical variables {#sec-multinumvar}
 
 A scatterplot graphically summarizes the relationship between two numerical variables. When describing a scatterplot, look for the following features:
 
@@ -479,7 +479,7 @@ The relationship is clearer on the square root scale:
 #| fig-asp: 0.5
 
 
-### mutate( dataframe ,'new variable' = 'function of variable in data frame', ...)
+### mutate( data frame ,'new variable' = 'function of variable in data frame', ...)
 pmdf <- mutate( pmdf, PM10sqrt= sqrt( PM10 ) ,
                       tempsqrt= sqrt( temp ) )
 
@@ -552,7 +552,7 @@ library(mosaic) # provides formula interface for the functions below.
 
 # The variable `temp` has missing values but currently 
 # the standard argument to remove missing values does 
-# not work.  Instead, we us na.omit() on the dataframe
+# not work.  Instead, we us na.omit() on the data frame
 # so that all missing values are omitted from the data
 # for the purpose of this function. 
 cor( PM10 ~ temp , 
@@ -564,7 +564,7 @@ cor( PM10sqrt ~ tempsqrt ,
 
 ```
 
-The sample correlations shows that there this weak and moderate linear association between the variables, with the variables on the transformed scaled having a moderate association.  
+The sample correlations show that there is a weak and moderate linear association between the variables, with the variables on the transformed scaled having a moderate association.
 
 :::
 
@@ -616,7 +616,7 @@ pmdf <- read.csv("datasets/dailyPM10.2021.csv")
 
 ### We tell R that  'county'  is a factor variable by using
 ### as.factor() within mutate()
-### mutate( dataframe ,'new variable' = 'function of variable in data frame', ...)
+### mutate( data frame ,'new variable' = 'function of variable in data frame', ...)
 pmdf <- mutate( pmdf , 
                 county = as.factor( county )  )
 

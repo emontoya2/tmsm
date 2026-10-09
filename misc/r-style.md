@@ -1,9 +1,9 @@
 # Code
 
-R code files are stored the `code` directory whose names start according to the chapter they are first used.
+R code files are stored in the `code` directory whose names start according to the chapter they are first used.
 The code does not have to be self-contained in that it can depend on R code executed in a previous section. Further, I tend to use the following conventions: 
         
-- `require(package)` - For those familiar with R, `library` and  `require` are nearly identically, but I found require
+- `library(package)` loads a required package and stops with an error if loading fails. `require(package)` instead returns a logical success indicator; check it when using that form.
 - `=` - assignment operator (instead of `<-`)
 - ` = ` , ` > `, etc. - spaces around operators
 - `"text"` - double quotes for character values
@@ -12,7 +12,7 @@ The code does not have to be self-contained in that it can depend on R code exec
 - When using pipes, pipe the first object (`x %>% fun() %>% ...` not `fun(x) %>% ...`)
 - Scripts should (see example below): 
   - state their aim and (if appropriate) a date and a table of contents
-  - be sectioned with the help of `---`, `===`, and `###` e.g. as acheived by pressing `Ctl-Shift-R`
+  - be sectioned with the help of `---`, `===`, and `###` e.g. as achieved by pressing `Ctl-Shift-R`
 
 ```
 # Filename: filename.R (2018-02-06)
@@ -86,5 +86,4 @@ Names of the figures should contain a chapter number, e.g. `04-world-map.png` or
 
 References are added using the markdown syntax [@refname] from the .bib files in this repo.
 The package **citr** can be used to automate citation search and entry.
-Use Zotero to add references to the geocompr at [zotero.org](https://www.zotero.org/groups/418217/energy-and-transport/items/collectionKey/9K6FRP6N/) rather than changing .bib files directly.
-The citation key format used is `[auth:lower]_[veryshorttitle:lower]_[year]` using [zotero-better-bibtex](https://github.com/retorquere/zotero-better-bibtex).
+- Maintain this project's citations in `references.bib`, using consistent citation keys and checking that each cited key exists.
