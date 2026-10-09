@@ -7,7 +7,7 @@ editor_options:
 
 # Summarizing categorical data  {#sec-catsum}
 
-![AI art generated from the text "Summarizing categorical data"](images/datasummary/sumpic.jpg){width=50%} 
+![AI-generated artwork inspired by "Summarizing categorical data".](images/datasummary/sumpic.jpg){width=50%} 
 
 
 Here we cover the following graphical and numerical summaries:

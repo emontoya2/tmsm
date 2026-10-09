@@ -6,7 +6,7 @@ editor_options:
 
 # PCA {#sec-pca}
  
-![AI art generated from the text "Principal component analysis"](images/linmod/pcaart.jpg){width=50%}
+![AI-generated artwork inspired by "Principal component analysis".](images/linmod/pcaart.jpg){width=50%}
 
 This section introduces an advanced exploratory data analysis method called Principal component analysis (PCA). PCA summarizes the information[^1] in data that is composed of multiple variables.  Below is a scatterplot and correlation matrix of a dataset that consists of five variables. The scatterplot shows the pairwise relationships between the variables and they are useful for visualizing relationships, clusters, and outliers. The correlation matrix provides a numerical measure of the strength and direction of these relationships. This section only covers PCA on standardized data.
 

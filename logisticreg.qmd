@@ -6,7 +6,7 @@ editor_options:
 
 # Simple logistic regression {#sec-logistic-regression}
 
-![AI art generated from the text "simple logistic regression"](images/linmod/logireg.jpg){width=50%}
+![AI-generated artwork inspired by "simple logistic regression".](images/linmod/logireg.jpg){width=50%}
 
 Simple (binary) logistic regression (SLogiR) allows us to assess the relationship between a binary response variable (i.e., a categorical variable with two possible outcomes) and a numerical or categorical explanatory variable. Unlike simple linear regression, which examines the relationship between two numerical variables, simple logistic regression (SLogiR) is used when the response variable is binary. By modeling the probability of the response variable taking on a specific outcome, SLogiR can help identify the impact of the explanatory variable on the likelihood of observing one of the two possible outcomes.
 

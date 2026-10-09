@@ -7,7 +7,7 @@ editor_options:
 
 # Summarizing numerical data  {#sec-numsum}
 
-![AI art generated from the text "Summarizing numerical data"](images/datasummary/numpic.jpg){width=50%} 
+![AI-generated artwork inspired by "Summarizing numerical data".](images/datasummary/numpic.jpg){width=50%} 
 
  
 Here we cover the following graphical and numerical summaries:

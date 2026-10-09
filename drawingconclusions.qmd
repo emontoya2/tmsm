@@ -6,7 +6,7 @@ editor_options:
  
 # Drawing statistical conclusions {#sec-drawconc}
 
-![AI art generated from the text "statistical conclusions"](images/datamod/statconcpic.jpg){width=50%} 
+![AI-generated artwork inspired by "statistical conclusions".](images/datamod/statconcpic.jpg){width=50%} 
 
 
 

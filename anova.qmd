@@ -6,7 +6,7 @@ editor_options:
  
 # Analysis of variance (ANOVA) {#sec-anova}
 
-![AI art generated from the text "Analysis of variance"](images/linmod/anovaart.jpg){width=50%}
+![AI-generated artwork inspired by "Analysis of variance".](images/linmod/anovaart.jpg){width=50%}
 
 
 Analysis of Variance (ANOVA) is a statistical method that analyzes the variability of the observations in a dataset and compares it between groups or factor levels to determine if there is a statistically significant difference among them. This section covers the basics of ANOVA, and the following inferential methods for ANOVA:
