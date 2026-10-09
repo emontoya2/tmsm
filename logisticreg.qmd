@@ -4,7 +4,7 @@ editor_options:
     wrap: 72
 ---
 
-# Simple logistic regression {#sec-regression}
+# Simple logistic regression {#sec-logistic-regression}
 
 ![AI art generated from the text "simple logistic regression"](images/linmod/logireg.jpg){width=50%}
 
@@ -27,7 +27,7 @@ $$logit(p)=log(\frac{p}{1-p}) = \beta_0 + \beta_1 x$$
 
 :::
 
-This model captures the relationship between the explanatory variable $x$ and the odds of success (i.e., the ratio of the probability that $y=1$ to the probability of $y=0$), which is then transformed to the logit scale for modeling purposes. The logit scale provides a way to interpret the $\beta_1$. For example, $logit(0.5)=0$ and $logit(0.6)=0.4$ Thus, an increase of $0.4$ on the logit scale corresponds to a change from $0.50$ (or 50%) to $0.60$ (or 60%) in the probability scale. In other words, a one-unit increase in $x$ is associated with a $\beta_1$ increase in the logit of the odds of $y=1$ 
+This model captures the relationship between the explanatory variable $x$ and the odds of success (i.e., the ratio of the probability that $y=1$ to the probability of $y=0$), which is then transformed to the logit scale for modeling purposes. The logit scale provides a way to interpret the $\beta_1$. For example, $logit(0.5)=0$ and $logit(0.6)\approx 0.405$ Thus, an increase of approximately $0.405$ on the logit scale corresponds to a change from $0.50$ (or 50%) to $0.60$ (or 60%) in the probability scale. In other words, a one-unit increase in $x$ is associated with a $\beta_1$ increase in the log odds of $y=1$
 
 Another way to interpret $\beta_1$ is in terms of odds. The term $p/(1-p)$ is the odds that $y=1$ relative to $y=0$. The above equation shows that the log odds, $log(p/(1-p))$ are linearly related to $x$. Suppose the log odds are computed at a value of $x$, which we denote by $log(odds_1)$. If we increase $x$ by one unit and compute the log odds at the new value of $x$, denoted by $log(odds_2)$, the difference in the log odds becomes 
 
@@ -41,7 +41,7 @@ Estimates of $\beta_0$ and $\beta_1$ are obtained via maximum likelihood estimat
 :::{.callout-important}
 ## Notation
 
-- $b_1$ is an estimate of $\beta_1$. The estimate $b_1$ represents the estimated change in the logit (log odds) of the odds that $y=1$ for a one-unit increase in the explanatory variable. 
+- $b_1$ is an estimate of $\beta_1$. The estimate $b_1$ represents the estimated change in the log odds that $y=1$ for a one-unit increase in the explanatory variable.
   + The term $e^{b_1}$ reflects the factor by which the odds of the response variable taking the value of 1 are estimated to change for a one-unit increase in the explanatory variable.
 
 :::
@@ -58,7 +58,7 @@ Now that some basic concepts of SLogiR have been covered, this section illustrat
 
 - Performing a Wald test to determine if the probability of the characteristic depends on the value of the explanatory variable.
 
-- Constructing a Wald-based confidence interval for $\beta_1$.
+- Constructing a confidence interval for $\beta_1$.
 
 
 For inferential methods in SLogiR to provide meaningful results, several assumptions are made about the data on which the method is intended to be used. 
@@ -71,22 +71,22 @@ The methods discussed here assume one or more of the following assumptions about
 
 - **Assumption 1**. *Independence of the observations*. Each binary outcome is independent of the other binary outcomes.
 
-- **Assumption 2**. *No influential outliers*. The data should not contain any influential outliers[^2] that significantly affect the estimate SLR line.
+- **Assumption 2**. *No influential outliers*. The data should not contain any influential outliers[^2] that significantly affect the estimate logistic model.
 
 - **Assumption 3**. *Large sample*. The sample should be large[^3]. The larger the sample the better. Smaller sample sizes may lead to unreliable estimates and wider CIs.
 
 - **Assumption 4**. *Linearity of log-odds*. The log-odds of the probability of the response variable taking the value of 1 is a linear function of the explanatory variable.
 
-While these assumptions are assessed below with a case study, assumption 1 can be assessed by the study design. Assumption 2 is examined using the Pearson or deviance residuals, assumption 3 can be examined using the data, and assumption 4 is assessed by examining the relationship between the predicted log odds and the explanatory variable. Note that if any assumptions are not met, then the model is not appropriate for the data. In such instances, possible remedial measures include transforming the explanatory variable (see @sec-remedmeasure) or increasing the sample size if possible (larger sample sizes can improve the SLogiR fit to the data)
+Assess independence by considering how the data were collected. Check for observations that strongly affect the fitted model. There should also be enough observations of both outcomes to estimate the relationship reliably. For the straight-line relationship in log odds, we need to check whether a curved relationship would better describe the data. The plots below help with some of these checks, but do not establish every assumption.
 
 :::
 
-[^2]: An influential outlier is an observation that greatly impacts the estimated SLR line, resulting in a bad fit to the data. It can have a substantial impact on the estimated slope and/or intercept of the line.
+[^2]: An influential observation substantially changes fitted coefficients when removed. Influence does not automatically imply a bad fit or justify deleting the observation.
 
-[^3]: There is no strict rule for what constitutes a large sample in logistic regression, as it depends on the specific context, the effect size, and the desired level of statistical power. However, a common rule of thumb is to have at least 10 occurrences of each outcome (0 and 1) for the binary response variable. 
+[^3]: A large total sample is not enough if one outcome is very rare or if the explanatory variable perfectly separates the two outcomes.
 
 
-## Fitting the SLogiR model and model diagnostics.
+## Fitting the SLogiR model and model diagnostics
  
 
 The function `glm()` is used to fit the SLogiR model to the data.
@@ -99,42 +99,42 @@ The function `glm()` is used to fit the SLogiR model to the data.
 # y: Replace y with the name of the binary response 
 #  variable of interest
 # x: Replace x with the name of the explanatory variable
-# data: Set equal to the name of the dataframe.
+# data: Set equal to the name of the data frame.
 # family: set equal to "binomial"
 #
 ```
 
 :::
 
-Note that the R functions used in these modules often have identical arguments, which will no longer be described in this module. The `glm()` function provides more than just the values of $b_0$ and $b_1$, and the illustrations below show how to use it to create an *glm object* that contains useful information. To summarize the SLR model fit, extract the predicted probabilities that $y=1$ for a given value of $x$, or extract the Pearson residuals from the *glm object*, we use the `summary()`, `predict()`, and `residuals()` functions on the *glm object*, respectively.  The function `xyplot()` (after loading the `tactile` package) will also be used. 
+Note that the R functions used in these modules often have identical arguments, which will no longer be described in this module. The `glm()` function provides more than just the values of $b_0$ and $b_1$, and the illustrations below show how to use it to create a *glm object* that contains useful information. To summarize the logistic model fit, extract the predicted probabilities that $y=1$ for a given value of $x$, or extract the Pearson residuals from the *glm object*, we use the `summary()`, `predict()`, and `residuals()` functions on the *glm object*, respectively.  The function `xyplot()` (after loading the `tactile` package) will also be used.
 
 ::: {.callout-tip icon="false"}
 ## R functions
 
 ```
-### summary( lm object )
-# lm object: An object saving the result of  
-#      an lm function.
+### summary( glm object )
+# glm object: An object saving the result of
+#      a glm function.
 #
-### predict( lm object, type )
+### predict( glm object, type )
 # type: Set equal to "link" (prediction log odds scale) or 
-#    "response" (predicted probabilites)
+#    "response" (predicted probabilities)
 #
-### residuals( lm object )
+### residuals( glm object )
 # type: Set equal to "deviance" for deviance residuals,
 #    "pearson" for pearson residuals, 
 #    "partial" for partial residuals
 #
-### xyplot( lm object )
+### xyplot( glm object )
 #
 ```
 
 :::
 
-The `summary()` function will provide a lot of information, including the values of $b_0$ and $b_1$. To perform model diagnostics (process of assessing the validity of the assumptions about the data) the functions `predict()` and `xplot()` are used to create the following plots
+The `summary()` function will provide a lot of information, including the values of $b_0$ and $b_1$. To perform model diagnostics (process of assessing the validity of the assumptions about the data) the functions `predict()` and `xyplot()` are used to create the following plots
 
 
-- **Explanatory variable vs. predicted log odds values**: This residual plot shows the relationship between the explanatory variable and the predicted values on the log odds scale. The plot helps to assess assumption 4. A plot that shows a linear trend suggests that this assumption is reasonable. A clear non-linear trend implies that that assumption 4 is questionable. 
+- **Explanatory variable vs. predicted log odds**: This shows the relationship specified by the model. The line is straight because that is how we defined the model; it does not show that a straight line is appropriate. Comparing it with a model that allows a curve can help assess this assumption.
 
 - **Standardized Pearson residuals vs. leverage plot**: This plot shows the leverage (the degree to which an observation affects the estimated slope) against the standardized Pearson residuals. Potential influential outliers will have a high leverage and large residual in magnitude.
 
@@ -148,7 +148,7 @@ AQI stands for Air Quality Index, which is a measure used to report the level of
 
 AQI values and temperature can be related or associated in air pollution studies, but the nature of their relationship can vary depending on a number of factors. For example, high temperatures may increase the formation and concentration of certain air pollutants, such as ground-level ozone or particulate matter. However, AQI values are affected by a range of other factors, such as wind speed, urban vs rural area, humidity, an area's high fire risk, and the types and levels of pollutants in the air.
 
-The case study @sec-casestudy3 provides daily measurements of several variables, including `PM10`, `AQI`, ..., `City.Name` and others. For the purposes of this analysis, that data now includes a categorical variable called `type_of_day`. The categorical variable has two possible values ("Healthy air quality" or "Unhealthy air quality"), and a binary version of the variable, `type_of_day01`, was created with outcomes of 1 for "Healthy air quality" and 0 for "Unhealthy air quality". A day is classified as having "Unhealthy air quality" if its AQI exceeds 50. The goal of this study is to investigate the relationship between the type of day and temperature. To begin the analysis, the data are imported and explored using numerical and graphical data summaries.
+The case study in @sec-casestudy3 provides daily PM10 AQI and temperature measurements. Here we define `type_of_day` as “Good” for AQI at most 50 and “Above Good” for AQI above 50, and set `type_of_day01=1` for Good and 0 otherwise. AQI above 50 includes categories such as Moderate; it is not all classified as Unhealthy on the official scale. This binary split is a teaching simplification. The goal is to describe its association with temperature.
 
 
 ::: {.panel-tabset}
@@ -175,8 +175,8 @@ library(dplyr) # Provides the mutate() function
 # using the mutate() function. This has R treat
 # `type_of_day` as a categorical variable.
 AQIdf <- mutate(AQIdf, 
-         type_of_day = as.factor( type_of_day ), 
-         type_of_day01 = as.factor( type_of_day01 ) )
+         type_of_day = factor(ifelse(AQI <= 50, "Good", "Above Good")),
+         type_of_day01 = as.integer(AQI <= 50) )
 
 # Print the summary statistics of the dataset
 summary( AQIdf )
@@ -218,7 +218,7 @@ embed_youtube("aX9-mX--CyU")
 
 :::
 
-The boxplots and summary statistics show that temperatures tend to be lower on healthy air days compared to unhealthy air days.  The mean temperatures for healthy air days are also lower than those for unhealthy air days. Additionally, temperatures exhibit more variability on healthy air days compared to unhealthy air days. This may indicate more extreme temperatures on healthy air days or suggest that other factors contribute to the variability, such as wind speed or humidity. 
+The boxplots and summary statistics show that temperatures tend to be lower on Good air days compared to days above the Good category.  The mean temperatures for Good air days are also lower than those for days above the Good category. Additionally, temperatures exhibit more variability on Good air days compared to days above the Good category. This may indicate more extreme temperatures on Good air days or suggest that other factors contribute to the variability, such as wind speed or humidity.
 
 The SLogiR model is fitted using `glm()` but note that the response variable must be binary (such as `type_of_day01`): 
 
@@ -234,13 +234,14 @@ The SLogiR model is fitted using `glm()` but note that the response variable mus
 # The function will require the following information:
 # y: Replace with 'type_of_day01', the binary response variable.
 # x: Replace with 'temp', the explanatory variable.
-# data: Set equal to a 'kernAQIdf', the name of the dataframe.
+# data: Set equal to 'AQIdf', the name of the data frame.
 # family: Set equal to "binomial".
 
-# Fit the SLogiR model using glm() function
-glm( type_of_day01 ~ temp ,
+# Fit and store the SLogiR model using glm()
+aqfit <- glm( type_of_day01 ~ temp ,
   data = AQIdf , 
   family = "binomial" )
+aqfit
 
 ```
 
@@ -257,7 +258,7 @@ embed_youtube("jx6dQp5m0-o")
 
 :::
 
-The output provides $b_0= 4.90$ and $b_1=-0.05$. Note that $e^{b_1}=e^{-0.05}=0.95$, which suggests that the odds of having a healthy air day are estimated to decrease by 5% for each degree increase in temperature. This also suggests that a 5 degree increase in temperature means that the odds of having a healthy air day are estimated to decrease by 25%  The `glm()` function provides much more than just these values. To extract other information, the result from `glm()` must be stored. Below the resulting `glm()` fit is stored and then the `summary()` is applied to this object. The functions `residuals()` and `predict()` are also illustrated below. 
+The displayed coefficients are approximately $b_0=4.90$ and $b_1=-0.05$. Using the rounded slope, a one-degree increase in temperature multiplies the odds of a Good air day by $e^{-0.05}\approx .9512$, a decrease of about 4.9%. For a five-degree increase, the multiplier is $e^{5(-0.05)}\approx .7788$, a decrease of about 22.1%. The percentages do not simply add. Using the unrounded estimate, the five-degree decrease is `r round(100*(1-exp(5*coef(aqfit)[2])), 1)`%. These changes describe odds, rather than changes in the probability itself.
 
 
 ::: {.panel-tabset}
@@ -274,7 +275,7 @@ aqfit <- glm( type_of_day01 ~ temp ,
            data = AQIdf , 
            family = "binomial" )
 
-# aqfit is called an glm object.
+# aqfit is called a glm object.
 # Display a summary of the SLogiR model fit using the summary() function on the glm object, aqfit.
 summary( aqfit )
 
@@ -308,7 +309,7 @@ See previous video.
 
 Note that the `summary()` provides the following table:
 
-|       | Estimate | Std. Error | t-value  | p-value     -|
+|       | Estimate | Std. Error | z-value  | p-value     |
 |-------------|----------|------------|-----------|------------------|
 | (Intercept) | $b_0$  | $SE_{b_0}$ | $Z_{b_0}$ | p-value$_{b_0}$ |
 | explanatory | $b_1$  | $SE_{b_1}$ | $Z_{b_1}$ | p-value$_{b_1}$ |
@@ -332,7 +333,7 @@ Next, we perform model diagnostics to assess the model assumptions with the help
 # Create a scatter plot of the predicted log odds 
 # against temperature. 
 xyplot(aqpredictLO ~ temp,
-        data = AQIdf , 
+        data = model.frame(aqfit) ,
         xlab = "Temperature" ,
         ylab= "Predicted log odds" )
 
@@ -367,25 +368,25 @@ embed_youtube("2wVQ56URnS4")
 
 Each plot is analyzed and interpreted below:
 
-- The plot on the left displays the predicted log odds against the explanatory variable and shows a linear trend. This suggests that Assumption 4 (linearity of log-odds) is reasonable.
+- The left plot shows the fitted log odds against temperature. The line is straight because the model assumes a straight-line relationship. We still need to assess whether that assumption is reasonable.
 
 - The plot on the right shows the standardized Pearson residuals against the leverage. The presence of some potential outliers (standardized Pearson residuals greater than 3 in magnitude) is visible. Cook's distance[^4] contour lines of 1/2 and 1 are plotted, but no leverage values exceed a Cook's distance of 1. This suggests that Assumption 2 (no influential outliers) is reasonable.
 
-Assumptions 1 (independence of observations) and 3 (large sample size) are reasonable since the sample size is large, and it seems reasonable to assume that a given observation is not influenced by or related to the rest of the observations.
+These are daily observations, so nearby readings may be related because of shared weather. A large sample does not remove this concern.
 
 
 [^4]: Cook's distance is a measure of both the leverage and influence of a data point on the est coefficients. This measure is often used to identify potentially influential observations (typically those with a Cook's distance exceeding 1). Note that Cook's distance is just one tool (of many others) for identifying influential observations.
 
-Overall, all data assumptions are met for the SLogiR model. 
+The plots help us examine the model, but some assumptions still need further assessment. We carry out the following analysis to illustrate the method, keeping these limitations in mind.
 
 :::
 
 
-## Inference on the Explanatory Variable use Wald-based methods
+## Inference on the explanatory variable using a Wald test and confidence intervals
 
 The focus in this section is on inference for $\beta_1$ (the true slope) in the context of SLogiR. The Wald test for the slope of a regression line is a widely used hypothesis test to assess the significance of the explanatory variable's effect on the binary response variable. Specifically, the test is used to determine if the true slope $\beta_1$ is significantly different from zero, based on the observed value of $b_1$.
 
-It is important to note that the observed value of $b_1$ can vary. If a study were replicated, the value of $b_1$ would likely be different. The use of inferential methods allows us to account for this variability and make statistically valid conclusions about the true slope $\beta_1$. A Wald-based confidence interval can be constructed for $\beta_1$ and it provides a range of plausible values for the true slope at a specified significance level. These methods are generally referred to as Wald-based methods for the slope.
+It is important to note that the observed value of $b_1$ can vary. If a study were repeated, the value would likely be different. Inferential methods help us account for this variation when drawing conclusions about the true slope $\beta_1$. A confidence interval provides a range of plausible values for the true slope. Here, R uses a method called profile likelihood to compute the interval.
 
 The Wald test requires that certain assumptions (1, 2, 3, and 4) about the data are reasonable. The test statistic for this Wald test may be defined as:
 
@@ -397,16 +398,16 @@ $$H_0: \beta_1=0 \qquad H_a: \beta_1 \neq 0$$
 
 [^5]: The standard error of the slope estimate quantifies how much $b_1$ will vary across different samples if the study were replicated many times. A smaller standard error means that the estimate is more precise and varies less across different samples, while a larger standard error means the opposite. 
 
-Under $H_0$, the null distribution of the test statistic $Z$ follows a standard normal distribution[^6].  This distribution is used to compute the p-value. The function `glm()` computes the test statistic and p-value for the Wald test, and the results are provided by the `summary()` output. Recall that the `summary()` function provides a table with relevant information, including a test statistic and p-value for the Wald test, as well as other statistics like the coefficient estimates and standard errors:
+Under $H_0$, the null distribution of the test statistic $Z$ is approximately a standard normal distribution[^6].  This distribution is used to compute the p-value. The function `glm()` computes the test statistic and p-value for the Wald test, and the results are provided by the `summary()` output. Recall that the `summary()` function provides a table with relevant information, including a test statistic and p-value for the Wald test, as well as other statistics like the coefficient estimates and standard errors:
 
 |       | Estimate | Std. Error | z-value  | p-value     |
 |-------------|----------|-------------|-----------|-----------------|
 | (Intercept) | $b_0$  | $SE_{b_0}$ | $Z_{b_0}$ | p-value$_{b_0}$ |
 | explanatory | $b_1$  | $SE_{b_1}$ | $Z_{b_1}$ | p-value$_{b_1}$ |
 
-Here, $Z_{b_1}$ and p-value$_{b_1}$ refer to the test statistic for the Wald test and the two-sided p-value$_{b_1}$, respectively for testing if $\beta_1\neq 0$. The function `glm()` can also be utilized to obtain a confidence interval (CI) for the true slope $\beta_1$. To obtain a CI, apply the `confint()` function to the resulting *glm object*. 
+Here, $Z_{b_1}$ is the Wald test statistic, and p-value$_{b_1}$ is the two-sided p-value for testing whether $\beta_1$ differs from zero. To obtain a CI for the true slope, apply `confint()` to the *glm object*.
 
-[^6]: Other functions or software packages may report the Wald test statistic as $W=Z^2$. This version of the test statistic follows a chi-square distribution with 1 degree of freedom. 
+[^6]: Other functions or software packages may report the Wald test statistic as $W=Z^2$. Under the null, this version is approximately chi-square distribution with 1 degree of freedom.
 
 
 ::: {.callout-tip icon="false"}
@@ -414,8 +415,8 @@ Here, $Z_{b_1}$ and p-value$_{b_1}$ refer to the test statistic for the Wald tes
 
 ```
 ### confint( glm object , parm , level)
-# lm object: An object saving the result of usuing 
-#      the lm function.
+# glm object: An object saving the result of using
+#      the glm function.
 # parm:  Set equal to 2 
 # level: Set to desired confidence level.
 #
@@ -426,7 +427,7 @@ Here, $Z_{b_1}$ and p-value$_{b_1}$ refer to the test statistic for the Wald tes
 
 ::: callout-note
 
-We apply a Wald test to the data involving AQI levels and temperature. The aim is to investigate the effect of temperature on the probability of having an 'Unhealthy air quality' day compared to a 'Healthy air quality' day at $\alpha=.001$. Let $\beta_1$ represent the effect of temperature on the odds of having an 'Unhealthy air quality' day. Since the aim is to determine if the effect is significant, the hypotheses are:
+We use the Wald test to assess whether temperature is associated with the probability of a Good air day at $\alpha=.001$. Since $y=1$ denotes a Good day, $\beta_1$ describes the change in its log odds for a one-degree increase in temperature. The hypotheses are:
 
 $$H_0: \beta_1=0 \qquad H_a: \beta_1 \neq 0$$
 
@@ -463,9 +464,9 @@ embed_youtube("7zVQ-AxRnhk")
 
 :::
 
-Based on output from `summary( aqfit )`, the observed value of test statistic is $Z=-15.44$. The corresponding p-value is approximately 0, indicating that the data provides very strong evidence against the null hypothesis. When considering a significance level of $\alpha=.001$, since the p-value$\leq \alpha=.001$, we have sufficient evidence to reject the null hypothesis $H_0$ in favor of the alternative hypothesis $H_a$. This means that there is a significant effect of temperature on the odds of having an "Unhealthy air quality" day compared to a "Healthy air quality" day. In other words, temperature levels have a significant impact on the probability of observing an unhealthy or healthy air quality day. This also suggests that temperature is an important factor to consider when analyzing or predicting air quality conditions, and that the relationship between these variables is not due to chance alone.
+The observed test statistic is approximately $Z=-15.44$, with a very small p-value. Since the p-value is less than $\alpha=.001$, we reject $H_0$ if the assumptions hold. The negative slope suggests that the odds of a Good air day are lower at higher temperatures. This is an association, rather than evidence that temperature caused the change. The possible relationships among daily readings still limit the conclusion.
  
-The function `confint()` is used to obtain a 99% CI for $\beta1$: 
+The function `confint()` is used to obtain a 99% CI for $\beta_1$:
 
 ::: {.panel-tabset}
 ## R code
@@ -477,7 +478,7 @@ The function `confint()` is used to obtain a 99% CI for $\beta1$:
 #| warning: false
 
  
-# Summarize the lm object, PM10fit. ct
+# Compute a profile-likelihood interval from aqfit.
 
 # Compute a 99% CI for beta1.
 confint( aqfit ,
@@ -491,9 +492,9 @@ See previous video.
 
 :::
 
-The output provides a 99% CI for $\beta_1$ with bounds $(-0.061, -0.044)$. Thus, we can be 99% confident that the true effect of temperature on the log-odds of having an "Healthy air quality" day compared to a "Unhealthy air quality" day lies between -0.061 and -0.044. Since the interval does not contain 0, it further supports the conclusion that changes in temperature levels affect the probability of observing unhealthy or healthy air quality day.
+The 99% CI for $\beta_1$ is approximately (-0.061, -0.044). If the assumptions hold, we are 99% confident that the true change in log odds per degree lies between these values. Note that this is a 99% interval; the earlier test used $\alpha=.001$, which corresponds to a 99.9% confidence level.
 
-Note, if the bounds on the CI are exponentiated, it provides a CI for the odds. Thus, we can be 99% confident that the interval for $e^{\beta_1}$ is given by $(e^{-0.061}, e^{-0.044})$, which is approximately $(0.941, 0.957)$. In other words, we are 99% confident that with each unit increase in temperature, the odds of having a "Healthy air quality" day compared to an "Unhealthy air quality" day decrease anywhere from 4.3% to 5.9% 
+To express the interval in terms of odds, exponentiate its bounds. This gives a 99% CI for the one-degree odds ratio of approximately (.941, .957). If the assumptions hold, this suggests that a one-degree increase in temperature is associated with a decrease of about 4.3%–5.9% in the odds of a Good air day.
 
 :::
 

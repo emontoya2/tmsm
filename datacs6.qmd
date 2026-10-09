@@ -43,7 +43,7 @@ different plant species were collected. Below is a list and small description of
 
 - Parenchyma percentage: the proportion of parenchyma cells in the xylem tissue. 
 
-- Pmin: Minimum level of dehydration a plant can experience (MPa).
+- Pmin: Minimum water potential observed in the field (MPa), reflecting the water deficits experienced by a species under the measured conditions.
 
 - Water storage capacity: the capacity of the xylem tissue to store water $\Delta \text{Relative water content}/\Delta \text{MPa}$.  
 
@@ -128,11 +128,11 @@ That is, graphical or numerical summaries provide limited insight when
 attempting to explore the interdynamics of the variables when the data
 set is very large.
 
-To better understand the characteristics of xylem tissue in shrub species, it is important to identify the underlying factors or dimensions that drives the variation in the data. By identifying these factors, we can more easily interpret the data set, potentially revealing underlying patterns, and gaining insights into how these shrubs respond to water availability in a semi-arid chaparral environment. Principal component analysis (PCA) is a useful tool for achieving this goal. In this case study, PCA is applied to the plant physiological measurements to simplify the interpretation of the variables and reveal the underlying patterns that drive the variation in the data
+To better understand the characteristics of xylem tissue in shrub species, it is important to identify the underlying factors or dimensions that drive the variation in the data. By identifying these factors, we can more easily interpret the data set, potentially revealing underlying patterns, and gaining insights into how these shrubs respond to water availability in a semi-arid chaparral environment. Principal component analysis (PCA) is a useful tool for achieving this goal. In this case study, PCA is applied to the plant physiological measurements to simplify the interpretation of the variables and reveal the underlying patterns that drive the variation in the data
 
 According to Kaiser's rule, three principal components capture most of the variation contained in these nine variables. In fact, about 76% of the variation in the plant physiological variables is explained by the first three principal components, and  this is an acceptably large percentage.
 
-To simplify the interpretation of the principal components, varimax rotation is applied. Overall, the first principal component (PC) is viewed as an indicator of a shrub's adaptability to drought conditions with respect to water efficiency, while the second PC is viewed as a measure of the adaptability of shrubs to drought conditions with respect to mechanical strength and water storage.  The third PC, on the other hand, may be considered as an indicator of the adaptability of shrubs to drought conditions in terms of their capacity to balance parenchyma and fiber to maintain essential plant functions.  These findings provide a view into how these shrubs respond to water availability in a semi-arid chaparral environment.  
+Varimax rotation helps us describe the patterns in the three retained components. These patterns relate to water transport, mechanical strength and storage, and tissue composition. They can help us develop research questions about how shrubs cope with limited water, but PCA alone does not explain the biological causes of these patterns.
  
  It is important to note that PCA is an exploratory method rather than an inferential one. While it can reveal patterns and relationships in the data, it does not provide statistically significant conclusions or results. Overall, PCA is a powerful method for exploring complex datasets and revealing underlying patterns, but it should not be used as the sole basis for making conclusions.
  

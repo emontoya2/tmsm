@@ -112,10 +112,10 @@ xyplot( avgpm ~  avgtemp  , data=pmdf, xlab="temperature", ylab="PM10")
  
 ```
 
-Are the features reflected in the numerical and graphical summaries distinct enough to convince one that these levels of air quality measurements differ by county? Regarding PM10 and temperature, although they appear to be positively associated, is the relationship strong enough to suggest that the positive association shown is due to more than just random variation? Using statistical methods to be addressed later, the data provides convincing evidence that average daily PM10 levels vary across the three counties (p-value $\approx 0$), and that the data provides strong evidence that there that  daily PM10 (linearly) related to daily temperature across all three counties  (p-value $\approx 0$).  
+The summaries suggest that PM10 levels differ by county and tend to increase with temperature. Later chapters illustrate tests of these patterns. Keep in mind that daily readings may be related because of shared weather. This matters when deciding how confidently we can draw conclusions from the tests.
 
 
 ### Scope of inference {-}
 
-This case study makes use of observational data, which provided strong evidence that there is an association between the three counties and daily levels of PM10, as well as strong evidence of an association between daily PM10 and daily temperature. The counties were not randomly selected, so these conclusions only apply to the three counties considered here. 
+This observational case study describes relationships in the measurements from the sites and year represented. It does not show that county or temperature caused a difference in PM10. Applying the findings to other sites or years requires considering how the sites and observations were selected.
 

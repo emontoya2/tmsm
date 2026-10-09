@@ -22,7 +22,7 @@ sfkw <- function(formula,   data, PWC = FALSE ){
   
   
   obs.teststat<- round( kwtobj$statistic, 3)
-  pvalue<- round( kwtobj$p.value, 3)
+  pvalue<- kwtobj$p.value
   dfkw<- round( kwtobj$parameter, 3)
   
  
@@ -35,8 +35,8 @@ sfkw <- function(formula,   data, PWC = FALSE ){
   cat("============== \n")
  
   cat("Kruskal-Wallis test statistic= ", obs.teststat, "\n")
-  cat("p-value= ", pvalue, "\n")
-  cat("Null distribition is chi-squared with df= ", dfkw, "\n")
+  cat("p-value= ", format.pval(pvalue, digits=4), "\n")
+  cat("Approximate null distribution is chi-squared with df= ", dfkw, "\n")
   cat("============== \n")
   
   cat(" \n")

@@ -10,7 +10,7 @@ editor_options:
 ![AI art generated from the text "Summarizing categorical data"](images/datasummary/sumpic.jpg){width=50%} 
 
 
-Here we cover the following graphically and numerical summaries:
+Here we cover the following graphical and numerical summaries:
 
 - Bar graphs
 
@@ -24,7 +24,7 @@ Here we cover the following graphically and numerical summaries:
 ## Single categorical variable {#sec-catevar}
 
 
-A bar graph or plot may be used to visualize the distribution of levels for a single categorical variable.     The height of the bar for each category is equal to the frequency (number of observations),  relative frequency of observations, or percentage of observations in the category. Generally, bar graphs leave some space in between each bars to highlight that there is no ordering in the classes.  These graphs provides a nice visual of number observations in each level of a given categorical variable. 
+A bar graph visualizes the distribution of a categorical variable. Each bar's height represents the count, proportion, or percentage of observations in a category. Spaces between bars distinguish categories; categories may be nominal or ordinal, and ordinal categories should generally appear in their natural order.
 
 The function `bargraph()` creates a  bar graph.
 
@@ -34,7 +34,7 @@ The function `bargraph()` creates a  bar graph.
 ```
 ### bargraph( ~ x , data,  ylab, xlab, type)
 # x: Replace x with the name of the variable of interest
-# data: Set equal to the name of the dataframe being used
+# data: Set equal to the name of the data frame being used
 # xlab: Set equal to the label for x-axis (optional)
 # xlab: Set equal to the label for y-axis (optional)
 # main: Set equal to the title of the plot (optional)
@@ -69,7 +69,7 @@ data( dssurv ) #load the dataset named `dssurv` into your current workspace
 # Load the dplyr package. This package provides mutate()
 library(dplyr)
 
-# Note:  mutate( 'dataframe name' ,'new variable' = 'function of variable in data frame', ...)
+# Note:  mutate( 'data frame name' ,'new variable' = 'function of variable in data frame', ...)
 # Convert variables Light and Turbidity to factors
 dssurv <- mutate( dssurv, 
                   Light= as.factor( Light ) ,
@@ -79,7 +79,7 @@ dssurv <- mutate( dssurv,
 # Import data from case study on air pollution
 #pmdf <- read.csv("datasets/dailyPM10.2021.csv")
 
-data( pmdf ) #load the dataset named `pmdf` into your current workspace
+pmdf <- read.csv("datasets/dailyPM10.2021.csv")
 
 
 # Convert variable county to a factor
@@ -118,7 +118,7 @@ bargraph( ~ county ,   # Create a bar graph for the 'county' variable.
 
 ```
 
-Note that medium light intensity was less common than other light intensities.  For the PM10 data, Kern county has more monitoring stations compared to Fresno and Tulare. 
+Medium light intensity occurs less often than low or high intensity in these records. For the PM10 data, Kern County has more recorded observations than Fresno or Tulare. These counts do not directly count distinct monitoring stations.
 
 ## Video
 ```{r}
@@ -135,7 +135,7 @@ embed_youtube("gzIMI12K7h0")
 
 :::
 
-The bar graphs provide a clear visual of the distribution of levels of the categorical variables. To numerically summarize a categorical variables, one can use the `tally()` function to create the basis for a frequency or relative frequency table:
+The bar graphs provide a clear visual of the distribution of levels of the categorical variables. To numerically summarize categorical variables, one can use the `tally()` function to create the basis for a frequency or relative frequency table:
 
 ::: {.callout-tip icon=false}
 
@@ -192,7 +192,7 @@ embed_youtube("nptw_TuBCaE")
 
 ::: 
 
-The `tally()` output provides a clear numerical summary of the data by providing the count/proportion/percentage of observations in each each level for the variable of interest.  The output from `tally()` can then be used to form a relative frequency table. Such tables make it easier to see the frequency counts for a categorical variables than by looking at the actual data. 
+The `tally()` output provides a clear numerical summary of the data by providing the count/proportion/percentage of observations in each level for the variable of interest.  The output from `tally()` can then be used to form a relative frequency table. Such tables make it easier to see the frequency counts for categorical variables than by looking at the actual data.
 
 
 
@@ -256,12 +256,12 @@ The case study in @sec-casestudy5 contains many variables dealing with character
 # Note: na.strings=c("","NA") tells R to treat any blank 
 # and NA entries in the csv file as NA values. 
 #ssd <- read.csv("datasets/ssdsample.csv" , na.strings=c("","NA")) 
-data( ssd ) #load the dataset named `ssd` into your current workspace
+ssd <- read.csv("datasets/ssdsample.csv", na.strings=c("", "NA"))
 
 
 # Next, we use the mutate() function to 
 # convert AgeGroup, Media_Attention, and During_School 
-# variables in the ssd dataframe to factors:
+# variables in the ssd data frame to factors:
 ssd <- mutate( ssd, AgeGroup= as.factor( AgeGroup ),
                       Media_Attention = as.factor( Media_Attention ),
                       During_School= as.factor( During_School ) )
@@ -308,7 +308,7 @@ embed_youtube("Zwws8iULyEU")
 
 :::
 
-All three graphs convey the proportion of observations in each category of `Median_Attention` for a given age group.  For example, note that the highest media attention being  the national level appears to be about the same for all age groups, but it is not the case for local and regional levels. 
+All three graphs convey the proportion of observations in each category of `Media_Attention` for a given age group.  For example, note that the highest media attention being  the national level appears to be about the same for all age groups, but it is not the case for local and regional levels.
 
 :::
 
@@ -337,7 +337,7 @@ For two-way or three-way tables, if `count` is set to `proportion` or `percent` 
 
 ::: callout-note
 
-For two-way table, if `count` is equal `proportion` or `percent`, it will provide the marginal/conditional proportions/percentage of observations in each each level of `Median_Attenion` for each level of `AgeGroup`:
+For two-way table, if `count` is equal `proportion` or `percent`, it will provide the marginal/conditional proportions/percentage of observations in each level of `Media_Attention` for each level of `AgeGroup`:
 
 
 ::: {.panel-tabset}
@@ -382,4 +382,4 @@ Note that the chances of `Media_Attention` being  "National" varies across age g
  
  
  
-  
+

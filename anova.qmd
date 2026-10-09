@@ -35,7 +35,7 @@ To ensure that statistical inferential methods provide meaningful results, sever
 
 - **Assumption 4**. *Equal variance or spread*. The variability in each factor level or groups or treatments should be approximately that of any other factor level or group. 
 
-While these assumptions are addressed in the illustrations below using a case study, assumption 1  can be evaluated based on study design. Assumption 2 cay be examined using a histogram or boxplots under each group. The normality component of assumption 3 cay be examined using quantile-quantile plots across all groups, and assumption 4 can be graphically assessed using boxplots or histograms under each group and numerically assessed using sample standard deviations. 
+While these assumptions are addressed in the illustrations below using a case study, assumption 1 is assessed by considering how the study was conducted. Assumption 2 can be examined using histograms or boxplots for each group. For assumption 3, use QQ-plots within each group or a QQ-plot of the model residuals. Combining all groups in one QQ-plot can hide differences among them. Assumption 4 can be assessed using boxplots and sample standard deviations for each group.
 
 :::
 
@@ -46,7 +46,7 @@ The terms "factor levels", "treatments", and "groups" mean the same thing and wi
 :::{.callout-important}
 ## Notation
 
-Notation is kept at a minimum but for better readability, but we define the following notation for ANOVA:
+For readability, we define the following notation for ANOVA:
 
  - $\mu_1$, $\mu_2$, ..., $\mu_k$ denote the population or true mean response under each treatment $1$, $2$, ..., $k$, respectively.
 
@@ -60,7 +60,7 @@ Notation is kept at a minimum but for better readability, but we define the foll
 
  - $n_1$, $n_2$, ..., $n_k$ denote the number of observations under each treatment $1$, $2$, ..., $k$, respectively.
  
- - $n=n_1+n+n_2+\cdots+ n_k$ denote the total number of observations (across all treatment).
+ - $n=n_1+n_2+\cdots+ n_k$ denote the total number of observations (across all treatment).
  
  - $\eta_1$, $\eta_2$, ..., $\eta_k$ denote the population or true median response under each treatment $1$, $2$, ..., $k$, respectively.
 
@@ -73,7 +73,7 @@ Notation is kept at a minimum but for better readability, but we define the foll
 
 $H_0: \mu_1= \cdots=\mu_k$ (The mean response is the same across all factor levels or treatments)
 
-$H_a:$ At least one treatment means ($\mu_1$, $\mu_2$, ..., or $\mu_k$) $\mu_k$ is different from the rest (The mean response is the not same across all factor levels or treatments)
+$H_a:$ Not all treatment means are equal; at least one pair differs.
 
 [^1]: The MST is also commonly referred to as the mean square between groups (MSG).  
 
@@ -81,17 +81,13 @@ To test the hypothesis, ANOVA compares the variability between groups to the var
 
 $$F=\frac{ MS(Treatment)}{ MS(Error)}$$
 
-This test assumes assumptions 1-4 are reasonable for the data. Under $H_0$, the mean response is assumed to be the same across all groups, so any differences between groups can be attributed to random chance or natural variation. If $H_0$ is true and the mean response is the same across all groups, the variability in the data should be mainly due to variability within groups, so the MS(Treatment) should be small and the MS(Error) should be large (corresponding to a small value of $F$). However, if the mean response varies greatly by group, then the variability in the data may be attributed more to this variability between groups rather than due to variability within groups. In this case, the MS(Treatment) would be large and the MS(Error) would be small (corresponding to a large value of $F$). Under $H_0$, the null distribution of $F$ is an $F$-distribution with a numerator degree of freedom $k-1$ and denominator degree of freedom $n-k$, and the null distribution is used to compute the p-value. 
+If the assumptions hold and the group means are equal, MS(Treatment) and MS(Error) should be similar, so their ratio tends to be near 1. If the group means differ, MS(Treatment) tends to be larger and the ratio increases. Under $H_0$, we use an F distribution with $k-1$ and $n-k$ degrees of freedom to compute the p-value.
 
-If instead the variability in each factor level or groups or treatments differs from any other factor level or group, then the F-test for single factor ANOVA is not appropriate. However, a test called Welch's F-test can be utilized. Welch's F-test requires assumptions 1-3 be reasonable for the data but it does not require assumption 4. Welch's F-test uses as a test statistics a ratio of mean squares as the standard F-test but each are weighted by group variances and it is denoted as $F_w$[^2], where 
-
-$$F_w=\frac{ MS(Treatment)^w}{ MS(Error)^w}$$
-
-Both $MS(Treatment)^w$ and $MS(Error)^w$ are not the mean squares used to define the F-test for single factor ANOVA, but rather a weighted version of sorts to account for unequal spread under each treatment. This helps to correct for unequal variances and ensures that the F-test is more accurate. Under $H_0$, the null distribution of $F_w$ is an F distribution with a numerator degree of freedom $k-1$ and denominator degree of freedom is a non-integer value (resulting for a complicated formula), and this null distribution is used to compute the p-value for Welch's F-test. 
+Welch's ANOVA is used when the group variances are not assumed equal. It adjusts for differences in group sizes and variability. Its test statistic, $F_w$, and degrees of freedom are computed differently from those of the standard F-test[^2]. R does these calculations for us. The observations still need to be independent.
 
 The function `sfaov()`[^3] obtains the information needed to conduct an F-test or Welch's F-test and more using the data. 
 
-[^2]: The formulation of Welch's F-test for single-factor ANOVA is much more complicated but a weighted ratio of mean squares is the basic idea.
+[^2]: The exact calculation used here is implemented by R's `oneway.test(..., var.equal=FALSE)`.
 
 [^3]: `sfaov()` is a wrapper function for `aov()`, `oneway.test()`, and `TukeyHSD()` and it incorporates additional options. A wrapper function is a function that calls another function or a set of functions to simplify or extend tasks 
 
@@ -101,14 +97,14 @@ The function `sfaov()`[^3] obtains the information needed to conduct an F-test o
 ## R functions
 ```
 ### sfaov( y ~ x , data , welch )
-# y: Replace y with the name of the resposne (measured) 
+# y: Replace y with the name of the response (measured)
 #  variable of interest.
 # x: Replace x with the name of the factor or grouping
 #  variable that distinguishes the different populations 
 #  or treatments.
-# data: Set equal to the dataframe name
-# welch: Set to TRUE (default) if 'Equal variance or spread' 
-#        assumption is reasonable. Otherwise, set equal to FALSE.
+# data: Set equal to the data frame name
+# welch: Set to TRUE for Welch's unequal-variance ANOVA.
+#        The default FALSE uses the common-variance ANOVA.
 #
 ```
 :::
@@ -119,7 +115,7 @@ Many of the R functions used in these modules will have identical arguments. The
 
 ::: callout-note
 
-We apply an ANOVA F-test to the data described in the case study provided in @sec-casestudy1 to determine if light intensities have a significant effect on survival rates of early-stage Delta smelt larvae. The data provided in the case study consists of three variables (`Light`, `Turbidity`, and `Survival`) with `Light` and `Survival` being the variables of interest. There are three levels of light intensity: 4.5 (low), 6.75 (medium), and 9 (high). Our aim here is to determine whether light intensity has a significant effect on the survival of the larvae at $\alpha=.10$.
+We use the data in @sec-casestudy1 to compare mean survival percentages among the three light groups at $\alpha=.10$. Keep in mind that the light groups also differ in turbidity. Therefore, the examples illustrate the methods, but cannot tell us whether light alone caused a difference.
 
 To begin, we import the data, and then one would explore the data using numerical and graphical data summaries. Numerical and graphical data explorations were covered in other modules. However, we also use these type of summaries to assess model assumptions.
 
@@ -153,7 +149,7 @@ summary( survdf )
 # Load the lattice package for graphing functions
 library(lattice)  
 bwplot( Survival ~ Light ,              # y ~ x
-    data= survdf ,                      # Specify dataframe
+    data= survdf ,                      # Specify data frame
     xlab= "Light intensity level" ,     # Set x-axis label
     ylab= "Survival rate" ,             # Set y-axis label
     main= "Survival vs Light intensity" , # Specify plot title
@@ -202,11 +198,11 @@ embed_youtube("yyDMj_Gjoys")
 
 :::
 
-The difference in samples means under intensity level 6.75 differs from that intensity level 4.5 and 9. We use an ANOVA F-test to determine if at least one of the true means significantly differs from the rest. However, first the assumptions about the data are considered. While samples are not random, there are no obvious reasons why independence would not hold for these observations in that that survival rates under a given intensity should no have no connection to the survival rate under any other intensity level.   The `summary()` output shows that the sample for each group is small. It can be difficult to assess the normality assumptions with such few observations, especially under light intensity 6.75. When considering the data across all groups, the QQ-plot suggests the data show some skewness. The researcher should either feel comfortable assuming normality based on prior experience or a literature review. Otherwise, it is difficult to say if this assumption about the data are reasonable for small samples. 
+The medium-light group has a different sample mean from the low- and high-light groups. The group sizes are small, so it is difficult to assess normality. We should also check whether the groups were measured independently. The examples below show the calculations, but the study design and assumptions need further assessment before drawing firm conclusions.
  
 The boxplots suggest that the variability is not the same for the three groups. To further assess this assumption numerically, we use the sample standard deviations. The sample standard deviations under light intensity 4.5 and 6.75 are similar (12.809 and 12.242), but the sample standard deviation under high light intensity is much less. To determine if the variability in both groups is similar enough, we can use a rule of thumb - take the ratio of the largest and smallest sample standard deviations (12.809/6.345 or 6.345/12.809), and if the ratio is between .5 and 2, then the variability in both groups is considered similar enough. Both graphical and numerical assessments suggest that assumption 4 is not reasonable for the data. However, keep in mind that graphical assessments of assumptions are generally enough, and this rule of thumb should not be used if outliers are present.
 
-Overall, not all data assumptions are met. Please note that possible remedial measures can be applied when one or more assumptions are not met, and these measures are discussed in @sec-remedmeasure in the context of linear regression and they also apply to the ANOVA setting. Alternative methods to be discussed would be more appropriate for this data, but for illustration, we analyze the data using the F-test in single factor ANOVA. Let $\mu_1$ denote the true mean survival rate under low light intensity. $\mu_2$ and $\mu_3$ are defined similarly for light intensities medium and high, respectively. Since the aim is to determine whether light intensity has a significant effect on the survival of the larvae, the hypothesis is 
+For illustration, we carry out the standard F-test even though some assumptions are uncertain. Let $\mu_1$, $\mu_2$, and $\mu_3$ denote the true mean survival percentages for low, medium, and high light, respectively. The hypotheses are:
 
 $$H_0: \mu_1=\mu_2=\mu_3 \qquad H_a: \text{Not all } μ_i\text{'s are equal}$$
 
@@ -269,7 +265,7 @@ The output also provides the coefficient of determination or $R^2$. $R^2$ is a n
 
 [^4]: SS(Treatment) refers to the sum of squares Treatment. The rest of table elements are defined in an analogous manner for the SS, df, and MS.  SS(Total) is a measure of the total variation in the data, ignoring the groups or treatments. The sum of squares treatment or SS(Treatment) measures how far the individual sample means are from the overall sample mean, and the sum of squares error or SS(Error) measures how far observations are from the sample mean of its group. 
 
-Based on the output, the observed value of the test statistic is $F=4.034$. The p-value is $.037$. Since p-value$\leq\alpha=.10$, we have significant evidence to reject $H_0$ at $\alpha=.10$. Based on the size of the p-value, we may also say that there is strong evidence to reject $H_0$. Note that by setting $\alpha=.10$, it is conveyed to the reader that at most "some evidence" is needed to reject $H_0$ and support what is reflected in $H_a$. Overall, at $\alpha=.10$, light intensity has a significant effect on the survival of the larvae. Although the data provides some evidence that light intensity affects survival rates, we can not say if changes in light intensity causes changes in survival rates because the treatments (low, medium, and high light intensities) were not randomly assigned. Further, because the subjects were not randomly selected from some larger population, the findings that survival rates are affected by the strength of light intensity only applies to those subjects in the sample and not some larger population. 
+The observed test statistic is $F=4.034$, with a p-value of approximately $.037$. Since the p-value is less than $\alpha=.10$, we reject $H_0$ if the assumptions hold. This suggests that the group means differ. However, the concerns noted above limit this conclusion, and the result does not show that light alone caused the difference.
 
 Recall that not all data assumptions are met (assumptions 3 and 4 are questionable). Welch's F-test does not require assumption 4. We will assume assumption 3 is met for the data to illustrate Welch's F-test. To carry out Welch's F-test, we use `sfaov()` but with an additional argument of `welch=TRUE`:
 
@@ -311,30 +307,30 @@ embed_youtube("GzHeCMTftfo")
 
 :::
 
-The `sfaov()` output is nearly identical when using `sfaov()` to conduct the standard F-test but with the F value, p-value, and df(Treatment) corresponding to Welch's F-test. The rest of the information is defined as before. Note that $R^2$ still has the same meaning, as do MS(Treatment) and MS(Error), and their computations are independent of Welch's F-test.
+The output is similar to that of the standard F-test. The F value, p-value, and df(Error) now correspond to Welch's F-test. The df(Treatment) remains $k-1$. The other summaries, including $R^2$, have the same meaning as before.
 
-Note that Welch's F-test provides $F_w=4.034$, with a corresponding p-value of $0.101$. Since p-value$>\alpha=.05$, we do not have significant evidence to reject $H_0$ at $\alpha=.05$. The size of the p-value reflects that that there is very little evidence to reject $H_0$. Overall, at $\alpha=.05$, Welch's F-test shows that there is not enough evidence to conclude that light intensity has a significant effect on the survival of the larvae.
+Welch's ANOVA gives $F_w=3.236$ and a p-value of approximately .10081. Since the p-value is slightly greater than $\alpha=.10$, we fail to reject $H_0$. This means there is not enough evidence of a difference at the chosen significance level; it does not prove that the means are equal. Welch's method allows unequal variances, but the other study limitations still apply.
 
 :::
 
 
 ## Kruskal–Wallis test (single-factor ANOVA for ranks)
 
-Kruskal–Wallis test is sometimes referred to as a single-factor ANOVA for ranks. The Kruskal-Wallis test is similar to a single factor ANOVA test, but does not make assumptions about the normality and is useful when the data are ordinal (e.g. Likert item data). However, it does require that the distribution of the data under each factor level or group be roughly the same shape. It is a non-parametric test alternative to the F-test that tests whether there are significant differences between the medians of two or more treatments or groups. 
+The Kruskal–Wallis test uses the ranks of the observations to compare independent groups. It does not require normally distributed data. If the groups have distributions with similar shapes and spreads, the test can be used to compare medians. If their shapes or spreads differ, a significant result may reflect those differences instead.
  
 Like ANOVA, it partitions the total variability in the data but when using the ranks of the data (not the data themselves). For the Kruskal–Wallis test, the hypotheses are
 
 $H_0: \eta_1= \cdots=\eta_k$ (The median response is the same across all factor levels or treatments)[^5] 
 
-$H_a:$ At least one treatment medians ($\eta_1$, $\eta_2$, ..., or $\eta_k$) is different from the rest (The median response is the not same across all factor levels or treatments)
+$H_a:$ Not all group medians are equal, assuming the group distributions have similar shapes and spreads.
 
-[^5]: If the data distribution under each treatment does not follow the same shape, this test may still be used but it will longer be testing differences in true medians, but rather differences in true means ranks so interpretation becomes more troublesome, but nevertheless can show there the groups are different using this measure. 
+[^5]: If the groups have different shapes or spreads, interpret a significant result as evidence that their distributions differ, rather than only their medians.
 
 The Kruskal–Wallis test statistic is: 
 
 $$H=\frac{MSranks(Treatment)\times (k-1)}{ (SSranks(Total))/(n-1)}$$
 
-Where MSranks(Treatment) denotes the mean of square treatment of the ranked data, and SSranks(Total) is the total sum of squares of the ranked data.   Under $H_0$, the null distribution of $H$ is a $\chi^2$-distribution degree of freedom $k-1$, and the null distribution is used to compute the p-value. 
+Here MSranks(Treatment) describes differences among the groups using ranks, and SSranks(Total) describes the overall variation in the ranks. The test also accounts for tied observations. We use a chi-square distribution with $k-1$ degrees of freedom to approximate the p-value.
 
 
 The function `sfkw()`[^6] obtains the information needed to conduct the Kruskal–Wallis test using the data. 
@@ -355,9 +351,9 @@ The function `sfkw()`[^6] obtains the information needed to conduct the Kruskal�
  
 ::: callout-note
 
-Here, we apply the Kruskal–Wallis test to the data described in the case study provided in @sec-casestudy1 to determine if light intensities have a significant effect on survival rates of early-state Delta smelt larvae. Recall that `Light` and `Survival` are the variables of interest, and that there are three levels of light intensity: 4.5 (low), 6.75 (medium), and 9 (high). Our aim here is to determine whether light intensity has a significant effect on the survival of the larvae at $\alpha=.10$ using the Kruskal–Wallis test.
+We use the Kruskal–Wallis test to compare survival among the three light groups at $\alpha=.10$. As before, the observations need to be independent, and the light and turbidity differences cannot be separated in these data.
 
-The data was imported and data assumptions were assessed when the F-test was applied in the previous section. Below we examine the medians and further explore the distribution of the data.
+The data were imported and data assumptions were assessed when the F-test was applied in the previous section. Below we examine the medians and further explore the distribution of the data.
 
 ```{r }
 #| echo: true
@@ -387,7 +383,7 @@ iqr( Survival ~ Light ,
 
 ```
 
-The difference in samples medians under intensity level 6.75 differs from intensity levels 4.5 and 9. The violin plots suggest that the data under each treatment do not all follow the same distribution. This means we can not assess if the medians under each treatment differ but we formulate the hypothesis in terms of the mean of the ranks:
+The difference in samples medians under intensity level 6.75 differs from intensity levels 4.5 and 9. The violin plots suggest that the data under each treatment do not all follow the same distribution. This means we cannot assess if the medians under each treatment differ but we formulate the hypothesis in terms of the mean of the ranks:
 
 $H_0:$ The mean ranks of survival under each light intensity are the same
 
@@ -435,7 +431,7 @@ embed_youtube("4MK9EUofypI")
 
 The output provides the Kruskal-Wallis test statistic and corresponding p-value.  The output also provides a measure akin coefficient of determination in traditional ANOVA called rank Eta or eta-squared.  The measure eta-squared is appropriate for when the data are ranks, and it provides the proportion of the total variation in the response variable that is explained by the explanatory variable. Again, Eta-squared can be considered a non-parametric analogue to $R^2$. 
 
-Based on the output, the observed value of the test statistic is $H=5.668$. The p-value is $0.059$. Since p-value$\leq\alpha=.10$, we have have significant evidence to reject $H_0$ at $\alpha=.10$. Note that the size of the p-value suggests there is some moderate evidence  to reject $H_0$. Overall, at $\alpha=.10$, light intensity has a significant effect on the survival of the larvae (in terms of mean ranks of survival rates). 
+The observed test statistic is $H=5.668$, with a p-value of approximately .05878. Since the p-value is less than $\alpha=.10$, we reject $H_0$ if the assumptions hold. This suggests that the group distributions differ. Because their shapes differ, we cannot conclude from this test alone that their medians differ.
 
 :::
 
@@ -465,9 +461,9 @@ Recall that the function `sfaov()` can be used to conduct single-factor ANOVA. T
 ## R functions
 ```
 ### sfaov( y ~ x , data , PWC, conf.level )
-# PWC: Set equal to true to conduct all pairwise comparisions using
+# PWC: Set equal to true to conduct all pairwise comparisons using
 #   Tukey's HSD method. Default is FALSE 
-# conf.level: Set equal to desired confidence level for all pairwise comparision. Default is .95
+# conf.level: Set equal to desired confidence level for all pairwise comparison. Default is .95
 # 
 ```
 :::
@@ -475,7 +471,7 @@ Recall that the function `sfaov()` can be used to conduct single-factor ANOVA. T
  
 ::: callout-note
 
-Recall that we applied the ANOVA F-test to the data described in @sec-casestudy1 and determined that light intensities have a significant effect on survival rates of early-stage Delta smelt larvae at $\alpha=.10$. Thus, the mean survival rates under each intensity are not all the same, but it is not clear how they differ. To determine how they differ, we apply Tukey's HSD method at $\alpha=.10$
+The standard F-test gave evidence of a difference at $\alpha=.10$. To illustrate how to identify which group means differ, we use Tukey's HSD at the same significance level. The study limitations discussed above still apply.
 
 The following code uses `sfaov()` to help conduct the ANOVA F-test and pairwise multiple comparisons using Tukey's HSD method at $\alpha=.10$[^7]. 
 
@@ -536,9 +532,9 @@ The Games-Howell test is a method for performing pairwise multiple comparisons w
 ## R functions
 ```
 ### sfaov( y ~ x , data , PWC, conf.level, welch )
-# PWC: Set equal to true to conduct all pairwise comparisions using
+# PWC: Set equal to true to conduct all pairwise comparisons using
 #      Tukey's HSD method. Default is FALSE.
-# conf.level: Set equal to desired confidence level for all pairwise comparision. Default is .95.
+# conf.level: Set equal to desired confidence level for all pairwise comparison. Default is .95.
 # welch: Set equal to TRUE for Welch's F-test.
 #
 ```
@@ -548,7 +544,7 @@ The Games-Howell test is a method for performing pairwise multiple comparisons w
 
 ::: callout-note
 
-Recall that we applied the Welch's F-test to the data described in @sec-casestudy1 and it was determined that light intensities did not have a significant effect on survival rates of early-stage Delta smelt larvae at $\alpha=.10$. Thus, the data did not provide enough evidence to conclude that survival rates under each intensity are different.  However, to illustrate the procedure in R, we perform multiple pairwise comparisons using the Games-Howell test at $\alpha=.10$. 
+Welch's F-test did not give enough evidence of different group means at $\alpha=.10$. For illustration, we show how to carry out Games–Howell comparisons with 90% confidence intervals. The same study limitations apply.
 
 The following code uses `sfaov()` to conduct the Welch's F-test and all pairwise multiple comparisons using the Games-Howell test at $\alpha=.10$: 
 
@@ -601,9 +597,9 @@ The R output from `sfaov()` now provides the results of the Games-Howell test an
 
 ### Dunn test
 
-A common multiple pairwise comparisons method to compliment the Kruskal-Wallis test is Dunn's test with Holm's correction. Holm's correction is what is called a step-down method that adjusts the p-values all pairwise comparisons among group or treatment means to account for multiple testing. Recall that the function `sfkw()` can be used to conduct the Kruskal–Wallis test. This function can also then conduct the Dunn's test with Holm's correction to adjust the p-values for all pairwise comparisons among group or treatment means[^8].
+Dunn's test compares the average ranks for each pair of groups. Holm's correction adjusts the p-values to account for making several comparisons. The `sfkw()` function provides these results after the Kruskal–Wallis test[^8].
 
-[^8]: The aim of Dunn's test is to provide a set of p-values that represent the probability of observing the observed difference in median ranks between two groups by chance alone. Since Dunn's test does not rely on any distributional assumptions like Welch's F-test or the standard F-test, it is not possible to calculate confidence intervals for the differences between the groups.
+[^8]: The function reports adjusted p-values for the comparisons, rather than confidence intervals.
 
 
 ::: {.callout-tip icon=false}
@@ -611,7 +607,7 @@ A common multiple pairwise comparisons method to compliment the Kruskal-Wallis t
 ## R functions
 ```
 ### sfkw( y ~ x , data , PWC )
-# PWC: Set equal to true to conduct all pairwise comparisions using
+# PWC: Set equal to true to conduct all pairwise comparisons using
 #      Tukey's HSD method. Default is FALSE 
 #
 ```
@@ -620,7 +616,7 @@ A common multiple pairwise comparisons method to compliment the Kruskal-Wallis t
 
 ::: callout-note
 
-Recall that we applied the Kruskal-Wallis test to the data described in @sec-casestudy1 and determined that light intensities did have an significant effect on survival rates of early-stage Delta smelt larvae at $\alpha=.10$. The following code uses `sfkw()` to help conduct the Kruskal-Wallis test and all pairwise multiple comparisons using Dunn's method with Holm's correction at $\alpha=.10$:
+The Kruskal–Wallis test gave evidence that the group distributions differ at $\alpha=.10$. The following Dunn comparisons help identify which pairs differ in their average ranks. These comparisons still cannot separate the effects of light and turbidity.
 
 ::: {.panel-tabset}
 ## R code
@@ -668,9 +664,9 @@ The output from `sfkw()` now provides the results of Dunn's test, displaying adj
 
 ## Sample size estimation and power analysis for ANOVA
 
-Ideally, estimating the sample size for a study is one of the first things that researchers do prior to collecting data.  Knowing the required sample size to detect a desired effect at the beginning of a project allows one to manage their data collection efforts. Furthermore, this allows for one to determine how much statistical power the test will have to detect an effect if it exist. 
+Ideally, estimating the sample size for a study is one of the first things that researchers do prior to collecting data.  Knowing the required sample size to detect a desired effect at the beginning of a project allows one to manage their data collection efforts. Furthermore, this allows for one to determine how much statistical power the test will have to detect an effect if it exists.
 
-The R function `pwr.anova.test()` from the `pwr` R package calculates statistical power for a balanced single-factor ANOVA, given the sample size, significant level ($\alpha$), and effect size. Note that all treatments are assumed to have the same number of observations, which is known as a "balanced" design. It is assumed that the appropriate assumptions about the data are met[^9].
+The R function `pwr.anova.test()` from the `pwr` R package calculates statistical power for a balanced single-factor ANOVA, given the sample size, significance level ($\alpha$), and effect size. Note that all treatments are assumed to have the same number of observations, which is known as a "balanced" design. It is assumed that the appropriate assumptions about the data are met[^9].
 
 [^9]: There are R functions to compute for the Kruskal-Wallis test or Welch's F-test, these functions may be difficult to use for those not familiar with power analysis.
 
@@ -692,7 +688,7 @@ The R function `pwr.anova.test()` from the `pwr` R package calculates statistica
 :::
 
 
-The effect size refers to Cohen's $f$, which is defined as the standard deviation of the k treatment means divided by standard deviation (across all groups). Cohen's f is typically interpreted as follows:
+Cohen's $f$ describes how much the group means differ relative to the variation within the groups. Larger values indicate a larger effect. The standard deviation used here describes variation within groups, rather than variation in all observations combined. Common guidelines are:
 
 - Small effect size: $f = 0.10$
 
@@ -733,4 +729,4 @@ The statistical power of this test is low. To increase the power, one may increa
  
  
  
- 
+

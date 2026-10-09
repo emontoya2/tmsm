@@ -6,7 +6,7 @@ Consider comparing independent populations in regard to the mean or median of so
 
 - *t*-based or t-test based for comparing two means  
 
-- Wilcoxon rank sum test for comparing two medians  
+- Wilcoxon rank sum test for comparing groups
 
 - Randomization test for comparing two means or two medians 
 
@@ -17,9 +17,9 @@ For any statistical inferential method to provide meaningful results, several as
 :::{.callout-warning}
 ## Data assumptions
 
-The methods discussed in this section one or more of the following assumptions about the data.
+The methods discussed in this section require one or more of the following assumptions about the data.
 
-- **Assumption 1**. *Independence of the observations*. The two groups or populations being compared should be independent of each other. This means that the observations in one group should not be related or dependent on the observations in the other group.
+- **Assumption 1**. Observations must be independent within each sample and between the two samples. Shared conditions, repeated measurements, or pairing can violate this assumption.
 
 - **Assumption 2**. *No clear outliers* in either sample. 
 
@@ -57,8 +57,8 @@ The independent two-sample t-test is a commonly used hypothesis test for compari
 
 Student's two-sample t-based methods assume assumptions 1, 2, 3, and 4 hold. The version of the t-based methods used here are called the Welch two-sample t-based methods, which do not require homogeneity of variances assumption. The Welch two-sample t-test statistic takes the following form:
 
-$$T=\frac{(\bar{y}_{A}-\bar{y}_{B}) -(\mu_{A}-\mu_{B})}{\sqrt{\frac{s_{A}^2}{n_{A}}+\frac{s_{A}^2}{n_{B}}}},$$
-where $n$ and $s$ denote the sample size and sample standard deviation from each group.
+$$T=\frac{(\bar{y}_{A}-\bar{y}_{B}) -\Delta_0}{\sqrt{\frac{s_{A}^2}{n_{A}}+\frac{s_{B}^2}{n_{B}}}},$$
+where $n$ and $s$ denote sample size and standard deviation, and $\Delta_0$ is the mean difference specified by the null (zero here).
 
 The data should consist of two variables of interest: a numerical variable that measures the outcome or response of interest and a factor or grouping variable with two levels. The grouping variable distinguishes the different populations or treatments (A or B). The hypothesis takes the form
 
@@ -68,7 +68,7 @@ One may also consider the test in terms of an effect $\delta_\mu=\mu_A - \mu_B$,
 
 $$H_0: \delta_\mu=0 \qquad H_a: \delta_\mu \neq 0$$
 
-Under $H_0$, the null distribution of T is a t-distribution with a certain degree of freedom[^1], and it is used to compute the p-value. The function `two.mean.test()`[^2] computes the test statistic and p-value for the two-sample t-test, as well as provide a confidence interval for $\mu_A - \mu_B$.
+Under $H_0$, the null distribution of Welch's T is approximated by a t-distribution with a certain degree of freedom[^1], and it is used to compute the p-value. The function `two.mean.test()`[^2] computes the test statistic and p-value for the two-sample t-test, as well as provide a confidence interval for $\mu_A - \mu_B$.
 
 [^1]: For the Welch t-test, the degree of freedom can be tedious to compute. Software will provide the corresponding degrees of freedom and p-value. 
 
@@ -81,12 +81,12 @@ Under $H_0$, the null distribution of T is a t-distribution with a certain degre
 ### two.mean.test( y ~ x , data , first.level,
 ###            direction, conf.level,
 ###            welch)
-# y: Replace y with the name of the resposne (measured) 
+# y: Replace y with the name of the response (measured)
 #  variable of interest.
 # x: Replace x with the name of the factor or grouping
 #  variable that distinguishes the different populations 
 #  or treatments.
-# data: Set equal to the dataframe name.
+# data: Set equal to the data frame name.
 # first.level: Set equal to the level/category from the 
 #       grouping variable. It determines how the difference 
 #       in sample means is computed.  It should be consistent 
@@ -107,7 +107,7 @@ Many of the R functions used in this resource will have identical arguments. The
 
 We apply two-sample t-based methods (hypothesis testing and CI) to the data described in the case study provided in @sec-casestudy3. The goal is to determine if there is a significant difference in PM10 concentration between Kern and Fresno counties and to estimate the difference between the true means.
 
-The data provided in the case study consists of several variables (`PM10`, `AQI`, ..., `county`, and `City.Name`). A subset of the data was created so that it included  only `PM10` (daily PM10 levels) and `county` (county in which the monitoring site is located) for the two counties of interest. To start, the data are imported and numerical and graphical summaries of the data would be created. However, graphical and numerical data summaries are covered in other modules. The focus here is to assess model assumptions either numerically or graphically. 
+The data provided in the case study consists of several variables (`PM10`, `AQI`, ..., `county`, and `City.Name`). A subset of the data were created so that it included  only `PM10` (daily PM10 levels) and `county` (county in which the monitoring site is located) for the two counties of interest. To start, the data are imported and numerical and graphical summaries of the data would be created. However, graphical and numerical data summaries are covered in other modules. The focus here is to assess model assumptions either numerically or graphically.
 
 ::: {.panel-tabset}
 ## R code  
@@ -119,7 +119,7 @@ The data provided in the case study consists of several variables (`PM10`, `AQI`
 #| warning: false
 
 # Import the data and save the data in a 
-# dataframe called 'KernFresnoPM10df'
+# data frame called 'KernFresnoPM10df'
 KernFresnoPM10df <- read.csv("datasets/KernFresnoDailyPM10.2021.csv")
 
 # Load the 'dplyr' package, which provides the 'mutate()' function.
@@ -139,11 +139,11 @@ summary( KernFresnoPM10df )
 library(lattice) 
 
 # Create a box plot of Air Quality Index (AQI) by county levels using the 'bwplot()' function
-bwplot(AQI ~ county,                   #  y ~ x
+bwplot(PM10 ~ county,                   #  y ~ x
        data = KernFresnoPM10df,        # set the data frame to use
        xlab = "County",                # set the x-axis label
-       ylab = "AQI",                   # set the y-axis label
-       main = "AQI Distribution by County", # set the plot title
+       ylab = "PM10",                   # set the y-axis label
+       main = "PM10 Distribution by County", # set the plot title
        fill = c("gray", "brown"))      # fill the boxes with specified colors
 
 # Load the 'mosaic' package, which allows using 
@@ -151,11 +151,11 @@ bwplot(AQI ~ county,                   #  y ~ x
 library( mosaic ) 
 
 # Compute the sample mean for each county
-mean( AQI ~ county , 
+mean( PM10 ~ county ,
    data= KernFresnoPM10df )
 
 # Compute the sample standard deviation for each county
-sd( AQI ~ county , 
+sd( PM10 ~ county ,
   data= KernFresnoPM10df )
 
 ```
@@ -177,18 +177,17 @@ embed_youtube("zFTeJ559NIY")
 
 The difference in samples means between Kern and Fresno county is 
 
-$$30.217-35.201=\bar{x}_K-\bar{x}_F=-4.984.$$
+$$35.067-41.099=\bar{x}_K-\bar{x}_F=-6.032.$$
 
-While the observed difference serves as one estimate of $\mu_K - \mu_F$, a confidence interval (CI) provides a better sense of the size of the difference between $\mu_K$ and $\mu_F$. Additionally, a hypothesis test is used to determine whether this difference is significant, but this depends on certain assumptions about the data. While the samples are not necessarily random, they are independent from each other in the sense that the measurements in Kern county are not affected by the measurements in Fresno county. Although random sampling is ideal, the t-based methods can still be used with non-random samples, but any conclusions drawn only apply to the specific sample and not necessarily to a larger population[^3]. According to the `summary` output, the sample size for each group is large. A common rule of thumb is that a sample is considered large if it contains more than 30 observations[^4]. The boxplots indicate that the variability in PM10 concentration appears to be about the same for both counties, and that there are several outliers present in both counties.
+The estimated difference in mean PM10 levels is -6.032. Before drawing conclusions, we need to consider whether the observations are independent. Readings on nearby days or in nearby counties may be related because of shared weather. A large sample does not remove this concern. We use these data to illustrate the methods, with this limitation in mind[^3].
 
-[^3]: It turns out that the null distribution of a t-based method approximates the null distribution of a randomization test fairly well, which does not require random samples.
-
-[^4]: The rule assumes all other assumptions are met. Although a common rule, it can fail when the distribution of the data resembles a heavy-tailed distribution. Please see @sleuth for further discussion on this issue.  
-
-Although the boxplots suggest the variability is about the same in both groups, for illustration, we also assess numerically using the sample standard deviations.  The standard deviations for Fresno and Kern are 22.18 and 23.17, respectively, and they appear to be similar. One rule of thumb for comparing the variability in two groups is to take the ratio of their sample standard deviations (22.18/23.17 or 23.17/22.18). If the ratio falls between 0.5 and 2, then the variability in both groups is considered similar enough. However, it is important to note that graphical assessment of assumptions is generally sufficient and this rule of thumb should not be used if outliers are present.
+[^3]: Shuffling the observations does not remove relationships among daily readings. The way the data were collected still matters.
 
 
-Overall, not all data assumptions are met. Alternative methods to be discussed would be more appropriate for this data, but for illustration we analyze the data using the two-sample t-based methods. Let $\mu_K$ denote the true mean PM10 levels in Kern county. $\mu_F$ is defined analogous for Fresno county. Since an aim is to determine if there is significant difference between PM10 levels in Kern and Fresno county, the hypothesis is 
+Graphical summaries show the spread and unusual values in each county. The sample standard deviations should be computed for PM10, as in the code above. Comparing the standard deviations helps us assess whether the groups have similar variability, but does not tell us whether the observations are independent.
+
+
+For illustration, we analyze the data using the two-sample t-based methods, keeping the possible dependence among daily readings in mind. Let $\mu_K$ denote the true mean PM10 level in Kern County, and define $\mu_F$ similarly for Fresno County. Since the aim is to determine whether the mean PM10 levels differ, the hypotheses are:
 
 $$H_0: \mu_K - \mu_F=0 \qquad H_a: \mu_K- \mu_F \neq 0$$
 
@@ -205,10 +204,15 @@ The following code uses `two.mean.test()` to compute the test statistic, the cor
 #| message: false
 #| warning: false
 
+pm10_fit <- t.test(
+  KernFresnoPM10df$PM10[KernFresnoPM10df$county == "Kern"],
+  KernFresnoPM10df$PM10[KernFresnoPM10df$county == "Fresno"],
+  conf.level=.99)
+
 # Source the function two.mean.test() so that it's R's memory.
 source("rfuns/two.mean.test.R")
 
-# Recall that the data was imported and stored in "KernFresnoPM10df"
+# Recall that the data were imported and stored in "KernFresnoPM10df"
 
 # The function will require the following information:
 # y: Replace with 'PM10'
@@ -248,15 +252,15 @@ The output includes the following information:
 
 - The sample mean and standard deviation under each level of the grouping/factor variable. 
 
-- The value of the observed statistic: $T=-4.10$
+- The value of the observed statistic: $T=-4.8075$
 
 - p-value 
 
 - A confidence interval
 
-Based on the output, the observed value of the test statistic is $T=-4.10$. The p-value is extremely small (0). Since p-value$\leq\alpha=.01$, we have significant evidence to reject $H_0$. Based on the size of the p-value, we may also say that there is very strong evidence to reject $H_0$. By setting $\alpha = 0.01$, we require "stronger evidence" to reject $H_0$ than if we had used a larger significance level. Therefore, we have strong evidence that there is significant difference between PM10 levels in Kern and Fresno county at the designated monitoring sites. 
+The observed test statistic is $T=-4.8075$, with a p-value of approximately $1.63\times10^{-6}$. Since the p-value is less than $\alpha=.01$, we reject $H_0$ if the assumptions hold. The sample results suggest that the mean PM10 levels differ. However, the possible relationships among daily readings limit how confidently we can draw this conclusion.
 
-The output also provides a 99% CI for the difference in true means. The CI is $(-9.270, -2.794)$, and we are 99% confidence that the difference in true means is anywhere between $-9.270$ and $-2.794$. Since the interval does not contain $0$, it is clear that the true average PM10 levels at Fresno county are higher than in Kern county at the designated monitoring sites at 99% confidence. Note that this conclusion only applies to the monitoring sites, since PM10 levels were not measured at random locations within each county. 
+The 99% CI for the difference in mean PM10 levels, Kern minus Fresno, is (`r round(pm10_fit$conf.int[1], 3)`, `r round(pm10_fit$conf.int[2], 3)`). Since both bounds are negative, the interval suggests that the Fresno sites have a higher mean PM10 level. This interpretation assumes independent observations and applies to the sites represented in the data.
 
  
 
@@ -264,15 +268,15 @@ The output also provides a 99% CI for the difference in true means. The CI is $(
 
 
 
-## Wilcoxon-based methods comparing two medians  
+## Wilcoxon-based methods for comparing groups
 
-When assumption 2 and/or 3 do not hold, t-based methods are no longer applicable. The Wilcoxon-based methods do not require the normality assumption when the samples are small nor is it affected by outliers. Further, the distributions from which each data were sampled do not have to be known[^5] for these methods, but these methods do require for the distributions to have approximately the same shape. Since the distribution does not have to be a known distribution, it called a non-parametric method[^6]. In short, these methods require assumptions 1 and 4, but also require for the distributions from which each data were sampled to have approximately the same shape and for each sample to be of at least size 10.
+Outliers and departures from normality can affect t-based methods, particularly with small samples. Wilcoxon methods use the ranks of the observations, so extreme values have less influence. These methods still require independent observations. To interpret the test as a comparison of medians, the group distributions should have similar shapes and spreads[^5]. There is no single minimum sample size that applies to every Wilcoxon test[^6].
 
-[^5]: Known distributions are parametric distributions in that they can be expressed using math formulas.  Parametric methods assume that the underlying population data follows a known distribution
+[^5]: Known distributions are parametric distributions in that they can be expressed using math formulas.  Parametric methods assume that the underlying population data follow a known distribution
 
-[^6]: Non-parametric methods assume less things about the data compare to parametric methods. 
+[^6]: Non-parametric methods assume fewer things about the data compare to parametric methods.
 
-The Wilcoxon rank sum test, also called the Mann-Whitney test, can be applied to compare whether the difference between true medians from two independent populations is really different from zero. It can also be used to determine if an effect (when comparing two treatments via medians) is significant or not, as opposed to the size of the difference or effect being due to random chance.
+The Wilcoxon rank sum (Mann–Whitney) test compares the ranks of observations in two independent samples. When the group distributions have similar shapes and spreads, a difference can be interpreted as a difference in population medians. Otherwise, a significant result may reflect other differences between the distributions.
 
 The test statistic for the Wilcoxon rank sum test depends on the ranks of the observed data, and its value will be provided by software. However, some details regarding the computation of the test statistic are provided below:
 
@@ -287,7 +291,7 @@ The test statistic for the Wilcoxon rank sum test depends on the ranks of the ob
 The test statistic then takes the form 
 
 $$U=W-\frac{n_A(n_A+1)}{2}$$
-Whereas the null hypothesis of the two-sample t test is equal means, the null hypothesis of the Wilcoxon test[^7] is taken as equal medians:
+Whereas the two-sample t-test compares means, the Wilcoxon test can compare medians when the group distributions have similar shapes and spreads[^7]. In that case, the hypotheses are:
 
 $$H_0: \eta_A - \eta_B=0 \qquad H_a: \eta_A -\eta_B \neq 0$$ 
 
@@ -297,19 +301,19 @@ $$H_0: \delta_\eta=0 \qquad H_a: \delta_\eta \neq 0$$
 
 Under $H_0$, the null distribution of U is called the Wilcoxon distribution and it is used to compute the p-value[^8]. The function `two.wilcox.test()`[^9] computes the test statistic and p-value[^10], as well as a CI. 
 
-The CI provided by this method is for the difference in medians between two randomly chosen observations (one from each group)[^11]. This still provides some sense of how different the medians are from each other. However, if both distributions from which the data were sampled are symmetric, then the CI provided is for a difference in medians. 
+The CI describes how far apart the two distributions are, using the median of all differences between an observation in one group and an observation in the other[^11]. When the distributions have similar shapes and spreads, we can interpret it as an interval for the difference in population medians. It is not the difference between two particular readings.
 
-[^7]: If the data distributions do not have approximately the same shape, this test may be used but it is no longer testing a difference in medians, but rather it tests if the median of all pairwise differences (pseudomedian) is not equal to zero. The pseudomedian is not commonly used in practice, but never the less, it can be used to show that two groups are different under this measure. 
+[^7]: If the distributions have different shapes or spreads, the test should not be interpreted as only a comparison of medians.
 
 
-[^8]: The distribution is discrete. However, if a sample size is larger than 50 and there are ties, the distribution is approximated well by a standard normal distribution (default for most software).
+[^8]: R may compute the p-value directly or use a normal approximation, depending on sample sizes and tied values.
 
 
 [^9]: The R function `two.wilcox.test` is a wrapper function for the R function `wilcox.test()`. 
 
-[^10]: If there are ties or the sample size is large (rule of thumb is more than 20 in a given group is considered large), the p-value is approximated using a standard normal distribution. The larger the sample, the better the approximation. However, this approximation may be poor especially when the sample size are not very large and/or the underlying distributions of the two groups are highly skewed or have heavy tailed. 
+[^10]: When R uses a normal approximation, it can adjust for tied values and for using a continuous distribution to describe ranks.
 
-[^11]: Recall that the mean and median are measures of central location of a distribution. This CI is for a measure of central location called the pseudomedian, which is the median of differences between all pairs of observations between both groups (not the difference in group medians). For symmetric distributions, the median and pseudomedian coincide.  
+[^11]: R takes the difference between each value in one group and each value in the other, then uses the median of those differences to estimate how far apart the groups are.
 
 ::: {.callout-tip icon=false}
 
@@ -317,15 +321,15 @@ The CI provided by this method is for the difference in medians between two rand
 ```
 ### two.wilcox.test( y ~ x , data , first.level,
 ###            direction, conf.level)
-# y: Replace y with the name of the resposne (measured) 
+# y: Replace y with the name of the response (measured)
 #  variable of interest
 # x: Replace x with the name of the factor or grouping
 #  variable that distinguishes the different populations 
 #  or treatments
-# data: Set equal to the dataframe being used.
+# data: Set equal to the data frame being used.
 # first.level: Set equal to a level/category from the grouping 
 #              variable. It determines how the difference in 
-#              sample means is computed.  It should be consisent 
+#              sample means is computed.  It should be consistent
 #              with the formulation of the hypothesis.
 # direction: Set equal to the sign in the alternative: "two.sided", 
 #            "greater" , or "less"
@@ -340,7 +344,7 @@ The CI provided by this method is for the difference in medians between two rand
  
 ::: callout-note
 
-We apply the two-sample Wilcoxon-based methods (hypothesis testing and CI) to the data described in the case study provided in @sec-casestudy3 to determine if there is a significant difference in PM10 concentration between Kern and Fresno county and to get a sense of how different the true medians are. The four assumptions of the data discussed earlier in this chapter were explored when illustrating the t-based methods. Although the data consists of large samples and the independence and equal variance assumptions are reasonable, the presence of many outliers in the data should be noted. The Wilcoxon-based methods are not affected by outliers but the distributions from which each sample were obtained should have the same shape. This is explored via a violin boxplot.
+We use the PM10 data to illustrate the Wilcoxon test and its CI. The observations still need to be independent. Violin plots help us assess whether the group distributions have similar shapes and spreads.
 
 
 ::: {.panel-tabset}
@@ -379,7 +383,7 @@ embed_youtube("CxlMXEWbi3U")
 
 The violin boxplot makes it clearer that the distribution of PM10 in both counties approximately have the same shape. 
 
-Let $\eta_K$ denote the true median PM10 levels in Kern county. $\eta_F$ is defined analogous for Fresno county. Since an aim is to determine if there is significant difference between PM10 levels in Kern and Fresno county, the hypothesis is 
+Let $\eta_K$ denote the true median PM10 levels in Kern county. $\eta_F$ is defined analogously for Fresno county. Since an aim is to determine if there is significant difference between PM10 levels in Kern and Fresno county, the hypothesis is
 
 $$H_0: \eta_K - \eta_F=0 \qquad H_a: \eta_K- \eta_F \neq 0$$
 
@@ -442,9 +446,9 @@ The output includes the following information:
 
 - A confidence interval
 
-Based on the output, the observed value of the test statistic is $U=759219.5$. The p-value is extremely small (0). Since p-value$\leq\alpha=.01$, we have significant evidence to reject $H_0$.  Therefore, we have strong evidence that there is significant difference between PM10 levels in Kern and Fresno county at the designated monitoring sites. 
+Based on the output, the observed value of the test statistic is $U=759219.5$. The p-value is small and positive; use the unrounded R result rather than reporting a rounded zero. Since p-value$\leq\alpha=.01$, we have significant evidence to reject $H_0$.  Therefore, we have strong evidence that there is significant difference between PM10 levels in Kern and Fresno county at the designated monitoring sites.
 
-The output also provides a 99% CI for median of difference between all pairs of observations between both groups (not the difference in group medians). Based on the CI, we are 99% confident that the median difference between two randomly chosen PM10 levels from each county is anywhere between -8.000 and -4.000.  Since the interval does not contain $0$, it is clear that the PM10 levels at Fresno county are higher than in Kern county at the designated monitoring sites at 99% confidence. Note that this conclusion only applies to the monitoring sites, since PM10 levels were not measured at random locations within each county. 
+The 99% CI is (-8.000, -4.000). If the group distributions have similar shapes and spreads, we are 99% confident that the median PM10 level at the Kern sites is between 4 and 8 units lower than at the Fresno sites. As before, this conclusion assumes independent observations.
 
  
 
@@ -456,15 +460,15 @@ The output also provides a 99% CI for median of difference between all pairs of 
 ## A randomization test using a t-test test statistic 
 
 
-Randomization methods seek to determine if the observed data in each group is different due to an effect of a factor, compared to what would be expected by random chance if the groups were the same and the factor had no effect on the response. These methods can test whether the observed data in each group are different from a randomization distribution generated by randomly allocating the observed data into the two groups. If the observed data are in fact the same (no effect), then it should be just as likely as any ordering generated by random allocation of the data between groups. In other words, if the factor being studied has no effect on the response, then the behavior of the data should be similar to what we would expect if the observations were randomly assigned to the two groups (randomized group assignment). If, however, the groups are different due to a significant factor effect, then the behavior of the data would not be similar to what we would expect if the observations were randomly assigned to the two groups."
+Randomization tests compare the observed difference with differences obtained by repeatedly shuffling the observations between groups. This shows how unusual the observed result would be if there were no treatment effect. The shuffling must follow how treatments were assigned. For observational data, we also need to consider whether shuffling between groups is reasonable.
 
 
-If assumption 2, 3, and/or 3 do not hold, t-based or Wilcoxon methods are no longer applicable. Randomization technically does not require any assumptions, although some assumptions or conditions may be needed depending on how the effect is being quantified (differences in mean, medians, or other measures). Here, we use randomization tests to determine if an effect is significant when using a difference in means and difference in medians. Keep in mind that randomization tests do not have sample size requirements. However, the less data you have, the less power the test has to detect a significant effect or significant difference between two groups.
+Randomization tests also require assumptions. They do not automatically solve problems with related observations or poorly designed studies. For example, we should not freely shuffle repeated measurements from the same person as if they came from different people. Small samples can also make an effect difficult to detect.
 
 
 ### Comparing means {-}
 
-Here we use a randomization test when quantifying the attribute using the mean. As a test statistic, we use the form of the test statistic provided by Welch's t-test for the randomization test. The interest here is in determining if an effect (when measures as a difference in means) is significant. Since the test statistic uses both the sample mean and sample standard deviation, this version of the randomization test will require assumption 2. The R function used to conduct the randomization test has similar syntax to that of the t-based methods, but with additional arguments.
+Here we use Welch's t-statistic to compare the means after each shuffle. The function has similar arguments to the t-based method, with additional arguments for the randomization test.
 
 
 ::: {.callout-tip icon=false}
@@ -483,7 +487,7 @@ Here we use a randomization test when quantifying the attribute using the mean. 
 
 ::: callout-note
 
-Discussion of the t-based methods showed that outliers are present in the data from the case study discussed in @sec-casestudy3, so this test is not appropriate for the data. However, for illustration we carry out the test on the data. The aim is to determine if there is significant county effect on PM10 levels when considering Kern and Fresno county. Let $\delta_\mu=\mu_K - \mu_F$. The hypothesis is 
+We use the PM10 data to illustrate the calculation. Keep in mind that daily readings may be related, so simply shuffling the county labels may not provide a reliable test for these data. Let $\delta_\mu=\mu_K-\mu_F$. The hypotheses are:
 
 $$H_0: \delta_\mu=0 \qquad H_a: \delta_\mu \neq 0$$
 
@@ -527,18 +531,7 @@ two.mean.test(PM10 ~ county ,           # specify the variables for the test
 
 
 
-#>   Simulation based two-sample test for independent samples 
-#>               
-#> formula: PM10 ~ county 
-#> sample mean of Kern group: 35.06717 
-#> sample mean of Fresno group: 41.09943 
-#> sample sd of Kern group: 32.26383 
-#> sample sd of Fresno group: 31.88051 
 
-#> difference between groups: ( Kern group ) - ( Fresno group ) 
-#> obs t-test statistic: -4.807498       p-value = 0 
-#> df= N/A 
-#> direction: two.sided 
 
 ```
 
@@ -555,7 +548,7 @@ embed_youtube("Kbkt9vf7eiU")
 
 :::
 
-The output is nearly identical as when conducting a Welch t-test in that it provides some summary statistics, the observed value of the test statistic, and p-value. These type of randomization methods do not provide CIs so one can not assess the size of the effect. At $\alpha=.01$, we obtain the same decision and conclusion as with the previous tests. 
+The output is similar to that of Welch's t-test: it provides summary statistics, the observed test statistic, and a p-value estimated from the shuffles. This function does not provide a randomization CI, although the estimated mean difference still helps describe the size of the effect.
  
 
 :::
@@ -563,7 +556,7 @@ The output is nearly identical as when conducting a Welch t-test in that it prov
 
 ### Comparing medians {-}
 
-Here we quantify the attribute using the median. For the test statistic in the randomization test, we use the form of the test statistic provided by the Wilcox rank sum test. The interest here is in determining if an effect (when measures as a difference in medians) is significant.  The R function to carry out this test is the same function as with the wilcoxon-based methods, but with some additional arguments to conduct the randomization test.
+Here we use the Wilcoxon rank statistic after each shuffle. As before, the result can be interpreted as a comparison of medians when the group distributions have similar shapes and spreads. The R function is the same as for the Wilcoxon test, with additional arguments for randomization.
 
 ::: {.callout-tip icon=false}
 
@@ -579,7 +572,7 @@ Here we quantify the attribute using the median. For the test statistic in the r
 :::
 
 ::: callout-note
-Discussion of the wilcoxon-based methods showed that the data described the case study provided in @sec-casestudy3 are appropriate for the data. However, given the large sample, the Wilcox rank sum test approximates the p-value using the standard normal distribution. This approximation generally works well, but the quality of the approximation declines when the underlying distributions of the two groups are highly skewed or have heavy tails, or as the number of ties increases. Note below that the histogram shows that the PM10 levels in both counties are right skewed. Further, there are over 2000 ties in the data. Therefore, this randomization test provides a more accurate result for this data.
+The following example illustrates the calculation with the PM10 data, which contain many tied values. Ties do not automatically make a randomization test better than the usual Wilcoxon calculation. The possible relationships among daily readings remain a concern.
 
  
 ```{r }
@@ -643,18 +636,8 @@ two.wilcox.test(PM10 ~ county ,           # Specify the variables for the test
                 direction = "two.sided" , # Specify a two-sided alternative
                 randtest = TRUE ,         # Perform a simulation-based test
                 nshuffles = 30000 )       # Set the number of randomizations to 30,000
-#>   Simulation based two-sample test for independent samples 
               
-#> formula: PM10 ~ county 
-#> sample median of Kern group: 28 
-#> sample median of Fresno group: 34 
-#> sample IQR of Kern group: 30 
-#> sample IQR of Fresno group: 29 
 
-#> method: randomization test 
-#> difference between groups: ( Kern group ) - ( Fresno group ) 
-#> obs test statistic: U= 759219.5       p-value = 0 
-#> direction: two.sided 
 
 ```
 
@@ -671,7 +654,7 @@ embed_youtube("JkBLLFUfkbg")
 
 :::
 
-The output is nearly identical as when conducting the Wilcox rank-sum test in that it provides summary statistics, the observed value of the test statistic, and p-value. These types of randomization methods do not provide CIs. At $\alpha=.01$, we obtain the same decision and conclusion as with the previous tests. 
+The output is similar to that of the Wilcoxon test: it provides summary statistics, the observed rank statistic, and a p-value estimated from the shuffles. This function does not provide a randomization CI. The assumptions discussed above still apply.
 
  
 
@@ -683,7 +666,7 @@ The output is nearly identical as when conducting the Wilcox rank-sum test in th
 
 Ideally, estimating sample size for a study is one of the first steps that researchers take prior to collecting data.  Knowing the sample size required to detect a desired effect at the beginning of a project allows one to manage their data collection efforts. Further, this allows for one to determine how much statistical power the test will have to detect an effect. 
 
-The R function `pwr.t2n.test()` from the `pwr` R package can be used to calculate statistical power for a two sample t-test when the sample sizes, significance level ($\alpha$), and effect size are provided. The function `pwr.t.test` from the same package will provide the sample sizes required for a given power level, significant level ($\alpha$), and effect size. Note that variability in each sample is assumed to be about the same. It is assumed the appropriate assumptions about the data are met[^12].
+The R function `pwr.t2n.test()` from the `pwr` R package can be used to calculate statistical power for a two sample t-test when the sample sizes, significance level ($\alpha$), and effect size are provided. The function `pwr.t.test` from the same package will provide the sample sizes required for a given power level, significance level ($\alpha$), and effect size. Note that variability in each sample is assumed to be about the same. It is assumed the appropriate assumptions about the data are met[^12].
 
 [^12]: The R function `power.welch.t.test()` and `sim.ssize.wilcox.test()` from the `MKpower` R package provides statistical power calculations for the two-sample Welch t-test and two-sample Wilcox rank sum test, respectively. However, these functions may be difficult to use for those not familiar with power analysis.
  
@@ -777,6 +760,6 @@ pwr.t.test(power = 0.90 ,         # Set the desired power level
 :::
  
 
-This module provides a few methods for independent two-sample inference. Parametric methods (such as t-based methods) are generally more powerful (assuming all assumptions are reasonably met) than nonparametric methods, such as Wilcoxon-based methods. Nonparametric tests are based on fewer assumptions compared to their parametric counterparts. The cost of fewer assumptions is that nonparametric tests are generally less powerful than their parametric counterparts. Nonparametric tests are used in cases where parametric tests are not appropriate. 
+Both t-based and Wilcoxon methods can be useful. Neither is always more powerful than the other. The better choice depends on the research question, how the data were collected, and the shape of the data distributions.
 
- 
+

@@ -18,6 +18,10 @@ two.mean.test<- function(  formula,  data ,    first.level, welch=TRUE,
   # randtest: Set equal to TRUE to carry out a randomization test
   # nshuffles: The number of randomization for the randomization test. 
 
+  if (randtest && (length(nshuffles) != 1L || !is.finite(nshuffles) ||
+                   nshuffles < 1 || nshuffles %% 1 != 0))
+    stop("nshuffles must be a positive whole number for a randomization test")
+
   require( mosaic )
   
   var.equal = TRUE
@@ -105,17 +109,17 @@ if(randtest){
   
   aboveidx <- randstats >= obs.teststat
   howmanyAbove <- sum( aboveidx )
-  greater.pval <- howmanyAbove / nshuffles # store a one-sided pvalue
+  greater.pval <- (howmanyAbove + 1) / (nshuffles + 1) # store a one-sided pvalue
   
   belowidx <- randstats <= obs.teststat
   howmanyBelow <- sum( belowidx)
   
-  less.pval <- howmanyBelow/ nshuffles # store a one-sided pvalue
+  less.pval <- (howmanyBelow + 1) / (nshuffles + 1) # store a one-sided pvalue
   
   twsd.aboveidx <- randstats >= abs(obs.teststat)
   twsd.belowidx <- randstats <= -abs(obs.teststat)
-  howmanyAboveBelow <- sum(twsd.aboveidx) + sum(twsd.belowidx)
-  two.sided.pval <- howmanyAboveBelow/ nshuffles # store a one-sided pvalue
+  howmanyAboveBelow <- sum(twsd.aboveidx | twsd.belowidx)
+  two.sided.pval <- (howmanyAboveBelow + 1) / (nshuffles + 1) # store a one-sided pvalue
   
   
   htmp <- hist( randstats,   plot=FALSE)
@@ -165,8 +169,8 @@ if(randtest){
    
   # first.level  <- levels(pred)
 
-  hg <- histogram( ~ randstats ,  type="count", ylab="Number of simulations", xlab="Difference in means",
-             groups=cat2, data=cprtmpdf,  breakds=brksall, nint=length(brksall))
+  hg <- histogram( ~ randstats ,  type="count", ylab="Number of simulations", xlab="Simulated Welch t statistic",
+             groups=cat2, data=cprtmpdf,  breaks=brksall, nint=length(brksall))
  
    cat("     Simulation based two-sample test for independent samples", "\n")
   cat("                             ", "\n")
@@ -245,7 +249,7 @@ if(randtest){
  
 }
 
-  pvalue <- round(pvalue, 3)
+  # Preserve full p-value precision; format only the displayed result.
 
 
   if(printout){
@@ -260,7 +264,7 @@ if(randtest){
      cat("\n")
 	 
   cat("difference between groups: (",  first.level[1]  ," group ) - ( ", first.level[2] ," group )"  ,"\n")
-  cat("obs t-test statistic:", obsTS, "            ", "p-value =", pvalue, "\n")
+  cat("obs t-test statistic:", obsTS, "            ", "p-value =", format.pval(pvalue, digits=4), "\n")
   cat("df= ", df,"\n")
   cat("direction:" , direction, "\n")
    cat("\n")

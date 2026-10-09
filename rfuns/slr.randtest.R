@@ -1,7 +1,7 @@
 
 slr.randtest <- function(formula,   data=NULL, nshuffles=0,  direction = c("greater", "less", "two.sided"), 
                 plt=FALSE ){
-  # Description: Function to compute the null distribution when comparing two props
+  # Description: Function to compute a permutation distribution for the slope t-statistic
   # and p-value
   # Arguments: 
   # formula: like t.test  (response ~ explanatory)
@@ -56,24 +56,24 @@ slr.randtest <- function(formula,   data=NULL, nshuffles=0,  direction = c("grea
   
   aboveidx <- randstats >= obs.teststat
   howmanyAbove <- sum( aboveidx )
-  greater.pval <- howmanyAbove / nshuffles # store a one-sided pvalue
+  greater.pval <- (howmanyAbove + 1) / (nshuffles + 1) # store a one-sided pvalue
   
   belowidx <- randstats <= obs.teststat
   howmanyBelow <- sum( belowidx)
   
-  less.pval <- howmanyBelow/ nshuffles # store a one-sided pvalue
+  less.pval <- (howmanyBelow + 1) / (nshuffles + 1) # store a one-sided pvalue
   
   twsd.aboveidx <- randstats >= abs(obs.teststat)
   twsd.belowidx <- randstats <= -abs(obs.teststat)
-  howmanyAboveBelow <- sum(twsd.aboveidx) + sum(twsd.belowidx)
-  two.sided.pval <- howmanyAboveBelow/ nshuffles # store a one-sided pvalue
+  howmanyAboveBelow <- sum(twsd.aboveidx | twsd.belowidx)
+  two.sided.pval <- (howmanyAboveBelow + 1) / (nshuffles + 1) # store a one-sided pvalue
  
   if(direction == "greater"){
     pvalue <- greater.pval
   }
   
   if(direction == "less"){
-    pvalue <- greater.pval
+    pvalue <- less.pval
   } 
   
   if(direction == "two.sided"){
@@ -127,8 +127,8 @@ slr.randtest <- function(formula,   data=NULL, nshuffles=0,  direction = c("grea
     
   }	
 
-  hg <- histogram( ~ randstats ,  type="count", ylab="Number of simulations", xlab="Slope estimate",
-                   groups=cat2, data=cprtmpdf,  breakds=brksall, nint=length(brksall))
+  hg <- histogram( ~ randstats ,  type="count", ylab="Number of simulations", xlab="Simulated slope t-statistic",
+                   groups=cat2, data=cprtmpdf,  breaks=brksall, nint=length(brksall))
   print(hg)
   return(hg)
   }
@@ -140,7 +140,7 @@ slr.randtest <- function(formula,   data=NULL, nshuffles=0,  direction = c("grea
   cat("Obs. test statistic=", obs.teststat, "       \n" )
   cat("Obs. slope estimate=", l2.coefs[2], "       \n" )
   cat("R-squared =", r.squared, "\n")
-  cat("p-value =", pvalue, "\n \n")
+  cat("p-value =", format.pval(pvalue, digits=4), "\n \n")
  
 
   

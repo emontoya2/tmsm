@@ -33,7 +33,7 @@ $$y = \beta_0 + \beta_1 x + \varepsilon$$
 
 where:
 
--  $\beta_0$ is the true intercept, which represents the value of $y$ when $x$ is equal to 0.
+- $\beta_0$ is the true intercept, or the average value of $y$ when $x=0$. Individual observations can differ from this average.
 
 -  $\beta_1$ is the true slope, which represents the average change in $y$ for a unit increase in $x$.
 
@@ -72,7 +72,7 @@ Due to the random error in the relationship between the explanatory and response
 :::
 
 
-[^1]: The meaning of the intercept is the estimated average value of the response $\hat{y}$ when the value of $x$ is 0. In practice, the meaning of the intercept is not of concern.
+[^1]: The estimated intercept is the predicted mean response when $x=0$. Its practical interpretation depends on whether zero is meaningful and lies within the range relevant to the study.
 
 Now that some basic of SLR have been covered, this section illustrates common key aspects of SLR, including:
 
@@ -91,13 +91,13 @@ For inferential methods to provide meaningful results,   several assumptions are
 
  The methods discussed here assume one or more of the following assumptions about the data:
 
--  **Assumption 1**. *Independence of the observations*. This means that the value of one observation should not be influenced by the value of another observation.
+- **Assumption 1**. *Independence*. Observations should be independent. Repeated measurements of the same cases or measurements made under shared conditions may be related.
 
 -  **Assumption 2**. *No influential outliers*. The data should not contain any influential outliers[^2] that significantly affect the estimate SLR line.
 
--  **Assumption 3**. *Normality* or *large sample*. The residuals should be normally distributed if small sample.
+- **Assumption 3**. *Normality*. For the t-based methods, the errors should be approximately normally distributed. We assess this using a QQ-plot of the residuals. The methods can work with some departures from normality in larger samples, but a large sample does not solve problems with related observations.
 
--  **Assumption 4**. *Equal variance or spread*. The spread of observed values across the values of the explanatory variable should be roughly constant.
+- **Assumption 4**. *Constant variance*. The spread of the observations around the regression line should be similar across values of the explanatory variable.
 
 -  **Assumption 5**. The variables are *linearly related*, meaning that a straight line can accurately represent the trend in the scatterplot.
 
@@ -105,7 +105,7 @@ While these assumptions are assessed below with a case study, assumption 1 can b
 
 :::
 
-[^2]: An influential outlier is an observation that greatly impacts the estimated SLR line, resulting in a bad fit to the data. It can have a substantial impact on the estimated slope and/or intercept of the line.
+[^2]: An influential observation substantially changes the fitted coefficients when it is omitted. Such an observation is not necessarily an error or evidence of a bad model; examine its validity and its impact on the conclusions.
 
  
 
@@ -118,10 +118,10 @@ The function `lm()` is used to fit the SLR model to the data.
 
 ```
 ### lm( y ~ x , data )
-# y: replace y with the name of the resposne (measured) 
+# y: replace y with the name of the response (measured)
 #  variable of interest
 # x: replace x with the name of the explantory variable
-# data: set equal to a dataframe that is in tidy form
+# data: set equal to a data frame that is in tidy form
 #
 ```
 
@@ -149,15 +149,15 @@ Note that the R functions used in these modules often have identical arguments, 
 
 The `summary()` function will provide a lot of information, including the values of $b_0$ and $b_1$.
 
-To perform model diagnostics (process of of assess the validity of the assumptions of data) with will use `xyplot()` in a different way. The R package `tactile` expands the functionality of `xyplot()` so that it creates a set of residual plot by specifying only an *lm object*. Specifically, for a SLR model fit, it will provide the following residual plots:
+Model diagnostics help us assess whether the assumptions are reasonable. The `tactile` package allows us to use `xyplot()` to create diagnostic plots from an *lm object*. Each plot helps us examine a different aspect of the model:
 
-- **Residuals vs. predicted values**: This residual plot shows the relationship between the residuals and the predicted values. The plot helps to assess assumptions 1, 2, and 4. A plot that shows no clear pattern or trend, no outlying observations, and a spread that is fairly constant suggest that these assumptions are reasonable. If there is a pattern or structure in the residual plot, this suggests that there may be dependence between the observations. Similarly, if spread of residuals change as a function of predicted values, it suggests non-constant variance. 
+- **Residuals vs. predicted values**: Look for a curved pattern, changes in spread, or unusual observations. A random-looking scatter supports a straight-line model with similar spread. To assess independence, also consider how the data were collected and whether nearby observations may be related.
 
 - **Normal QQ-plot of the residuals**: The plot helps to assess assumption 3. If the residuals are normally distributed, the points on the plot will roughly follow a straight line. 
 
-- **Standardized residuals vs. predicted values**. This residual plot is generally referred to as a scale-location plot. This plots the square root of the standardized residual versus the predicted values. Note that standardization has these transformed residuals to have a mean of zero and a standard deviation of one. This allows for comparisons between models with different explanatory variables or dependent variables on different scales. It is analyzed and interpreted in the same manner as the residuals vs. predicted values plot.
+- **Scale-location plot**: This provides another way to examine whether the spread is similar across predicted values. A fairly level pattern with similar spread supports the constant-variance assumption.
 
-- **Residuals vs. leverage plot**. This plot shows the leverage (the degree to which an observation affects the estimated slope of the fitted regression line) against the standardized residuals. Although it helps identify potential influential outliers (such outliers have high leverage and correspond to a large residual), a plot that shows no clear pattern or trend and and a spread that is fairly constant suggest that will suggest assumptions 1 and 4 are reasonable. If the spread of standardized residuals changes as a function of leverage, it indicates non-constant variance. Similarly, a trend or pattern as a function of leverage would indicate a violation of assumption 1. 
+- **Residuals vs. leverage plot**: This helps identify observations that may strongly affect the regression line. An observation deserves attention if it has an unusual explanatory value and a large residual. Examine these observations rather than automatically removing them.
 
 ::: callout-note
 We fit the SLR model to the data described in the case study provided in @sec-casestudy3 to model the linear relationship between Pm10 and temperature. The data provided in the case study consists of several variables (`PM10`, `AQI`, ..., `county`, and `City.Name`) with `PM10` and `temp` being the variables of interest.
@@ -331,13 +331,13 @@ See previous video.
 
 The scatterplot showed a linear trend in the data, so assumption 5 (linearity) is reasonable. The residual plots provided by `xyplot()` (excluding the normal QQ-plot) will have a black (not necessarily linear) trend line that is lowess smoother[^3]. Each plot is analyzed and interpreted below:
 
-- The upper and lower left plots display the residuals against the predicted value and the squared rooted standardized residuals against the predicted values, respectively. The plot shows the following characteristics:
-  - No clear strong patterns or trends are evident in either plot so assumption 1 may be considered reasonable.
+- The upper and lower left plots display the residuals against the predicted value and the square roots of absolute standardized residuals against the predicted values, respectively. The plot shows the following characteristics:
+  - Neither plot shows an obvious mean trend, but these plots alone do not establish independence of the daily measurements.
   - There are a few potential outliers and the variability of the residuals is not constant across the predicted values, so assumptions 2 and 4 are questionable. 
 
-- The upper right plot is a normal QQ-plot of the residuals[^4] and it suggests that residuals are not approximately normality distributed but the sample size is large, so assumption 3 is met 
+- The upper-right normal QQ-plot[^4] suggests departures from normality. A large sample can make t-based methods less sensitive to some departures, but we still need to assess the other assumptions.
 
-- The lower right plot shows the standardized residuals against the leverage. The presence of outliers, which are also visible in other residual plots, can be seen in this plot. Cook's distance[^5] of 1/2 and 1 will appear as orange contour lines if any values values have a Cook's distance exceeding these numbers, but no leverage values exceed a Cook's distance of 1. The plot also shows that the variability in residuals decreases as leverage increases, suggesting that the non-constant assumption of the SLR model is violated.
+- The lower-right plot helps identify observations that may strongly affect the fitted line. Cook's distance[^5], when shown, helps us assess their influence. Such observations should be investigated before drawing conclusions.
 
  
 [^3]: A lowess smoother is a method used to smooth out noisy data by fitting a curve to the data points based on a local neighborhood around each point, where closer points have a higher influence on the resulting curve. It helps to identify trends and patterns in the data that might not be immediately visible.
@@ -352,7 +352,7 @@ Overall, not all data assumptions are met for the SLR model. In such cases, we s
 
 ## Testing the significance of the linear relationship using t-based methods.
 
-The focus in this section is on is on inference for $\beta_1$ (the true slope), where $\beta_1$ represents the change in the average value of $y$ when $x$ is increased by 1-unit. The t-test for the slope of a regression line is a widely used hypothesis test to assess the significance of a linear relationship between two variables. Specifically, test is be used to determine if the true slope $\beta_1$ is significantly different from zero, based on the observed value of $b_1$. It is important to note that the observed value of $b_1$ can vary. If a study were replicated, the value of $b_1$ would likely be different. The use of inferential methods allows us to account for this variability and make statistically valid conclusions about the true slope $\beta_1$. A t-based confidence interval can be constructed for $\beta_1$ and it provides a range of plausible values for the true slope at a specified significance level. These methods are generally referred to as t-based methods for the slope.
+The focus in this section is on inference for $\beta_1$ (the true slope), where $\beta_1$ represents the change in the average value of $y$ when $x$ is increased by 1-unit. The t-test for the slope of a regression line is a widely used hypothesis test to assess the significance of a linear relationship between two variables. Specifically, the test is used to determine if the true slope $\beta_1$ is significantly different from zero, based on the observed value of $b_1$. It is important to note that the observed value of $b_1$ can vary. If a study were replicated, the value of $b_1$ would likely be different. The use of inferential methods allows us to account for this variability and make statistically valid conclusions about the true slope $\beta_1$. A t-based confidence interval can be constructed for $\beta_1$ and it provides a range of plausible values for the true slope at a specified significance level. These methods are generally referred to as t-based methods for the slope.
 
 The t-test for the slope of a regression line requires that certain assumptions (1, 2, 3, 4, and 5[^6]) about the data are reasonable. The test statistic for this t-test is given by:
 
@@ -394,12 +394,12 @@ Here, $T_{b_1}$ and p-value$_{b_1}$ refer to the test statistic for the slope an
 
 ::: callout-note
 
-We apply an t-test to the data described in the case study from @sec-casestudy3 to determine if there is a significant linear association between PM10 and temperature levels at $\alpha=.05$. Recall that not all the required assumptions are met, but we perform the test for the purpose of illustration. Let $\beta_1$ denote the true slope in the linear association between PM10 and temperature. Since the aim is to determine if there is a significant linear relationship or association, the hypothesis is 
+We apply a t-test to the data described in the case study from @sec-casestudy3 to determine if there is a significant linear association between PM10 and temperature levels at $\alpha=.05$. Recall that not all the required assumptions are met, but we perform the test for the purpose of illustration. Let $\beta_1$ denote the true slope in the linear association between PM10 and temperature. Since the aim is to determine if there is a significant linear relationship or association, the hypothesis is
 
 $$H_0: \beta_1=0 \qquad H_a: \beta_1 \neq 0$$
 
 
-The following code uses `lm()` and `summary()` to obtain compute the test statistic and the corresponding p-value for a t-test:
+The following code uses `lm()` and `summary()` to compute the test statistic and the corresponding p-value for a t-test:
 
 ::: {.panel-tabset}
 ## R code
@@ -434,9 +434,9 @@ embed_youtube("9CG0vvg016k")
 
 :::
 
-Based on output from `summary( PM10fit )`, the observed value of test statistic is $T=20.655$. The corresponding p-value is approximately 0, indicating that the data provides very strong evidence against the null hypothesis. Since the p-value$\leq \alpha=.05$, we have sufficient evidence to reject the null hypothesis $H_0$ in favor of the alternative hypothesis $H_a$ at significance level of $\alpha=.05$. This result suggests that changes in temperature are linearly associated with changes in PM10 levels, and that the relationship between these variables is not due to chance alone.
+The observed test statistic is $T=20.655$, with a very small p-value. Since the p-value is less than $\alpha=.05$, we reject $H_0$ if the assumptions hold. The fitted line shows a positive association between temperature and PM10. However, the concerns raised by the diagnostic plots and the daily measurements limit the conclusion.
  
-The function `confint()` is used to obtain a 95% CI for $\beta1$: 
+The function `confint()` is used to obtain a 95% CI for $\beta_1$:
 
 ::: {.panel-tabset}
 ## R code
@@ -460,16 +460,16 @@ See previous video.
 
 :::
 
-The output provides a 95% CI for $\beta_1$ with bounds $(0.729, 0.882)$. Thus, we can be 95% confident that on average, the PM10 levels will change, on average, anywhere between 0.729 and 0.882 units per 1-degree change in temperature. Since the interval does not contain 0, it further supports the conclusion that changes in PM10 levels are linearly associated with changes in temperature.
+The 95% CI for $\beta_1$ is approximately (0.729, 0.882). If the assumptions hold, we are 95% confident that a one-degree Fahrenheit increase in temperature is associated with an increase in mean PM10 of between 0.729 and 0.882 $\mu g/m^3$.
 
-Thus, we are 95% confidence that on average, the response will change anywhere between .729 to .882 per unit increase in the explanatory variable. Since the interval does not contain 0, it is clear that changes in PM10 levels are linearly associated with changes in temperature. Note that this conclusion only applies to the monitoring sites where PM10 levels were measured, as these measurements were not taken at random locations. Thus, the observed relationship between PM10 levels and temperature is not generalizable to all locations or situations beyond the scope of the monitoring sites in this study.
+This interval describes an association at the monitoring sites represented in the data. It does not show that temperature caused the change in PM10.
 
 :::
 
 
 ## Testing the significance of the linear relationship using a randomization test
 
-Recall that $\beta_1$ represents the change in the average value of $y$ when $x$ is increased by 1-unit. If $\beta_1=0$, then there is no linear relationship or association between the response and explanatory variable. If $\beta_1\neq 0$, then there is a linear associated or a correlation between the variables. If the variables are in fact linearly related (as illustrated in a scatterplot), it would not make sense to pair, for example, the 3rd measurement of the explanatory variable (circled in red) with a different measurement of the response variable. This is because the linear relationship between the variables implies that each value of the explanatory variable corresponds to a specific value of the response variable according to the linear pattern. Mixing up these pairings would distort the true linear relationship between the variables.
+A randomization test compares the observed slope with slopes obtained by repeatedly shuffling the response values. This shows how unusual the observed association would be if the response values could be paired with the explanatory values in any order. Whether such shuffling is reasonable depends on how the data were collected.
 
 ::: {.panel-tabset}
 ## R code
@@ -508,19 +508,19 @@ embed_youtube("QnGjWGY5znE")
 :::
 
 
-However, if instead $\beta_1=0$ (indicating no linear association or correlation), then it wouldn't matter how we matched up the 3rd measurement of the explanatory variable with some other measurement of the response variable. This is because, with no linear relationship between the variables, mixing up these pairings would not distort any relationship between them, as there is no linear relationship to be affected.
+For this approach to work, shuffling must represent what could happen under the null hypothesis. A zero slope alone does not make every shuffle reasonable. For example, measurements from nearby days may remain related even when there is no linear association.
 
 The aim is still to see if there is a significant linear relationship or association:
 
 $$H_0: \beta_1=0 \qquad H_a: \beta_1 \neq 0$$
 
-With a randomization test, we assume that the null hypothesis ($H_0: \beta_1 = 0$) is true, implying there is no linear relationship between the variables. If this is the case, we could just randomly shuffle the observed values of the response variable and it would not change any relationship between the response and the explanatory.  Since the randomization (in this context it is the randomly shuffling the order of observations) of observed values of the response is permitted under $H_0$, the size of observed value of $b_1$ for this shuffled data is due to chance alone. 
+For illustration, the code below shuffles the response values while keeping the explanatory values fixed. This changes which PM10 reading is paired with each temperature. Related daily readings or changes in variability can make this approach unsuitable.
 
-Another way to view it is that chance enters the analysis only through the random shuffling of the response values when the null hypothesis is assumed to be true and nothing else. The figure below shows the results of one such randomization. The resulting size of $b_1$ under this randomization represents one observed value of $b_1$ due to chance when the null hypothesis is assumed to be true. 
+The figure illustrates one shuffle. Repeating this process and computing the test statistic each time creates the randomization distribution.
 
 ```{r }
 #| label: fig-randlrexshuff
-#| fig-cap: "The resulting scatterplot after randomly shuffling the observe values of the response variable, which produced a slope estimate of -0.3754" 
+#| fig-cap: "The resulting scatterplot after permuting the observed response values without replacement"
 #| layout-ncol: 1
 #| echo: false
 #| message: false
@@ -530,12 +530,12 @@ library(lattice)
 xtmp <- runif(30)
  ytmp <- 10 + 4*xtmp + .5*rnorm(30)
  set.seed(41)
- yrand <- sample(ytmp, replace=TRUE)
+ yrand <- sample(ytmp, replace=FALSE)
 xyplot( yrand ~ xtmp , xlab="Explanatory variable", ylab="Response variable", type=c("p", "r"), ylim=c(10, 15) )
 
 ```
 
-If assumptions 3 or 4 do not hold, a randomization test is a good alternative to the t-test. To conduct this randomization test, we use the same test statistic as the t-test, namely
+Randomization methods can be useful when normality is questionable. However, they do not automatically solve problems with related observations or changing variability. Here we use the usual slope t-statistic:
 
 $$T=\frac{b_1-\beta_1}{SE_{b_1}} $$
 To obtain the null distribution of $T$, the randomization process is repeated many times, each time computing the value of $T$. We then obtain the null distribution of $T$ by randomly shuffling (randomization) the observed values of the response variable many times, each time computing the value of the test statistic for the randomized data. The R function `slr.randtest()` computes the test statistic and p-value for the randomization test. 
@@ -557,12 +557,12 @@ To obtain the null distribution of $T$, the randomization process is repeated ma
 
 ::: callout-note
 
-We apply the randomization test to the data described in the case study from @sec-casestudy3 to determine if there is a significant linear association between PM10 and temperature levels at $\alpha=.05$. Recall that after fitting the SLR to the data, it was found that no influential outliers were present. Thus, the necessary assumptions for this test (assumptions 1, 2, and 5) are reasonable for the data. The aim of the randomization test is to determine if a significant linear association exists:
+We illustrate the randomization test using the PM10 and temperature data at $\alpha=.05$. As before, daily readings may be related and their variability may change with temperature. These concerns should be addressed before using the results to draw conclusions.
 
 $$H_0: \beta_1=0 \qquad H_a: \beta_1 \neq 0$$
 
 
-The following code uses `slr.randtest` to obtain compute the test statistic and the corresponding p-value for the randomization test:
+The following code uses `slr.randtest` to compute the test statistic and the corresponding p-value for the randomization test:
 
 ::: {.panel-tabset}
 ## R code
@@ -628,7 +628,7 @@ print(randhist)
 
 ```
 
-Based on output, the observed value of test statistic is $T=20.655$ with a corresponding p-value is approximately 0, indicating that the data provides very strong evidence against the null hypothesis. Considering a significance level of $\alpha = 0.05$, since the p-value $\leq \alpha = 0.05$, we have sufficient evidence to reject the null hypothesis $H_0$ in favor of the alternative hypothesis $H_a$. The randomization test suggests that changes in temperature are linearly associated with changes in PM10 levels, and that the relationship between these variables is not due to chance alone.
+The observed test statistic is approximately 20.655. The p-value estimates how often the shuffles produce a statistic at least as extreme as this value. A small p-value provides evidence against $H_0$ when the assumptions hold. The study limitations discussed above still apply.
 
 :::
 
@@ -646,24 +646,24 @@ If the model fails diagnostics, one possible remedial measure is to transform th
 
 [^8]: The explanatory variable may also be transformed to address issues with the model's assumptions or to better capture the relationship between variables. However, for brevity, we will only focus on transforming the response variable.
 
-The function `mutate()` from the `dplyr` package will be used to add transform variables to a dataframe. 
+The function `mutate()` from the `dplyr` package will be used to add transform variables to a data frame.
 
 ::: {.callout-tip icon=false}
 
 ## R functions
 ```
-### mutate( dataframe ,'new variable' = 'function of variable in data frame', ...)
-# dataframe: Replace with the name of the dataframe
+### mutate( data frame ,'new variable' = 'function of variable in data frame', ...)
+# data frame: Replace with the name of the data frame
 # 'new variable': Replace with the name of the new variable
 # 'function of variable in data frame': Replace with a function 
-# of a variable pesent in the dataframe. 
+# of a variable pesent in the data frame.
 # 
 ```
 :::
 
 
 ::: callout-note
-Recall that the residual plots suggested the variability of the residuals is not constant across the predicted values, which makes assumption 4 (equal variance or spread) questionable. To address this issue, we will apply a transformation to the PM10 levels using `mutate():
+The residual plots suggest that the spread changes across predicted values. To illustrate one possible approach, we transform PM10 using `mutate()`. After a transformation, we need to check the diagnostic plots again. A transformation does not automatically make related observations independent.
 
 ::: {.panel-tabset}
 ## R code
@@ -685,7 +685,7 @@ PM10dfmod <- mutate( PM10df,
            ysq =  PM10^2 )    # squared transformed
 # natural log and inverse considered due to 0's. 
 
-# The dataframe contains the transformed variables
+# The data frame contains the transformed variables
 names( PM10dfmod )
 
 ```
@@ -750,9 +750,9 @@ The square root transformation appears to reduce the impact of outliers and make
 
 ## Sample size estimation and power analysis for SLR
 
-Ideally, estimating the sample size for a study is one of the first things that researchers do prior to collecting data.  Knowing the sample size required to detect a desired effect at the beginning of a project allows one to manage their data collection efforts. Further, this allows for one to determine how much statistical power the test will have to detect an effect if it exist. 
+Ideally, estimating the sample size for a study is one of the first things that researchers do prior to collecting data.  Knowing the sample size required to detect a desired effect at the beginning of a project allows one to manage their data collection efforts. Further, this allows for one to determine how much statistical power the test will have to detect an effect if it exists.
 
-The R function `pwr.f2.test()` from the `pwr` R package provides statistical power calculations for a SLR model when the sample size, significant level ($\alpha$), and effect size are provided.  It is assumed the appropriate assumptions about the data for the t-test are met.
+The R function `pwr.f2.test()` from the `pwr` R package provides statistical power calculations for a SLR model when the sample size, significance level ($\alpha$), and effect size are provided.  It is assumed the appropriate assumptions about the data for the t-test are met.
 
 ::: {.callout-tip icon=false}
 
@@ -802,9 +802,9 @@ pwr.f2.test(u = 2 ,
 
 ```
  
-The statistical power of this test is rather low, although not surprising given the sample size, $\alpha$ specified, and size of the effect. To increase the power, on may increase the effect size (the larger it is, the easier it is to detect), increase $\alpha$ (make it easier to reject $H_0$ and find a significant effect), and/or increase the number of observations per group. 
+The statistical power of this test is rather low, although not surprising given the sample size, $\alpha$ specified, and size of the effect. To increase the power, one may increase the effect size (the larger it is, the easier it is to detect), increase $\alpha$ (make it easier to reject $H_0$ and find a significant effect), and/or increase the number of observations per group.
 
-If instead you sought to collect a sample that would provided a power of $.90$ for detecting a small effect at $\alpha=.001$, we use the `power` argument but not specifying $v$:
+If instead you sought to collect a sample that would provide a power of $.90$ for detecting a small effect at $\alpha=.001$, we use the `power` argument but not specifying $v$:
 ```{r }
 #| echo: true
 #| eval: true

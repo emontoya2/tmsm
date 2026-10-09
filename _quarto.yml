@@ -54,7 +54,7 @@ bibliography: references.bib
 format:
   html: 
     theme: cyborg
-    cover-image: cover.jpeg
+    cover-image: images/cover.jpeg
     code-link: true
     code-fold: show
 knitr:
