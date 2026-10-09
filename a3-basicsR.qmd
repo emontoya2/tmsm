@@ -99,7 +99,7 @@ R has many built-in function or function that become available once a library is
 Exploring data using graphical and numerical summary statistics will be discussed in [the exploratory data analysis module](summaries.qmd).
   For now, a brief introduction to graphing and computing summary statistics is provided.  When wanting to summarize a single variable, functions to create graphical and numerical summaries follows the general form `task( ~ x , data)` where `x` is the variable you want to graph or compute a statistic of. Depending on the summary, we may have to specify some additional things.  If the variable `x`  is a variable in the data frame, then data would be set equal to the name of the data frame. The names used for `x` and the name of the data frame must be the names that R has given the data set and variable. `task` would be replaced with the name of the function. For bivariate, the form becomes `task( y ~ x , data)` becomes where `y` represent the dependent variable and `x` is the explanatory variable. Most R tasks covered in the modules will follow this general form. The expressions `y ~ x` or `~ x` are called formulas in R.
 
-Recall that the MLB data were stored in `mlbDataImport`. To display the distribution of `salary` (in thousands of dollars), use `histogram()` from the `lattice` package, loaded below. The formula-based form is `histogram(~ salary, data = mlbDataImport)`.
+Recall that we imported the MLB dataset and stored it in a data frame called `mlbDataImport`. Here, the task is to create a histogram of `salary`, which represents the salary (in $1000s) of a baseball player in 2010. The function is `histogram()` from the `lattice` package. The variable of interest is `salary`, and the argument `data` is set equal to `mlbDataImport`.
 ```{r gr2, echo=T,   eval=T ,message=FALSE,    collapse = T,   fig.width=5.5, warning=F,  fig.height=2.5}
 library( lattice ) # load the lattice package. This package provides the histogram function
 histogram( ~ salary  , 
@@ -228,7 +228,7 @@ There are 3 methods for exporting a plot in R. After creating a plot, go to the 
 Sometimes, this resource will require the usage of what may be called custom functions. Some of these custom functions are wrappers[^1]  for R functions that come with R, while others are entirely new functions that were created. The reason for creating these custom function is to provide a more consistent and streamlined way to perform certain tasks.
 
 
-Standalone custom functions can be loaded with `source()`. For example, if `my_function()` is defined in `C:/Users/YourName/Documents/my_functions.R`, sourcing that file makes the function available in the current R session:
+To use a custom function saved in a separate R file, use `source()`. For example, suppose the function `my_function()` is saved in `C:/Users/YourName/Documents/my_functions.R`. The following command makes it ready to use in your current RStudio session:
 
 
 ```
@@ -237,7 +237,7 @@ source("C:/Users/YourName/Documents/my_functions.R")
 
 Note that any time you start a new RStudio session, you would need to source the `my_functions.R` file again in order to use the `my_function()` function. This is because R does not automatically remember custom functions that were sourced in previous sessions. 
  
-Functions exported by the `CSUBstats` package are available after `library(CSUBstats)`. Examples that explicitly call `source()` use standalone files from the repository; download those files and update the paths for your system. Loading a package and sourcing a file are different ways to make functions available.
+For functions provided by the `CSUBstats` package, use `library(CSUBstats)`. If an example uses `source()`, download the indicated R file and replace the file path with its location on your computer.
  
  
 [^1]: A wrapper function is a function that calls another function or a set of functions to simplify or extend tasks.  

@@ -63,7 +63,7 @@ Note the following:
 
 - Get into the habit of saving things in **R objects** so that they  can be accessed  at later time.  As long as your *RStudio session* remains open, **RStudio** keeps any **R objects** that you defined in its memory.
 
-- Objects exist in the current R session. They can appear in a later session if a saved workspace is restored, depending on RStudio settings. For reproducibility, save your script and rerun it rather than relying on automatic workspace restoration.
+- Once you end your session, the R objects may be lost unless a saved workspace is restored. Is this a problem? Not if you save your script! You can run the script again in your next RStudio session to recreate the objects.
 
 - At its most basic level, R can be viewed as a fancy calculator.  While we won't be using **RStudio** do algebra problems, it is a good way to get familiar with **RStudio**.  
 
@@ -143,7 +143,7 @@ Hit enter. Activity will start occurring in the **R console**. This may take a f
 	+ the personal library on your computer be used, answer yes.  This ensures that admin privileges are not required for installation. 
 	+ packages be updated, please agree to the updates.
 
-When installation finishes, inspect the console for errors or warnings. A message giving the location of downloaded binary packages does not by itself confirm successful installation. Verify by loading the package with `library(tidyverse)` or `library(mosaic)`. Repeat the installation steps for the other package.
+When it is done installing, check the R console for error messages. To check that the package is ready to use, type `library(tidyverse)`. Now repeat the same steps for the package `mosaic`, using `library(mosaic)` to check it. Again, this may take a few minutes to complete.
 
 Alternatively, you can select *Tools* from the RStudio menu, followed by *Install packages*. Enter the name of the R package under "Packages (separate...)" and click "Install". Activity will then start occurring in the **R console** as when using `install.packages()`.
 

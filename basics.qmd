@@ -20,7 +20,7 @@ The following are some important data basics:
 
 
 ::: callout-note
-Recall the data in @sec-casestudy1. Each row records the survival percentage for a group of early-stage Delta smelt larvae exposed to specified light and turbidity conditions. A row is a **case** or **observational unit**; here it is a group-level record, not an individual larva. The columns are **variables**: light intensity (`Light`), turbidity (`Turbidity`), and survival percentage (`Survival`). For example, the first row records 56.8% survival for larvae exposed to light intensity of 4.5 $\mu mol/m^2/s$ and turbidity of 2 NTUs. The experimental unit and any dependence among groups should be established from the original rearing-trial design before conducting inference.
+Recall the data in @sec-casestudy1. Each row provides information about a group of early-stage Delta smelt larvae exposed to particular light and turbidity conditions. Each row is called a **case** or **observational unit**. Here, a case is a group of larvae, rather than one larva. The columns are **variables**: light intensity (`Light`), turbidity (`Turbidity`), and survival percentage (`Survival`). For example, the first row records 56.8% survival for larvae exposed to light intensity of 4.5 $\mu mol/m^2/s$ and turbidity of 2 NTUs.
 :::
 
 
@@ -33,12 +33,12 @@ Variables in a statistical study can be classified as either **categorical** or 
 
 - A variable is **numerical** (or quantitative) if its corresponding observations are numerical values that are measured or counted.
 
-**Factor variables** refer to the software's representation of categorical variables. The levels of a factor are its possible categories. For example, “first-generation college student” might be coded as 1 for a first-generation student and 0 for a student who is not first-generation. A categorical variable is **ordinal** when its categories have a natural order, and **nominal** otherwise. Light and turbidity levels have a natural low-to-high order, but the examples use unordered R factors to compare categories without imposing a particular trend.
+**Factor variables** are how R stores categorical variables. The levels of a factor are its possible categories. For example, first-generation college student status might have two levels: 1 for a first-generation student and 0 for a student who is not first-generation. A categorical variable is **ordinal** if its categories have a natural order, such as low, medium, and high. Otherwise, it is **nominal**, such as county name. In these examples, R compares the light and turbidity categories as separate groups.
  
 
 ::: callout-note
 The case-study data in @sec-casestudy1 consist of three variables: `Light`, `Turbidity`, and `Survival`.
-- `Survival` is a numerical percentage, treated as continuous for these summaries. A numerical variable is **continuous** if its possible values form an interval on the number line; a proportion computed from a fixed number of larvae has a discrete set of possible values.
+- `Survival` is a numerical variable that records the percentage of larvae that survived. For the methods discussed here, we treat survival percentage as continuous. Continuous variables describe measurements, such as height or temperature, rather than counts.
 -   `Light` and `Turbidity` are both factor variables, with each having levels low, medium, and high.
 :::
 

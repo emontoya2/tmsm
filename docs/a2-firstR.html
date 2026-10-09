@@ -456,7 +456,7 @@ Figure&nbsp;B.2: Assigning the evaluation of <code>2 + 2</code> to an object cal
 <li><p>You can also see the new object <code>x</code> in the environment on the upper right pane.</p></li>
 <li><p>R is case-sensitive! <code>x</code> and <code>X</code> are distinct.</p></li>
 <li><p>Get into the habit of saving things in <strong>R objects</strong> so that they can be accessed at later time. As long as your <em>RStudio session</em> remains open, <strong>RStudio</strong> keeps any <strong>R objects</strong> that you defined in its memory.</p></li>
-<li><p>Objects exist in the current R session. They can appear in a later session if a saved workspace is restored, depending on RStudio settings. For reproducibility, save your script and rerun it rather than relying on automatic workspace restoration.</p></li>
+<li><p>Once you end your session, the R objects may be lost unless a saved workspace is restored. Is this a problem? Not if you save your script! You can run the script again in your next RStudio session to recreate the objects.</p></li>
 <li><p>At its most basic level, R can be viewed as a fancy calculator. While we won’t be using <strong>RStudio</strong> do algebra problems, it is a good way to get familiar with <strong>RStudio</strong>.</p></li>
 <li><p>Upon selecting “Run”, the result of the above appears in the console pane, preceded by the command you executed, and prefixed by the number 1 in square brackets <code>[1]</code>. The <code>[1]</code> indicates that this is the first (and in this case only) result from the command.</p></li>
 <li><p>Many commands will return multiple values. Try the following one by one, where each is typed on a new line and then selecting “Run” after typing the command in the editor:</p></li>
@@ -515,7 +515,7 @@ Figure&nbsp;B.2: Assigning the evaluation of <code>2 + 2</code> to an object cal
 <p>There are many <em>packages</em> (also called <em>libraries</em>) that come installed with R or that can be installed to expand the ability of R. There are a few additional packages that need to be installed. The following packages are specifically designed to make <strong>R</strong> more accessible and easier for data analysis:</p>
 <ul>
 <li><p><code>tidyverse</code>: This package provides a collection of R packages designed for data science. Functions from these packages will be utilized for aspects of importing data and data management.</p></li>
-<li><p><code>mosaic</code>: This package providess a number of functions that make some basic data analysis tasks easier.</p></li>
+<li><p><code>mosaic</code>: This package provides a number of functions that make some basic data analysis tasks easier.</p></li>
 </ul>
 <p>To install these packages, in the <strong>R console</strong> type the following command:</p>
 <div class="cell" data-layout-align="center">
@@ -523,7 +523,7 @@ Figure&nbsp;B.2: Assigning the evaluation of <code>2 + 2</code> to an object cal
 </details>
 </div>
 <p>Hit enter. Activity will start occurring in the <strong>R console</strong>. This may take a few minutes to complete. During the installation process, if R requests that + a CRAN mirror be selected for downloading, any USA mirror will do. + the personal library on your computer be used, answer yes. This ensures that admin privileges are not required for installation. + packages be updated, please agree to the updates.</p>
-<p>When installation finishes, inspect the console for errors or warnings. A message giving the location of downloaded binary packages does not by itself confirm successful installation. Verify by loading the package with <code><a href="https://tidyverse.tidyverse.org">library(tidyverse)</a></code> or <code><a href="https://github.com/ProjectMOSAIC/mosaic">library(mosaic)</a></code>. Repeat the installation steps for the other package.</p>
+<p>When it is done installing, check the R console for error messages. To check that the package is ready to use, type <code><a href="https://tidyverse.tidyverse.org">library(tidyverse)</a></code>. Now repeat the same steps for the package <code>mosaic</code>, using <code><a href="https://github.com/ProjectMOSAIC/mosaic">library(mosaic)</a></code> to check it. Again, this may take a few minutes to complete.</p>
 <p>Alternatively, you can select <em>Tools</em> from the RStudio menu, followed by <em>Install packages</em>. Enter the name of the R package under “Packages (separate…)” and click “Install”. Activity will then start occurring in the <strong>R console</strong> as when using <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code>.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">

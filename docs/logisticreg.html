@@ -395,7 +395,7 @@ window.Quarto = {
    
   <ul>
 <li><a href="#fitting-the-slogir-model-and-model-diagnostics" id="toc-fitting-the-slogir-model-and-model-diagnostics" class="nav-link active" data-scroll-target="#fitting-the-slogir-model-and-model-diagnostics"><span class="header-section-number">15.1</span> Fitting the SLogiR model and model diagnostics</a></li>
-  <li><a href="#inference-on-the-explanatory-variable-using-a-wald-test-and-profile-likelihood-intervals" id="toc-inference-on-the-explanatory-variable-using-a-wald-test-and-profile-likelihood-intervals" class="nav-link" data-scroll-target="#inference-on-the-explanatory-variable-using-a-wald-test-and-profile-likelihood-intervals"><span class="header-section-number">15.2</span> Inference on the explanatory variable using a Wald test and profile-likelihood intervals</a></li>
+  <li><a href="#inference-on-the-explanatory-variable-using-a-wald-test-and-confidence-intervals" id="toc-inference-on-the-explanatory-variable-using-a-wald-test-and-confidence-intervals" class="nav-link" data-scroll-target="#inference-on-the-explanatory-variable-using-a-wald-test-and-confidence-intervals"><span class="header-section-number">15.2</span> Inference on the explanatory variable using a Wald test and confidence intervals</a></li>
   <li><a href="#sample-size-estimation-and-power-analysis-for-slogir" id="toc-sample-size-estimation-and-power-analysis-for-slogir" class="nav-link" data-scroll-target="#sample-size-estimation-and-power-analysis-for-slogir"><span class="header-section-number">15.3</span> Sample size estimation and power analysis for SLogiR</a></li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/emontoya2/edit/master/logisticreg.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
@@ -470,7 +470,7 @@ window.Quarto = {
 <ul>
 <li><p>Fitting the SLogiR model to data using R, model diagnostics, and interpreting the fit.</p></li>
 <li><p>Performing a Wald test to determine if the probability of the characteristic depends on the value of the explanatory variable.</p></li>
-<li><p>Constructing a profile-likelihood confidence interval for <span class="math inline">\(\beta_1\)</span>.</p></li>
+<li><p>Constructing a confidence interval for <span class="math inline">\(\beta_1\)</span>.</p></li>
 </ul>
 <p>For inferential methods in SLogiR to provide meaningful results, several assumptions are made about the data on which the method is intended to be used.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
@@ -490,7 +490,7 @@ window.Quarto = {
 <li><p><strong>Assumption 3</strong>. <em>Large sample</em>. The sample should be large<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. The larger the sample the better. Smaller sample sizes may lead to unreliable estimates and wider CIs.</p></li>
 <li><p><strong>Assumption 4</strong>. <em>Linearity of log-odds</em>. The log-odds of the probability of the response variable taking the value of 1 is a linear function of the explanatory variable.</p></li>
 </ul>
-<p>Independence is assessed from the study design and dependence structure. Residuals, leverage, and influence diagnostics identify observations that merit investigation. Adequate information requires enough observations of both outcomes and no complete or quasi-complete separation; a large total sample alone does not ensure reliable estimates. Assess log-odds linearity by comparing an appropriate nonlinear model or examining an empirical relationship, rather than plotting the model’s own fitted log odds against its predictor. Consider design-appropriate remedies when assumptions fail.</p>
+<p>Assess independence by considering how the data were collected. Check for observations that strongly affect the fitted model. There should also be enough observations of both outcomes to estimate the relationship reliably. For the straight-line relationship in log odds, we need to check whether a curved relationship would better describe the data. The plots below help with some of these checks, but do not establish every assumption.</p>
 </div>
 </div>
 <section id="fitting-the-slogir-model-and-model-diagnostics" class="level2" data-number="15.1"><h2 data-number="15.1" class="anchored" data-anchor-id="fitting-the-slogir-model-and-model-diagnostics">
@@ -545,7 +545,7 @@ window.Quarto = {
 </div>
 <p>The <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function will provide a lot of information, including the values of <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span>. To perform model diagnostics (process of assessing the validity of the assumptions about the data) the functions <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> and <code><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">xyplot()</a></code> are used to create the following plots</p>
 <ul>
-<li><p><strong>Explanatory variable vs.&nbsp;predicted log odds</strong>: This visualizes the fitted relationship. With a single linear predictor, the fitted log odds are linear by construction, so this plot cannot validate the linearity assumption. A spline comparison or an empirical smoother can help investigate curvature.</p></li>
+<li><p><strong>Explanatory variable vs.&nbsp;predicted log odds</strong>: This shows the relationship specified by the model. The line is straight because that is how we defined the model; it does not show that a straight line is appropriate. Comparing it with a model that allows a curve can help assess this assumption.</p></li>
 <li><p><strong>Standardized Pearson residuals vs.&nbsp;leverage plot</strong>: This plot shows the leverage (the degree to which an observation affects the estimated slope) against the standardized Pearson residuals. Potential influential outliers will have a high leverage and large residual in magnitude.</p></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -720,7 +720,7 @@ Figure&nbsp;15.1: Air Quality Index (AQI) levels of health concern. Source: www.
 </div>
 </div>
 </div>
-<p>The displayed coefficients are approximately <span class="math inline">\(b_0=4.90\)</span> and <span class="math inline">\(b_1=-0.05\)</span>. Using the rounded slope, the odds ratio for one degree is <span class="math inline">\(e^{-0.05}\approx .9512\)</span>, a 4.9% decrease. For five degrees, it is <span class="math inline">\(e^{5(-0.05)}\approx .7788\)</span>, a 22.1% decrease, rather than five times the one-degree percentage. Using the full fitted slope, the one-degree odds ratio is 0.9492 and the five-degree decrease is 22.9%. These are associations in odds, not percentage-point changes in probability. Below we use the fitted model to extract its other results.</p>
+<p>The displayed coefficients are approximately <span class="math inline">\(b_0=4.90\)</span> and <span class="math inline">\(b_1=-0.05\)</span>. Using the rounded slope, a one-degree increase in temperature multiplies the odds of a Good air day by <span class="math inline">\(e^{-0.05}\approx .9512\)</span>, a decrease of about 4.9%. For a five-degree increase, the multiplier is <span class="math inline">\(e^{5(-0.05)}\approx .7788\)</span>, a decrease of about 22.1%. The percentages do not simply add. Using the unrounded estimate, the five-degree decrease is 22.9%. These changes describe odds, rather than changes in the probability itself.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
 <li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">R code</a></li>
@@ -840,7 +840,7 @@ Figure&nbsp;15.1: Air Quality Index (AQI) levels of health concern. Source: www.
 <span><span class="co"># Create a scatter plot of the Pearson residuals (from aqfit) vs. leverage.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/xyplot.html">xyplot</a></span><span class="op">(</span> <span class="va">aqfit</span>, </span>
 <span>   which<span class="op">=</span> <span class="fl">5</span> <span class="op">)</span> <span class="co"># this tells R to plot residuals vs. leverage.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details><div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
+</details><div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
 <div class="quarto-layout-row">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div id="fig-usingtactile3-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
@@ -880,17 +880,17 @@ Figure&nbsp;15.3: Diagnostic plots
 </div>
 <p>Each plot is analyzed and interpreted below:</p>
 <ul>
-<li><p>The left plot shows the fitted log odds against temperature. Its straight line follows from the specified model and supplies no evidence that the true relationship is linear. That assumption remains to be assessed.</p></li>
+<li><p>The left plot shows the fitted log odds against temperature. The line is straight because the model assumes a straight-line relationship. We still need to assess whether that assumption is reasonable.</p></li>
 <li><p>The plot on the right shows the standardized Pearson residuals against the leverage. The presence of some potential outliers (standardized Pearson residuals greater than 3 in magnitude) is visible. Cook’s distance<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> contour lines of 1/2 and 1 are plotted, but no leverage values exceed a Cook’s distance of 1. This suggests that Assumption 2 (no influential outliers) is reasonable.</p></li>
 </ul>
-<p>These are repeated daily observations, so temporal dependence and shared weather require assessment. Large sample size alone does not establish independence.</p>
-<p>The plots do not establish all assumptions. In particular, independence and the true log-odds linearity remain unverified. The inference below is an illustration conditional on the stated model.</p>
+<p>These are daily observations, so nearby readings may be related because of shared weather. A large sample does not remove this concern.</p>
+<p>The plots help us examine the model, but some assumptions still need further assessment. We carry out the following analysis to illustrate the method, keeping these limitations in mind.</p>
 </div>
 </div>
-</section><section id="inference-on-the-explanatory-variable-using-a-wald-test-and-profile-likelihood-intervals" class="level2" data-number="15.2"><h2 data-number="15.2" class="anchored" data-anchor-id="inference-on-the-explanatory-variable-using-a-wald-test-and-profile-likelihood-intervals">
-<span class="header-section-number">15.2</span> Inference on the explanatory variable using a Wald test and profile-likelihood intervals</h2>
+</section><section id="inference-on-the-explanatory-variable-using-a-wald-test-and-confidence-intervals" class="level2" data-number="15.2"><h2 data-number="15.2" class="anchored" data-anchor-id="inference-on-the-explanatory-variable-using-a-wald-test-and-confidence-intervals">
+<span class="header-section-number">15.2</span> Inference on the explanatory variable using a Wald test and confidence intervals</h2>
 <p>The focus in this section is on inference for <span class="math inline">\(\beta_1\)</span> (the true slope) in the context of SLogiR. The Wald test for the slope of a regression line is a widely used hypothesis test to assess the significance of the explanatory variable’s effect on the binary response variable. Specifically, the test is used to determine if the true slope <span class="math inline">\(\beta_1\)</span> is significantly different from zero, based on the observed value of <span class="math inline">\(b_1\)</span>.</p>
-<p>It is important to note that the observed value of <span class="math inline">\(b_1\)</span> can vary. If a study were replicated, the value of <span class="math inline">\(b_1\)</span> would likely be different. The use of inferential methods allows us to account for this variability and make statistically valid conclusions about the true slope <span class="math inline">\(\beta_1\)</span>. A profile-likelihood confidence interval can be constructed for <span class="math inline">\(\beta_1\)</span> and it provides a range of plausible values for the true slope at a specified significance level. The Wald test and profile-likelihood interval are different large-sample procedures.</p>
+<p>It is important to note that the observed value of <span class="math inline">\(b_1\)</span> can vary. If a study were repeated, the value would likely be different. Inferential methods help us account for this variation when drawing conclusions about the true slope <span class="math inline">\(\beta_1\)</span>. A confidence interval provides a range of plausible values for the true slope. Here, R uses a method called profile likelihood to compute the interval.</p>
 <p>The Wald test requires that certain assumptions (1, 2, 3, and 4) about the data are reasonable. The test statistic for this Wald test may be defined as:</p>
 <p><span class="math display">\[Z= \frac{b_1}{SE_{b_1}}\]</span></p>
 <p>Here, <span class="math inline">\(SE_{b_1}\)</span> represents the standard error of <span class="math inline">\(b_1\)</span><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>. Our primary interest is in determining if <span class="math inline">\(\beta_1\)</span> is significantly different from zero, which translate to <span class="math inline">\(\beta_1\neq 0\)</span>. Consequently, the null and alternative hypotheses are:</p>
@@ -923,7 +923,7 @@ Figure&nbsp;15.3: Diagnostic plots
 </tr>
 </tbody>
 </table>
-<p>Here, <span class="math inline">\(Z_{b_1}\)</span> and p-value<span class="math inline">\(_{b_1}\)</span> refer to the test statistic for the Wald test and the two-sided p-value<span class="math inline">\(_{b_1}\)</span>, respectively for testing if <span class="math inline">\(\beta_1\neq 0\)</span>. The function <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code> can also be utilized to obtain a confidence interval (CI) for the true slope <span class="math inline">\(\beta_1\)</span>. For the profile-likelihood CI used here, apply the <code><a href="https://rdrr.io/r/stats/confint.html">confint()</a></code> function to the resulting <em>glm object</em>.</p>
+<p>Here, <span class="math inline">\(Z_{b_1}\)</span> is the Wald test statistic, and p-value<span class="math inline">\(_{b_1}\)</span> is the two-sided p-value for testing whether <span class="math inline">\(\beta_1\)</span> differs from zero. To obtain a CI for the true slope, apply <code><a href="https://rdrr.io/r/stats/confint.html">confint()</a></code> to the <em>glm object</em>.</p>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -952,7 +952,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>We illustrate a Wald test of association between temperature and the probability of a Good AQI day at <span class="math inline">\(\alpha=.001\)</span>. Since <code>y=1</code> denotes Good, <span class="math inline">\(\beta_1\)</span> is the change in log odds of a Good day per degree of temperature. The hypotheses are:</p>
+<p>We use the Wald test to assess whether temperature is associated with the probability of a Good air day at <span class="math inline">\(\alpha=.001\)</span>. Since <span class="math inline">\(y=1\)</span> denotes a Good day, <span class="math inline">\(\beta_1\)</span> describes the change in its log odds for a one-degree increase in temperature. The hypotheses are:</p>
 <p><span class="math display">\[H_0: \beta_1=0 \qquad H_a: \beta_1 \neq 0\]</span></p>
 <p>The following code uses <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code> and <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> to obtain the test statistic and the corresponding p-value for a Wald test:</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
@@ -1003,7 +1003,7 @@ Note
 </div>
 </div>
 </div>
-<p>The nominal Wald statistic is approximately <span class="math inline">\(Z=-15.44\)</span>, with a small positive p-value reported by <code>summary(aqfit)</code>. It rejects a zero slope at <span class="math inline">\(\alpha=.001\)</span> under the model. The negative slope describes lower fitted odds of a Good AQI day at higher temperatures. This observational calculation does not establish a causal effect, and temporal or shared-weather dependence may invalidate the usual standard errors.</p>
+<p>The observed test statistic is approximately <span class="math inline">\(Z=-15.44\)</span>, with a very small p-value. Since the p-value is less than <span class="math inline">\(\alpha=.001\)</span>, we reject <span class="math inline">\(H_0\)</span> if the assumptions hold. The negative slope suggests that the odds of a Good air day are lower at higher temperatures. This is an association, rather than evidence that temperature caused the change. The possible relationships among daily readings still limit the conclusion.</p>
 <p>The function <code><a href="https://rdrr.io/r/stats/confint.html">confint()</a></code> is used to obtain a 99% CI for <span class="math inline">\(\beta_1\)</span>:</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
@@ -1030,8 +1030,8 @@ Note
 </div>
 </div>
 </div>
-<p>The nominal 99% <strong>profile-likelihood</strong> CI for <span class="math inline">\(\beta_1\)</span> is approximately (-0.061, -0.044). Under the model, it describes the change in log odds of a Good day per degree. This is a 99% interval, while the preceding test uses <span class="math inline">\(\alpha=.001\)</span>; these are different confidence/significance levels and procedures.</p>
-<p>Exponentiating the bounds gives a 99% profile-likelihood CI for the <strong>one-degree odds ratio</strong> <span class="math inline">\(e^{\beta_1}\)</span>, approximately (.941, .957). Under the model, this corresponds to a 4.3%–5.9% decrease in odds of a Good day per degree. It is not a CI for the odds at a fixed temperature, and is subject to the same unresolved dependence assumptions.</p>
+<p>The 99% CI for <span class="math inline">\(\beta_1\)</span> is approximately (-0.061, -0.044). If the assumptions hold, we are 99% confident that the true change in log odds per degree lies between these values. Note that this is a 99% interval; the earlier test used <span class="math inline">\(\alpha=.001\)</span>, which corresponds to a 99.9% confidence level.</p>
+<p>To express the interval in terms of odds, exponentiate its bounds. This gives a 99% CI for the one-degree odds ratio of approximately (.941, .957). If the assumptions hold, this suggests that a one-degree increase in temperature is associated with a decrease of about 4.3%–5.9% in the odds of a Good air day.</p>
 </div>
 </div>
 </section><section id="sample-size-estimation-and-power-analysis-for-slogir" class="level2" data-number="15.3"><h2 data-number="15.3" class="anchored" data-anchor-id="sample-size-estimation-and-power-analysis-for-slogir">
@@ -1110,7 +1110,7 @@ Note
 <ol>
 <li id="fn1"><p>The formulas for the deviance or Pearson residuals will not be discussed, as the formulas may be considered complex for novice learners. Pearson residuals gives a sense how far off the model’s predicted probability is from the actual outcome, after adjusting for the expected variability in the predictions. Deviance residuals provide an idea of how much each observation contributes to the overall lack of fit of the model, with larger values indicating a poorer fit for that specific observation.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>An influential observation substantially changes fitted coefficients when removed. Influence does not automatically imply a bad fit or justify deleting the observation.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>There is no universal outcome-count rule that guarantees reliable logistic inference. Precision and validity depend on event frequencies, predictor values, separation, model complexity, and the design.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>A large total sample is not enough if one outcome is very rare or if the explanatory variable perfectly separates the two outcomes.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>Cook’s distance is a measure of both the leverage and influence of a data point on the est coefficients. This measure is often used to identify potentially influential observations (typically those with a Cook’s distance exceeding 1). Note that Cook’s distance is just one tool (of many others) for identifying influential observations.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>The standard error of the slope estimate quantifies how much <span class="math inline">\(b_1\)</span> will vary across different samples if the study were replicated many times. A smaller standard error means that the estimate is more precise and varies less across different samples, while a larger standard error means the opposite.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn6"><p>Other functions or software packages may report the Wald test statistic as <span class="math inline">\(W=Z^2\)</span>. Under the null, this version is approximately chi-square distribution with 1 degree of freedom.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>

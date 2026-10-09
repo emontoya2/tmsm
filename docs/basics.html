@@ -457,7 +457,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Recall the data in <a href="datacs.html" class="quarto-xref"><span>Chapter 1</span></a>. Each row records the survival percentage for a group of early-stage Delta smelt larvae exposed to specified light and turbidity conditions. A row is a <strong>case</strong> or <strong>observational unit</strong>; here it is a group-level record, not an individual larva. The columns are <strong>variables</strong>: light intensity (<code>Light</code>), turbidity (<code>Turbidity</code>), and survival percentage (<code>Survival</code>). For example, the first row records 56.8% survival for larvae exposed to light intensity of 4.5 <span class="math inline">\(\mu mol/m^2/s\)</span> and turbidity of 2 NTUs. The experimental unit and any dependence among groups should be established from the original rearing-trial design before conducting inference.</p>
+<p>Recall the data in <a href="datacs.html" class="quarto-xref"><span>Chapter 1</span></a>. Each row provides information about a group of early-stage Delta smelt larvae exposed to particular light and turbidity conditions. Each row is called a <strong>case</strong> or <strong>observational unit</strong>. Here, a case is a group of larvae, rather than one larva. The columns are <strong>variables</strong>: light intensity (<code>Light</code>), turbidity (<code>Turbidity</code>), and survival percentage (<code>Survival</code>). For example, the first row records 56.8% survival for larvae exposed to light intensity of 4.5 <span class="math inline">\(\mu mol/m^2/s\)</span> and turbidity of 2 NTUs.</p>
 </div>
 </div>
 </section><section id="types-of-variables" class="level2" data-number="7.2"><h2 data-number="7.2" class="anchored" data-anchor-id="types-of-variables">
@@ -467,7 +467,7 @@ Note
 <li><p>A variable is <strong>categorical</strong> if the individual observations are categorical responses, such as labels, people’s attributes, opinions, etc.</p></li>
 <li><p>A variable is <strong>numerical</strong> (or quantitative) if its corresponding observations are numerical values that are measured or counted.</p></li>
 </ul>
-<p><strong>Factor variables</strong> refer to the software’s representation of categorical variables. The levels of a factor are its possible categories. For example, “first-generation college student” might be coded as 1 for a first-generation student and 0 for a student who is not first-generation. A categorical variable is <strong>ordinal</strong> when its categories have a natural order, and <strong>nominal</strong> otherwise. Light and turbidity levels have a natural low-to-high order, but the examples use unordered R factors to compare categories without imposing a particular trend.</p>
+<p><strong>Factor variables</strong> are how R stores categorical variables. The levels of a factor are its possible categories. For example, first-generation college student status might have two levels: 1 for a first-generation student and 0 for a student who is not first-generation. A categorical variable is <strong>ordinal</strong> if its categories have a natural order, such as low, medium, and high. Otherwise, it is <strong>nominal</strong>, such as county name. In these examples, R compares the light and turbidity categories as separate groups.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -478,7 +478,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The case-study data in <a href="datacs.html" class="quarto-xref"><span>Chapter 1</span></a> consist of three variables: <code>Light</code>, <code>Turbidity</code>, and <code>Survival</code>. - <code>Survival</code> is a numerical percentage, treated as continuous for these summaries. A numerical variable is <strong>continuous</strong> if its possible values form an interval on the number line; a proportion computed from a fixed number of larvae has a discrete set of possible values. - <code>Light</code> and <code>Turbidity</code> are both factor variables, with each having levels low, medium, and high.</p>
+<p>The case-study data in <a href="datacs.html" class="quarto-xref"><span>Chapter 1</span></a> consist of three variables: <code>Light</code>, <code>Turbidity</code>, and <code>Survival</code>. - <code>Survival</code> is a numerical variable that records the percentage of larvae that survived. For the methods discussed here, we treat survival percentage as continuous. Continuous variables describe measurements, such as height or temperature, rather than counts. - <code>Light</code> and <code>Turbidity</code> are both factor variables, with each having levels low, medium, and high.</p>
 </div>
 </div>
 <div id="fig-vartype" class="quarto-float quarto-figure quarto-figure-center anchored">

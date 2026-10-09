@@ -109,11 +109,11 @@ bmidf %>%
 
 ```
   
-The summaries suggest higher mean BMI in urban regions in these records. These are aggregate estimates by country, sex, region, and year, rather than individual BMI measurements. Urban and rural estimates within the same country, sex, and year form matched comparisons. An inferential analysis should account for this structure and the uncertainty in the aggregate estimates; no p-value is asserted here without such an analysis.
+The summaries suggest higher mean BMI in urban regions in these records. Each value is an average for a country, sex, region, and year, rather than the BMI of one person. Urban and rural averages from the same country are related comparisons. An analysis should account for this before testing for a difference.
 
 ### Scope of inference {-}
   
 
-This observational case study describes associations among mean BMI, region, and sex in the countries and years represented. It does not establish that region causes changes in BMI. Generalization and inferential uncertainty depend on the original estimation and sampling methods.
+This observational case study describes relationships among mean BMI, region, and sex in the countries and years represented. It does not show that living in an urban or rural region caused the BMI differences.
 
 

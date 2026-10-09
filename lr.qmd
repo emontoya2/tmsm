@@ -33,7 +33,7 @@ $$y = \beta_0 + \beta_1 x + \varepsilon$$
 
 where:
 
-- $\beta_0$ is the true intercept, the conditional mean of $y$ when $x=0$. Individual responses can differ from this mean.
+- $\beta_0$ is the true intercept, or the average value of $y$ when $x=0$. Individual observations can differ from this average.
 
 -  $\beta_1$ is the true slope, which represents the average change in $y$ for a unit increase in $x$.
 
@@ -91,13 +91,13 @@ For inferential methods to provide meaningful results,   several assumptions are
 
  The methods discussed here assume one or more of the following assumptions about the data:
 
-- **Assumption 1**. *Independence of errors*. Errors for different observational units are independent, conditional on the explanatory variable. Repeated measurements or shared conditions can violate this assumption.
+- **Assumption 1**. *Independence*. Observations should be independent. Repeated measurements of the same cases or measurements made under shared conditions may be related.
 
 -  **Assumption 2**. *No influential outliers*. The data should not contain any influential outliers[^2] that significantly affect the estimate SLR line.
 
-- **Assumption 3**. *Normality for exact small-sample inference*. Errors are normally distributed at each predictor value. A QQ-plot of residuals is a diagnostic proxy. Large-sample approximations require suitable regularity conditions and do not resolve dependence or nonconstant variance.
+- **Assumption 3**. *Normality*. For the t-based methods, the errors should be approximately normally distributed. We assess this using a QQ-plot of the residuals. The methods can work with some departures from normality in larger samples, but a large sample does not solve problems with related observations.
 
-- **Assumption 4**. *Constant error variance*. The spread of responses about their conditional mean is approximately constant across predictor values.
+- **Assumption 4**. *Constant variance*. The spread of the observations around the regression line should be similar across values of the explanatory variable.
 
 -  **Assumption 5**. The variables are *linearly related*, meaning that a straight line can accurately represent the trend in the scatterplot.
 
@@ -149,15 +149,15 @@ Note that the R functions used in these modules often have identical arguments, 
 
 The `summary()` function will provide a lot of information, including the values of $b_0$ and $b_1$.
 
-Model diagnostics assess whether the model's assumptions are reasonable. The `tactile` package extends `xyplot()` to display diagnostic plots for an *lm object*. The plots below address different aspects of fit:
+Model diagnostics help us assess whether the assumptions are reasonable. The `tactile` package allows us to use `xyplot()` to create diagnostic plots from an *lm object*. Each plot helps us examine a different aspect of the model:
 
-- **Residuals vs. predicted values**: Look for curvature in the conditional mean, changing spread, and unusual residuals. Absence of a visible pattern does not establish independence. Dependence should also be assessed using the study design and residuals plotted in time or observation order, where applicable.
+- **Residuals vs. predicted values**: Look for a curved pattern, changes in spread, or unusual observations. A random-looking scatter supports a straight-line model with similar spread. To assess independence, also consider how the data were collected and whether nearby observations may be related.
 
 - **Normal QQ-plot of the residuals**: The plot helps to assess assumption 3. If the residuals are normally distributed, the points on the plot will roughly follow a straight line. 
 
-- **Scale-location plot**: This plots the square root of the absolute standardized residual against the predicted value. It helps assess whether residual spread changes across fitted values. The plotted square roots are nonnegative and do not have mean zero.
+- **Scale-location plot**: This provides another way to examine whether the spread is similar across predicted values. A fairly level pattern with similar spread supports the constant-variance assumption.
 
-- **Residuals vs. leverage plot**: Leverage measures how unusual a predictor value is relative to the other predictor values. Large residuals combined with high leverage can identify influential observations. Cook's distance summarizes the effect on the fitted coefficients; this plot does not establish independence or constant variance.
+- **Residuals vs. leverage plot**: This helps identify observations that may strongly affect the regression line. An observation deserves attention if it has an unusual explanatory value and a large residual. Examine these observations rather than automatically removing them.
 
 ::: callout-note
 We fit the SLR model to the data described in the case study provided in @sec-casestudy3 to model the linear relationship between Pm10 and temperature. The data provided in the case study consists of several variables (`PM10`, `AQI`, ..., `county`, and `City.Name`) with `PM10` and `temp` being the variables of interest.
@@ -335,9 +335,9 @@ The scatterplot showed a linear trend in the data, so assumption 5 (linearity) i
   - Neither plot shows an obvious mean trend, but these plots alone do not establish independence of the daily measurements.
   - There are a few potential outliers and the variability of the residuals is not constant across the predicted values, so assumptions 2 and 4 are questionable. 
 
-- The upper-right normal QQ-plot[^4] suggests departures from normality. A large sample may support an approximation under additional conditions, but it does not resolve temporal dependence or nonconstant error variance.
+- The upper-right normal QQ-plot[^4] suggests departures from normality. A large sample can make t-based methods less sensitive to some departures, but we still need to assess the other assumptions.
 
-- The lower-right plot compares standardized residuals with leverage. Cook's distance[^5] contours, if shown, help identify observations that affect the coefficients. Leverage and Cook's distance measure different quantities. A visual threshold alone should not be used to declare the model valid.
+- The lower-right plot helps identify observations that may strongly affect the fitted line. Cook's distance[^5], when shown, helps us assess their influence. Such observations should be investigated before drawing conclusions.
 
  
 [^3]: A lowess smoother is a method used to smooth out noisy data by fitting a curve to the data points based on a local neighborhood around each point, where closer points have a higher influence on the resulting curve. It helps to identify trends and patterns in the data that might not be immediately visible.
@@ -434,7 +434,7 @@ embed_youtube("9CG0vvg016k")
 
 :::
 
-The nominal slope statistic is $T=20.655$ with a very small p-value under the independent, constant-variance error model. At $\alpha=.05$, that model-based test rejects a zero slope. The fitted association is positive, but the earlier diagnostics and repeated daily sampling raise concerns about the standard errors. Treat this as an illustration of the procedure, not as a validated causal or population-wide conclusion.
+The observed test statistic is $T=20.655$, with a very small p-value. Since the p-value is less than $\alpha=.05$, we reject $H_0$ if the assumptions hold. The fitted line shows a positive association between temperature and PM10. However, the concerns raised by the diagnostic plots and the daily measurements limit the conclusion.
  
 The function `confint()` is used to obtain a 95% CI for $\beta_1$:
 
@@ -460,16 +460,16 @@ See previous video.
 
 :::
 
-Under the same model, the nominal 95% interval for $\beta_1$ is approximately (0.729, 0.882) $\mu g/m^3$ per $^\circ F$. It estimates the change in mean PM10 associated with a one-degree increase in temperature. Its coverage depends on the model assumptions, including the error variance and dependence structure.
+The 95% CI for $\beta_1$ is approximately (0.729, 0.882). If the assumptions hold, we are 95% confident that a one-degree Fahrenheit increase in temperature is associated with an increase in mean PM10 of between 0.729 and 0.882 $\mu g/m^3$.
 
-The interval describes the fitted association at the represented monitoring sites. It does not establish a causal temperature effect or justify generalization beyond the measured sites and conditions.
+This interval describes an association at the monitoring sites represented in the data. It does not show that temperature caused the change in PM10.
 
 :::
 
 
 ## Testing the significance of the linear relationship using a randomization test
 
-A randomization or permutation test compares an observed slope statistic with values obtained by reallocating responses under a justified null model. Under a sharp no-treatment-effect null in a randomized experiment, the allocation must follow the actual treatment assignment. In an observational regression, unrestricted shuffling requires that responses be exchangeable with respect to predictor values under the null. A zero slope alone does not imply exchangeability: nonlinear dependence or changing variance can remain.
+A randomization test compares the observed slope with slopes obtained by repeatedly shuffling the response values. This shows how unusual the observed association would be if the response values could be paired with the explanatory values in any order. Whether such shuffling is reasonable depends on how the data were collected.
 
 ::: {.panel-tabset}
 ## R code
@@ -508,15 +508,15 @@ embed_youtube("QnGjWGY5znE")
 :::
 
 
-When responses are exchangeable under the null, permuting their pairings with the predictor provides a reference distribution. This condition must be justified from the design and model; lack of a linear trend is not sufficient.
+For this approach to work, shuffling must represent what could happen under the null hypothesis. A zero slope alone does not make every shuffle reasonable. For example, measurements from nearby days may remain related even when there is no linear association.
 
 The aim is still to see if there is a significant linear relationship or association:
 
 $$H_0: \beta_1=0 \qquad H_a: \beta_1 \neq 0$$
 
-For illustration, the code below permutes the observed responses while holding predictor values fixed. This targets an exchangeable-response null. If observations are temporally correlated, clustered, or have predictor-dependent error variances, unrestricted permutations need not produce a valid test.
+For illustration, the code below shuffles the response values while keeping the explanatory values fixed. This changes which PM10 reading is paired with each temperature. Related daily readings or changes in variability can make this approach unsuitable.
 
-The figure illustrates one such permutation. A valid reference distribution is formed by repeating permutations allowed by the null model and recomputing the statistic.
+The figure illustrates one shuffle. Repeating this process and computing the test statistic each time creates the randomization distribution.
 
 ```{r }
 #| label: fig-randlrexshuff
@@ -535,7 +535,7 @@ xyplot( yrand ~ xtmp , xlab="Explanatory variable", ylab="Response variable", ty
 
 ```
 
-Permutation methods can be useful when a normal-error model is unsuitable, but they do not automatically repair nonconstant variance or dependence. Use a method justified for the specific design and null. Here the statistic is the usual slope t-statistic:
+Randomization methods can be useful when normality is questionable. However, they do not automatically solve problems with related observations or changing variability. Here we use the usual slope t-statistic:
 
 $$T=\frac{b_1-\beta_1}{SE_{b_1}} $$
 To obtain the null distribution of $T$, the randomization process is repeated many times, each time computing the value of $T$. We then obtain the null distribution of $T$ by randomly shuffling (randomization) the observed values of the response variable many times, each time computing the value of the test statistic for the randomized data. The R function `slr.randtest()` computes the test statistic and p-value for the randomization test. 
@@ -557,7 +557,7 @@ To obtain the null distribution of $T$, the randomization process is repeated ma
 
 ::: callout-note
 
-We demonstrate the calculation on the PM10 and temperature records at $\alpha=.05$. The unrestricted permutations shown here are a computational illustration: repeated measurements, shared weather, and possible nonconstant variance mean exchangeability has not been established. A substantive analysis should account for those features before interpreting a p-value.
+We illustrate the randomization test using the PM10 and temperature data at $\alpha=.05$. As before, daily readings may be related and their variability may change with temperature. These concerns should be addressed before using the results to draw conclusions.
 
 $$H_0: \beta_1=0 \qquad H_a: \beta_1 \neq 0$$
 
@@ -628,7 +628,7 @@ print(randhist)
 
 ```
 
-The observed statistic is approximately 20.655. The permutation output estimates the tail probability under the exchangeable-response null used by this calculation. A small value indicates incompatibility with that null, provided its assumptions hold; the previously noted dependence and variance concerns prevent treating this illustration as a validated inferential conclusion.
+The observed test statistic is approximately 20.655. The p-value estimates how often the shuffles produce a statistic at least as extreme as this value. A small p-value provides evidence against $H_0$ when the assumptions hold. The study limitations discussed above still apply.
 
 :::
 
@@ -663,7 +663,7 @@ The function `mutate()` from the `dplyr` package will be used to add transform v
 
 
 ::: callout-note
-The residual plots suggest that spread varies across predicted values, making the constant-variance assumption questionable. We illustrate transforming PM10 using `mutate()`; a transformation should be followed by renewed model diagnostics and does not automatically remove dependence.
+The residual plots suggest that the spread changes across predicted values. To illustrate one possible approach, we transform PM10 using `mutate()`. After a transformation, we need to check the diagnostic plots again. A transformation does not automatically make related observations independent.
 
 ::: {.panel-tabset}
 ## R code

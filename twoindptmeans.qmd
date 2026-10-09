@@ -6,7 +6,7 @@ Consider comparing independent populations in regard to the mean or median of so
 
 - *t*-based or t-test based for comparing two means  
 
-- Wilcoxon rank sum test for comparing distributions or location shifts
+- Wilcoxon rank sum test for comparing groups
 
 - Randomization test for comparing two means or two medians 
 
@@ -179,15 +179,15 @@ The difference in samples means between Kern and Fresno county is
 
 $$35.067-41.099=\bar{x}_K-\bar{x}_F=-6.032.$$
 
-The estimated mean difference is -6.032 PM10 units. The following CI and test illustrate an independent-observation model. Independence requires assessment: daily measurements can be correlated over time and across counties through shared weather. Different county labels do not establish independence. Large sample sizes do not repair dependence, and broader population inference requires a suitable sampling or statistical model[^3].
+The estimated difference in mean PM10 levels is -6.032. Before drawing conclusions, we need to consider whether the observations are independent. Readings on nearby days or in nearby counties may be related because of shared weather. A large sample does not remove this concern. We use these data to illustrate the methods, with this limitation in mind[^3].
 
-[^3]: Randomization inference also requires an actual assignment mechanism or a defensible exchangeability argument; arbitrary shuffling of daily county observations is not automatically valid.
-
-
-Graphical summaries show spread and unusual values in each county. The sample standard deviations should be computed for PM10, as in the code above, rather than for AQI. A ratio of standard deviations is at most a rough guide to comparable spread; it does not establish independence or guarantee validity.
+[^3]: Shuffling the observations does not remove relationships among daily readings. The way the data were collected still matters.
 
 
-Independence remains unverified, and neither rank tests nor arbitrary shuffling resolve dependence. For but for illustration we analyze the data using the two-sample t-based methods. Let $\mu_K$ denote the true mean PM10 levels in Kern county. $\mu_F$ is defined analogously for Fresno county. Since an aim is to determine if there is significant difference between PM10 levels in Kern and Fresno county, the hypothesis is
+Graphical summaries show the spread and unusual values in each county. The sample standard deviations should be computed for PM10, as in the code above. Comparing the standard deviations helps us assess whether the groups have similar variability, but does not tell us whether the observations are independent.
+
+
+For illustration, we analyze the data using the two-sample t-based methods, keeping the possible dependence among daily readings in mind. Let $\mu_K$ denote the true mean PM10 level in Kern County, and define $\mu_F$ similarly for Fresno County. Since the aim is to determine whether the mean PM10 levels differ, the hypotheses are:
 
 $$H_0: \mu_K - \mu_F=0 \qquad H_a: \mu_K- \mu_F \neq 0$$
 
@@ -258,9 +258,9 @@ The output includes the following information:
 
 - A confidence interval
 
-The nominal Welch statistic is $T=-4.8075$, with p approximately $1.63\times10^{-6}$. It rejects a zero mean difference at $\alpha=.01$ under the independent-observation model. Dependence among daily readings can affect this calculation, so the result does not establish a validated county effect.
+The observed test statistic is $T=-4.8075$, with a p-value of approximately $1.63\times10^{-6}$. Since the p-value is less than $\alpha=.01$, we reject $H_0$ if the assumptions hold. The sample results suggest that the mean PM10 levels differ. However, the possible relationships among daily readings limit how confidently we can draw this conclusion.
 
-The nominal 99% CI for Kern minus Fresno mean PM10 is (`r round(pm10_fit$conf.int[1], 3)`, `r round(pm10_fit$conf.int[2], 3)`). Its negative bounds indicate a higher estimated mean at the Fresno sites under the model. These uncertainty estimates require independent observations; temporal dependence and site selection limit inference.
+The 99% CI for the difference in mean PM10 levels, Kern minus Fresno, is (`r round(pm10_fit$conf.int[1], 3)`, `r round(pm10_fit$conf.int[2], 3)`). Since both bounds are negative, the interval suggests that the Fresno sites have a higher mean PM10 level. This interpretation assumes independent observations and applies to the sites represented in the data.
 
  
 
@@ -268,15 +268,15 @@ The nominal 99% CI for Kern minus Fresno mean PM10 is (`r round(pm10_fit$conf.in
 
 
 
-## Wilcoxon-based methods for comparing locations
+## Wilcoxon-based methods for comparing groups
 
-Outliers or departures from normality do not automatically invalidate t-based methods; their importance depends on sample size, severity, and robustness. Rank-based methods use ordering and are less sensitive to extreme magnitudes, but are not unaffected by unusual observations. Wilcoxon methods require independent observations and a suitable null distribution[^5]. A common-shape shift model supports interpreting them as median comparisons. There is no universal minimum of ten observations for an exact rank test[^6].
+Outliers and departures from normality can affect t-based methods, particularly with small samples. Wilcoxon methods use the ranks of the observations, so extreme values have less influence. These methods still require independent observations. To interpret the test as a comparison of medians, the group distributions should have similar shapes and spreads[^5]. There is no single minimum sample size that applies to every Wilcoxon test[^6].
 
 [^5]: Known distributions are parametric distributions in that they can be expressed using math formulas.  Parametric methods assume that the underlying population data follow a known distribution
 
 [^6]: Non-parametric methods assume fewer things about the data compare to parametric methods.
 
-The Wilcoxon rank sum (Mann–Whitney) test compares ranks between two independent samples. Under a common-shape location-shift model, it tests a zero location shift, equivalent to equal population medians. With different shapes, rejection can reflect other distributional differences.
+The Wilcoxon rank sum (Mann–Whitney) test compares the ranks of observations in two independent samples. When the group distributions have similar shapes and spreads, a difference can be interpreted as a difference in population medians. Otherwise, a significant result may reflect other differences between the distributions.
 
 The test statistic for the Wilcoxon rank sum test depends on the ranks of the observed data, and its value will be provided by software. However, some details regarding the computation of the test statistic are provided below:
 
@@ -291,7 +291,7 @@ The test statistic for the Wilcoxon rank sum test depends on the ranks of the ob
 The test statistic then takes the form 
 
 $$U=W-\frac{n_A(n_A+1)}{2}$$
-Whereas the null hypothesis of the two-sample t test is equal means, under the common-shape shift model the Wilcoxon null[^7] can be expressed as equal medians:
+Whereas the two-sample t-test compares means, the Wilcoxon test can compare medians when the group distributions have similar shapes and spreads[^7]. In that case, the hypotheses are:
 
 $$H_0: \eta_A - \eta_B=0 \qquad H_a: \eta_A -\eta_B \neq 0$$ 
 
@@ -301,19 +301,19 @@ $$H_0: \delta_\eta=0 \qquad H_a: \delta_\eta \neq 0$$
 
 Under $H_0$, the null distribution of U is called the Wilcoxon distribution and it is used to compute the p-value[^8]. The function `two.wilcox.test()`[^9] computes the test statistic and p-value[^10], as well as a CI. 
 
-The CI estimates the location shift using the median of pairwise differences between the groups[^11]. It is not an interval for an individual future pair, nor generally the difference of sample medians. A common-shape shift model, without requiring symmetry, supports the difference-in-population-medians interpretation.
+The CI describes how far apart the two distributions are, using the median of all differences between an observation in one group and an observation in the other[^11]. When the distributions have similar shapes and spreads, we can interpret it as an interval for the difference in population medians. It is not the difference between two particular readings.
 
-[^7]: With unequal distribution shapes, equal medians alone do not supply the usual rank-test null distribution. Do not automatically reinterpret this as a test of a zero pseudomedian.
+[^7]: If the distributions have different shapes or spreads, the test should not be interpreted as only a comparison of medians.
 
 
-[^8]: The exact rank distribution is discrete; software can use an exact calculation or a normal approximation with tie adjustments, depending on sample size, ties, and its implementation.
+[^8]: R may compute the p-value directly or use a normal approximation, depending on sample sizes and tied values.
 
 
 [^9]: The R function `two.wilcox.test` is a wrapper function for the R function `wilcox.test()`. 
 
-[^10]: When an asymptotic calculation is used, the p-value uses a normal approximation, generally with tie and continuity corrections. Assess approximation quality for the particular data rather than relying on a universal sample-size cutoff.
+[^10]: When R uses a normal approximation, it can adjust for tied values and for using a continuous distribution to describe ranks.
 
-[^11]: The two-sample Hodges–Lehmann estimate is the median of all between-group pairwise differences. It estimates the location shift under a shift model.
+[^11]: R takes the difference between each value in one group and each value in the other, then uses the median of those differences to estimate how far apart the groups are.
 
 ::: {.callout-tip icon=false}
 
@@ -344,7 +344,7 @@ The CI estimates the location shift using the median of pairwise differences bet
  
 ::: callout-note
 
-The PM10 example illustrates a Wilcoxon location comparison and CI. Repeated daily observations leave independence unverified. Rank methods do not fix that dependence. Violin plots help examine whether a common-shape shift interpretation is plausible, but cannot establish it.
+We use the PM10 data to illustrate the Wilcoxon test and its CI. The observations still need to be independent. Violin plots help us assess whether the group distributions have similar shapes and spreads.
 
 
 ::: {.panel-tabset}
@@ -448,7 +448,7 @@ The output includes the following information:
 
 Based on the output, the observed value of the test statistic is $U=759219.5$. The p-value is small and positive; use the unrounded R result rather than reporting a rounded zero. Since p-value$\leq\alpha=.01$, we have significant evidence to reject $H_0$.  Therefore, we have strong evidence that there is significant difference between PM10 levels in Kern and Fresno county at the designated monitoring sites.
 
-The nominal 99% CI for the location shift is (-8.000, -4.000), estimated from between-group pairwise differences. Under a common-shape shift model this describes the population-median difference, not the difference between two future readings. Dependence among daily records could change uncertainty, so this is an illustration conditional on independent-observation assumptions.
+The 99% CI is (-8.000, -4.000). If the group distributions have similar shapes and spreads, we are 99% confident that the median PM10 level at the Kern sites is between 4 and 8 units lower than at the Fresno sites. As before, this conclusion assumes independent observations.
 
  
 
@@ -460,15 +460,15 @@ The nominal 99% CI for the location shift is (-8.000, -4.000), estimated from be
 ## A randomization test using a t-test test statistic 
 
 
-Randomization tests compare the observed statistic with its distribution under a null and the study's actual assignment mechanism. For observational data, a permutation test instead needs a defensible exchangeability argument. Equality of means or medians alone does not imply that all label permutations are valid.
+Randomization tests compare the observed difference with differences obtained by repeatedly shuffling the observations between groups. This shows how unusual the observed result would be if there were no treatment effect. The shuffling must follow how treatments were assigned. For observational data, we also need to consider whether shuffling between groups is reasonable.
 
 
-Randomization tests require assumptions. Under a sharp null of no individual treatment effect, reassign treatments according to the actual randomization design. For observational comparisons, unrestricted shuffling requires exchangeability under the null. A studentized statistic can support asymptotic validity under additional conditions, but does not justify arbitrary shuffling. Small samples also limit attainable p-values and power.
+Randomization tests also require assumptions. They do not automatically solve problems with related observations or poorly designed studies. For example, we should not freely shuffle repeated measurements from the same person as if they came from different people. Small samples can also make an effect difficult to detect.
 
 
 ### Comparing means {-}
 
-Here the statistic is Welch's studentized difference in means. The shuffling is valid only under the design or exchangeability conditions just described. Extreme observations can affect this statistic; a categorical “no outliers” rule is not by itself a justification for the test.
+Here we use Welch's t-statistic to compare the means after each shuffle. The function has similar arguments to the t-based method, with additional arguments for the randomization test.
 
 
 ::: {.callout-tip icon=false}
@@ -487,7 +487,7 @@ Here the statistic is Welch's studentized difference in means. The shuffling is 
 
 ::: callout-note
 
-This example illustrates label shuffling for a difference in county means. Outliers alone do not determine its validity. Exchangeability of daily county records is unverified, so the result is a teaching calculation rather than a validated test of a county effect. Let $\delta_\mu=\mu_K-\mu_F$. The hypotheses are:
+We use the PM10 data to illustrate the calculation. Keep in mind that daily readings may be related, so simply shuffling the county labels may not provide a reliable test for these data. Let $\delta_\mu=\mu_K-\mu_F$. The hypotheses are:
 
 $$H_0: \delta_\mu=0 \qquad H_a: \delta_\mu \neq 0$$
 
@@ -548,7 +548,7 @@ embed_youtube("Kbkt9vf7eiU")
 
 :::
 
-The output reports summaries, the observed studentized difference, and a Monte Carlo p-value. This wrapper does not construct a randomization CI; the estimated difference still describes effect size. The shuffling exercise does not address the dependence concerns in these daily records.
+The output is similar to that of Welch's t-test: it provides summary statistics, the observed test statistic, and a p-value estimated from the shuffles. This function does not provide a randomization CI, although the estimated mean difference still helps describe the size of the effect.
  
 
 :::
@@ -556,7 +556,7 @@ The output reports summaries, the observed studentized difference, and a Monte C
 
 ### Comparing medians {-}
 
-Here the shuffled statistic is the Wilcoxon rank statistic, not the sample-median difference. Under an exchangeable common-shape shift model it can support a median/location comparison; unequal shapes can change that interpretation.
+Here we use the Wilcoxon rank statistic after each shuffle. As before, the result can be interpreted as a comparison of medians when the group distributions have similar shapes and spreads. The R function is the same as for the Wilcoxon test, with additional arguments for randomization.
 
 ::: {.callout-tip icon=false}
 
@@ -572,7 +572,7 @@ Here the shuffled statistic is the Wilcoxon rank statistic, not the sample-media
 :::
 
 ::: callout-note
-The following shuffling exercise illustrates a permutation calculation with tied PM10 observations. Ties alone do not make this more accurate than a tie-adjusted normal approximation. Unrestricted county-label shuffling requires exchangeability, which shared weather and serial dependence may violate. It does not validate the earlier inferential conclusions.
+The following example illustrates the calculation with the PM10 data, which contain many tied values. Ties do not automatically make a randomization test better than the usual Wilcoxon calculation. The possible relationships among daily readings remain a concern.
 
  
 ```{r }
@@ -654,7 +654,7 @@ embed_youtube("JkBLLFUfkbg")
 
 :::
 
-The output reports summaries, the observed rank statistic, and a Monte Carlo p-value. This wrapper does not construct a randomization CI. Its validity still requires the exchangeability conditions discussed above.
+The output is similar to that of the Wilcoxon test: it provides summary statistics, the observed rank statistic, and a p-value estimated from the shuffles. This function does not provide a randomization CI. The assumptions discussed above still apply.
 
  
 
@@ -760,6 +760,6 @@ pwr.t.test(power = 0.90 ,         # Set the desired power level
 :::
  
 
-Relative power depends on the distributions, the effect, and the chosen tests. Rank tests can outperform t-tests for some non-normal distributions. Select methods using the scientific question, study design, target parameter, and relevant assumptions.
+Both t-based and Wilcoxon methods can be useful. Neither is always more powerful than the other. The better choice depends on the research question, how the data were collected, and the shape of the data distributions.
 
 

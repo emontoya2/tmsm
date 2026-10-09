@@ -132,7 +132,7 @@ To better understand the characteristics of xylem tissue in shrub species, it is
 
 According to Kaiser's rule, three principal components capture most of the variation contained in these nine variables. In fact, about 76% of the variation in the plant physiological variables is explained by the first three principal components, and  this is an acceptably large percentage.
 
-Varimax rotation helps describe trait patterns within the retained three-component solution. The rotated components summarize associations involving water transport, mechanical strength and storage, and tissue composition. These exploratory patterns can suggest hypotheses about drought-related trade-offs, but PCA alone does not establish a physiological compensation mechanism or validate an index of drought adaptability.
+Varimax rotation helps us describe the patterns in the three retained components. These patterns relate to water transport, mechanical strength and storage, and tissue composition. They can help us develop research questions about how shrubs cope with limited water, but PCA alone does not explain the biological causes of these patterns.
  
  It is important to note that PCA is an exploratory method rather than an inferential one. While it can reveal patterns and relationships in the data, it does not provide statistically significant conclusions or results. Overall, PCA is a powerful method for exploring complex datasets and revealing underlying patterns, but it should not be used as the sole basis for making conclusions.
  

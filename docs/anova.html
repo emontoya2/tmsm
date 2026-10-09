@@ -452,7 +452,7 @@ window.Quarto = {
 <li><p><strong>Assumption 3</strong>. <em>Normality</em> or <em>large sample</em>. The data under each factor level or group or treatment should be roughly normally distributed or the sample for each factor level or group or treatment should be large.</p></li>
 <li><p><strong>Assumption 4</strong>. <em>Equal variance or spread</em>. The variability in each factor level or groups or treatments should be approximately that of any other factor level or group.</p></li>
 </ul>
-<p>While these assumptions are addressed in the illustrations below using a case study, assumption 1 can be evaluated based on study design. Assumption 2 can be examined using a histogram or boxplots under each group. The normality component of assumption 3 can be examined using quantile-quantile plots within groups or of model residuals; a pooled plot of raw responses can mix different group means, and assumption 4 can be graphically assessed using boxplots or histograms under each group and numerically assessed using sample standard deviations.</p>
+<p>While these assumptions are addressed in the illustrations below using a case study, assumption 1 is assessed by considering how the study was conducted. Assumption 2 can be examined using histograms or boxplots for each group. For assumption 3, use QQ-plots within each group or a QQ-plot of the model residuals. Combining all groups in one QQ-plot can hide differences among them. Assumption 4 can be assessed using boxplots and sample standard deviations for each group.</p>
 </div>
 </div>
 <p>The terms “factor levels”, “treatments”, and “groups” mean the same thing and will be used interchangeably, although “factor levels” or “treatments” are terms more associated with experiments and “groups” is a term more associated with observational studies. In these sections, R functions provided for conducting the aforementioned inferential methods are used and described. Other functions to import data, numerically or graphically summarize the data, and other tasks may be used but such functions are not described as they have been described and illustrated in detail in previous modules.</p>
@@ -486,8 +486,8 @@ window.Quarto = {
 <p><span class="math inline">\(H_a:\)</span> Not all treatment means are equal; at least one pair differs.</p>
 <p>To test the hypothesis, ANOVA compares the variability between groups to the variability within groups and it assesses whether the differences between group means are statistically significant. The ratio of these two measures provides the test statistic for the F-test in single factor ANOVA:</p>
 <p><span class="math display">\[F=\frac{ MS(Treatment)}{ MS(Error)}\]</span></p>
-<p>Under the independent normal-error model with common variance, MS(Treatment) and MS(Error) both estimate that same variance under <span class="math inline">\(H_0\)</span>. Their ratio therefore fluctuates around 1. Differences among population means tend to increase MS(Treatment) relative to MS(Error). Under <span class="math inline">\(H_0\)</span>, the statistic follows an F distribution with <span class="math inline">\(k-1\)</span> numerator and <span class="math inline">\(n-k\)</span> denominator degrees of freedom.</p>
-<p>Welch’s ANOVA accommodates unequal group variances. It uses group means weighted by their estimated precision (<span class="math inline">\(n_i/s_i^2\)</span>), together with a correction for estimating those variances. Its statistic, <span class="math inline">\(F_w\)</span>, is not the ordinary ANOVA ratio with renamed mean squares. The null F distribution is an approximation, with <span class="math inline">\(k-1\)</span> numerator degrees of freedom and Welch–Satterthwaite denominator degrees of freedom<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. It still requires independent observations and an adequate distributional approximation.</p>
+<p>If the assumptions hold and the group means are equal, MS(Treatment) and MS(Error) should be similar, so their ratio tends to be near 1. If the group means differ, MS(Treatment) tends to be larger and the ratio increases. Under <span class="math inline">\(H_0\)</span>, we use an F distribution with <span class="math inline">\(k-1\)</span> and <span class="math inline">\(n-k\)</span> degrees of freedom to compute the p-value.</p>
+<p>Welch’s ANOVA is used when the group variances are not assumed equal. It adjusts for differences in group sizes and variability. Its test statistic, <span class="math inline">\(F_w\)</span>, and degrees of freedom are computed differently from those of the standard F-test<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. R does these calculations for us. The observations still need to be independent.</p>
 <p>The function <code>sfaov()</code><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> obtains the information needed to conduct an F-test or Welch’s F-test and more using the data.</p>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -522,7 +522,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>We use the Delta smelt records in <a href="datacs.html" class="quarto-xref"><span>Chapter 1</span></a> to illustrate a one-factor comparison of mean survival percentages among three light groups at <span class="math inline">\(\alpha=.10\)</span>. Medium light occurs only at medium turbidity in this subset, while low and high light occur at low and high turbidity. Light and turbidity are partly confounded, so these comparisons cannot isolate a causal effect of light.</p>
+<p>We use the data in <a href="datacs.html" class="quarto-xref"><span>Chapter 1</span></a> to compare mean survival percentages among the three light groups at <span class="math inline">\(\alpha=.10\)</span>. Keep in mind that the light groups also differ in turbidity. Therefore, the examples illustrate the methods, but cannot tell us whether light alone caused a difference.</p>
 <p>To begin, we import the data, and then one would explore the data using numerical and graphical data summaries. Numerical and graphical data explorations were covered in other modules. However, we also use these type of summaries to assess model assumptions.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
@@ -630,9 +630,9 @@ Note
 </div>
 </div>
 </div>
-<p>The medium-light group has a different sample mean from the low- and high-light groups. Before inference, independent replication must be established from the trial design; different light labels alone do not establish independence. Group sizes are small, particularly for medium light, making normality difficult to assess. Examine within-group QQ-plots or model residuals, rather than a pooled raw-response plot that combines different means. The calculations below are teaching illustrations conditional on assumptions that these records do not fully establish.</p>
+<p>The medium-light group has a different sample mean from the low- and high-light groups. The group sizes are small, so it is difficult to assess normality. We should also check whether the groups were measured independently. The examples below show the calculations, but the study design and assumptions need further assessment before drawing firm conclusions.</p>
 <p>The boxplots suggest that the variability is not the same for the three groups. To further assess this assumption numerically, we use the sample standard deviations. The sample standard deviations under light intensity 4.5 and 6.75 are similar (12.809 and 12.242), but the sample standard deviation under high light intensity is much less. To determine if the variability in both groups is similar enough, we can use a rule of thumb - take the ratio of the largest and smallest sample standard deviations (12.809/6.345 or 6.345/12.809), and if the ratio is between .5 and 2, then the variability in both groups is considered similar enough. Both graphical and numerical assessments suggest that assumption 4 is not reasonable for the data. However, keep in mind that graphical assessments of assumptions are generally enough, and this rule of thumb should not be used if outliers are present.</p>
-<p>For illustration, we compute the ordinary ANOVA despite unresolved independence and questionable small-sample normality and common variance. Welch or rank methods address some distributional issues but do not repair dependence or separate light from turbidity. Let <span class="math inline">\(\mu_1,\mu_2,\mu_3\)</span> denote group mean survival percentages for low, medium, and high light, respectively. The hypotheses are:</p>
+<p>For illustration, we carry out the standard F-test even though some assumptions are uncertain. Let <span class="math inline">\(\mu_1\)</span>, <span class="math inline">\(\mu_2\)</span>, and <span class="math inline">\(\mu_3\)</span> denote the true mean survival percentages for low, medium, and high light, respectively. The hypotheses are:</p>
 <p><span class="math display">\[H_0: \mu_1=\mu_2=\mu_3 \qquad H_a: \text{Not all } μ_i\text{'s are equal}\]</span></p>
 <p>In the context of ANOVA, we may also define the hypothesis in terms of an effect. Let <span class="math inline">\(\tau_i= \mu - \mu_i\)</span>, where <span class="math inline">\(\tau_i\)</span> measures the effect of the <span class="math inline">\(i\)</span>th factor level. The <span class="math inline">\(i\)</span>th effect is the difference between the overall mean and the mean of <span class="math inline">\(i\)</span>th factor level. In terms of effects, the hypothesis is</p>
 <p><span class="math display">\[H_0: \tau_1=\tau_2=\tau_3=0 \qquad H_a: \text{Not all }\tau_i\text{'s are 0}\]</span></p>
@@ -729,7 +729,7 @@ Note
 </tbody>
 </table>
 <p>The output also provides the coefficient of determination or <span class="math inline">\(R^2\)</span>. <span class="math inline">\(R^2\)</span> is a number between 0 and 1, and it measures the proportion of variability in the response that can be explained or accounted for by the factor variable, and it is defined as SS(Treatment)/SS(Total). The higher <span class="math inline">\(R^2\)</span>, the larger the proportion of the total variation that is accounted for by the factor variable. However, either a high or low value of <span class="math inline">\(R^2\)</span> does not necessarily imply statistical significance.</p>
-<p>The ordinary ANOVA gives <span class="math inline">\(F=4.034\)</span> and p approximately <span class="math inline">\(.037\)</span>. Under its assumptions, this would reject equality of the group means at <span class="math inline">\(\alpha=.10\)</span>. Here equal variance and normality are questionable, independent replication is unverified, and light is partly confounded with turbidity. Treat this as a nominal calculation illustrating ANOVA, rather than a validated causal conclusion.</p>
+<p>The observed test statistic is <span class="math inline">\(F=4.034\)</span>, with a p-value of approximately <span class="math inline">\(.037\)</span>. Since the p-value is less than <span class="math inline">\(\alpha=.10\)</span>, we reject <span class="math inline">\(H_0\)</span> if the assumptions hold. This suggests that the group means differ. However, the concerns noted above limit this conclusion, and the result does not show that light alone caused the difference.</p>
 <p>Recall that not all data assumptions are met (assumptions 3 and 4 are questionable). Welch’s F-test does not require assumption 4. We will assume assumption 3 is met for the data to illustrate Welch’s F-test. To carry out Welch’s F-test, we use <code>sfaov()</code> but with an additional argument of <code>welch=TRUE</code>:</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
@@ -777,19 +777,19 @@ Note
 </div>
 </div>
 </div>
-<p>The <code>sfaov()</code> output is nearly identical when using <code>sfaov()</code> to conduct the standard F-test but with the F value, p-value, and denominator df(Error) corresponding to Welch’s F-test; the numerator df(Treatment) remains <span class="math inline">\(k-1\)</span>. The rest of the information is defined as before. Note that <span class="math inline">\(R^2\)</span> still has the same meaning, as do MS(Treatment) and MS(Error), and their computations are independent of Welch’s F-test.</p>
-<p>Welch’s ANOVA gives <span class="math inline">\(F_w=3.236\)</span>, numerator df = 2, denominator df approximately 7.037, and p approximately .10081. Since p <span class="math inline">\(&gt;\alpha=.10\)</span>, we fail to reject equality of the group means at the stated level. This does not establish equality. Welch’s method addresses unequal variances, but it does not resolve dependence, confounding, or uncertain small-sample normality.</p>
+<p>The output is similar to that of the standard F-test. The F value, p-value, and df(Error) now correspond to Welch’s F-test. The df(Treatment) remains <span class="math inline">\(k-1\)</span>. The other summaries, including <span class="math inline">\(R^2\)</span>, have the same meaning as before.</p>
+<p>Welch’s ANOVA gives <span class="math inline">\(F_w=3.236\)</span> and a p-value of approximately .10081. Since the p-value is slightly greater than <span class="math inline">\(\alpha=.10\)</span>, we fail to reject <span class="math inline">\(H_0\)</span>. This means there is not enough evidence of a difference at the chosen significance level; it does not prove that the means are equal. Welch’s method allows unequal variances, but the other study limitations still apply.</p>
 </div>
 </div>
 </section><section id="kruskalwallis-test-single-factor-anova-for-ranks" class="level2" data-number="13.2"><h2 data-number="13.2" class="anchored" data-anchor-id="kruskalwallis-test-single-factor-anova-for-ranks">
 <span class="header-section-number">13.2</span> Kruskal–Wallis test (single-factor ANOVA for ranks)</h2>
-<p>The Kruskal–Wallis test compares rank distributions across independent groups and does not require normality. It is useful for numerical or ordinal responses. Under a common-shape location-shift model, it can be interpreted as testing equality of group medians. With different shapes or spreads, rejection need not indicate different medians.</p>
+<p>The Kruskal–Wallis test uses the ranks of the observations to compare independent groups. It does not require normally distributed data. If the groups have distributions with similar shapes and spreads, the test can be used to compare medians. If their shapes or spreads differ, a significant result may reflect those differences instead.</p>
 <p>Like ANOVA, it partitions the total variability in the data but when using the ranks of the data (not the data themselves). For the Kruskal–Wallis test, the hypotheses are</p>
 <p><span class="math inline">\(H_0: \eta_1= \cdots=\eta_k\)</span> (The median response is the same across all factor levels or treatments)<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
-<p><span class="math inline">\(H_a:\)</span> Not all group medians are equal, under the common-shape shift model.</p>
+<p><span class="math inline">\(H_a:\)</span> Not all group medians are equal, assuming the group distributions have similar shapes and spreads.</p>
 <p>The Kruskal–Wallis test statistic is:</p>
 <p><span class="math display">\[H=\frac{MSranks(Treatment)\times (k-1)}{ (SSranks(Total))/(n-1)}\]</span></p>
-<p>Here MSranks(Treatment) is the between-group mean square of the ranks, and SSranks(Total) is their total sum of squares. The usual Kruskal–Wallis statistic includes an adjustment for tied ranks. Under the equal-distribution null, its reference distribution is approximately <span class="math inline">\(\chi^2\)</span> with <span class="math inline">\(k-1\)</span> degrees of freedom.</p>
+<p>Here MSranks(Treatment) describes differences among the groups using ranks, and SSranks(Total) describes the overall variation in the ranks. The test also accounts for tied observations. We use a chi-square distribution with <span class="math inline">\(k-1\)</span> degrees of freedom to approximate the p-value.</p>
 <p>The function <code>sfkw()</code><a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> obtains the information needed to conduct the Kruskal–Wallis test using the data.</p>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -815,7 +815,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>We illustrate the Kruskal–Wallis comparison of survival distributions among the three light groups at <span class="math inline">\(\alpha=.10\)</span>. The analysis is conditional on independent observations; it cannot separate light from turbidity in these records.</p>
+<p>We use the Kruskal–Wallis test to compare survival among the three light groups at <span class="math inline">\(\alpha=.10\)</span>. As before, the observations need to be independent, and the light and turbidity differences cannot be separated in these data.</p>
 <p>The data were imported and data assumptions were assessed when the F-test was applied in the previous section. Below we examine the medians and further explore the distribution of the data.</p>
 <div class="cell" data-layout-align="center">
 <details open="" class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lattice.r-forge.r-project.org/">lattice</a></span><span class="op">)</span> <span class="co"># provides the bwplot() function</span></span>
@@ -889,7 +889,7 @@ Note
 </div>
 </div>
 <p>The output provides the Kruskal-Wallis test statistic and corresponding p-value. The output also provides a measure akin coefficient of determination in traditional ANOVA called rank Eta or eta-squared. The measure eta-squared is appropriate for when the data are ranks, and it provides the proportion of the total variation in the response variable that is explained by the explanatory variable. Again, Eta-squared can be considered a non-parametric analogue to <span class="math inline">\(R^2\)</span>.</p>
-<p>The nominal rank statistic is <span class="math inline">\(H=5.668\)</span>, with p approximately .05878. Under its assumptions, this rejects equal group distributions at <span class="math inline">\(\alpha=.10\)</span>. Because the group shapes differ, this need not reflect different medians. Dependence and light–turbidity confounding still limit substantive interpretation.</p>
+<p>The observed test statistic is <span class="math inline">\(H=5.668\)</span>, with a p-value of approximately .05878. Since the p-value is less than <span class="math inline">\(\alpha=.10\)</span>, we reject <span class="math inline">\(H_0\)</span> if the assumptions hold. This suggests that the group distributions differ. Because their shapes differ, we cannot conclude from this test alone that their medians differ.</p>
 </div>
 </div>
 </section><section id="multiple-comparisons" class="level2" data-number="13.3"><h2 data-number="13.3" class="anchored" data-anchor-id="multiple-comparisons">
@@ -932,7 +932,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The ordinary ANOVA calculation rejected equality at <span class="math inline">\(\alpha=.10\)</span> under its model. To illustrate pairwise mean comparisons, we use Tukey’s HSD at the same family-wise level. The unverified independence, questionable common variance, and light–turbidity confounding still limit interpretation.</p>
+<p>The standard F-test gave evidence of a difference at <span class="math inline">\(\alpha=.10\)</span>. To illustrate how to identify which group means differ, we use Tukey’s HSD at the same significance level. The study limitations discussed above still apply.</p>
 <p>The following code uses <code>sfaov()</code> to help conduct the ANOVA F-test and pairwise multiple comparisons using Tukey’s HSD method at <span class="math inline">\(\alpha=.10\)</span><a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
@@ -1025,7 +1025,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Welch’s ANOVA failed to reject equality of means at <span class="math inline">\(\alpha=.10\)</span>. This does not establish that the groups have equal means. We illustrate Games–Howell pairwise comparisons with 90% simultaneous intervals, subject to the same design limitations.</p>
+<p>Welch’s F-test did not give enough evidence of different group means at <span class="math inline">\(\alpha=.10\)</span>. For illustration, we show how to carry out Games–Howell comparisons with 90% confidence intervals. The same study limitations apply.</p>
 <p>The following code uses <code>sfaov()</code> to conduct the Welch’s F-test and all pairwise multiple comparisons using the Games-Howell test at <span class="math inline">\(\alpha=.10\)</span>:</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
@@ -1092,7 +1092,7 @@ Note
 </div>
 </section><section id="dunn-test" class="level3" data-number="13.3.3"><h3 data-number="13.3.3" class="anchored" data-anchor-id="dunn-test">
 <span class="header-section-number">13.3.3</span> Dunn test</h3>
-<p>Dunn’s test compares group mean ranks. Holm’s correction adjusts the collection of pairwise p-values to control the family-wise Type I error rate under valid test assumptions. The <code>sfkw()</code> function provides these comparisons after the Kruskal–Wallis calculation<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>.</p>
+<p>Dunn’s test compares the average ranks for each pair of groups. Holm’s correction adjusts the p-values to account for making several comparisons. The <code>sfkw()</code> function provides these results after the Kruskal–Wallis test<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>.</p>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1119,7 +1119,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The nominal Kruskal–Wallis calculation rejected equal distributions at <span class="math inline">\(\alpha=.10\)</span>. The following Dunn–Holm comparisons illustrate differences in mean ranks, conditional on valid independent-observation assumptions. They do not isolate a causal effect of light.</p>
+<p>The Kruskal–Wallis test gave evidence that the group distributions differ at <span class="math inline">\(\alpha=.10\)</span>. The following Dunn comparisons help identify which pairs differ in their average ranks. These comparisons still cannot separate the effects of light and turbidity.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
 <li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true" href="">R code</a></li>
@@ -1198,7 +1198,7 @@ Note
 #</code></pre>
 </div>
 </div>
-<p>Cohen’s <span class="math inline">\(f\)</span> is the root-mean-square deviation of treatment means from their weighted overall mean, divided by the common <strong>within-group</strong> standard deviation. For equally sized groups, <span class="math inline">\(f=\sqrt{\sum_{i=1}^k(\mu_i-\bar{\mu})^2/k}/\sigma\)</span>. It does not use the standard deviation of all pooled observations as its denominator. Conventional benchmarks follow:</p>
+<p>Cohen’s <span class="math inline">\(f\)</span> describes how much the group means differ relative to the variation within the groups. Larger values indicate a larger effect. The standard deviation used here describes variation within groups, rather than variation in all observations combined. Common guidelines are:</p>
 <ul>
 <li><p>Small effect size: <span class="math inline">\(f = 0.10\)</span></p></li>
 <li><p>Medium effect size: <span class="math inline">\(f = 0.25\)</span></p></li>
@@ -1247,10 +1247,10 @@ Note
 <li id="fn2"><p>The exact calculation used here is implemented by R’s <code>oneway.test(..., var.equal=FALSE)</code>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p><code>sfaov()</code> is a wrapper function for <code><a href="https://rdrr.io/r/stats/aov.html">aov()</a></code>, <code><a href="https://rdrr.io/r/stats/oneway.test.html">oneway.test()</a></code>, and <code><a href="https://rdrr.io/r/stats/TukeyHSD.html">TukeyHSD()</a></code> and it incorporates additional options. A wrapper function is a function that calls another function or a set of functions to simplify or extend tasks<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>SS(Treatment) refers to the sum of squares Treatment. The rest of table elements are defined in an analogous manner for the SS, df, and MS. SS(Total) is a measure of the total variation in the data, ignoring the groups or treatments. The sum of squares treatment or SS(Treatment) measures how far the individual sample means are from the overall sample mean, and the sum of squares error or SS(Error) measures how far observations are from the sample mean of its group.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>Without a common-shape shift model, formulate the null as equal group distributions and interpret rejection as evidence of a distributional difference.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>If the groups have different shapes or spreads, interpret a significant result as evidence that their distributions differ, rather than only their medians.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn6"><p><code>sfkw()</code> is a wrapper function for <code><a href="https://rdrr.io/r/stats/kruskal.test.html">kruskal.test()</a></code> but it incorporates additional options.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn7"><p>Significance or <span class="math inline">\(\alpha\)</span> level equals one minus the confidence level. For example, if <span class="math inline">\(\alpha=.05\)</span>, the corresponding confidence level is <span class="math inline">\(1-\alpha=1-.05=.95\)</span>.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn8"><p>Dunn’s p-values describe the extremeness of rank differences under the null model, not the probability that a difference occurred “by chance.” The wrapper reports adjusted p-values, not confidence intervals.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>The function reports adjusted p-values for the comparisons, rather than confidence intervals.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn9"><p>There are R functions to compute for the Kruskal-Wallis test or Welch’s F-test, these functions may be difficult to use for those not familiar with power analysis.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {

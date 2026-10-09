@@ -20,12 +20,12 @@ The first step in conducting research is to identify topics or questions that ar
 
 + **Sample**: A part of the population that is selected for the study.
 
-Random sampling supports inference to a defined population by giving a probability-based account of how the sample was selected. It does not guarantee that every realized sample is representative. Inference from a nonrandom sample requires additional assumptions about selection and the target population.
+Random sampling gives each member of the population a known chance of being selected. This helps us use the sample to learn about the population. However, a random sample can still differ from the population by chance. With a nonrandom sample, we need to consider how the sample was obtained before deciding who the results apply to.
 
 
 Common sampling techniques include:
 
-- Simple random sampling (SRS) -- For a fixed sample size, every possible subset of that size has the same probability of selection. In the usual sampling-without-replacement design, the selections are not independent.
+- Simple random sampling (SRS) -- Every possible sample of a given size has the same chance of being selected.
 
 ![Simple random sampling](images/design/srs.png){#fig-srs}
 
@@ -42,9 +42,9 @@ Common sampling techniques include:
 ::: {.callout-important icon=true}
 ## A note about the size of the sample
 
-**Common misconception**: A sample that is a small fraction of the population cannot accurately describe it. Precision depends on the sample size, variability, and sampling design, not just the sampling fraction. Random selection supports quantifying sampling uncertainty, but a particular sample can still differ from the population.
+**Common misconception**: A sample that is a small fraction of the population cannot accurately describe it. A carefully selected sample can provide useful information even when the population is very large. What matters is how the sample was selected, its size, and how much the values vary.
 
-Appropriate inferential methods account for the sample size and sampling design. More independent observations generally improve precision; simply taking more correlated measurements does not provide the same amount of information.
+The methods used to draw conclusions should account for how the data were collected. More independent observations generally give more precise estimates. Measuring the same cases many times does not provide as much new information as measuring more independent cases.
 :::
 
 
@@ -150,9 +150,9 @@ The graphical summaries above suggest that chicks on diets 3 and 4 tend to have 
 
 The following concepts of experimental design enable researchers to conclude that differences in the observed response data are likely due to the treatments and not  reasonably attributable to only chance:
 
-- Randomization: Researchers randomly assign experimental units to treatments or conditions. Random assignment balances other characteristics between groups in expectation, although particular groups may still differ by chance.
+- Randomization: Researchers randomly assign experimental units to treatments or conditions. This helps make the groups comparable, although some differences may still occur by chance.
  
-- Replication: Apply treatments to multiple independent experimental units. More independent units generally improve precision; repeated measurements of one unit are not independent replications.
+- Replication: Apply treatments to multiple independent experimental units. This helps us distinguish treatment differences from ordinary variation. Repeated measurements of the same unit do not count as independent replications.
 
 - Control: Keep other conditions comparable across treatment groups and use an appropriate comparison group.
 
@@ -175,7 +175,7 @@ The scope of inference of a study (from a statistician's perspective) addresses 
 
 + Can the results of the study be generalized to a population? (generalizability)
 
-Random assignment provides a strong basis for attributing differences to treatments, provided the experiment is conducted and analyzed appropriately. Observational causal inference requires additional assumptions and methods beyond the scope of these introductory modules. Random sampling supports generalization to the sampled population; inference from nonrandom samples requires assumptions about selection and applicability. Random assignment and random sampling address different questions.
+Random assignment helps us determine whether a treatment caused a difference. Random sampling helps us decide whether the results apply to a larger population. These are different goals. For observational studies, finding an association does not by itself establish cause and effect.
 
 
 ![The table reflects what can be concluded if an association is established (scope of inference)](images/design/scopeTable.png){#fig-scope}
@@ -184,9 +184,9 @@ Random assignment provides a strong basis for attributing differences to treatme
 
 ::: callout-note
 
-Recall @sec-csdelta. The light and turbidity conditions were imposed on groups of larvae, but the subset used here does not establish random assignment or independent replication. In this subset, medium light occurs only at medium turbidity. A comparison by light category therefore cannot isolate the causal effect of light from turbidity and other trial conditions.
+Recall @sec-csdelta. The light and turbidity conditions were applied to groups of larvae. In the data used here, medium light occurs only with medium turbidity. Therefore, a difference among the light groups could also be related to turbidity. These data alone do not tell us whether light caused the difference.
 
-Conclusions should describe the observed groups under the conditions represented in these records. Generalization to other fish or conditions requires support from the sampling and experimental design, rather than assuming that these groups represent every possible population or treatment setting.
+Conclusions should apply to the groups and conditions represented in the study. Whether the findings apply to other fish or other conditions depends on how the study was designed and how the groups were selected.
 
 :::
 

@@ -124,10 +124,10 @@ kruskal.test( Survival ~  Light , data= survdf)
 
  
 When reared under different conditions of light intensities, the data summaries show that early-stage Delta smelt larvae (0–40  days post hatch) tended to have a higher percentage of survival under medium light intensity (sample mean survival percentage of 75.518) and similar percentages of survival under low and high light intensity.  Is the sample mean survival percentage under medium light intensity different enough compared to the mean under  low and high light intensity to convince you that survival rates are affected by the strength of light intensity? 
-The later Kruskal–Wallis illustration gives a p-value of approximately .059 for differences among the light groups. This result should be interpreted cautiously: medium light occurs only at medium turbidity in this subset, and a one-factor comparison cannot separate their contributions.
+The Kruskal–Wallis example later in this resource gives a p-value of approximately .059. This suggests a difference among the light groups, but the groups also differ in turbidity. We cannot tell from this comparison whether light alone accounts for the difference.
 
 ### Scope of inference {-}
 
-The records summarize groups of larvae under imposed light and turbidity conditions. The subset does not establish random assignment or independent replication, and light and turbidity are partly confounded. The numerical comparisons therefore illustrate associations among observed groups, not an isolated causal effect of light. Generalization beyond these groups requires justification from the original study design.
+The data describe groups of larvae exposed to different light and turbidity conditions. These data alone do not tell us whether the groups were randomly assigned or measured independently. Therefore, the comparisons illustrate the methods, but conclusions about cause and effect require more information about the study design.
 
  

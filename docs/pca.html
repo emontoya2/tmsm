@@ -442,7 +442,7 @@ window.Quarto = {
 <figcaption>AI art generated from the text “Principal component analysis”</figcaption></figure>
 </div>
 <p>This section introduces an advanced exploratory data analysis method called Principal component analysis (PCA). PCA summarizes the information<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> in data that is composed of multiple variables. Below is a scatterplot and correlation matrix of a dataset that consists of five variables. The scatterplot shows the pairwise relationships between the variables and they are useful for visualizing relationships, clusters, and outliers. The correlation matrix provides a numerical measure of the strength and direction of these relationships. This section only covers PCA on standardized data.</p>
-<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="1">
+<div class="cell quarto-layout-panel" data-layout-ncol="1" data-layout-align="center">
 <div class="quarto-layout-row">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <div id="fig-pcaex-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
@@ -468,7 +468,7 @@ Figure&nbsp;16.2: Example of a linear relationship with the estimated or best fi
 </div>
 </div>
 </div>
-<p>The summaries show positive and negative correlations of varying strengths. The introductory example has five variables, with 10 distinct three-variable combinations; the later xylem example has nine variables, with 84 such combinations. Exploring all combinations becomes cumbersome as dimensionality grows, motivating methods such as PCA.</p>
+<p>The summaries show positive and negative correlations of varying strengths. Even with only five variables, there are many possible combinations to examine. With more variables, looking at every combination becomes difficult. PCA helps us summarize these patterns.</p>
 <p>PCA is a powerful and widely used technique for extracting dominant modes of variation from a dataset. The data must consist of only numerical variables. The goal of PCA is to identify directions (or principal components or modes of variation) along which the variation in the data are maximal. The dominant modes of variation in PCA correspond to the principal components that explain most of the variation in the dataset. Thus, a few principal components (PCs) may capture almost as much of the variation as the original variables. Such principal components capture the most important patterns or structures in the data. In some cases, the dominant modes of variation may be associated with specific features or facets in the data, allowing for a better understanding of the underlying variation processes that generates the data.</p>
 <p>To better ensure that PCA provides meaningful results, several assumptions about the data are recommended.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
@@ -483,16 +483,16 @@ Figure&nbsp;16.2: Example of a linear relationship with the estimated or best fi
 <div class="callout-body-container callout-body">
 <p>The following considerations help assess whether PCA will provide an informative and stable summary:</p>
 <ul>
-<li><p><strong>Consideration 1</strong>. <em>Sampling and dependence</em>. PCA does not require the variables to be independent; it often summarizes correlations among them. Dependence among observational units can affect the stability of a solution and must be addressed for inferential claims.</p></li>
-<li><p><strong>Consideration 2</strong>. <em>Linear structure</em>. PCA summarizes variation using linear combinations. Strong correlations may allow a small set of components to capture much of the variation, whereas nonlinear patterns may require transformations or other exploratory methods<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p></li>
+<li><p><strong>Consideration 1</strong>. <em>How the data were collected</em>. Consider whether the sample is suitable for the research question. The variables do not need to be independent; PCA is often used to summarize relationships among them.</p></li>
+<li><p><strong>Consideration 2</strong>. <em>Relationships among variables</em>. PCA is most useful when several variables are related and a smaller number of components can summarize their variation. Scatterplots and correlations help us examine these relationships<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p></li>
 </ul>
 <ul>
 <li>
-<strong>Consideration 3</strong>. <em>Outliers</em>. Conventional PCA uses covariances or correlations that can be sensitive to extreme observations. Check their validity and influence; transformations or robust methods may help, but automatic deletion is not justified<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</li>
+<strong>Consideration 3</strong>. <em>Outliers</em>. Unusual observations can strongly affect PCA. Check whether they are valid and how they affect the results. Do not remove an observation simply because it is unusual<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</li>
 </ul>
 <ul>
 <li>
-<strong>Consideration 4</strong>. <em>Adequate sample</em>. Larger and informative samples generally improve stability. Rules such as five to ten observations per variable are rough heuristics, not universal guarantees; adequacy depends on the signal, dimensionality, and sampling design.</li>
+<strong>Consideration 4</strong>. <em>Sample size</em>. Larger samples generally provide more stable results. Guidelines such as five to ten observations per variable can help with planning, but are not guarantees that PCA will work well.</li>
 </ul>
 <p>This module introduces PCA as an exploratory method, not an inferential approach. Although there are inferential methods for PCA, those are not discussed here and be aware that inference using PCA requires additional assumptions about the data.</p>
 </div>
@@ -512,7 +512,7 @@ Figure&nbsp;16.2: Example of a linear relationship with the estimated or best fi
 <div class="callout-body-container callout-body">
 <ul>
 <li><p>We assume there are <span class="math inline">\(p\)</span> variables and <span class="math inline">\(n\)</span> observations so that <span class="math inline">\(x_{ij}\)</span> denotes the i<span class="math inline">\(^{th}\)</span> observed value under the j<span class="math inline">\(^{th}\)</span> variable for <span class="math inline">\(i=1, ..., n\)</span> and <span class="math inline">\(j=1, 2, .., p\)</span>. For example, <span class="math inline">\(x_{34}\)</span> denotes the 3rd observed value under the 4th variable.</p></li>
-<li><p>For standardized variables <span class="math inline">\(z_1,\ldots,z_p\)</span>, PC <span class="math inline">\(i\)</span> is the linear combination <span class="math inline">\(e_{i1}z_1+\cdots+e_{ip}z_p\)</span>. The eigenvector coefficients <span class="math inline">\(e_{ij}\)</span> define its direction. These coefficients differ from the standardized component loadings reported by <code><a href="https://rdrr.io/pkg/psych/man/principal.html">psych::principal()</a></code>, which rescale eigenvectors by the square roots of their eigenvalues.</p></li>
+<li><p>Each PC is a weighted combination of the original variables. We denote the weights for PC <span class="math inline">\(i\)</span> by <span class="math inline">\(e_{i1}, e_{i2}, \ldots, e_{ip}\)</span>. They determine how much each variable contributes to the component. The R output below uses <strong>loadings</strong> to help us interpret the relationships between variables and components.</p></li>
 <li><p>The first PC is the linear combination of variables that provides the maximum variance (among all possible linear combinations considered) so that it accounts for as much variation in the data as possible. That is, the values of <span class="math inline">\(e_{11}, e_{12}, \ldots, e_{1p}\)</span> are chosen to maximize the variance<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p></li>
 <li><p>The second PC is also a linear combination of the variables, but with the constraint that it is uncorrelated with the first principal component, and that it accounts for as much of the remaining variation in the data as possible<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>.</p></li>
 <li><p>The third PC maximizes the remaining variance subject to being uncorrelated with the first two PCs. The same construction continues for subsequent PCs.</p></li>
@@ -526,7 +526,7 @@ Figure&nbsp;16.2: Example of a linear relationship with the estimated or best fi
 <li><p><strong>Standard deviation for each PC:</strong> It measures variability across a single component component (i.e.&nbsp;spread of data within a given PC).</p></li>
 <li><p><strong>Proportion of Variance for each PC:</strong> The amount of variance that a given PC accounts for. This is provided by taking squared standard deviations (variance) of the given PC divided by sum of the variances.</p></li>
 <li><p><strong>Cumulative Proportion for each PC:</strong> The cumulative variation represented by PCs up until a given component.</p></li>
-<li><p><strong>Loadings for each PC:</strong> In correlation-based PCA, the standardized component loadings returned by <code><a href="https://rdrr.io/pkg/psych/man/principal.html">psych::principal()</a></code> represent correlations between the variables and unit-variance component scores. They are eigenvector coefficients multiplied by the square root of the corresponding eigenvalue. Loading conventions differ across functions; eigenvector coefficients, correlations, and covariances should not be used interchangeably.</p></li>
+<li><p><strong>Loadings for each PC:</strong> These describe how strongly each variable is related to a component. In the output used here, they can be read as correlations. A value close to 1 or -1 indicates a strong relationship, while a value close to 0 indicates a weak relationship.</p></li>
 </ul>
 <p>If the proportion of variation explained by the first, say <span class="math inline">\(k\)</span>, PCs is large, then not much information is lost by considering only the first <span class="math inline">\(k\)</span> PCs instead of the whole dataset. However, determining the appropriate value of <span class="math inline">\(k\)</span> will be addressed later.</p>
 </section><section id="pca-computations-using-r" class="level2" data-number="16.2"><h2 data-number="16.2" class="anchored" data-anchor-id="pca-computations-using-r">
@@ -844,7 +844,7 @@ Note
 </div>
 <p>Printing the output of <code>xylemPCA</code> (a <em>principal</em> object) provides the following:</p>
 <ul>
-<li><p>The eigenvalue for each unrotated PC (denoted as <code>SS loadings</code>): the variance of its raw score formed with unit-length eigenvector coefficients. The component scores returned by <code><a href="https://rdrr.io/pkg/psych/man/principal.html">principal()</a></code> are standardized.</p></li>
+<li><p>The eigenvalue for each PC (shown as <code>SS loadings</code>): how much variation in the original standardized variables the component explains.</p></li>
 <li><p>The loadings for each PC. Recall that these can be interpreted as the correlations between the variables and the components. They are denoted as <code>Standardized loadings (pattern matrix) based upon correlation matrix</code>.</p></li>
 <li><p>The proportion of variance for each PC (denoted as <code>Proportion Var</code>).</p></li>
 <li><p>The cumulative proportion of variance at a given PC (denoted as <code>Cumulative Var</code>)<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>.</p></li>
@@ -1019,13 +1019,13 @@ Note
 <span><span class="co">#&gt; Cumulative Var 0.46 0.629 0.760 0.832 0.902 0.946 0.981 0.996 1.000</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<p>Several variables have substantial loadings on the retained components, which can make concise interpretation difficult. Rotation can redistribute the loadings within the retained solution to seek a simpler pattern.</p>
+<p>Several variables are strongly related to the retained components, which can make the components difficult to describe. Rotation may make these patterns easier to interpret.</p>
 </div>
 </div>
-<p>The retained loading patterns should be interpreted in the context of the variables and study. Large or small loadings alone do not establish a distinct mechanism or show that the data are too noisy. A rotation may make a retained solution easier to describe. It does not create new information or guarantee a clearer scientific interpretation.</p>
+<p>Interpret the loadings by considering what the variables measure and which ones are strongly related to each component. Rotation may make the components easier to describe. It does not add new information or guarantee a clearer interpretation.</p>
 </section><section id="rotating-the-pcs" class="level2" data-number="16.5"><h2 data-number="16.5" class="anchored" data-anchor-id="rotating-the-pcs">
 <span class="header-section-number">16.5</span> Rotating the PCs</h2>
-<p>Varimax rotates the retained loading matrix to seek a simpler pattern of large and small loadings. It preserves the total variance explained by the retained solution but redistributes it among the rotated components. These rotated components are not the original variance-maximizing principal components. We distinguish unrotated PCs from the rotated components labeled RC in the output<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a>.</p>
+<p>Varimax rotation reorganizes the retained components so that their relationships with the variables may be easier to interpret. The total amount of variation explained stays the same, but is shared differently among the rotated components. R labels these rotated components RC, rather than PC<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a>.</p>
 <p>To provide a non-technical explanation of varimax rotating the PCs, recall the real estate analogy used earlier. One deciding on a set of best pictures that better highlight the most desirable or best features of a property is akin to deciding how many PCs to retain. However, some of the pictures that were selected may have similar or overlapping features, making it hard to tell them apart. Here, varimax rotation would be like the real estate agent taking the same pictures but using a different angle (“rotating them”) so that each picture better highlights distinct features and there is minimal overlap between the features in each picture. This new set of rotated pictures hopefully provides a clearer view of the property, making it easier to identify its unique features and characteristics. As before, this is just an attempt at an analogy but hopefully helps illustrate the idea of using varimax rotation on the PCs.</p>
 <p>The function <code><a href="https://rdrr.io/pkg/psych/man/principal.html">principal()</a></code> by defaults applies a varimax rotation to the retained PC by setting <code>nfactors</code> equal to the number of retained PCs and having <code>rotate= "varimax"</code> (default <code>rotate</code> value).</p>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -1122,7 +1122,7 @@ Note
 </div>
 </div>
 </div>
-<p>The output labels the rotated components <code>RC1</code>, <code>RC3</code>, and <code>RC2</code> and reports their sums of squared loadings, proportions of total variance, and cumulative proportions. The total explained variance of the three-component solution is unchanged. The percentages below refer to total variance<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a>. These sums of squared loadings describe allocated variable variance, not the variance of the standardized component scores returned by <code><a href="https://rdrr.io/pkg/psych/man/principal.html">principal()</a></code>.</p>
+<p>The output labels the rotated components <code>RC1</code>, <code>RC3</code>, and <code>RC2</code>. It provides the amount and percentage of variation explained by each, along with the cumulative percentage. Together, they explain the same total variation as the three components retained before rotation. Each percentage refers to the total variation in the data<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a>.</p>
 </div>
 </div>
 </section><section id="interpreting-the-pcs" class="level2" data-number="16.6"><h2 data-number="16.6" class="anchored" data-anchor-id="interpreting-the-pcs">
@@ -1138,9 +1138,9 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>RC1 (28.8% of total variance)</strong>: Loadings on Pmin, P75, and Ks summarize an association among field water potential, vulnerability to conductivity loss, and hydraulic conductivity. More negative water potentials represent greater water deficits, but the observed patterns should be interpreted with the study’s biological definitions. This component suggests hypotheses about water-transport trade-offs; it does not by itself measure or validate drought adaptability.</p>
-<p><strong>RC3 (23.7% of total variance)</strong>: Positive loadings on water storage capacity and vessel percentage and a negative loading on xylem density summarize a contrast among storage, vessel tissue, and density. This pattern may inform hypotheses about mechanical and storage trade-offs, but it does not establish a compensatory mechanism or a causal relationship.</p>
-<p><strong>RC2 (23.5% of total variance)</strong>: Opposing loadings on fiber and parenchyma percentages summarize a tissue-composition contrast. Because cell-type proportions share a total, their relationships also reflect compositional constraints. The pattern can suggest biological trade-offs, but PCA alone cannot show that one cell type compensates for another to maintain plant function.</p>
+<p><strong>RC1 (28.8% of total variance)</strong>: This component brings together Pmin, P75, and Ks. These variables describe water conditions and the plant’s ability to transport water. The pattern may help us explore trade-offs in water transport, but does not by itself show how well a species adapts to drought.</p>
+<p><strong>RC3 (23.7% of total variance)</strong>: This component has positive loadings for water storage capacity and vessel percentage, and a negative loading for xylem density. It contrasts storage and vessel tissue with denser xylem. This may help us explore trade-offs between water storage and structural properties.</p>
+<p><strong>RC2 (23.5% of total variance)</strong>: This component contrasts fiber percentage with parenchyma percentage. It may help us explore how these tissue types are related. Since both are parts of the same tissue, a higher proportion of one can leave less room for the other. PCA describes this pattern but does not establish its biological cause.</p>
 </div>
 </div>
 
@@ -1153,16 +1153,16 @@ Pratt, RB, AL Jacobsen, MI Percolla, ME De Guzman, CA Traugh, and MF Tobin. 2021
 </section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
 <ol>
 <li id="fn1"><p>Here, information refers to the total amount of variation in the data.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>With weak correlations, the component variances may be similar, so retaining only a few components can discard substantial variation. PCA still has as many component directions as variables, although some directions may have zero variance.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>When the variables are only weakly related, we may need to retain more components to describe the data adequately.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>Potential outliers can be identified using graphical summaries, such as boxplots or scatterplots. If outliers are identified, one approach for dampening their effects is to apply transformations to the data, such as the logarithmic or square root transformation.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>The eigenvector coefficients satisfy <span class="math inline">\(\sum_{j=1}^p e_{ij}^2=1\)</span>, not <span class="math inline">\(\sum_{j=1}^p e_{ij}=1\)</span>. Each subsequent direction also has unit squared length and is orthogonal to the preceding directions.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>The squared weights used to define each PC add to 1. The weights themselves need not add to 1.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>Unrotated PCs are uncorrelated, but uncorrelated variables are not generally statistically independent.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn6"><p>In the context of PCA, a new vantage point means the data are rotated to a new coordinate system that emphasizes different aspects of the data. However, it’s important to note that PCA does not create new information; rather, it summarizes and reorganizes the existing information in a way that is potentially more informative and easier to interpret.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn7"><p><code>SS loadings</code>, <code>Proportion Var</code>, and <code>Cumulative Var</code> are connected, as the proportion and cumulative proportion of variance are computed based on the squared standard deviation (variance) for each PC.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn8"><p>This rule assumes that the PCA is conducted using standardized data. If using un-standardized data, the variance will be affected by the units of measurement. With standardized data, all variables are on the same scale and the sum of the variances equals the number of variable.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn9"><p>A loading cutoff such as 0.7 in absolute value is an interpretive convention, not a statistical significance threshold. Examine the full loading pattern, sampling stability, and scientific context; a high cutoff can obscure subtler associations.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn10"><p>Rotation involves additional computations on the retained loading matrix. Orthogonal rotations such as varimax preserve the retained subspace and total explained variance. Other methods, including oblique rotations, use different constraints. Neither orthogonal directions nor uncorrelated scores establish statistical independence.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn11"><p>The percentages are fractions of total standardized-variable variance, not percentages of the variance remaining after previous components. Uncorrelated components should not be described as statistically independent without additional assumptions.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>A cutoff such as 0.7 is a guideline for interpretation, rather than a test of statistical significance. Consider the overall pattern and the meaning of the variables.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>Different rotation methods are available. Here we use varimax, which keeps the component directions at right angles.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>These percentages describe total variation, rather than the variation left over after earlier components.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

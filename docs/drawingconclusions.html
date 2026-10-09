@@ -427,10 +427,10 @@ window.Quarto = {
 <li><p><strong>Individual</strong>, <strong>case</strong>, or <strong>subject</strong> : A person or an object that is a member of the population being studied</p></li>
 <li><p><strong>Sample</strong>: A part of the population that is selected for the study.</p></li>
 </ul>
-<p>Random sampling supports inference to a defined population by giving a probability-based account of how the sample was selected. It does not guarantee that every realized sample is representative. Inference from a nonrandom sample requires additional assumptions about selection and the target population.</p>
+<p>Random sampling gives each member of the population a known chance of being selected. This helps us use the sample to learn about the population. However, a random sample can still differ from the population by chance. With a nonrandom sample, we need to consider how the sample was obtained before deciding who the results apply to.</p>
 <p>Common sampling techniques include:</p>
 <ul>
-<li>Simple random sampling (SRS) – For a fixed sample size, every possible subset of that size has the same probability of selection. In the usual sampling-without-replacement design, the selections are not independent.</li>
+<li>Simple random sampling (SRS) – Every possible sample of a given size has the same chance of being selected.</li>
 </ul>
 <div id="fig-srs" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-srs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -472,8 +472,8 @@ Figure&nbsp;8.3: Cluster sampling
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Common misconception</strong>: A sample that is a small fraction of the population cannot accurately describe it. Precision depends on the sample size, variability, and sampling design, not just the sampling fraction. Random selection supports quantifying sampling uncertainty, but a particular sample can still differ from the population.</p>
-<p>Appropriate inferential methods account for the sample size and sampling design. More independent observations generally improve precision; simply taking more correlated measurements does not provide the same amount of information.</p>
+<p><strong>Common misconception</strong>: A sample that is a small fraction of the population cannot accurately describe it. A carefully selected sample can provide useful information even when the population is very large. What matters is how the sample was selected, its size, and how much the values vary.</p>
+<p>The methods used to draw conclusions should account for how the data were collected. More independent observations generally give more precise estimates. Measuring the same cases many times does not provide as much new information as measuring more independent cases.</p>
 </div>
 </div>
 </section><section id="relationships-among-variables" class="level2" data-number="8.2"><h2 data-number="8.2" class="anchored" data-anchor-id="relationships-among-variables">
@@ -581,8 +581,8 @@ Figure&nbsp;8.5: Chick weight vs.&nbsp;Diet type
 <span class="header-section-number">8.3</span> Basics of experimental design</h2>
 <p>The following concepts of experimental design enable researchers to conclude that differences in the observed response data are likely due to the treatments and not reasonably attributable to only chance:</p>
 <ul>
-<li><p>Randomization: Researchers randomly assign experimental units to treatments or conditions. Random assignment balances other characteristics between groups in expectation, although particular groups may still differ by chance.</p></li>
-<li><p>Replication: Apply treatments to multiple independent experimental units. More independent units generally improve precision; repeated measurements of one unit are not independent replications.</p></li>
+<li><p>Randomization: Researchers randomly assign experimental units to treatments or conditions. This helps make the groups comparable, although some differences may still occur by chance.</p></li>
+<li><p>Replication: Apply treatments to multiple independent experimental units. This helps us distinguish treatment differences from ordinary variation. Repeated measurements of the same unit do not count as independent replications.</p></li>
 <li><p>Control: Keep other conditions comparable across treatment groups and use an appropriate comparison group.</p></li>
 <li><p>Blocking: A technique to include another factor variable that is not of primary interest in the experiment because it is believed it contributes to variation in the response. The experimental units may be grouped or blocked based on this factor variable. Randomization is then applied within each block to the treatment conditions. Blocks should be homogeneous.</p></li>
 </ul>
@@ -594,7 +594,7 @@ Figure&nbsp;8.5: Chick weight vs.&nbsp;Diet type
 <li><p>Do these results provide evidence for a causal relationship? (cause-and-effect or causation)</p></li>
 <li><p>Can the results of the study be generalized to a population? (generalizability)</p></li>
 </ul>
-<p>Random assignment provides a strong basis for attributing differences to treatments, provided the experiment is conducted and analyzed appropriately. Observational causal inference requires additional assumptions and methods beyond the scope of these introductory modules. Random sampling supports generalization to the sampled population; inference from nonrandom samples requires assumptions about selection and applicability. Random assignment and random sampling address different questions.</p>
+<p>Random assignment helps us determine whether a treatment caused a difference. Random sampling helps us decide whether the results apply to a larger population. These are different goals. For observational studies, finding an association does not by itself establish cause and effect.</p>
 <div id="fig-scope" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-scope-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/design/scopeTable.png" class="img-fluid figure-img">
@@ -613,8 +613,8 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Recall <a href="datacs.html#sec-csdelta" class="quarto-xref"><span>Section 1.1</span></a>. The light and turbidity conditions were imposed on groups of larvae, but the subset used here does not establish random assignment or independent replication. In this subset, medium light occurs only at medium turbidity. A comparison by light category therefore cannot isolate the causal effect of light from turbidity and other trial conditions.</p>
-<p>Conclusions should describe the observed groups under the conditions represented in these records. Generalization to other fish or conditions requires support from the sampling and experimental design, rather than assuming that these groups represent every possible population or treatment setting.</p>
+<p>Recall <a href="datacs.html#sec-csdelta" class="quarto-xref"><span>Section 1.1</span></a>. The light and turbidity conditions were applied to groups of larvae. In the data used here, medium light occurs only with medium turbidity. Therefore, a difference among the light groups could also be related to turbidity. These data alone do not tell us whether light caused the difference.</p>
+<p>Conclusions should apply to the groups and conditions represented in the study. Whether the findings apply to other fish or other conditions depends on how the study was designed and how the groups were selected.</p>
 </div>
 </div>
 

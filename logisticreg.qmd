@@ -58,7 +58,7 @@ Now that some basic concepts of SLogiR have been covered, this section illustrat
 
 - Performing a Wald test to determine if the probability of the characteristic depends on the value of the explanatory variable.
 
-- Constructing a profile-likelihood confidence interval for $\beta_1$.
+- Constructing a confidence interval for $\beta_1$.
 
 
 For inferential methods in SLogiR to provide meaningful results, several assumptions are made about the data on which the method is intended to be used. 
@@ -77,13 +77,13 @@ The methods discussed here assume one or more of the following assumptions about
 
 - **Assumption 4**. *Linearity of log-odds*. The log-odds of the probability of the response variable taking the value of 1 is a linear function of the explanatory variable.
 
-Independence is assessed from the study design and dependence structure. Residuals, leverage, and influence diagnostics identify observations that merit investigation. Adequate information requires enough observations of both outcomes and no complete or quasi-complete separation; a large total sample alone does not ensure reliable estimates. Assess log-odds linearity by comparing an appropriate nonlinear model or examining an empirical relationship, rather than plotting the model's own fitted log odds against its predictor. Consider design-appropriate remedies when assumptions fail.
+Assess independence by considering how the data were collected. Check for observations that strongly affect the fitted model. There should also be enough observations of both outcomes to estimate the relationship reliably. For the straight-line relationship in log odds, we need to check whether a curved relationship would better describe the data. The plots below help with some of these checks, but do not establish every assumption.
 
 :::
 
 [^2]: An influential observation substantially changes fitted coefficients when removed. Influence does not automatically imply a bad fit or justify deleting the observation.
 
-[^3]: There is no universal outcome-count rule that guarantees reliable logistic inference. Precision and validity depend on event frequencies, predictor values, separation, model complexity, and the design.
+[^3]: A large total sample is not enough if one outcome is very rare or if the explanatory variable perfectly separates the two outcomes.
 
 
 ## Fitting the SLogiR model and model diagnostics
@@ -134,7 +134,7 @@ Note that the R functions used in these modules often have identical arguments, 
 The `summary()` function will provide a lot of information, including the values of $b_0$ and $b_1$. To perform model diagnostics (process of assessing the validity of the assumptions about the data) the functions `predict()` and `xyplot()` are used to create the following plots
 
 
-- **Explanatory variable vs. predicted log odds**: This visualizes the fitted relationship. With a single linear predictor, the fitted log odds are linear by construction, so this plot cannot validate the linearity assumption. A spline comparison or an empirical smoother can help investigate curvature.
+- **Explanatory variable vs. predicted log odds**: This shows the relationship specified by the model. The line is straight because that is how we defined the model; it does not show that a straight line is appropriate. Comparing it with a model that allows a curve can help assess this assumption.
 
 - **Standardized Pearson residuals vs. leverage plot**: This plot shows the leverage (the degree to which an observation affects the estimated slope) against the standardized Pearson residuals. Potential influential outliers will have a high leverage and large residual in magnitude.
 
@@ -258,7 +258,7 @@ embed_youtube("jx6dQp5m0-o")
 
 :::
 
-The displayed coefficients are approximately $b_0=4.90$ and $b_1=-0.05$. Using the rounded slope, the odds ratio for one degree is $e^{-0.05}\approx .9512$, a 4.9% decrease. For five degrees, it is $e^{5(-0.05)}\approx .7788$, a 22.1% decrease, rather than five times the one-degree percentage. Using the full fitted slope, the one-degree odds ratio is `r round(exp(coef(aqfit)[2]), 4)` and the five-degree decrease is `r round(100*(1-exp(5*coef(aqfit)[2])), 1)`%. These are associations in odds, not percentage-point changes in probability. Below we use the fitted model to extract its other results.
+The displayed coefficients are approximately $b_0=4.90$ and $b_1=-0.05$. Using the rounded slope, a one-degree increase in temperature multiplies the odds of a Good air day by $e^{-0.05}\approx .9512$, a decrease of about 4.9%. For a five-degree increase, the multiplier is $e^{5(-0.05)}\approx .7788$, a decrease of about 22.1%. The percentages do not simply add. Using the unrounded estimate, the five-degree decrease is `r round(100*(1-exp(5*coef(aqfit)[2])), 1)`%. These changes describe odds, rather than changes in the probability itself.
 
 
 ::: {.panel-tabset}
@@ -368,25 +368,25 @@ embed_youtube("2wVQ56URnS4")
 
 Each plot is analyzed and interpreted below:
 
-- The left plot shows the fitted log odds against temperature. Its straight line follows from the specified model and supplies no evidence that the true relationship is linear. That assumption remains to be assessed.
+- The left plot shows the fitted log odds against temperature. The line is straight because the model assumes a straight-line relationship. We still need to assess whether that assumption is reasonable.
 
 - The plot on the right shows the standardized Pearson residuals against the leverage. The presence of some potential outliers (standardized Pearson residuals greater than 3 in magnitude) is visible. Cook's distance[^4] contour lines of 1/2 and 1 are plotted, but no leverage values exceed a Cook's distance of 1. This suggests that Assumption 2 (no influential outliers) is reasonable.
 
-These are repeated daily observations, so temporal dependence and shared weather require assessment. Large sample size alone does not establish independence.
+These are daily observations, so nearby readings may be related because of shared weather. A large sample does not remove this concern.
 
 
 [^4]: Cook's distance is a measure of both the leverage and influence of a data point on the est coefficients. This measure is often used to identify potentially influential observations (typically those with a Cook's distance exceeding 1). Note that Cook's distance is just one tool (of many others) for identifying influential observations.
 
-The plots do not establish all assumptions. In particular, independence and the true log-odds linearity remain unverified. The inference below is an illustration conditional on the stated model.
+The plots help us examine the model, but some assumptions still need further assessment. We carry out the following analysis to illustrate the method, keeping these limitations in mind.
 
 :::
 
 
-## Inference on the explanatory variable using a Wald test and profile-likelihood intervals
+## Inference on the explanatory variable using a Wald test and confidence intervals
 
 The focus in this section is on inference for $\beta_1$ (the true slope) in the context of SLogiR. The Wald test for the slope of a regression line is a widely used hypothesis test to assess the significance of the explanatory variable's effect on the binary response variable. Specifically, the test is used to determine if the true slope $\beta_1$ is significantly different from zero, based on the observed value of $b_1$.
 
-It is important to note that the observed value of $b_1$ can vary. If a study were replicated, the value of $b_1$ would likely be different. The use of inferential methods allows us to account for this variability and make statistically valid conclusions about the true slope $\beta_1$. A profile-likelihood confidence interval can be constructed for $\beta_1$ and it provides a range of plausible values for the true slope at a specified significance level. The Wald test and profile-likelihood interval are different large-sample procedures.
+It is important to note that the observed value of $b_1$ can vary. If a study were repeated, the value would likely be different. Inferential methods help us account for this variation when drawing conclusions about the true slope $\beta_1$. A confidence interval provides a range of plausible values for the true slope. Here, R uses a method called profile likelihood to compute the interval.
 
 The Wald test requires that certain assumptions (1, 2, 3, and 4) about the data are reasonable. The test statistic for this Wald test may be defined as:
 
@@ -405,7 +405,7 @@ Under $H_0$, the null distribution of the test statistic $Z$ is approximately a 
 | (Intercept) | $b_0$  | $SE_{b_0}$ | $Z_{b_0}$ | p-value$_{b_0}$ |
 | explanatory | $b_1$  | $SE_{b_1}$ | $Z_{b_1}$ | p-value$_{b_1}$ |
 
-Here, $Z_{b_1}$ and p-value$_{b_1}$ refer to the test statistic for the Wald test and the two-sided p-value$_{b_1}$, respectively for testing if $\beta_1\neq 0$. The function `glm()` can also be utilized to obtain a confidence interval (CI) for the true slope $\beta_1$. For the profile-likelihood CI used here, apply the `confint()` function to the resulting *glm object*.
+Here, $Z_{b_1}$ is the Wald test statistic, and p-value$_{b_1}$ is the two-sided p-value for testing whether $\beta_1$ differs from zero. To obtain a CI for the true slope, apply `confint()` to the *glm object*.
 
 [^6]: Other functions or software packages may report the Wald test statistic as $W=Z^2$. Under the null, this version is approximately chi-square distribution with 1 degree of freedom.
 
@@ -427,7 +427,7 @@ Here, $Z_{b_1}$ and p-value$_{b_1}$ refer to the test statistic for the Wald tes
 
 ::: callout-note
 
-We illustrate a Wald test of association between temperature and the probability of a Good AQI day at $\alpha=.001$. Since `y=1` denotes Good, $\beta_1$ is the change in log odds of a Good day per degree of temperature. The hypotheses are:
+We use the Wald test to assess whether temperature is associated with the probability of a Good air day at $\alpha=.001$. Since $y=1$ denotes a Good day, $\beta_1$ describes the change in its log odds for a one-degree increase in temperature. The hypotheses are:
 
 $$H_0: \beta_1=0 \qquad H_a: \beta_1 \neq 0$$
 
@@ -464,7 +464,7 @@ embed_youtube("7zVQ-AxRnhk")
 
 :::
 
-The nominal Wald statistic is approximately $Z=-15.44$, with a small positive p-value reported by `summary(aqfit)`. It rejects a zero slope at $\alpha=.001$ under the model. The negative slope describes lower fitted odds of a Good AQI day at higher temperatures. This observational calculation does not establish a causal effect, and temporal or shared-weather dependence may invalidate the usual standard errors.
+The observed test statistic is approximately $Z=-15.44$, with a very small p-value. Since the p-value is less than $\alpha=.001$, we reject $H_0$ if the assumptions hold. The negative slope suggests that the odds of a Good air day are lower at higher temperatures. This is an association, rather than evidence that temperature caused the change. The possible relationships among daily readings still limit the conclusion.
  
 The function `confint()` is used to obtain a 99% CI for $\beta_1$:
 
@@ -492,9 +492,9 @@ See previous video.
 
 :::
 
-The nominal 99% **profile-likelihood** CI for $\beta_1$ is approximately (-0.061, -0.044). Under the model, it describes the change in log odds of a Good day per degree. This is a 99% interval, while the preceding test uses $\alpha=.001$; these are different confidence/significance levels and procedures.
+The 99% CI for $\beta_1$ is approximately (-0.061, -0.044). If the assumptions hold, we are 99% confident that the true change in log odds per degree lies between these values. Note that this is a 99% interval; the earlier test used $\alpha=.001$, which corresponds to a 99.9% confidence level.
 
-Exponentiating the bounds gives a 99% profile-likelihood CI for the **one-degree odds ratio** $e^{\beta_1}$, approximately (.941, .957). Under the model, this corresponds to a 4.3%–5.9% decrease in odds of a Good day per degree. It is not a CI for the odds at a fixed temperature, and is subject to the same unresolved dependence assumptions.
+To express the interval in terms of odds, exponentiate its bounds. This gives a 99% CI for the one-degree odds ratio of approximately (.941, .957). If the assumptions hold, this suggests that a one-degree increase in temperature is associated with a decrease of about 4.3%–5.9% in the odds of a Good air day.
 
 :::
 

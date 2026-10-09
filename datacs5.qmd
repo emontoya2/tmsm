@@ -148,12 +148,12 @@ k12re3 %>%
 
 <!-- The bar graph suggests that the level of media attention varies by the shooter's age group.  The tables show that  highest level of media attention varies, with most incidents receiving at most local media attention.  -->
 <!-- The table presents the proportion of the highest level of media attention, conditional on the shooter's age group. The proportions reflected in these tables are consistent with the idea that the highest level of media attention received is associated with the age of the shooter. -->
-The violin plots suggest differences in victim counts by weapon category, with more extreme observations for rifles and shotguns. These descriptive patterns motivate an inferential analysis, but no p-value is asserted here without a specified and checked analysis.
+The violin plots suggest differences in victim counts by weapon category, with more extreme observations for rifles and shotguns. These graphs describe the data. A suitable statistical test would be needed to assess the evidence of a difference.
 
  
 ### Scope of inference {-}
   
 
-This observational case study describes associations among the variables in the recorded incidents. It does not establish causal effects. Generalization depends on how incidents were identified and recorded, including the completeness of the database.
+This observational case study describes relationships among the variables in the recorded incidents. It does not establish cause and effect. Whether the findings apply more broadly depends on how complete the database is and how incidents were identified and recorded.
 
 

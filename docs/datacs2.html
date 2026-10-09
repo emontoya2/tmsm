@@ -91,32 +91,6 @@ div.csl-indent {
 <link href="site_libs/dt-core-bootstrap4-1.13.6/css/dataTables.bootstrap4.extra.css" rel="stylesheet">
 <script src="site_libs/dt-core-bootstrap4-1.13.6/js/jquery.dataTables.min.js"></script><script src="site_libs/dt-core-bootstrap4-1.13.6/js/dataTables.bootstrap4.min.js"></script><link href="site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet">
 <script src="site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script><script src="site_libs/kePrint-0.0.1/kePrint.js"></script><link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 </head>
 <body class="nav-sidebar floating quarto-light">
 
@@ -422,8 +396,8 @@ window.Quarto = {
 <p>The intent of this treatment (the questionnaires) was to have students establish a thought pattern concerning a type of motivation (intrinsic – doing something because it is rewarding or enjoyable; extrinsic – doing something because we want to earn a reward or avoid punishment). Researchers speculated that those who were thinking about intrinsic motivations would display more creativity than subjects who were thinking about extrinsic motivations. All subjects were instructed to write a Haiku, and those poems were evaluated for creativity by a panel of judges</p>
 <p>The resulting experimental data is shown below, displaying the creativity score (<code>Score</code>) and the type of questionnaires (<code>Treatment</code>) assigned for a given undergraduate. Do the data provide evidence that creativity scores are affected by type of motivation?</p>
 <div class="cell" data-layout-align="center">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-f33e47bd8bce23d204a9" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-f33e47bd8bce23d204a9">{"x":{"style":"bootstrap4","filter":"none","vertical":false,"caption":"<caption>Data from Amabile, T. (1985)br<\/caption>","fillContainer":true,"data":[[5,5.4,6.1,10.9,11.8,12,12.3,14.8,15,16.8,17.2,17.2,17.4,17.5,18.5,18.7,18.7,19.2,19.5,20.7,21.2,22.1,24,12,12,12.9,13.6,16.6,17.2,17.5,18.2,19.1,19.3,19.8,20.3,20.5,20.6,21.3,21.6,22.1,22.2,22.6,23.1,24,24.3,26.7,29.7],["Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic"]],"container":"<table class=\"table table-hover fill-container\">\n  <thead>\n    <tr>\n      <th>Score<\/th>\n      <th>Treatment<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollY":"350px","columnDefs":[{"className":"dt-center","targets":"_all"},{"name":"Score","targets":0},{"name":"Treatment","targets":1}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-2f52990502acd79c180b" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-2f52990502acd79c180b">{"x":{"style":"bootstrap4","filter":"none","vertical":false,"caption":"<caption>Data from Amabile, T. (1985)br<\/caption>","fillContainer":true,"data":[[5,5.4,6.1,10.9,11.8,12,12.3,14.8,15,16.8,17.2,17.2,17.4,17.5,18.5,18.7,18.7,19.2,19.5,20.7,21.2,22.1,24,12,12,12.9,13.6,16.6,17.2,17.5,18.2,19.1,19.3,19.8,20.3,20.5,20.6,21.3,21.6,22.1,22.2,22.6,23.1,24,24.3,26.7,29.7],["Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Extrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic","Intrinsic"]],"container":"<table class=\"table table-hover fill-container\">\n  <thead>\n    <tr>\n      <th>Score<\/th>\n      <th>Treatment<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollY":"350px","columnDefs":[{"className":"dt-center","targets":"_all"},{"name":"Score","targets":0},{"name":"Treatment","targets":1}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 <section id="summary-of-findings" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="summary-of-findings">Summary of findings</h3>
 <p>Numerical and graphical summaries of the creativity scores for each motivation type are provided below.</p>
@@ -431,7 +405,7 @@ window.Quarto = {
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-motiplots-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row">
 <div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-motiplots" style="flex-basis: 100.0%;justify-content: center;">
-<div id="fig-motiplots" class="quarto-float quarto-figure quarto-figure-center anchored" width="672" data-fig-align="center">
+<div id="fig-motiplots" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" width="672">
 <figure class="quarto-float quarto-subfloat-fig figure"><div aria-describedby="fig-motiplots-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="datacs2_files/figure-html/fig-motiplots-1.png" id="fig-motiplots" class="img-fluid quarto-figure quarto-figure-center anchored figure-img" data-ref-parent="fig-motiplots" width="672">
 </div>
@@ -473,9 +447,9 @@ Table&nbsp;2.1: The median, IQR, mean, and standard deviation of creativity scor
 </figure>
 </div>
 <p>The creativity scores tended to be lower for the students in the extrinsic group (-4.14 difference in sample means), with both groups showing similar variability in scores. Are the scores between the two groups different enough to convince you that those thinking about intrinsic motivations display more creativity than subjects that were thinking about extrinsic motivations? If not, how much larger should the mean be? Answers to such questions require inferential methods that will be discussed in a future chapter.</p>
-<p>Under the independent-observation model used for illustration, Welch’s two-sided t-test gives p <span class="math inline">\(\approx .00562\)</span>. A 95% confidence interval for the intrinsic minus extrinsic mean creativity score is (1.278, 7.011); equivalently, the interval for extrinsic minus intrinsic is (-7.011, -1.278). The estimated mean score is higher in the intrinsic group. A separate randomization test based on the treatment assignment is discussed in <a href="siframework.html" class="quarto-xref"><span>Chapter 11</span></a>.</p>
+<p>The two-sample t-test gives a p-value of approximately .00562, suggesting a difference in mean creativity scores. The 95% CI for intrinsic minus extrinsic mean score is (1.278, 7.011). Thus, the intrinsic group has the higher estimated mean score. These results assume that the observations are independent. A randomization test for this study is discussed in <a href="siframework.html" class="quarto-xref"><span>Chapter 11</span></a>.</p>
 </section><section id="scope-of-inference" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="scope-of-inference">Scope of inference</h3>
-<p>Random assignment of questionnaire type supports a causal interpretation of the treatment comparison for these students, subject to the experiment’s assumptions. Generalizing to a wider population of students requires additional support because they were not randomly sampled from that population.</p>
+<p>The questionnaires were randomly assigned, which helps us assess whether the type of motivation affected creativity for these students. However, the students were not randomly sampled from a larger population. We should keep this in mind before applying the findings to other students.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">

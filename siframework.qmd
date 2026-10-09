@@ -3,7 +3,7 @@
 
 Statistical inference is the practice of making decisions from data in the presence of uncertainty.   The common procedures for making statistical inferences include
 
-- Hypothesis Testing: Uses a suitable sampling, assignment, or statistical model to assess two competing hypotheses about a population parameter or treatment effect.
+- Hypothesis Testing: Uses sample data to assess two competing statements about a population or treatment effect.
 
 - Confidence Intervals: A range of plausible values for the population parameter or effect value. 
 
@@ -73,7 +73,7 @@ where $\bar{y}$, $s$, and $n$ represent the sample mean, sample standard deviati
 
 $$T=\frac{(\bar{y}_{int}-\bar{y}_{ext}) }{\sqrt{\frac{s_{int}^2}{n_{int}}+\frac{s_{ext}^2}{n_{ext}}}}\approx 2.915$$
 
-Using the unrounded sample means and standard deviations gives $T=2.915292$; rounding inputs before calculation changes the result slightly. While a value of $T=2.915$ (or larger) is consistent with the idea that $\mu_{int}\neq\mu_{ext}$, is $T=2.915$ large enough to convince you that in fact $\mu_{int}\neq\mu_{ext}$, or is its value ($T=2.915$) simply due to chance (sampling/natural variability)? To decide between supporting  or not supporting what is reflected in $H_a$, we compute the chances or probability of observing $T=2.915$ or larger or $T=-2.915$ or smaller (since the sign in $H_a$ is $\neq$), under the assumption that motivation type has no effect on creativity ($H_0$ true). If this probability is very low, we would have reason to reject $H_0$.
+Using the sample means and standard deviations before rounding gives $T\approx 2.915$. Is this large enough to convince you that $\mu_{int}\neq\mu_{ext}$, or could a difference this large occur by chance? To help decide, we compute how often $T$ would be 2.915 or greater, or -2.915 or smaller, if $H_0$ were true. We consider both directions because the sign in $H_a$ is $\neq$. If this probability is very low, we have reason to reject $H_0$.
 
 To compute this probability, we require the Null distribution of $T$. That is, if $\mu_{int}=\mu_{ext}$, what range of values can $T$ take, and how often does a given range of values of $T$ occur? If the study were replicated many many times in a scenario where the type of motivation has no effect on creativity (i.e., $\mu_{int}=\mu_{ext}$), then $T$ could be computed for each replication to obtain the Null distribution of $T$. Such an approach is unrealistic. In practice, one of two methods can be used to obtain the Null distribution.
  
@@ -84,7 +84,7 @@ To compute this probability, we require the Null distribution of $T$. That is, i
 
 ### A simulation-based approach
 
-A simulation-based approach is used here to illustrate a randomization test. Under the **sharp null hypothesis** that the questionnaire has no effect on any student's score, each observed score would remain the same under either assignment. Reassigning the fixed scores according to the original random assignment mechanism, while preserving 24 intrinsic and 23 extrinsic assignments, then generates a null distribution. This sharp null is stronger than equality of the group means; equal means alone do not justify unrestricted shuffling.
+A simulation-based approach is used here to illustrate a randomization test. Suppose the questionnaire has no effect on any student's creativity score. We can then randomly reassign the observed scores to the two groups, keeping 24 scores in the intrinsic group and 23 in the extrinsic group. This follows how students were originally assigned and shows the differences we might see if the questionnaire had no effect.
 
 Since the random shuffling of students between the two groups is independent of the type of motivation (intrinsic or extrinsic) that they are thinking about, any difference between the groups in terms of creativity is due to chance. That is,  the size of the corresponding value of $T$ is due to randomly shuffling students between the groups (not due to motivation type). Another way to view it is that chance enters through the random assignment of units to treatments and nothing else under $H_0$. The figure below shows the results of one such simulation. The resulting size of $T$ under this simulation represents one observed value of $T$ due to chance when the null hypothesis is assumed to be true.
 ```{r}
@@ -124,20 +124,20 @@ cprtmpdf <- data.frame(tobssims, cat2 = factor(ifelse(extreme, "yes", "no")))
 unique_breaks <- sort(unique(c(seq(min(tobssims)-.5, max(tobssims)+.5, by=.45),
                               -abs(observed_t), abs(observed_t))))
 histogram(~ tobssims, groups=cat2, data=cprtmpdf, type="count",
-          ylab="Number of simulations", xlab="Simulated values of T under the sharp null",
+          ylab="Number of simulations", xlab="Simulated values of T under no treatment effect",
           breaks=unique_breaks)
 
 ```
 
-Out of the `r format(B, scientific=FALSE, big.mark=",")` randomizations, `r extreme_count` produced $|T_{sim}|\geq |T_{obs}|$, counting **both tails**. Including the observed assignment gives a Monte Carlo p-value of `r signif(randomization_p, 3)`. Such an extreme statistic is unusual under the sharp null. At a prespecified $\alpha=.05$, we reject that null. Random assignment supports a treatment comparison for these students; generalization beyond them requires additional justification.
+Out of the `r format(B, scientific=FALSE, big.mark=",")` randomizations, `r extreme_count` produced a test statistic of -2.915 or smaller, or 2.915 or greater. We count **both tails** because we are interested in a difference in either direction. R estimates the p-value as `r signif(randomization_p, 3)`. Such a difference would be unusual if the questionnaire had no effect. At $\alpha=.05$, we reject that null hypothesis. The result applies to these students; applying it to other students requires considering how the study participants were selected.
 
 ### Theory-based approach 
 
-Under suitable conditions, Welch's statistic has an **approximate** t distribution with Welch–Satterthwaite degrees of freedom. Here those degrees of freedom are `r round(welch_df, 3)`. The central limit theorem supports a large-sample normal approximation for differences in means under appropriate independence and finite-variance conditions. It does not establish an exact t distribution, nor does it imply $df=\min(n_{int}-1,n_{ext}-1)$. For small samples, the adequacy of Welch's approximation also depends on the population distributions.
+Under the assumptions for Welch's t-test, we use a t-distribution to approximate the null distribution of $T$. R calculates the degrees of freedom, which are `r round(welch_df, 3)` for this example. This allows us to estimate how often a test statistic as extreme as ours would occur under $H_0$, without carrying out thousands of shuffles. We will discuss the assumptions in the next module.
 
 ```{r }
 #| label: fig-nulltheodist
-#| fig-cap: "The  distribution model for T: An approximate t-distribution with Welch–Satterthwaite degrees of freedom.  Both tails at least as extreme as the observed statistic (absolute T approximately 2.915) are highlighted."
+#| fig-cap: "The  distribution model for T: An approximate t-distribution for Welch's test.  Both tails at least as extreme as the observed statistic (absolute T approximately 2.915) are highlighted."
 #| layout-ncol: 1
 #| layout-nrow: 1
 #| echo: false
@@ -156,19 +156,19 @@ plotDist('t', df=welch_df, kind='density', xlim=c(-4.5, 4.5),
 
 ```
 
-Using Welch's approximate null distribution gives a two-sided p-value of `r signif(welch_fit$p.value, 4)`. At $\alpha=.05$, we reject equality of mean creativity scores under this model. The intrinsic group has the higher estimated mean. Welch's p-value and the separately simulated randomization p-value can differ because their null models and calculations differ.
+Using this t-distribution gives a two-sided p-value of `r signif(welch_fit$p.value, 4)`. Since this is less than $\alpha=.05$, we reject $H_0$. There is evidence of a difference in mean creativity scores, with the intrinsic group having the higher sample mean. The theory-based and simulation-based p-values need not be exactly the same because they are calculated differently.
 
 
 ### Two-sided and one-sided hypothesis test.
 
-The case study uses a two-sided test because either direction addresses the research question. A correctly calibrated one-sided test can control Type I error when its direction is specified before inspecting the results. Choosing the favorable direction after seeing the data can inflate that error rate and encourage confirmation bias[^1]. These modules use two-sided tests.
+The case study uses a two-sided test because we are interested in a difference in either direction. A one-sided test can be appropriate when the direction is chosen before looking at the results. Choosing the direction after seeing the data can make it easier to find a significant result and lead to confirmation bias[^1]. These modules use two-sided tests.
  
 [^1]: Confirmation bias occurs when one interprets evidence in a way that supports pre-existing beliefs, rather than considering all possibilities. 
 
 
 ### p-values  
 
-A p-value is the probability, **under the null model and its assumptions**, of a test statistic at least as extreme as the observed statistic. It is not the probability that the null hypothesis is true or that a result is due to chance. Smaller p-values indicate greater incompatibility with the null model; large p-values do not establish that the null is true. Interpret a p-value alongside the study design, effect estimate, uncertainty, and practical importance. Labels such as “strong evidence” and boundaries such as .05 or .10 are conventions, not universal scientific cutoffs.
+A p-value tells us how likely we would be to obtain a test statistic as extreme as the observed value, assuming $H_0$ and the test assumptions are true. A smaller p-value gives stronger evidence against $H_0$. A large p-value means there is not enough evidence to reject $H_0$; it does not prove that $H_0$ is true. The p-value also does not tell us how large or practically important a difference is.
 
 
 For the case study, Welch's p-value is `r signif(welch_fit$p.value, 4)`. When the p-value is small compared to a set threshold, results are *statistically significant*. This means the data provide such strong evidence against null hypothesis, that we reject the null hypothesis in favor of the alternative hypothesis. This threshold is called the *significance or $\alpha$ level*, which is generally denoted by $\alpha$. The value of $\alpha$ is set by the practitioner or researcher, but in practice $\alpha$ is generally set to $0.01$, $0.05$, and $0.10$, with $0.05$ being the most common.  By choosing an $\alpha$ level, you are conveying to the reader the strength of evidence required to reject $H_0$. Regardless of the test used, the  decision rule is as follows:
@@ -217,25 +217,25 @@ $$(sample ~ statistic(s)) \pm MOE $$ Here, the CI for $\mu_{int} - \mu_{ext}$ ta
 
 $$(\bar{y}_{int} - \bar{y}_{ext}) \pm MOE_{(\bar{y}_{int} - \bar{y}_{ext})}$$ 
 
-where $MOE_{(\bar{y}_{int}-\bar{y}_{ext})}$ is the interval's half-width. Its calibration is based on the confidence procedure; it is not a guaranteed bound on the error of a particular estimate. Common confidence levels are 90%, 95%, and 99%. Here Welch's 95% CI for intrinsic minus extrinsic mean score is (`r round(welch_fit$conf.int[1], 3)`, `r round(welch_fit$conf.int[2], 3)`). Under the model, these positive bounds support a higher mean score for the intrinsic treatment.
+where $MOE_{(\bar{y}_{int}-\bar{y}_{ext})}$ is the **margin of error**, or the distance from the estimate to either end of the interval. Common confidence levels are 90%, 95%, and 99%. Here, the 95% CI for the difference in mean creativity scores is (`r round(welch_fit$conf.int[1], 3)`, `r round(welch_fit$conf.int[2], 3)`). We are 95% confident that the true mean difference lies between these values, assuming the test assumptions hold. Since both values are positive, the interval supports a higher mean score for the intrinsic treatment.
 
 
 ## Decision errors and confidence levels
 
 A **Type I error** is rejecting a true null hypothesis. A **Type II error** is failing to reject a false null hypothesis. The result of a particular test does not reveal whether either error occurred.
 
-A valid level-$\alpha$ test controls the probability of rejecting a true null at no more than $\alpha$, conditional on its model and assumptions. Choosing a smaller $\alpha$ requires stronger evidence to reject. A matching two-sided test at level $\alpha$ and a $(1-\alpha)100\%$ confidence procedure correspond: a null value is rejected precisely when it is outside that interval. This correspondence requires the same model and matching procedures; approximate methods provide approximate calibration.
+The significance level $\alpha$ sets the risk of a Type I error when the test assumptions hold. For example, $\alpha=.05$ allows a 5% risk of rejecting a true null hypothesis. A smaller $\alpha$ requires stronger evidence to reject $H_0$. For a two-sided test and its corresponding confidence interval, a 5% significance level matches a 95% confidence level: we reject the null value when it falls outside the interval.
 
-Type II error depends on the specific alternative, sample size, variability, and test. Study design and power calculations can guide sample size choices to reduce this error for a scientifically meaningful effect. Increasing $\alpha$ can increase power but permits a higher Type I error rate.
+The risk of a Type II error depends on the sample size, variability, size of the true effect, and the test used. Planning the sample size before collecting data helps reduce this risk. Increasing $\alpha$ can make an effect easier to detect, but also increases the risk of a Type I error.
 
 
 ## Statistical power
 
-Statistical power is the probability of rejecting the null when a **specified alternative** is true. It equals $1-\beta$, where $\beta$ is the Type II error probability at that alternative. Failure to reject can reflect either a true null or insufficient power to detect an existing effect.
+Statistical power is the probability that a test detects an effect of a particular size when that effect is present. It equals $1-\beta$, where $\beta$ is the probability of a Type II error. A test with low power may fail to detect an important effect. Therefore, failing to reject $H_0$ does not necessarily mean there is no effect.
 
 While there is no general approach for obtaining the desired statistical power, there are things one can do to increase statistical power.   The following conditions increase the ability of a testing procedure to detect the desired  effect:
 
-- Increase the sample size. Under the same valid design and model, this generally improves precision and power for a fixed nonzero effect. It does not guarantee a larger statistic or a narrower interval in every realized sample.
+- Increase the sample size. More independent observations generally make estimates more precise and make an existing effect easier to detect.
 
 - Increase the desired effect size.  The larger the effect, the easier it should be to detect.
 
